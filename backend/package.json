@@ -1,0 +1,23 @@
+{
+  "name": "marsh-meeting-analyzer-backend",
+  "version": "1.0.0",
+  "description": "Backend for Marsh Meeting Recording & Analysis Tool",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.24.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "form-data": "^4.0.0",
+    "multer": "^1.4.5-lts.1",
+    "node-fetch": "^3.3.2",
+    "openai": "^4.47.1",
+    "pptxgenjs": "^3.12.0",
+    "uuid": "^9.0.1"
+  }
+}
