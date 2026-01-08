@@ -1,14 +1,14 @@
-# Marsh Meeting Analyzer
+# D&W Holdings Meeting Analyzer
 
-A comprehensive meeting recording and analysis application designed for insurance/risk management consulting work at Marsh. This tool helps with client meetings, fact-finding sessions, and RFP development using AI-powered transcription and analysis.
+A comprehensive meeting recording and analysis application designed for insurance and risk management consulting work at D&W Holdings. This tool helps with client meetings, fact-finding sessions, and RFP development using AI-powered transcription and analysis.
 
-![Marsh Meeting Analyzer](https://img.shields.io/badge/Marsh-Meeting%20Analyzer-004B87?style=for-the-badge)
+![D&W Holdings Meeting Analyzer](https://img.shields.io/badge/D%26W%20Holdings-Meeting%20Analyzer-0a1628?style=for-the-badge)
 
 ## Features
 
 ### Core Functionality
 
-- **Audio Recording**: Clean, intuitive interface to start/stop meeting recordings
+- **Audio Recording**: Clean, premium interface to start/stop meeting recordings
 - **Whisper AI Transcription**: Accurate, timestamped transcripts using OpenAI's Whisper
 - **Claude AI Analysis**: Comprehensive meeting summaries, action items, and strategic insights
 - **Meeting Type Support**:
@@ -32,7 +32,7 @@ For RFP-type meetings, the application provides specialized features:
   - Executive summary of client needs
   - Scope of services
   - Recommended coverage lines
-  - Marsh value proposition
+  - D&W Holdings value proposition
 
 - **Deep Research Component**
   - Geographic/regional risk factors
@@ -40,12 +40,12 @@ For RFP-type meetings, the application provides specialized features:
   - Market conditions and carrier appetite
   - Alternative risk solutions (captives, parametric)
 
-### Marsh McLennan Ecosystem Integration
+### D&W Holdings Service Lines
 
 Automatic identification of cross-sell opportunities for:
-- **Mercer**: Employee benefits, health & wellness, retirement
-- **Guy Carpenter**: Reinsurance solutions
-- **Oliver Wyman**: Strategic consulting, operational resilience
+- **Benefits & Consulting Division**: Employee benefits, health & wellness, retirement
+- **Risk Capital Solutions Division**: Reinsurance solutions
+- **Strategic Advisory Division**: Strategic consulting, operational resilience
 
 ### Export Options
 
@@ -72,7 +72,7 @@ Automatic identification of cross-sell opportunities for:
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd marsh-meeting-analyzer
+   cd dw-meeting-analyzer
    ```
 
 2. **Install dependencies**
@@ -192,7 +192,7 @@ Navigate to the Exports tab to:
 ## Project Structure
 
 ```
-marsh-meeting-analyzer/
+dw-meeting-analyzer/
 ├── backend/
 │   ├── routes/
 │   │   ├── recordings.js   # Meeting CRUD operations
@@ -280,6 +280,6 @@ Proprietary - Internal Use Only
 
 ---
 
-**MARSH** - A business of Marsh McLennan
+**D&W Holdings** - Enterprise Risk Intelligence
 
-*This tool is designed to enhance productivity for Marsh consultants. All client data should be handled in accordance with Marsh McLennan's data privacy and security policies.*
+*This tool is designed to enhance productivity for D&W Holdings consultants. All client data should be handled in accordance with D&W Holdings data privacy and security policies.*

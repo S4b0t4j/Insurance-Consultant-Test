@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   Mic, Square, Pause, Play, Save, X, Clock,
-  Shield, User, Building, AlertTriangle, Check
+  Shield, User, Building, AlertTriangle, Check, Sparkles
 } from 'lucide-react'
 import { api } from '../utils/api'
 import { useMeetings } from '../contexts/MeetingsContext'
@@ -17,7 +17,7 @@ const MEETING_TYPES = [
 
 const CONFIDENTIALITY_LEVELS = [
   { value: 'Public', label: 'Public', description: 'Can be shared externally', color: 'green' },
-  { value: 'Internal', label: 'Internal', description: 'Marsh employees only', color: 'blue' },
+  { value: 'Internal', label: 'Internal', description: 'D&W employees only', color: 'blue' },
   { value: 'Confidential', label: 'Confidential', description: 'Need-to-know basis', color: 'orange' },
   { value: 'Highly Confidential', label: 'Highly Confidential', description: 'Restricted access', color: 'red' }
 ]
@@ -186,17 +186,24 @@ export default function RecordMeeting() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Record Meeting</h1>
-        <p className="text-gray-500">Capture and analyze your meeting with AI-powered insights</p>
+      <div className="mb-10">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          Record <span className="gradient-text">Meeting</span>
+        </h1>
+        <p className="text-gray-500 text-lg">Capture and analyze your meeting with AI-powered insights</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Recording Panel */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-6">Recording</h2>
+        <div className="premium-card-static p-8">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-10 h-10 bg-gradient-to-br from-dw-teal to-dw-teal-dark rounded-xl flex items-center justify-center">
+              <Mic className="w-5 h-5 text-white" />
+            </div>
+            <h2 className="text-xl font-bold text-gray-900">Recording</h2>
+          </div>
 
           {/* Recording Controls */}
           <div className="flex flex-col items-center py-8">
@@ -206,7 +213,7 @@ export default function RecordMeeting() {
                 {[...Array(5)].map((_, i) => (
                   <div
                     key={i}
-                    className={`w-1 bg-marsh-blue rounded-full waveform-bar ${isPaused ? 'opacity-30' : ''}`}
+                    className={`w-1.5 bg-gradient-to-t from-dw-teal to-dw-teal-dark rounded-full waveform-bar ${isPaused ? 'opacity-30' : ''}`}
                     style={{ height: '100%' }}
                   />
                 ))}
@@ -214,7 +221,7 @@ export default function RecordMeeting() {
             )}
 
             {/* Timer */}
-            <div className="text-4xl font-mono font-bold text-gray-900 mb-6">
+            <div className="text-5xl font-mono font-bold text-gray-900 mb-8 tracking-wider">
               {formatTime(recordingTime)}
             </div>
 
@@ -226,9 +233,9 @@ export default function RecordMeeting() {
               {!isRecording && !audioBlob && (
                 <button
                   onClick={startRecording}
-                  className="w-20 h-20 bg-marsh-blue text-white rounded-full flex items-center justify-center hover:bg-marsh-dark-blue transition-colors shadow-lg"
+                  className="w-24 h-24 bg-gradient-to-br from-dw-teal to-dw-teal-dark text-white rounded-full flex items-center justify-center hover:shadow-xl hover:scale-105 transition-all duration-300 shadow-lg"
                 >
-                  <Mic className="w-8 h-8" />
+                  <Mic className="w-10 h-10" />
                 </button>
               )}
               {isRecording && (
@@ -236,21 +243,21 @@ export default function RecordMeeting() {
                   {isPaused ? (
                     <button
                       onClick={resumeRecording}
-                      className="w-16 h-16 bg-green-600 text-white rounded-full flex items-center justify-center hover:bg-green-700 transition-colors"
+                      className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white rounded-full flex items-center justify-center hover:shadow-lg hover:scale-105 transition-all duration-200"
                     >
                       <Play className="w-6 h-6 ml-1" />
                     </button>
                   ) : (
                     <button
                       onClick={pauseRecording}
-                      className="w-16 h-16 bg-yellow-500 text-white rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors"
+                      className="w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-500 text-white rounded-full flex items-center justify-center hover:shadow-lg hover:scale-105 transition-all duration-200"
                     >
                       <Pause className="w-6 h-6" />
                     </button>
                   )}
                   <button
                     onClick={stopRecording}
-                    className="w-16 h-16 bg-red-600 text-white rounded-full flex items-center justify-center hover:bg-red-700 transition-colors"
+                    className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-full flex items-center justify-center hover:shadow-lg hover:scale-105 transition-all duration-200"
                   >
                     <Square className="w-6 h-6" />
                   </button>
@@ -259,22 +266,27 @@ export default function RecordMeeting() {
             </div>
 
             {/* Status text */}
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 font-medium">
               {!isRecording && !audioBlob && 'Click to start recording'}
-              {isRecording && !isPaused && 'Recording in progress...'}
+              {isRecording && !isPaused && (
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                  Recording in progress...
+                </span>
+              )}
               {isRecording && isPaused && 'Recording paused'}
             </p>
           </div>
 
           {/* Audio preview */}
           {audioUrl && (
-            <div className="border-t border-gray-200 pt-6 mt-6">
-              <h3 className="text-sm font-medium text-gray-700 mb-3">Recording Preview</h3>
-              <audio src={audioUrl} controls className="w-full mb-4" />
+            <div className="border-t border-gray-100 pt-6 mt-6">
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">Recording Preview</h3>
+              <audio src={audioUrl} controls className="w-full mb-5" />
               <div className="flex items-center gap-3">
                 <button
                   onClick={discardRecording}
-                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 flex items-center justify-center gap-2"
+                  className="btn-premium btn-secondary flex-1"
                 >
                   <X className="w-4 h-4" />
                   Discard
@@ -282,7 +294,7 @@ export default function RecordMeeting() {
                 <button
                   onClick={saveRecording}
                   disabled={uploading}
-                  className="flex-1 px-4 py-2 bg-marsh-blue text-white rounded-lg hover:bg-marsh-dark-blue flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="btn-premium btn-primary flex-1"
                 >
                   {uploading ? (
                     <>
@@ -291,7 +303,7 @@ export default function RecordMeeting() {
                     </>
                   ) : (
                     <>
-                      <Save className="w-4 h-4" />
+                      <Sparkles className="w-4 h-4" />
                       Save & Analyze
                     </>
                   )}
@@ -302,21 +314,26 @@ export default function RecordMeeting() {
 
           {/* Error message */}
           {error && (
-            <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2 text-red-700 text-sm">
-              <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+            <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center gap-3 text-red-700 text-sm">
+              <AlertTriangle className="w-5 h-5 flex-shrink-0" />
               {error}
             </div>
           )}
         </div>
 
         {/* Meeting Details Panel */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-6">Meeting Details</h2>
+        <div className="premium-card-static p-8">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-10 h-10 bg-gradient-to-br from-dw-navy to-dw-navy-light rounded-xl flex items-center justify-center">
+              <Building className="w-5 h-5 text-white" />
+            </div>
+            <h2 className="text-xl font-bold text-gray-900">Meeting Details</h2>
+          </div>
 
-          <div className="space-y-5">
+          <div className="space-y-6">
             {/* Title */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Meeting Title
               </label>
               <input
@@ -324,23 +341,23 @@ export default function RecordMeeting() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Enter meeting title..."
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-marsh-blue/20 focus:border-marsh-blue outline-none"
+                className="input-premium"
               />
             </div>
 
             {/* Meeting Type */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
                 Meeting Type
               </label>
               <div className="grid grid-cols-1 gap-2">
                 {MEETING_TYPES.map((type) => (
                   <label
                     key={type.value}
-                    className={`flex items-center p-3 rounded-lg border-2 cursor-pointer transition-colors ${
+                    className={`flex items-center p-3.5 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
                       meetingType === type.value
-                        ? 'border-marsh-blue bg-marsh-blue/5'
-                        : 'border-gray-200 hover:border-gray-300'
+                        ? 'border-dw-teal bg-dw-teal/5 shadow-sm'
+                        : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                     }`}
                   >
                     <input
@@ -351,18 +368,18 @@ export default function RecordMeeting() {
                       onChange={(e) => setMeetingType(e.target.value)}
                       className="sr-only"
                     />
-                    <div className={`w-4 h-4 rounded-full border-2 mr-3 flex items-center justify-center ${
-                      meetingType === type.value ? 'border-marsh-blue' : 'border-gray-300'
+                    <div className={`w-5 h-5 rounded-full border-2 mr-3 flex items-center justify-center transition-colors ${
+                      meetingType === type.value ? 'border-dw-teal bg-dw-teal' : 'border-gray-300'
                     }`}>
                       {meetingType === type.value && (
-                        <div className="w-2 h-2 rounded-full bg-marsh-blue" />
+                        <Check className="w-3 h-3 text-white" />
                       )}
                     </div>
-                    <span className={`text-sm ${meetingType === type.value ? 'font-medium text-marsh-blue' : 'text-gray-700'}`}>
+                    <span className={`text-sm font-medium ${meetingType === type.value ? 'text-dw-teal' : 'text-gray-700'}`}>
                       {type.label}
                     </span>
                     {type.value === 'Fact-Finding Session (RFP)' && (
-                      <span className="ml-auto text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">
+                      <span className="ml-auto text-xs bg-purple-100 text-purple-700 px-2.5 py-1 rounded-full font-semibold">
                         RFP Builder
                       </span>
                     )}
@@ -373,8 +390,8 @@ export default function RecordMeeting() {
 
             {/* Client Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                <Building className="w-4 h-4 inline mr-1" />
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <Building className="w-4 h-4 inline mr-1.5 text-gray-500" />
                 Client Name
               </label>
               <input
@@ -382,14 +399,14 @@ export default function RecordMeeting() {
                 value={clientName}
                 onChange={(e) => setClientName(e.target.value)}
                 placeholder="Enter client name..."
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-marsh-blue/20 focus:border-marsh-blue outline-none"
+                className="input-premium"
               />
             </div>
 
             {/* Participants */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                <User className="w-4 h-4 inline mr-1" />
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <User className="w-4 h-4 inline mr-1.5 text-gray-500" />
                 Participants (comma-separated)
               </label>
               <input
@@ -397,22 +414,23 @@ export default function RecordMeeting() {
                 value={participants}
                 onChange={(e) => setParticipants(e.target.value)}
                 placeholder="John Smith, Jane Doe..."
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-marsh-blue/20 focus:border-marsh-blue outline-none"
+                className="input-premium"
               />
             </div>
 
             {/* Confidentiality */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                <Shield className="w-4 h-4 inline mr-1" />
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                <Shield className="w-4 h-4 inline mr-1.5 text-gray-500" />
                 Confidentiality Level
               </label>
               {meetingType === 'Fact-Finding Session (RFP)' && (
-                <p className="text-xs text-orange-600 mb-2">
+                <p className="text-xs text-amber-600 mb-3 flex items-center gap-1.5 bg-amber-50 px-3 py-2 rounded-lg">
+                  <AlertTriangle className="w-3.5 h-3.5" />
                   RFP sessions default to Confidential or higher
                 </p>
               )}
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-3">
                 {CONFIDENTIALITY_LEVELS.map((level) => {
                   const isDisabled = meetingType === 'Fact-Finding Session (RFP)' &&
                     (level.value === 'Public' || level.value === 'Internal')
@@ -420,12 +438,12 @@ export default function RecordMeeting() {
                   return (
                     <label
                       key={level.value}
-                      className={`flex flex-col p-3 rounded-lg border-2 cursor-pointer transition-colors ${
-                        isDisabled ? 'opacity-50 cursor-not-allowed' : ''
+                      className={`flex flex-col p-3.5 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
+                        isDisabled ? 'opacity-40 cursor-not-allowed' : ''
                       } ${
                         confidentiality === level.value
-                          ? 'border-marsh-blue bg-marsh-blue/5'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-dw-teal bg-dw-teal/5 shadow-sm'
+                          : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                       }`}
                     >
                       <input
@@ -437,12 +455,12 @@ export default function RecordMeeting() {
                         disabled={isDisabled}
                         className="sr-only"
                       />
-                      <span className={`text-sm font-medium ${
-                        confidentiality === level.value ? 'text-marsh-blue' : 'text-gray-700'
+                      <span className={`text-sm font-semibold ${
+                        confidentiality === level.value ? 'text-dw-teal' : 'text-gray-700'
                       }`}>
                         {level.label}
                       </span>
-                      <span className="text-xs text-gray-500">{level.description}</span>
+                      <span className="text-xs text-gray-500 mt-0.5">{level.description}</span>
                     </label>
                   )
                 })}
@@ -450,13 +468,18 @@ export default function RecordMeeting() {
             </div>
 
             {/* Password Protection */}
-            <div>
-              <label className="flex items-center gap-2 cursor-pointer">
+            <div className="pt-2">
+              <label className="flex items-center gap-3 cursor-pointer group">
+                <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
+                  enablePassword ? 'bg-dw-teal border-dw-teal' : 'border-gray-300 group-hover:border-gray-400'
+                }`}>
+                  {enablePassword && <Check className="w-3 h-3 text-white" />}
+                </div>
                 <input
                   type="checkbox"
                   checked={enablePassword}
                   onChange={(e) => setEnablePassword(e.target.checked)}
-                  className="w-4 h-4 text-marsh-blue border-gray-300 rounded focus:ring-marsh-blue"
+                  className="sr-only"
                 />
                 <span className="text-sm font-medium text-gray-700">Password protect this meeting</span>
               </label>
@@ -466,7 +489,7 @@ export default function RecordMeeting() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter password..."
-                  className="mt-2 w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-marsh-blue/20 focus:border-marsh-blue outline-none"
+                  className="input-premium mt-3"
                 />
               )}
             </div>

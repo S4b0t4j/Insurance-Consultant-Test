@@ -141,7 +141,7 @@ function buildAnalysisPrompt(meeting) {
   const meetingType = meeting.meetingType;
   const clientName = meeting.clientName || 'the client';
 
-  return `You are an expert insurance and risk management consultant at Marsh McLennan, analyzing a meeting transcript.
+  return `You are an expert insurance and risk management consultant at D&W Holdings, analyzing a meeting transcript.
 
 Meeting Details:
 - Title: ${meeting.title}
@@ -204,13 +204,13 @@ Please provide a comprehensive analysis in the following JSON format:
   ]
 }
 
-Ensure your analysis is thorough, professional, and actionable. Focus on insights that would help a Marsh consultant serve this client effectively.`;
+Ensure your analysis is thorough, professional, and actionable. Focus on insights that would help a D&W Holdings consultant serve this client effectively.`;
 }
 
 function buildRfpPrompt(meeting, analysis) {
   const transcriptText = meeting.transcript.text;
 
-  return `You are an expert insurance consultant at Marsh McLennan preparing an RFP response based on a fact-finding session.
+  return `You are an expert insurance consultant at D&W Holdings preparing an RFP response based on a fact-finding session.
 
 Meeting Transcript:
 """
@@ -261,9 +261,9 @@ Please generate a comprehensive RFP preparation package in the following JSON fo
   },
 
   "rfpDraft": {
-    "executiveSummary": "2-3 paragraph executive summary of Marsh's understanding of client needs and proposed approach",
+    "executiveSummary": "2-3 paragraph executive summary of D&W Holdings' understanding of client needs and proposed approach",
     "scopeOfServices": [
-      {"service": "Service offering", "description": "How Marsh will deliver", "value": "Value to client"}
+      {"service": "Service offering", "description": "How D&W Holdings will deliver", "value": "Value to client"}
     ],
     "riskProfile": "Comprehensive risk profile based on discussion",
     "recommendedCoverage": [
@@ -274,8 +274,8 @@ Please generate a comprehensive RFP preparation package in the following JSON fo
         "marketingApproach": "How we'll approach the market"
       }
     ],
-    "marshValueProposition": {
-      "globalCapabilities": "How Marsh's global reach benefits this client",
+    "dwValueProposition": {
+      "globalCapabilities": "How D&W Holdings' global reach benefits this client",
       "industryExpertise": "Relevant industry experience",
       "dataAndAnalytics": "Analytics capabilities to highlight",
       "claims": "Claims advocacy and management",
@@ -290,28 +290,28 @@ Please generate a comprehensive RFP preparation package in the following JSON fo
   },
 
   "crossSellOpportunities": {
-    "mercer": {
+    "benefitsConsulting": {
       "relevant": true/false,
       "opportunities": [
-        {"service": "Mercer service", "rationale": "Why relevant", "positioning": "How to introduce"}
+        {"service": "Benefits & Consulting Division service", "rationale": "Why relevant", "positioning": "How to introduce"}
       ]
     },
-    "guyCarpenter": {
+    "riskCapitalSolutions": {
       "relevant": true/false,
       "opportunities": [
-        {"service": "Guy Carpenter service", "rationale": "Why relevant", "positioning": "How to introduce"}
+        {"service": "Risk Capital Solutions Division service", "rationale": "Why relevant", "positioning": "How to introduce"}
       ]
     },
-    "oliverWyman": {
+    "strategicAdvisory": {
       "relevant": true/false,
       "opportunities": [
-        {"service": "Oliver Wyman service", "rationale": "Why relevant", "positioning": "How to introduce"}
+        {"service": "Strategic Advisory Division service", "rationale": "Why relevant", "positioning": "How to introduce"}
       ]
     }
   },
 
   "nextSteps": [
-    {"step": "Action item", "owner": "Marsh/Client/Both", "timing": "When", "notes": "Additional context"}
+    {"step": "Action item", "owner": "D&W Holdings/Client/Both", "timing": "When", "notes": "Additional context"}
   ],
 
   "winStrategy": {
@@ -322,7 +322,7 @@ Please generate a comprehensive RFP preparation package in the following JSON fo
   }
 }
 
-Be specific, actionable, and focused on helping Marsh win this opportunity.`;
+Be specific, actionable, and focused on helping D&W Holdings win this opportunity.`;
 }
 
 function parseAnalysisResponse(text, meetingType) {
@@ -380,27 +380,31 @@ function extractCrossSellOpportunities(rfpData) {
   const opportunities = [];
   const crossSell = rfpData.crossSellOpportunities;
 
-  if (crossSell.mercer?.relevant) {
+  // Support both old format (mercer, guyCarpenter, oliverWyman) and new format
+  if (crossSell.mercer?.relevant || crossSell.benefitsConsulting?.relevant) {
     opportunities.push({
       company: 'Mercer',
+      division: 'Benefits & Consulting Division',
       focus: 'Employee Benefits, Health & Wellness, Retirement',
-      ...crossSell.mercer
+      ...(crossSell.mercer || crossSell.benefitsConsulting)
     });
   }
 
-  if (crossSell.guyCarpenter?.relevant) {
+  if (crossSell.guyCarpenter?.relevant || crossSell.riskCapitalSolutions?.relevant) {
     opportunities.push({
       company: 'Guy Carpenter',
+      division: 'Risk Capital Solutions Division',
       focus: 'Reinsurance Solutions',
-      ...crossSell.guyCarpenter
+      ...(crossSell.guyCarpenter || crossSell.riskCapitalSolutions)
     });
   }
 
-  if (crossSell.oliverWyman?.relevant) {
+  if (crossSell.oliverWyman?.relevant || crossSell.strategicAdvisory?.relevant) {
     opportunities.push({
       company: 'Oliver Wyman',
+      division: 'Strategic Advisory Division',
       focus: 'Strategic Consulting, Operational Resilience',
-      ...crossSell.oliverWyman
+      ...(crossSell.oliverWyman || crossSell.strategicAdvisory)
     });
   }
 

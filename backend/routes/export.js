@@ -23,11 +23,13 @@ const getMeetingsDb = () => {
   return JSON.parse(fs.readFileSync(MEETINGS_DB_PATH, 'utf-8'));
 };
 
-// Marsh brand colors
+// D&W Holdings brand colors
 const COLORS = {
-  marshBlue: '004B87',
-  marshDarkBlue: '003366',
-  marshLightBlue: '0077C8',
+  dwNavy: '0a1628',
+  dwNavyLight: '1a2d4a',
+  dwTeal: '0d9488',
+  dwTealDark: '0f766e',
+  dwGold: 'c9a227',
   accent: '00A3E0',
   white: 'FFFFFF',
   lightGray: 'F5F5F5',
@@ -56,30 +58,30 @@ router.post('/:meetingId/powerpoint', async (req, res) => {
 
     const pptx = new PptxGenJS();
     pptx.layout = 'LAYOUT_WIDE'; // 16:9 aspect ratio
-    pptx.author = 'Marsh Meeting Analyzer';
+    pptx.author = 'D&W Holdings Meeting Analyzer';
     pptx.title = meeting.title;
     pptx.subject = `${type === 'external' ? 'Client' : 'Internal'} Presentation`;
 
     // Define master slide
     pptx.defineSlideMaster({
-      title: 'MARSH_MASTER',
+      title: 'DW_MASTER',
       background: { color: COLORS.white },
       objects: [
-        { rect: { x: 0, y: 0, w: '100%', h: 0.5, fill: { color: COLORS.marshBlue } } },
-        { text: { text: 'MARSH', options: { x: 0.5, y: 5.1, w: 2, h: 0.3, fontSize: 10, color: COLORS.marshBlue, fontFace: 'Arial' } } }
+        { rect: { x: 0, y: 0, w: '100%', h: 0.5, fill: { color: COLORS.dwNavy } } },
+        { text: { text: 'D&W HOLDINGS', options: { x: 0.5, y: 5.1, w: 2, h: 0.3, fontSize: 10, color: COLORS.dwNavy, fontFace: 'Arial' } } }
       ]
     });
 
     // Title Slide
-    const titleSlide = pptx.addSlide({ masterName: 'MARSH_MASTER' });
-    titleSlide.addShape('rect', { x: 0, y: 0, w: '100%', h: '100%', fill: { color: COLORS.marshBlue } });
+    const titleSlide = pptx.addSlide({ masterName: 'DW_MASTER' });
+    titleSlide.addShape('rect', { x: 0, y: 0, w: '100%', h: '100%', fill: { color: COLORS.dwNavy } });
     titleSlide.addText(meeting.title, {
       x: 0.5, y: 2, w: 12.33, h: 1,
       fontSize: 36, color: COLORS.white, fontFace: 'Arial', bold: true, align: 'center'
     });
     titleSlide.addText(type === 'external' ? 'Client Presentation' : 'Internal Strategy Review', {
       x: 0.5, y: 3, w: 12.33, h: 0.5,
-      fontSize: 20, color: COLORS.accent, fontFace: 'Arial', align: 'center'
+      fontSize: 20, color: COLORS.dwTeal, fontFace: 'Arial', align: 'center'
     });
     titleSlide.addText(new Date(meeting.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }), {
       x: 0.5, y: 4, w: 12.33, h: 0.3,
@@ -87,7 +89,7 @@ router.post('/:meetingId/powerpoint', async (req, res) => {
     });
 
     // Executive Summary Slide
-    const summarySlide = pptx.addSlide({ masterName: 'MARSH_MASTER' });
+    const summarySlide = pptx.addSlide({ masterName: 'DW_MASTER' });
     addSlideTitle(summarySlide, 'Executive Summary');
     const summaryText = meeting.analysis.summary || 'No summary available';
     summarySlide.addText(truncateText(summaryText, 800), {
@@ -97,20 +99,20 @@ router.post('/:meetingId/powerpoint', async (req, res) => {
 
     // Key Topics Slide
     if (meeting.analysis.keyTopics?.length > 0) {
-      const topicsSlide = pptx.addSlide({ masterName: 'MARSH_MASTER' });
+      const topicsSlide = pptx.addSlide({ masterName: 'DW_MASTER' });
       addSlideTitle(topicsSlide, 'Key Topics Discussed');
 
       const topicRows = meeting.analysis.keyTopics.slice(0, 6).map(topic => [
-        { text: topic.topic, options: { bold: true, color: COLORS.marshBlue } },
+        { text: topic.topic, options: { bold: true, color: COLORS.dwNavy } },
         topic.description,
         { text: topic.importance?.toUpperCase() || 'MEDIUM', options: { color: getPriorityColor(topic.importance) } }
       ]);
 
       topicsSlide.addTable([
         [
-          { text: 'Topic', options: { fill: { color: COLORS.marshBlue }, color: COLORS.white, bold: true } },
-          { text: 'Description', options: { fill: { color: COLORS.marshBlue }, color: COLORS.white, bold: true } },
-          { text: 'Priority', options: { fill: { color: COLORS.marshBlue }, color: COLORS.white, bold: true } }
+          { text: 'Topic', options: { fill: { color: COLORS.dwNavy }, color: COLORS.white, bold: true } },
+          { text: 'Description', options: { fill: { color: COLORS.dwNavy }, color: COLORS.white, bold: true } },
+          { text: 'Priority', options: { fill: { color: COLORS.dwNavy }, color: COLORS.white, bold: true } }
         ],
         ...topicRows
       ], {
@@ -123,7 +125,7 @@ router.post('/:meetingId/powerpoint', async (req, res) => {
 
     // Action Items Slide
     if (meeting.analysis.actionItems?.length > 0) {
-      const actionsSlide = pptx.addSlide({ masterName: 'MARSH_MASTER' });
+      const actionsSlide = pptx.addSlide({ masterName: 'DW_MASTER' });
       addSlideTitle(actionsSlide, 'Action Items');
 
       const actionRows = meeting.analysis.actionItems.slice(0, 6).map(item => [
@@ -135,10 +137,10 @@ router.post('/:meetingId/powerpoint', async (req, res) => {
 
       actionsSlide.addTable([
         [
-          { text: 'Task', options: { fill: { color: COLORS.marshBlue }, color: COLORS.white, bold: true } },
-          { text: 'Owner', options: { fill: { color: COLORS.marshBlue }, color: COLORS.white, bold: true } },
-          { text: 'Deadline', options: { fill: { color: COLORS.marshBlue }, color: COLORS.white, bold: true } },
-          { text: 'Priority', options: { fill: { color: COLORS.marshBlue }, color: COLORS.white, bold: true } }
+          { text: 'Task', options: { fill: { color: COLORS.dwNavy }, color: COLORS.white, bold: true } },
+          { text: 'Owner', options: { fill: { color: COLORS.dwNavy }, color: COLORS.white, bold: true } },
+          { text: 'Deadline', options: { fill: { color: COLORS.dwNavy }, color: COLORS.white, bold: true } },
+          { text: 'Priority', options: { fill: { color: COLORS.dwNavy }, color: COLORS.white, bold: true } }
         ],
         ...actionRows
       ], {
@@ -152,7 +154,7 @@ router.post('/:meetingId/powerpoint', async (req, res) => {
     // For RFP meetings, add specialized slides
     if (meeting.meetingType === 'Fact-Finding Session (RFP)' && meeting.rfpData) {
       // Client Profile Slide
-      const clientSlide = pptx.addSlide({ masterName: 'MARSH_MASTER' });
+      const clientSlide = pptx.addSlide({ masterName: 'DW_MASTER' });
       addSlideTitle(clientSlide, 'Client Profile');
 
       const factFinding = meeting.rfpData.factFindingSummary || {};
@@ -166,7 +168,7 @@ router.post('/:meetingId/powerpoint', async (req, res) => {
       ];
 
       clientSlide.addTable(clientInfo.map(row => [
-        { text: row[0], options: { bold: true, color: COLORS.marshBlue } },
+        { text: row[0], options: { bold: true, color: COLORS.dwNavy } },
         row[1]
       ]), {
         x: 0.5, y: 1.2, w: 6,
@@ -179,7 +181,7 @@ router.post('/:meetingId/powerpoint', async (req, res) => {
       if (factFinding.painPoints?.length > 0) {
         clientSlide.addText('Key Pain Points:', {
           x: 7, y: 1.2, w: 5.5, h: 0.4,
-          fontSize: 14, color: COLORS.marshBlue, fontFace: 'Arial', bold: true
+          fontSize: 14, color: COLORS.dwNavy, fontFace: 'Arial', bold: true
         });
 
         const painPointsText = factFinding.painPoints.slice(0, 4).map(pp => `• ${pp.issue}`).join('\n');
@@ -191,20 +193,20 @@ router.post('/:meetingId/powerpoint', async (req, res) => {
 
       // Coverage Recommendations Slide
       if (meeting.rfpData.rfpDraft?.recommendedCoverage?.length > 0) {
-        const coverageSlide = pptx.addSlide({ masterName: 'MARSH_MASTER' });
+        const coverageSlide = pptx.addSlide({ masterName: 'DW_MASTER' });
         addSlideTitle(coverageSlide, 'Recommended Coverage');
 
         const coverageRows = meeting.rfpData.rfpDraft.recommendedCoverage.slice(0, 5).map(cov => [
-          { text: cov.line, options: { bold: true, color: COLORS.marshBlue } },
+          { text: cov.line, options: { bold: true, color: COLORS.dwNavy } },
           truncateText(cov.rationale, 100),
           truncateText(cov.considerations || '', 80)
         ]);
 
         coverageSlide.addTable([
           [
-            { text: 'Coverage Line', options: { fill: { color: COLORS.marshBlue }, color: COLORS.white, bold: true } },
-            { text: 'Rationale', options: { fill: { color: COLORS.marshBlue }, color: COLORS.white, bold: true } },
-            { text: 'Considerations', options: { fill: { color: COLORS.marshBlue }, color: COLORS.white, bold: true } }
+            { text: 'Coverage Line', options: { fill: { color: COLORS.dwNavy }, color: COLORS.white, bold: true } },
+            { text: 'Rationale', options: { fill: { color: COLORS.dwNavy }, color: COLORS.white, bold: true } },
+            { text: 'Considerations', options: { fill: { color: COLORS.dwNavy }, color: COLORS.white, bold: true } }
           ],
           ...coverageRows
         ], {
@@ -215,12 +217,12 @@ router.post('/:meetingId/powerpoint', async (req, res) => {
         });
       }
 
-      // Marsh Value Proposition Slide (External only)
-      if (type === 'external' && meeting.rfpData.rfpDraft?.marshValueProposition) {
-        const valueSlide = pptx.addSlide({ masterName: 'MARSH_MASTER' });
-        addSlideTitle(valueSlide, 'Why Marsh');
+      // D&W Holdings Value Proposition Slide (External only)
+      const valueProp = meeting.rfpData.rfpDraft?.marshValueProposition || meeting.rfpData.rfpDraft?.dwValueProposition;
+      if (type === 'external' && valueProp) {
+        const valueSlide = pptx.addSlide({ masterName: 'DW_MASTER' });
+        addSlideTitle(valueSlide, 'Why D&W Holdings');
 
-        const valueProp = meeting.rfpData.rfpDraft.marshValueProposition;
         const valueItems = [
           { title: 'Global Capabilities', desc: valueProp.globalCapabilities },
           { title: 'Industry Expertise', desc: valueProp.industryExpertise },
@@ -237,7 +239,7 @@ router.post('/:meetingId/powerpoint', async (req, res) => {
           valueSlide.addShape('rect', { x, y, w: 6, h: 1.8, fill: { color: COLORS.lightGray } });
           valueSlide.addText(item.title, {
             x: x + 0.2, y: y + 0.1, w: 5.6, h: 0.4,
-            fontSize: 14, color: COLORS.marshBlue, fontFace: 'Arial', bold: true
+            fontSize: 14, color: COLORS.dwNavy, fontFace: 'Arial', bold: true
           });
           valueSlide.addText(truncateText(item.desc, 150), {
             x: x + 0.2, y: y + 0.5, w: 5.6, h: 1.2,
@@ -246,22 +248,30 @@ router.post('/:meetingId/powerpoint', async (req, res) => {
         });
       }
 
-      // Cross-Sell Opportunities Slide (Internal only)
+      // D&W Holdings Service Lines Slide (Internal only)
       if (type === 'internal' && meeting.crossSellOpportunities?.length > 0) {
-        const crossSellSlide = pptx.addSlide({ masterName: 'MARSH_MASTER' });
-        addSlideTitle(crossSellSlide, 'Marsh McLennan Cross-Sell Opportunities');
+        const crossSellSlide = pptx.addSlide({ masterName: 'DW_MASTER' });
+        addSlideTitle(crossSellSlide, 'D&W Holdings Service Lines');
+
+        // Map old company names to new division names
+        const divisionMap = {
+          'Mercer': 'Benefits & Consulting Division',
+          'Guy Carpenter': 'Risk Capital Solutions Division',
+          'Oliver Wyman': 'Strategic Advisory Division'
+        };
 
         meeting.crossSellOpportunities.forEach((opp, idx) => {
           if (idx >= 3) return;
           const y = 1.2 + (idx * 1.3);
+          const divisionName = divisionMap[opp.company] || opp.division || opp.company;
 
           crossSellSlide.addShape('rect', { x: 0.5, y, w: 12.33, h: 1.1, fill: { color: COLORS.lightGray } });
-          crossSellSlide.addText(opp.company, {
-            x: 0.7, y: y + 0.1, w: 2, h: 0.4,
-            fontSize: 14, color: COLORS.marshBlue, fontFace: 'Arial', bold: true
+          crossSellSlide.addText(divisionName, {
+            x: 0.7, y: y + 0.1, w: 4, h: 0.4,
+            fontSize: 14, color: COLORS.dwNavy, fontFace: 'Arial', bold: true
           });
           crossSellSlide.addText(opp.focus, {
-            x: 2.7, y: y + 0.1, w: 4, h: 0.4,
+            x: 4.7, y: y + 0.1, w: 4, h: 0.4,
             fontSize: 10, color: COLORS.darkGray, fontFace: 'Arial', italic: true
           });
           if (opp.opportunities?.[0]) {
@@ -276,14 +286,14 @@ router.post('/:meetingId/powerpoint', async (req, res) => {
 
     // Deep Research Highlights (if available)
     if (meeting.deepResearch?.executiveBrief) {
-      const researchSlide = pptx.addSlide({ masterName: 'MARSH_MASTER' });
+      const researchSlide = pptx.addSlide({ masterName: 'DW_MASTER' });
       addSlideTitle(researchSlide, 'Research Insights');
 
       const brief = meeting.deepResearch.executiveBrief;
       if (brief.keyFindings?.length > 0) {
         researchSlide.addText('Key Findings:', {
           x: 0.5, y: 1.2, w: 6, h: 0.4,
-          fontSize: 14, color: COLORS.marshBlue, fontFace: 'Arial', bold: true
+          fontSize: 14, color: COLORS.dwNavy, fontFace: 'Arial', bold: true
         });
         const findingsText = brief.keyFindings.slice(0, 4).map(f => `• ${f}`).join('\n');
         researchSlide.addText(findingsText, {
@@ -295,7 +305,7 @@ router.post('/:meetingId/powerpoint', async (req, res) => {
       if (brief.criticalRisks?.length > 0) {
         researchSlide.addText('Critical Risks:', {
           x: 7, y: 1.2, w: 5.5, h: 0.4,
-          fontSize: 14, color: COLORS.marshBlue, fontFace: 'Arial', bold: true
+          fontSize: 14, color: COLORS.dwNavy, fontFace: 'Arial', bold: true
         });
         const risksText = brief.criticalRisks.slice(0, 4).map(r => `• ${r}`).join('\n');
         researchSlide.addText(risksText, {
@@ -306,7 +316,7 @@ router.post('/:meetingId/powerpoint', async (req, res) => {
     }
 
     // Next Steps Slide
-    const nextStepsSlide = pptx.addSlide({ masterName: 'MARSH_MASTER' });
+    const nextStepsSlide = pptx.addSlide({ masterName: 'DW_MASTER' });
     addSlideTitle(nextStepsSlide, 'Next Steps');
 
     const nextSteps = meeting.rfpData?.nextSteps || meeting.analysis.actionItems?.slice(0, 5) || [];
@@ -328,17 +338,17 @@ router.post('/:meetingId/powerpoint', async (req, res) => {
     }
 
     // Closing Slide
-    const closingSlide = pptx.addSlide({ masterName: 'MARSH_MASTER' });
-    closingSlide.addShape('rect', { x: 0, y: 0, w: '100%', h: '100%', fill: { color: COLORS.marshBlue } });
+    const closingSlide = pptx.addSlide({ masterName: 'DW_MASTER' });
+    closingSlide.addShape('rect', { x: 0, y: 0, w: '100%', h: '100%', fill: { color: COLORS.dwNavy } });
     closingSlide.addText('Thank You', {
       x: 0, y: 2, w: '100%', h: 1,
       fontSize: 44, color: COLORS.white, fontFace: 'Arial', bold: true, align: 'center'
     });
-    closingSlide.addText('MARSH', {
+    closingSlide.addText('D&W HOLDINGS', {
       x: 0, y: 3.2, w: '100%', h: 0.5,
-      fontSize: 24, color: COLORS.accent, fontFace: 'Arial', align: 'center'
+      fontSize: 24, color: COLORS.dwGold, fontFace: 'Arial', align: 'center'
     });
-    closingSlide.addText('A business of Marsh McLennan', {
+    closingSlide.addText('Enterprise Risk Intelligence', {
       x: 0, y: 3.8, w: '100%', h: 0.3,
       fontSize: 12, color: COLORS.white, fontFace: 'Arial', align: 'center'
     });
@@ -438,7 +448,7 @@ router.post('/:meetingId/text', async (req, res) => {
 function addSlideTitle(slide, title) {
   slide.addText(title, {
     x: 0.5, y: 0.6, w: 12.33, h: 0.5,
-    fontSize: 24, color: COLORS.marshBlue, fontFace: 'Arial', bold: true
+    fontSize: 24, color: COLORS.dwNavy, fontFace: 'Arial', bold: true
   });
 }
 
@@ -464,16 +474,16 @@ function generatePdfHtml(meeting, options) {
   <title>${meeting.title} - Meeting Report</title>
   <style>
     body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 40px; color: #333; }
-    h1 { color: #004B87; border-bottom: 3px solid #004B87; padding-bottom: 10px; }
-    h2 { color: #004B87; margin-top: 30px; }
-    h3 { color: #0077C8; }
+    h1 { color: #0a1628; border-bottom: 3px solid #0d9488; padding-bottom: 10px; }
+    h2 { color: #0a1628; margin-top: 30px; }
+    h3 { color: #0d9488; }
     .meta { color: #666; margin-bottom: 20px; }
     .confidential { background: #FFF3CD; padding: 10px; border-left: 4px solid #FFC107; margin: 20px 0; }
     .section { margin: 20px 0; }
     table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-    th { background: #004B87; color: white; padding: 10px; text-align: left; }
+    th { background: #0a1628; color: white; padding: 10px; text-align: left; }
     td { padding: 10px; border-bottom: 1px solid #ddd; }
-    .action-item { background: #f8f9fa; padding: 10px; margin: 10px 0; border-left: 4px solid #004B87; }
+    .action-item { background: #f8f9fa; padding: 10px; margin: 10px 0; border-left: 4px solid #0d9488; }
     .priority-high { color: #CC0000; font-weight: bold; }
     .priority-medium { color: #FF9900; }
     .priority-low { color: #009900; }
@@ -529,8 +539,8 @@ function generatePdfHtml(meeting, options) {
   ` : ''}
 
   <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 12px;">
-    <p>Generated by Marsh Meeting Analyzer | ${new Date().toLocaleString()}</p>
-    <p>MARSH - A business of Marsh McLennan</p>
+    <p>Generated by D&W Holdings Meeting Analyzer | ${new Date().toLocaleString()}</p>
+    <p>D&W Holdings - Enterprise Risk Intelligence</p>
   </footer>
 </body>
 </html>`;
@@ -580,8 +590,8 @@ ${meeting.transcript.text}
 
   text += `
 ================================================================================
-Generated by Marsh Meeting Analyzer | ${new Date().toLocaleString()}
-MARSH - A business of Marsh McLennan
+Generated by D&W Holdings Meeting Analyzer | ${new Date().toLocaleString()}
+D&W Holdings - Enterprise Risk Intelligence
 ================================================================================
 `;
 
