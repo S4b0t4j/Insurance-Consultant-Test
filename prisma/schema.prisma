@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum EntityCategory {
+  STATE
+  LOCAL
+  EDUCATION
+}
+
+enum EntityType {
+  STATE_AGENCY
+  MUNICIPALITY
+  COUNTY
+  SCHOOL_DISTRICT
+  CHARTER_SCHOOL
+  PUBLIC_UNIVERSITY
+  COMMUNITY_COLLEGE
+  TRANSIT_AUTHORITY
+  UTILITY
+  SPECIAL_DISTRICT
+}
+
+enum InsuranceLine {
+  PROPERTY
+  GENERAL_LIABILITY
+  AUTO
+  CYBER
+  PROFESSIONAL_LIABILITY
+  EXCESS
+  WORKERS_COMP
+  EPLI
+  D_AND_O
+}
+
+enum RiskDriverType {
+  REGULATORY
+  LITIGATION
+  OPERATIONAL
+  FINANCIAL
+  CATASTROPHE
+}
+
+enum SeverityLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum UserRole {
+  ADMIN
+  VIEWER
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      UserRole @default(VIEWER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SledSignal {
+  id                String          @id @default(cuid())
+
+  // Core identification
+  headline          String
+  summary           String          @db.Text
+  sourceUrl         String?
+  sourcePublication String?
+  publishedAt       DateTime?
+
+  // SLED categorization
+  entityCategory    EntityCategory
+  entityType        EntityType
+  jurisdiction      String          // e.g., "California" or "Los Angeles, CA"
+
+  // Insurance relevance
+  insuranceLines    InsuranceLine[]
+  riskDriverType    RiskDriverType
+  severityLevel     SeverityLevel
+
+  // Plain English insight (critical field)
+  whyItMatters      String          @db.Text
+
+  // Metadata
+  createdBy         String?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@index([entityCategory])
+  @@index([severityLevel])
+  @@index([publishedAt])
+}
