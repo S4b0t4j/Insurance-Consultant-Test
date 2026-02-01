@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'providers/alert_provider.dart';
 import 'providers/news_provider.dart';
 import 'providers/theme_provider.dart';
 import 'providers/subscriber_provider.dart';
@@ -21,6 +22,7 @@ class EducationNewsMonitorApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => NewsProvider()),
         ChangeNotifierProvider(create: (_) => SubscriberProvider()),
+        ChangeNotifierProvider(create: (_) => AlertProvider()),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, _) {

@@ -3,10 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:intl/intl.dart';
 import '../models/article.dart';
+import '../providers/alert_provider.dart';
 import '../providers/news_provider.dart';
 import '../providers/theme_provider.dart';
 import '../services/pdf_service.dart';
 import '../utils/theme.dart';
+import '../widgets/alerts_panel.dart';
 import '../widgets/filter_panel.dart';
 import '../widgets/loading_shimmer.dart';
 import '../widgets/news_card.dart';
@@ -24,6 +26,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _showScrollToTop = false;
+  bool _alertsProcessed = false;
 
   @override
   void initState() {
@@ -51,6 +54,17 @@ class _HomeScreenState extends State<HomeScreen> {
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeOutCubic,
     );
+  }
+
+  void _processAlerts(List<Article> articles) {
+    if (!_alertsProcessed && articles.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          context.read<AlertProvider>().processArticles(articles);
+          _alertsProcessed = true;
+        }
+      });
+    }
   }
 
   Future<void> _exportPdf() async {
@@ -118,11 +132,17 @@ View full report with risk analysis in the Education News Monitor app.
     await Share.share(text, subject: 'Education News Report - $dateStr');
   }
 
+  void _showAlertsPanel() {
+    showDialog(
+      context: context,
+      builder: (_) => const AlertsPanel(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final isWide = MediaQuery.of(context).size.width > 1024;
 
     return Scaffold(
       appBar: AppBar(
@@ -157,6 +177,47 @@ View full report with risk analysis in the Education News Monitor app.
           ],
         ),
         actions: [
+          // Alerts button with badge
+          Consumer<AlertProvider>(
+            builder: (context, alertProvider, _) {
+              final unreadCount = alertProvider.unreadCount;
+              return Stack(
+                children: [
+                  IconButton(
+                    onPressed: _showAlertsPanel,
+                    icon: const Icon(Icons.notifications_outlined),
+                    tooltip: 'Alerts',
+                  ),
+                  if (unreadCount > 0)
+                    Positioned(
+                      right: 6,
+                      top: 6,
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: const BoxDecoration(
+                          color: AppColors.highPriority,
+                          shape: BoxShape.circle,
+                        ),
+                        constraints: const BoxConstraints(
+                          minWidth: 18,
+                          minHeight: 18,
+                        ),
+                        child: Text(
+                          unreadCount > 9 ? '9+' : '$unreadCount',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
+          ),
+
           // Admin/Settings
           IconButton(
             onPressed: () {
@@ -215,7 +276,10 @@ View full report with risk analysis in the Education News Monitor app.
           Consumer<NewsProvider>(
             builder: (context, newsProvider, _) {
               return IconButton(
-                onPressed: newsProvider.refreshArticles,
+                onPressed: () {
+                  newsProvider.refreshArticles();
+                  _alertsProcessed = false; // Re-process alerts on refresh
+                },
                 icon: const Icon(Icons.refresh),
                 tooltip: 'Refresh',
               );
@@ -226,8 +290,16 @@ View full report with risk analysis in the Education News Monitor app.
       ),
       body: Consumer<NewsProvider>(
         builder: (context, newsProvider, _) {
+          // Process alerts when articles are loaded
+          if (!newsProvider.isLoading) {
+            _processAlerts(newsProvider.articles);
+          }
+
           return RefreshIndicator(
-            onRefresh: newsProvider.refreshArticles,
+            onRefresh: () async {
+              await newsProvider.refreshArticles();
+              _alertsProcessed = false;
+            },
             child: CustomScrollView(
               controller: _scrollController,
               slivers: [
