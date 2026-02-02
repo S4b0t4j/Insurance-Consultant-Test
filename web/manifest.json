@@ -1,0 +1,36 @@
+{
+    "name": "Education News Monitor",
+    "short_name": "News Monitor",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#002D72",
+    "theme_color": "#002D72",
+    "description": "Real-time education news intelligence dashboard for Marsh Education Practice. Monitor education news, NIL/Sports updates, and risk analysis.",
+    "orientation": "any",
+    "prefer_related_applications": false,
+    "categories": ["news", "business", "education"],
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}
