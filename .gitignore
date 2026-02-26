@@ -43,3 +43,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# GovWin scraper — keep credentials and output files out of version control
+.env
+govwin_results_*.xlsx
+__pycache__/
+*.pyc
