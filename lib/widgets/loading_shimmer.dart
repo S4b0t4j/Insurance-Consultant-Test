@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import '../utils/theme.dart';
 
 class LoadingShimmer extends StatelessWidget {
   final int itemCount;

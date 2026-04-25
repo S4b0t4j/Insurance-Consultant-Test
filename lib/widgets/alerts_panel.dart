@@ -7,7 +7,8 @@ import '../providers/alert_provider.dart';
 import '../utils/theme.dart';
 
 class AlertsPanel extends StatefulWidget {
-  const AlertsPanel({super.key});
+  final bool inline;
+  const AlertsPanel({super.key, this.inline = false});
 
   @override
   State<AlertsPanel> createState() => _AlertsPanelState();
@@ -35,13 +36,15 @@ class _AlertsPanelState extends State<AlertsPanel>
     final size = MediaQuery.of(context).size;
     final isSmall = size.width < 600;
 
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Container(
-        width: isSmall ? size.width * 0.95 : 700,
-        height: isSmall ? size.height * 0.9 : 650,
-        padding: const EdgeInsets.all(24),
-        child: Column(
+    final content = Container(
+      width: widget.inline
+          ? double.infinity
+          : (isSmall ? size.width * 0.95 : 700),
+      height: widget.inline
+          ? double.infinity
+          : (isSmall ? size.height * 0.9 : 650),
+      padding: const EdgeInsets.all(24),
+      child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Header
@@ -86,10 +89,11 @@ class _AlertsPanelState extends State<AlertsPanel>
                   },
                 ),
                 const SizedBox(width: 8),
-                IconButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  icon: const Icon(Icons.close),
-                ),
+                if (!widget.inline)
+                  IconButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: const Icon(Icons.close),
+                  ),
               ],
             ),
             const SizedBox(height: 16),
@@ -118,7 +122,14 @@ class _AlertsPanelState extends State<AlertsPanel>
             ),
           ],
         ),
-      ),
+      );
+
+    if (widget.inline) {
+      return content;
+    }
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: content,
     );
   }
 }
