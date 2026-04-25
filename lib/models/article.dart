@@ -76,6 +76,12 @@ class Article {
   final int sourceTier;
   final bool isBreaking;
 
+  // AI-generated insights (optional, populated via Claude API)
+  final String? aiSummary;
+  final int? aiRiskScore; // 1-10
+  final String? aiRiskRationale;
+  final List<String> aiTrendTags;
+
   const Article({
     required this.id,
     required this.headline,
@@ -96,7 +102,44 @@ class Article {
     this.geographicScope = 'National',
     this.sourceTier = 2,
     this.isBreaking = false,
+    this.aiSummary,
+    this.aiRiskScore,
+    this.aiRiskRationale,
+    this.aiTrendTags = const [],
   });
+
+  Article copyWith({
+    String? aiSummary,
+    int? aiRiskScore,
+    String? aiRiskRationale,
+    List<String>? aiTrendTags,
+  }) {
+    return Article(
+      id: id,
+      headline: headline,
+      summary: summary,
+      sourceName: sourceName,
+      sourceUrl: sourceUrl,
+      publishedAt: publishedAt,
+      primaryCategory: primaryCategory,
+      additionalCategories: additionalCategories,
+      priority: priority,
+      riskTags: riskTags,
+      riskAnalysis: riskAnalysis,
+      businessOpportunity: businessOpportunity,
+      actionRequired: actionRequired,
+      keyEntities: keyEntities,
+      institutionsAffected: institutionsAffected,
+      conferencesAffected: conferencesAffected,
+      geographicScope: geographicScope,
+      sourceTier: sourceTier,
+      isBreaking: isBreaking,
+      aiSummary: aiSummary ?? this.aiSummary,
+      aiRiskScore: aiRiskScore ?? this.aiRiskScore,
+      aiRiskRationale: aiRiskRationale ?? this.aiRiskRationale,
+      aiTrendTags: aiTrendTags ?? this.aiTrendTags,
+    );
+  }
 
   bool get isNilSports =>
       primaryCategory == NewsCategory.sportsNil ||

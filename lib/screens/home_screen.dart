@@ -4,17 +4,27 @@ import 'package:share_plus/share_plus.dart';
 import 'package:intl/intl.dart';
 import '../models/article.dart';
 import '../providers/alert_provider.dart';
+import '../providers/auth_provider.dart';
+import '../providers/discord_provider.dart';
+import '../providers/layout_provider.dart';
 import '../providers/news_provider.dart';
 import '../providers/theme_provider.dart';
 import '../services/pdf_service.dart';
 import '../utils/theme.dart';
 import '../widgets/alerts_panel.dart';
+import '../widgets/app_sidebar.dart';
 import '../widgets/filter_panel.dart';
+import '../widgets/grid_layout.dart';
+import '../widgets/layout_switcher.dart';
+import '../widgets/list_layout.dart';
 import '../widgets/loading_shimmer.dart';
-import '../widgets/news_card.dart';
 import '../widgets/news_tabs.dart';
+import '../widgets/newspaper_layout.dart';
+import '../widgets/onboarding_tour.dart';
 import '../widgets/status_bar.dart';
-import '../widgets/subscription_dialog.dart';
+import '../widgets/trending_section.dart';
+import 'admin_screen.dart';
+import 'ask_ai_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -27,11 +37,14 @@ class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _showScrollToTop = false;
   bool _alertsProcessed = false;
+  bool _onboardingChecked = false;
+  AppSection _section = AppSection.dashboard;
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _checkOnboarding());
   }
 
   @override
@@ -48,6 +61,20 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> _checkOnboarding() async {
+    if (_onboardingChecked) return;
+    _onboardingChecked = true;
+    final auth = context.read<AuthProvider>();
+    final seen = await auth.hasSeenOnboarding();
+    if (!seen && mounted) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const OnboardingTour(),
+      );
+    }
+  }
+
   void _scrollToTop() {
     _scrollController.animateTo(
       0,
@@ -61,6 +88,14 @@ class _HomeScreenState extends State<HomeScreen> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
           context.read<AlertProvider>().processArticles(articles);
+          // Send breaking news to Discord if configured
+          final discord = context.read<DiscordProvider>();
+          if (discord.isConfigured) {
+            for (final article in articles.take(5).where((a) =>
+                a.isBreaking || a.priority == Priority.high)) {
+              discord.sendArticleAlert(article);
+            }
+          }
           _alertsProcessed = true;
         }
       });
@@ -70,7 +105,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _exportPdf() async {
     final newsProvider = context.read<NewsProvider>();
     final articles = newsProvider.filteredArticles;
-
     if (articles.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -80,7 +114,6 @@ class _HomeScreenState extends State<HomeScreen> {
       );
       return;
     }
-
     try {
       await PdfService.generateAndPrintReport(articles);
     } catch (e) {
@@ -98,16 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _shareReport() async {
     final newsProvider = context.read<NewsProvider>();
     final articles = newsProvider.filteredArticles;
-
-    if (articles.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No articles to share'),
-          backgroundColor: AppColors.mediumPriority,
-        ),
-      );
-      return;
-    }
+    if (articles.isEmpty) return;
 
     final dateStr = DateFormat('MMMM d, yyyy').format(DateTime.now());
     final highCount =
@@ -128,262 +152,284 @@ ${articles.take(5).map((a) => '• ${a.headline}').join('\n')}
 
 View full report with risk analysis in the Education News Monitor app.
 ''';
-
     await Share.share(text, subject: 'Education News Report - $dateStr');
   }
 
   void _showAlertsPanel() {
-    showDialog(
-      context: context,
-      builder: (_) => const AlertsPanel(),
+    showDialog(context: context, builder: (_) => const AlertsPanel());
+  }
+
+  Widget _buildSectionContent() {
+    switch (_section) {
+      case AppSection.dashboard:
+        return _buildDashboard();
+      case AppSection.askAi:
+        return const AskAiScreen();
+      case AppSection.alerts:
+        return const AlertsPanel(inline: true);
+      case AppSection.admin:
+        return const AdminScreen();
+    }
+  }
+
+  Widget _buildDashboard() {
+    return Consumer2<NewsProvider, LayoutProvider>(
+      builder: (context, newsProvider, layoutProvider, _) {
+        if (!newsProvider.isLoading) {
+          _processAlerts(newsProvider.articles);
+        }
+        return RefreshIndicator(
+          onRefresh: () async {
+            await newsProvider.refreshArticles();
+            _alertsProcessed = false;
+          },
+          child: CustomScrollView(
+            controller: _scrollController,
+            slivers: [
+              // Trending section (only when articles loaded)
+              if (!newsProvider.isLoading && newsProvider.articles.isNotEmpty)
+                const SliverToBoxAdapter(child: TrendingSection()),
+              const SliverToBoxAdapter(child: SizedBox(height: 8)),
+
+              // Filter panel
+              const SliverToBoxAdapter(child: FilterPanel()),
+              const SliverToBoxAdapter(child: NewsTabs()),
+              const SliverToBoxAdapter(child: SizedBox(height: 12)),
+              const SliverToBoxAdapter(child: StatusBar()),
+
+              // Layout switcher row
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 12, 24, 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [LayoutSwitcher()],
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(child: SizedBox(height: 8)),
+
+              // Article display by layout
+              if (newsProvider.isLoading)
+                const SliverToBoxAdapter(child: LoadingShimmer())
+              else if (newsProvider.filteredArticles.isEmpty)
+                _buildEmptyState()
+              else
+                SliverToBoxAdapter(
+                  child: _buildArticleView(
+                    newsProvider.filteredArticles,
+                    layoutProvider,
+                  ),
+                ),
+              const SliverToBoxAdapter(child: SizedBox(height: 80)),
+            ],
+          ),
+        );
+      },
     );
+  }
+
+  Widget _buildArticleView(List<Article> articles, LayoutProvider layout) {
+    switch (layout.layout) {
+      case ViewLayout.grid:
+        return GridLayout(articles: articles);
+      case ViewLayout.newspaper:
+        return NewspaperLayout(articles: articles);
+      case ViewLayout.list:
+        return ListLayout(articles: articles);
+    }
+  }
+
+  SliverFillRemaining _buildEmptyState() {
+    final theme = Theme.of(context);
+    return SliverFillRemaining(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.search_off,
+              size: 64,
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'No articles match your filters',
+              style: theme.textTheme.titleMedium,
+            ),
+            const SizedBox(height: 8),
+            TextButton.icon(
+              onPressed: context.read<NewsProvider>().clearAllFilters,
+              icon: const Icon(Icons.clear_all),
+              label: const Text('Clear all filters'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _sectionTitle() {
+    switch (_section) {
+      case AppSection.dashboard:
+        return 'Education News Monitor';
+      case AppSection.askAi:
+        return 'Ask AI';
+      case AppSection.alerts:
+        return 'Alerts';
+      case AppSection.admin:
+        return 'Admin Settings';
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Icon(Icons.school, size: 24),
-            ),
-            const SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: Row(
+        children: [
+          AppSidebar(
+            currentSection: _section,
+            onSectionChange: (s) {
+              setState(() => _section = s);
+              if (_scrollController.hasClients) {
+                _scrollController.jumpTo(0);
+              }
+            },
+          ),
+          Expanded(
+            child: Column(
               children: [
-                const Text(
-                  'Education News Monitor',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  'Marsh Education Practice',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white.withValues(alpha: 0.8),
-                  ),
-                ),
+                _buildTopBar(),
+                Expanded(child: _buildSectionContent()),
               ],
             ),
-          ],
+          ),
+        ],
+      ),
+      floatingActionButton: _section == AppSection.dashboard
+          ? AnimatedOpacity(
+              opacity: _showScrollToTop ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 200),
+              child: FloatingActionButton(
+                onPressed: _showScrollToTop ? _scrollToTop : null,
+                child: const Icon(Icons.keyboard_arrow_up),
+              ),
+            )
+          : null,
+    );
+  }
+
+  Widget _buildTopBar() {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        border: Border(
+          bottom: BorderSide(
+            color: isDark
+                ? AppColors.darkCardBorder
+                : AppColors.lightCardBorder,
+          ),
         ),
-        actions: [
-          // Alerts button with badge
-          Consumer<AlertProvider>(
-            builder: (context, alertProvider, _) {
-              final unreadCount = alertProvider.unreadCount;
-              return Stack(
-                children: [
-                  IconButton(
-                    onPressed: _showAlertsPanel,
-                    icon: const Icon(Icons.notifications_outlined),
-                    tooltip: 'Alerts',
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(_sectionTitle(), style: theme.textTheme.headlineLarge),
+                if (_section == AppSection.dashboard)
+                  Text(
+                    'Real-time news intelligence · ${DateFormat.yMMMMd().format(DateTime.now())}',
+                    style: theme.textTheme.bodySmall,
                   ),
-                  if (unreadCount > 0)
-                    Positioned(
-                      right: 6,
-                      top: 6,
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: const BoxDecoration(
-                          color: AppColors.highPriority,
-                          shape: BoxShape.circle,
-                        ),
-                        constraints: const BoxConstraints(
-                          minWidth: 18,
-                          minHeight: 18,
-                        ),
-                        child: Text(
-                          unreadCount > 9 ? '9+' : '$unreadCount',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
+              ],
+            ),
+          ),
+          if (_section == AppSection.dashboard) ...[
+            // Alerts
+            Consumer<AlertProvider>(
+              builder: (context, alertProvider, _) {
+                final unreadCount = alertProvider.unreadCount;
+                return Stack(
+                  children: [
+                    IconButton(
+                      onPressed: _showAlertsPanel,
+                      icon: const Icon(Icons.notifications_outlined),
+                      tooltip: 'Alerts',
+                    ),
+                    if (unreadCount > 0)
+                      Positioned(
+                        right: 6,
+                        top: 6,
+                        child: Container(
+                          padding: const EdgeInsets.all(3),
+                          decoration: const BoxDecoration(
+                            color: AppColors.highPriority,
+                            shape: BoxShape.circle,
                           ),
-                          textAlign: TextAlign.center,
+                          constraints: const BoxConstraints(
+                              minWidth: 16, minHeight: 16),
+                          child: Text(
+                            unreadCount > 9 ? '9+' : '$unreadCount',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 9,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
-                    ),
-                ],
-              );
-            },
-          ),
-
-          // Admin/Settings
-          IconButton(
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Admin settings coming soon')),
-              );
-            },
-            icon: const Icon(Icons.admin_panel_settings),
-            tooltip: 'Admin Settings',
-          ),
-
-          // PDF Export
-          IconButton(
-            onPressed: _exportPdf,
-            icon: const Icon(Icons.picture_as_pdf),
-            tooltip: 'Export PDF Report',
-          ),
-
-          // Share
-          IconButton(
-            onPressed: _shareReport,
-            icon: const Icon(Icons.share),
-            tooltip: 'Share Report',
-          ),
-
-          // Email Notifications
-          IconButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (_) => const SubscriptionDialog(),
-              );
-            },
-            icon: const Icon(Icons.mail_outline),
-            tooltip: 'Email Notifications',
-          ),
-
-          // Theme toggle
+                  ],
+                );
+              },
+            ),
+            IconButton(
+              onPressed: _exportPdf,
+              icon: const Icon(Icons.picture_as_pdf_outlined),
+              tooltip: 'Export PDF',
+            ),
+            IconButton(
+              onPressed: _shareReport,
+              icon: const Icon(Icons.share_outlined),
+              tooltip: 'Share Report',
+            ),
+            Consumer<NewsProvider>(
+              builder: (context, newsProvider, _) {
+                return IconButton(
+                  onPressed: () {
+                    newsProvider.refreshArticles();
+                    _alertsProcessed = false;
+                  },
+                  icon: const Icon(Icons.refresh),
+                  tooltip: 'Refresh',
+                );
+              },
+            ),
+          ],
+          const SizedBox(width: 8),
+          Container(width: 1, height: 24, color: theme.dividerColor),
+          const SizedBox(width: 8),
           Consumer<ThemeProvider>(
             builder: (context, themeProvider, _) {
               return IconButton(
                 onPressed: themeProvider.toggleTheme,
                 icon: Icon(
                   themeProvider.isDarkMode
-                      ? Icons.light_mode
-                      : Icons.dark_mode,
+                      ? Icons.light_mode_outlined
+                      : Icons.dark_mode_outlined,
                 ),
                 tooltip: themeProvider.isDarkMode
-                    ? 'Switch to Light Mode'
-                    : 'Switch to Dark Mode',
+                    ? 'Light mode'
+                    : 'Dark mode',
               );
             },
           ),
-
-          // Refresh
-          Consumer<NewsProvider>(
-            builder: (context, newsProvider, _) {
-              return IconButton(
-                onPressed: () {
-                  newsProvider.refreshArticles();
-                  _alertsProcessed = false; // Re-process alerts on refresh
-                },
-                icon: const Icon(Icons.refresh),
-                tooltip: 'Refresh',
-              );
-            },
-          ),
-          const SizedBox(width: 8),
         ],
-      ),
-      body: Consumer<NewsProvider>(
-        builder: (context, newsProvider, _) {
-          // Process alerts when articles are loaded
-          if (!newsProvider.isLoading) {
-            _processAlerts(newsProvider.articles);
-          }
-
-          return RefreshIndicator(
-            onRefresh: () async {
-              await newsProvider.refreshArticles();
-              _alertsProcessed = false;
-            },
-            child: CustomScrollView(
-              controller: _scrollController,
-              slivers: [
-                // Filter panel
-                const SliverToBoxAdapter(
-                  child: FilterPanel(),
-                ),
-
-                // News tabs
-                const SliverToBoxAdapter(
-                  child: NewsTabs(),
-                ),
-                const SliverToBoxAdapter(child: SizedBox(height: 12)),
-
-                // Status bar
-                const SliverToBoxAdapter(
-                  child: StatusBar(),
-                ),
-                const SliverToBoxAdapter(child: SizedBox(height: 12)),
-
-                // News list
-                if (newsProvider.isLoading)
-                  const SliverToBoxAdapter(
-                    child: LoadingShimmer(),
-                  )
-                else if (newsProvider.filteredArticles.isEmpty)
-                  SliverFillRemaining(
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.search_off,
-                            size: 64,
-                            color: isDark
-                                ? Colors.grey[600]
-                                : Colors.grey[400],
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            'No articles match your filters',
-                            style: theme.textTheme.titleMedium?.copyWith(
-                              color: isDark
-                                  ? Colors.grey[400]
-                                  : Colors.grey[600],
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          TextButton.icon(
-                            onPressed: newsProvider.clearAllFilters,
-                            icon: const Icon(Icons.clear_all),
-                            label: const Text('Clear all filters'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                else
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        final article = newsProvider.filteredArticles[index];
-                        return NewsCard(article: article);
-                      },
-                      childCount: newsProvider.filteredArticles.length,
-                    ),
-                  ),
-
-                // Bottom padding
-                const SliverToBoxAdapter(
-                  child: SizedBox(height: 80),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-      floatingActionButton: AnimatedOpacity(
-        opacity: _showScrollToTop ? 1.0 : 0.0,
-        duration: const Duration(milliseconds: 200),
-        child: FloatingActionButton(
-          onPressed: _showScrollToTop ? _scrollToTop : null,
-          child: const Icon(Icons.keyboard_arrow_up),
-        ),
       ),
     );
   }
