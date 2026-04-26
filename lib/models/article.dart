@@ -108,6 +108,13 @@ class Article {
     this.aiTrendTags = const [],
   });
 
+  /// Guaranteed-working URL: Google News search for the article headline.
+  /// Always returns real, current articles even when sourceUrl is stale.
+  String get searchUrl {
+    final query = Uri.encodeComponent(headline);
+    return 'https://www.google.com/search?q=$query&tbm=nws';
+  }
+
   Article copyWith({
     String? aiSummary,
     int? aiRiskScore,

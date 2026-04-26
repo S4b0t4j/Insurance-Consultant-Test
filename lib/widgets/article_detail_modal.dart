@@ -321,27 +321,16 @@ class _ArticleDetailModalState extends State<ArticleDetailModal> {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: OutlinedButton.icon(
+                    child: ElevatedButton.icon(
                       onPressed: () {
-                        final query = Uri.encodeComponent(article.headline);
                         launchUrl(
-                          Uri.parse('https://www.google.com/search?q=$query&tbm=nws'),
+                          Uri.parse(article.searchUrl),
                           mode: LaunchMode.externalApplication,
+                          webOnlyWindowName: '_blank',
                         );
                       },
                       icon: const Icon(Icons.search, size: 18),
-                      label: const Text('Search News'),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        launchUrl(Uri.parse(article.sourceUrl),
-                            mode: LaunchMode.externalApplication);
-                      },
-                      icon: const Icon(Icons.open_in_new, size: 18),
-                      label: const Text('Open Source'),
+                      label: const Text('Find Articles'),
                     ),
                   ),
                 ],
