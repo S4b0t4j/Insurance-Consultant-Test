@@ -314,11 +314,23 @@ class _ArticleDetailModalState extends State<ArticleDetailModal> {
               ),
               child: Row(
                 children: [
+                  OutlinedButton.icon(
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: const Icon(Icons.close, size: 18),
+                    label: const Text('Close'),
+                  ),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: OutlinedButton.icon(
-                      onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.close, size: 18),
-                      label: const Text('Close'),
+                      onPressed: () {
+                        final query = Uri.encodeComponent(article.headline);
+                        launchUrl(
+                          Uri.parse('https://www.google.com/search?q=$query&tbm=nws'),
+                          mode: LaunchMode.externalApplication,
+                        );
+                      },
+                      icon: const Icon(Icons.search, size: 18),
+                      label: const Text('Search News'),
                     ),
                   ),
                   const SizedBox(width: 12),
