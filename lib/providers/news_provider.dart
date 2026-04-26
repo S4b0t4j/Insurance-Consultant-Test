@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import '../models/article.dart';
-import '../data/sample_articles.dart';
+import '../services/news_feed_service.dart';
 
 enum NewsFeedTab { all, education, nilSports }
 
@@ -16,11 +16,15 @@ class NewsProvider with ChangeNotifier {
   bool _isAutoUpdateEnabled = true;
   DateTime _lastUpdated = DateTime.now();
   Timer? _refreshTimer;
+  String? _errorMessage;
+  final NewsFeedService _feedService = NewsFeedService();
 
   NewsProvider() {
     _initializeData();
     _startAutoRefresh();
   }
+
+  String? get errorMessage => _errorMessage;
 
   // Getters
   List<Article> get articles => _articles;
@@ -138,27 +142,30 @@ class NewsProvider with ChangeNotifier {
       _selectedCategories.isNotEmpty ||
       _selectedRiskTypes.isNotEmpty;
 
-  void _initializeData() {
+  void _initializeData() async {
     _isLoading = true;
+    _errorMessage = null;
     notifyListeners();
 
-    // Simulate network delay
-    Future.delayed(const Duration(milliseconds: 800), () {
-      _articles = List.from(sampleArticles);
+    try {
+      final articles = await _feedService.fetchAllFeeds();
+      _articles = articles;
       _isLoading = false;
       _lastUpdated = DateTime.now();
-      notifyListeners();
-    });
+      _errorMessage = null;
+    } catch (e) {
+      _isLoading = false;
+      _errorMessage = 'Failed to fetch news feeds. Please try again.';
+      print('Error fetching feeds: $e');
+    }
+    notifyListeners();
   }
 
   void _startAutoRefresh() {
     _refreshTimer?.cancel();
-    // Tick every 30 seconds to update timeAgo displays and refresh data
-    _refreshTimer = Timer.periodic(const Duration(seconds: 30), (_) {
+    _refreshTimer = Timer.periodic(const Duration(seconds: 30), (_) async {
       if (_isAutoUpdateEnabled) {
-        // Notify listeners so timeAgo recomputes; also refresh lastUpdated
-        _lastUpdated = DateTime.now();
-        notifyListeners();
+        await refreshArticles();
       }
     });
   }
@@ -214,7 +221,16 @@ class NewsProvider with ChangeNotifier {
   }
 
   Future<void> refreshArticles() async {
-    _lastUpdated = DateTime.now();
+    try {
+      final articles = await _feedService.fetchAllFeeds();
+      if (articles.isNotEmpty) {
+        _articles = articles;
+        _errorMessage = null;
+      }
+      _lastUpdated = DateTime.now();
+    } catch (e) {
+      print('Error refreshing feeds: $e');
+    }
     notifyListeners();
   }
 
