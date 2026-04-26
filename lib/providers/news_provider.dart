@@ -153,9 +153,12 @@ class NewsProvider with ChangeNotifier {
 
   void _startAutoRefresh() {
     _refreshTimer?.cancel();
-    _refreshTimer = Timer.periodic(const Duration(minutes: 1), (_) {
+    // Tick every 30 seconds to update timeAgo displays and refresh data
+    _refreshTimer = Timer.periodic(const Duration(seconds: 30), (_) {
       if (_isAutoUpdateEnabled) {
-        refreshArticles();
+        // Notify listeners so timeAgo recomputes; also refresh lastUpdated
+        _lastUpdated = DateTime.now();
+        notifyListeners();
       }
     });
   }
