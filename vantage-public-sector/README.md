@@ -26,6 +26,8 @@ node test/verify.js   # headless browser verification, including a WebGL-disable
 - `5596` admin: sees every account
 - `1905` producer: pick your name from the roster, confirm with your last name, see only your book
 
+The producer roster (Producer Alpha, Bravo, Charlie) and the incumbent broker values are mock data with fictional names. No real producer or brokerage names appear anywhere in the dataset; swap in the real roster in `data/producers.json` before internal rollout.
+
 ## Layout
 
 ```

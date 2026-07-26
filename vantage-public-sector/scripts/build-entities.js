@@ -98,15 +98,17 @@ const SEG_CONFIG = {
 const PREM_RATE = 0.0012;
 const PREM_FORMULA = 'prem = tiv * 0.0012 (12 bps blended property rate assumption)';
 
-/* Producer books split by BEA super-region. */
+/* Producer books split by BEA super-region. The roster is mock data:
+   fictional placeholder producers, no real names anywhere in the dataset. */
 const PRODUCER_BY_STATE = {
-  lorenz: ['CT', 'ME', 'MA', 'NH', 'RI', 'VT', 'DE', 'DC', 'MD', 'NJ', 'NY', 'PA', 'IL', 'IN', 'MI', 'OH', 'WI'],
-  brown: ['AL', 'AR', 'FL', 'GA', 'KY', 'LA', 'MS', 'NC', 'SC', 'TN', 'VA', 'WV', 'AZ', 'NM', 'OK', 'TX', 'IA', 'KS', 'MN', 'MO', 'NE', 'ND', 'SD'],
-  lindstrom: ['CO', 'ID', 'MT', 'UT', 'WY', 'AK', 'CA', 'HI', 'NV', 'OR', 'WA']
+  alpha: ['CT', 'ME', 'MA', 'NH', 'RI', 'VT', 'DE', 'DC', 'MD', 'NJ', 'NY', 'PA', 'IL', 'IN', 'MI', 'OH', 'WI'],
+  bravo: ['AL', 'AR', 'FL', 'GA', 'KY', 'LA', 'MS', 'NC', 'SC', 'TN', 'VA', 'WV', 'AZ', 'NM', 'OK', 'TX', 'IA', 'KS', 'MN', 'MO', 'NE', 'ND', 'SD'],
+  charlie: ['CO', 'ID', 'MT', 'UT', 'WY', 'AK', 'CA', 'HI', 'NV', 'OR', 'WA']
 };
 
-/* Modeled placeholder pools. Deterministic pick by entity id hash. */
-const INCUMBENT_POOL = ['Aon', 'Gallagher', 'Alliant', 'Lockton', 'Brown & Brown', 'USI', 'McGriff', 'Risk Strategies'];
+/* Modeled placeholder pools. Deterministic pick by entity id hash.
+   Incumbent names are fictional mock brokerages, not real firms. */
+const INCUMBENT_POOL = ['Mock Broker A', 'Mock Broker B', 'Mock Broker C', 'Mock Broker D', 'Mock Broker E', 'Mock Broker F'];
 
 const TRIGGER_POOL = {
   air: [

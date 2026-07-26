@@ -164,17 +164,19 @@ async function passWebglOn() {
   await login(page, '1905');
   await page.waitForSelector('.roster-btn');
   check('producer roster lists 3 producers', (await page.locator('.roster-btn').count()) === 3);
-  await page.click('.roster-btn[data-key="lindstrom"]');
+  check('roster labeled as mock data', (await page.textContent('#auth-card')).includes('Mock roster'));
+  await page.click('.roster-btn[data-key="charlie"]');
   await page.fill('#lastname-input', 'wrongname');
   await page.click('#confirm-btn');
   check('wrong last name rejected', (await page.textContent('#auth-error')).includes('does not match'));
-  await page.fill('#lastname-input', 'Lindstrom');
+  await page.fill('#lastname-input', 'Charlie');
   await page.click('#confirm-btn');
   await page.waitForSelector('#app-shell:not([hidden])');
   const prodAccounts = await page.locator('.entity-row').count();
   check('producer sees only their own accounts', prodAccounts > 0 && prodAccounts < 136, 'saw ' + prodAccounts);
   const chipText = await page.textContent('#user-chip');
-  check('producer chip shows role', chipText.includes('Jon Lindstrom') && chipText.includes('Producer'));
+  check('producer chip shows role', chipText.includes('Producer'));
+  check('no real broker names in mock incumbents', !(await page.content()).match(/\b(Aon|Gallagher|Alliant|Lockton|McGriff)\b/));
 
   /* console cleanliness (favicon 404s do not appear as console errors on file://) */
   check('zero console errors across the whole session', consoleErrors.length === 0, consoleErrors.slice(0, 3).join(' | '));

@@ -45,7 +45,8 @@ window.V = window.V || {};
     el.innerHTML =
       '<div class="auth-card" id="auth-card">' +
       brand() +
-      '<div class="auth-label">Producer access. Select your name.</div>' +
+      '<div class="auth-label">Producer access. Select your name.<br>' +
+      '<span style="color:var(--gold)">Mock roster: producer names are demonstration placeholders, not real people.</span></div>' +
       '<div class="roster">' +
       V.state.data.producers.map(function (p) {
         return '<button class="roster-btn" data-key="' + p.key + '">' + V.fmt.esc(p.name) +
