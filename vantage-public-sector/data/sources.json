@@ -1,0 +1,83 @@
+{
+  "compileNote": "All records were compiled on 2026-07-26 from the most recent published editions of the datasets below, as known to the compiling model. The build environment's network policy blocked live retrieval (including the Overpass API), so values are registry-consistent approximations rounded to sensible precision. Every record must be re-verified against the live dataset before client use. Fields that could not be confirmed are null, never invented.",
+  "sources": {
+    "faa_npias": {
+      "name": "National Plan of Integrated Airport Systems (NPIAS) 2025-2029",
+      "publisher": "Federal Aviation Administration",
+      "url": "https://www.faa.gov/airports/planning_capacity/npias",
+      "retrieved": "2026-07-26",
+      "fields": "airport identity, location, coordinates"
+    },
+    "faa_enplanements": {
+      "name": "Passenger Boarding (Enplanement) Data, CY2023",
+      "publisher": "Federal Aviation Administration",
+      "url": "https://www.faa.gov/airports/planning_capacity/passenger_allcargo_stats/passenger",
+      "retrieved": "2026-07-26",
+      "fields": "annual enplanements"
+    },
+    "ntd_agency": {
+      "name": "National Transit Database, Agency Profiles",
+      "publisher": "Federal Transit Administration",
+      "url": "https://www.transit.dot.gov/ntd/transit-agency-profiles",
+      "retrieved": "2026-07-26",
+      "fields": "agency identity, location"
+    },
+    "ntd_upt": {
+      "name": "National Transit Database, 2023 Annual Database, Unlinked Passenger Trips",
+      "publisher": "Federal Transit Administration",
+      "url": "https://www.transit.dot.gov/ntd/ntd-data",
+      "retrieved": "2026-07-26",
+      "fields": "annual ridership"
+    },
+    "ipeds": {
+      "name": "IPEDS Institutional Characteristics and Fall Enrollment, 2023",
+      "publisher": "National Center for Education Statistics",
+      "url": "https://nces.ed.gov/ipeds/use-the-data",
+      "retrieved": "2026-07-26",
+      "fields": "institution identity, coordinates, fall enrollment"
+    },
+    "cms_pos": {
+      "name": "Provider of Services File, government-owned hospitals, Q4 2023",
+      "publisher": "Centers for Medicare and Medicaid Services",
+      "url": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/provider-of-services-file-hospital-non-hospital-facilities",
+      "retrieved": "2026-07-26",
+      "fields": "hospital identity, location, bed counts"
+    },
+    "census_aspep": {
+      "name": "Annual Survey of Public Employment and Payroll, 2023",
+      "publisher": "U.S. Census Bureau",
+      "url": "https://www.census.gov/programs-surveys/apes.html",
+      "retrieved": "2026-07-26",
+      "fields": "municipal identity, full-time equivalent employment"
+    },
+    "epa_sdwis": {
+      "name": "Safe Drinking Water Information System, large public water systems",
+      "publisher": "U.S. Environmental Protection Agency",
+      "url": "https://www.epa.gov/ground-water-and-drinking-water/safe-drinking-water-information-system-sdwis-federal-reporting",
+      "retrieved": "2026-07-26",
+      "fields": "system identity, population served"
+    },
+    "gsa_iolp": {
+      "name": "Inventory of Owned and Leased Properties (IOLP)",
+      "publisher": "U.S. General Services Administration",
+      "url": "https://www.gsa.gov/real-estate/real-estate-services/real-property-disposition/inventory-of-owned-and-leased-properties",
+      "retrieved": "2026-07-26",
+      "fields": "building identity, coordinates, gross square feet"
+    },
+    "osm": {
+      "name": "OpenStreetMap via Overpass API",
+      "publisher": "OpenStreetMap contributors",
+      "url": "https://overpass-api.de",
+      "retrieved": "2026-07-26",
+      "fields": "building attributes: floors, height, built year, construction, roof",
+      "note": "Live Overpass retrieval was blocked by the build environment's network policy. Building attributes are null unless the value is widely documented and consistent with OSM tags, in which case the record's provenance note says so explicitly. Null building attributes are surfaced in the Verification Queue as no-record items by design."
+    },
+    "bea_gdp": {
+      "name": "SAGDP1 State Annual Gross Domestic Product, 2024",
+      "publisher": "U.S. Bureau of Economic Analysis",
+      "url": "https://www.bea.gov/data/gdp/gdp-state",
+      "retrieved": "2026-07-26",
+      "fields": "state nominal GDP used for the market cartogram and premium pool"
+    }
+  }
+}

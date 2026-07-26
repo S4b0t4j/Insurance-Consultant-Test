@@ -1,0 +1,1992 @@
+[
+  {
+    "id": "water-ladwp",
+    "seg": "water",
+    "name": "Los Angeles Department of Water and Power",
+    "city": "Los Angeles",
+    "state": "CA",
+    "lat": 34.0596,
+    "lng": -118.2497,
+    "site": "John Ferraro Building",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 7600000000,
+    "prem": 9120000,
+    "inc": "Alliant",
+    "renew": "2027-04-01",
+    "trigger": "PFAS treatment retrofit planned across the system",
+    "producer": "lindstrom",
+    "verif": "no-record",
+    "served": 4000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "water-nyc-dep",
+    "seg": "water",
+    "name": "New York City Department of Environmental Protection",
+    "city": "Brooklyn",
+    "state": "NY",
+    "lat": 40.7374,
+    "lng": -73.9481,
+    "site": "Newtown Creek Wastewater Treatment Plant",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 18050000000,
+    "prem": 21660000,
+    "inc": "Brown & Brown",
+    "renew": "2027-02-01",
+    "trigger": "Lead service line replacement mandate increases capital spend",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "served": 9500000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "water-pwd",
+    "seg": "water",
+    "name": "Philadelphia Water Department",
+    "city": "Philadelphia",
+    "state": "PA",
+    "lat": 40.046,
+    "lng": -74.995,
+    "site": "Baxter Water Treatment Plant",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 3040000000,
+    "prem": 3648000,
+    "inc": "Risk Strategies",
+    "renew": "2027-09-01",
+    "trigger": "Rate case approved, funding a decade of plant renewal",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "served": 1600000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "water-cleveland",
+    "seg": "water",
+    "name": "Cleveland Division of Water",
+    "city": "Cleveland",
+    "state": "OH",
+    "lat": 41.5008,
+    "lng": -81.7205,
+    "site": "Garrett A. Morgan Water Treatment Plant",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 2660000000,
+    "prem": 3192000,
+    "inc": "Aon",
+    "renew": "2027-02-01",
+    "trigger": "Lead service line replacement mandate increases capital spend",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "served": 1400000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "water-spu",
+    "seg": "water",
+    "name": "Seattle Public Utilities",
+    "city": "Seattle",
+    "state": "WA",
+    "lat": 47.605,
+    "lng": -122.3298,
+    "site": "Seattle Municipal Tower",
+    "floors": 62,
+    "height": null,
+    "sqft": null,
+    "built": 1990,
+    "constr": null,
+    "roof": null,
+    "tiv": 2850000000,
+    "prem": 3420000,
+    "inc": "Alliant",
+    "renew": "2027-04-01",
+    "trigger": "PFAS treatment retrofit planned across the system",
+    "producer": "lindstrom",
+    "verif": "unverified",
+    "served": 1500000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "water-pvsc",
+    "seg": "water",
+    "name": "Passaic Valley Sewerage Commission",
+    "city": "Newark",
+    "state": "NJ",
+    "lat": 40.7069,
+    "lng": -74.1247,
+    "site": "Newark Bay Treatment Plant",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 2660000000,
+    "prem": 3192000,
+    "inc": "Brown & Brown",
+    "renew": "2027-06-01",
+    "trigger": "Lead service line replacement mandate increases capital spend",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "served": 1400000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "water-mwra",
+    "seg": "water",
+    "name": "Massachusetts Water Resources Authority",
+    "city": "Boston",
+    "state": "MA",
+    "lat": 42.3475,
+    "lng": -70.9614,
+    "site": "Deer Island Treatment Plant",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 5890000000,
+    "prem": 7068000,
+    "inc": "Risk Strategies",
+    "renew": "2027-01-01",
+    "trigger": "Rate case approved, funding a decade of plant renewal",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "served": 3100000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "water-glwa",
+    "seg": "water",
+    "name": "Great Lakes Water Authority",
+    "city": "Detroit",
+    "state": "MI",
+    "lat": 42.3585,
+    "lng": -82.9836,
+    "site": "Water Works Park Treatment Plant",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 7220000000,
+    "prem": 8664000,
+    "inc": "USI",
+    "renew": "2027-07-01",
+    "trigger": "Consent decree drives major treatment plant construction",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "served": 3800000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "water-denver",
+    "seg": "water",
+    "name": "Denver Water",
+    "city": "Denver",
+    "state": "CO",
+    "lat": 39.7351,
+    "lng": -105.0092,
+    "site": "Denver Water Operations Complex",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 2850000000,
+    "prem": 3420000,
+    "inc": "Brown & Brown",
+    "renew": "2027-06-01",
+    "trigger": "Lead service line replacement mandate increases capital spend",
+    "producer": "lindstrom",
+    "verif": "no-record",
+    "served": 1500000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "water-mlgw",
+    "seg": "water",
+    "name": "Memphis Light, Gas and Water",
+    "city": "Memphis",
+    "state": "TN",
+    "lat": 35.1436,
+    "lng": -90.0518,
+    "site": "MLGW Administration Building",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1767000000,
+    "prem": 2120000,
+    "inc": "USI",
+    "renew": "2027-07-01",
+    "trigger": "Consent decree drives major treatment plant construction",
+    "producer": "brown",
+    "verif": "no-record",
+    "served": 930000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "water-dc-water",
+    "seg": "water",
+    "name": "DC Water and Sewer Authority",
+    "city": "Washington",
+    "state": "DC",
+    "lat": 38.8146,
+    "lng": -77.0221,
+    "site": "Blue Plains Advanced Wastewater Treatment Plant",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1330000000,
+    "prem": 1596000,
+    "inc": "Risk Strategies",
+    "renew": "2027-01-01",
+    "trigger": "Rate case approved, funding a decade of plant renewal",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "served": 700000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "water-bws-honolulu",
+    "seg": "water",
+    "name": "Honolulu Board of Water Supply",
+    "city": "Honolulu",
+    "state": "HI",
+    "lat": 21.308,
+    "lng": -157.852,
+    "site": "BWS Beretania Complex",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1900000000,
+    "prem": 2280000,
+    "inc": "Risk Strategies",
+    "renew": "2027-01-01",
+    "trigger": "Rate case approved, funding a decade of plant renewal",
+    "producer": "lindstrom",
+    "verif": "no-record",
+    "served": 1000000,
+    "geoOverride": "HI",
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "water-swbno",
+    "seg": "water",
+    "name": "Sewerage and Water Board of New Orleans",
+    "city": "New Orleans",
+    "state": "LA",
+    "lat": 29.949,
+    "lng": -90.1272,
+    "site": "Carrollton Water Plant",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 741000000,
+    "prem": 889000,
+    "inc": "Gallagher",
+    "renew": "2027-03-01",
+    "trigger": "Consent decree drives major treatment plant construction",
+    "producer": "brown",
+    "verif": "no-record",
+    "served": 390000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "water-pwd-maine",
+    "seg": "water",
+    "name": "Portland Water District",
+    "city": "Portland",
+    "state": "ME",
+    "lat": 43.656,
+    "lng": -70.281,
+    "site": "Douglass Street Operations Center",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 380000000,
+    "prem": 456000,
+    "inc": "McGriff",
+    "renew": "2027-04-01",
+    "trigger": "PFAS treatment retrofit planned across the system",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "served": 200000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "water-mud-omaha",
+    "seg": "water",
+    "name": "Metropolitan Utilities District of Omaha",
+    "city": "Omaha",
+    "state": "NE",
+    "lat": 41.256,
+    "lng": -95.943,
+    "site": "MUD Headquarters",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1178000000,
+    "prem": 1414000,
+    "inc": "USI",
+    "renew": "2027-03-01",
+    "trigger": "Consent decree drives major treatment plant construction",
+    "producer": "brown",
+    "verif": "no-record",
+    "served": 620000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "water-lvvwd",
+    "seg": "water",
+    "name": "Las Vegas Valley Water District",
+    "city": "Las Vegas",
+    "state": "NV",
+    "lat": 36.1622,
+    "lng": -115.1932,
+    "site": "LVVWD Main Campus",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 2850000000,
+    "prem": 3420000,
+    "inc": "Lockton",
+    "renew": "2027-01-01",
+    "trigger": "Rate case approved, funding a decade of plant renewal",
+    "producer": "lindstrom",
+    "verif": "no-record",
+    "served": 1500000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "water-charleston",
+    "seg": "water",
+    "name": "Charleston Water System",
+    "city": "Charleston",
+    "state": "SC",
+    "lat": 32.7847,
+    "lng": -79.94,
+    "site": "St. Philip Street Administration Building",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 950000000,
+    "prem": 1140000,
+    "inc": "USI",
+    "renew": "2027-03-01",
+    "trigger": "Consent decree drives major treatment plant construction",
+    "producer": "brown",
+    "verif": "no-record",
+    "served": 500000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = served * 1900 (USD per resident served, treatment and distribution heuristic)",
+        "inputs": [
+          "served"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "served": {
+        "kind": "public",
+        "source": "epa_sdwis",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  }
+]

@@ -1,0 +1,2108 @@
+[
+  {
+    "id": "transit-la-metro",
+    "seg": "transit",
+    "name": "Los Angeles County Metropolitan Transportation Authority",
+    "city": "Los Angeles",
+    "state": "CA",
+    "lat": 34.0561,
+    "lng": -118.234,
+    "site": "Metro Headquarters (Gateway Plaza)",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 7980000000,
+    "prem": 9576000,
+    "inc": "Lockton",
+    "renew": "2027-05-01",
+    "trigger": "Bus rapid transit corridor opening within 18 months",
+    "producer": "lindstrom",
+    "verif": "no-record",
+    "ridership": 285000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-houston-metro",
+    "seg": "transit",
+    "name": "Metropolitan Transit Authority of Harris County (METRO)",
+    "city": "Houston",
+    "state": "TX",
+    "lat": 29.755,
+    "lng": -95.3621,
+    "site": "METRO Administration Building",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 2296000000,
+    "prem": 2755000,
+    "inc": "Aon",
+    "renew": "2027-06-01",
+    "trigger": "Fleet electrification program changes the property risk profile",
+    "producer": "brown",
+    "verif": "no-record",
+    "ridership": 82000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-mta",
+    "seg": "transit",
+    "name": "Metropolitan Transportation Authority (MTA)",
+    "city": "New York",
+    "state": "NY",
+    "lat": 40.7046,
+    "lng": -74.0128,
+    "site": "MTA Headquarters (2 Broadway)",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 61600000000,
+    "prem": 73920000,
+    "inc": "Aon",
+    "renew": "2026-10-01",
+    "trigger": "Fleet electrification program changes the property risk profile",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "ridership": 2200000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-miami-dade",
+    "seg": "transit",
+    "name": "Miami-Dade Transit",
+    "city": "Miami",
+    "state": "FL",
+    "lat": 25.7808,
+    "lng": -80.1998,
+    "site": "Overtown Transit Village",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1540000000,
+    "prem": 1848000,
+    "inc": "Brown & Brown",
+    "renew": "2026-10-01",
+    "trigger": "Fleet electrification program changes the property risk profile",
+    "producer": "brown",
+    "verif": "no-record",
+    "ridership": 55000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-cta",
+    "seg": "transit",
+    "name": "Chicago Transit Authority (CTA)",
+    "city": "Chicago",
+    "state": "IL",
+    "lat": 41.8857,
+    "lng": -87.6428,
+    "site": "CTA Headquarters (567 W Lake St)",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 7812000000,
+    "prem": 9374000,
+    "inc": "McGriff",
+    "renew": "2026-12-01",
+    "trigger": "State of good repair backlog drawing board attention",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "ridership": 279000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-septa",
+    "seg": "transit",
+    "name": "Southeastern Pennsylvania Transportation Authority (SEPTA)",
+    "city": "Philadelphia",
+    "state": "PA",
+    "lat": 39.952,
+    "lng": -75.162,
+    "site": "SEPTA Headquarters (1234 Market St)",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 6272000000,
+    "prem": 7526000,
+    "inc": "Gallagher",
+    "renew": "2026-11-01",
+    "trigger": "New rail extension adds stations and substations to the schedule",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "ridership": 224000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-gcrta",
+    "seg": "transit",
+    "name": "Greater Cleveland Regional Transit Authority",
+    "city": "Cleveland",
+    "state": "OH",
+    "lat": 41.4993,
+    "lng": -81.6944,
+    "site": "RTA Main Office Building",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 700000000,
+    "prem": 840000,
+    "inc": "Gallagher",
+    "renew": "2026-11-01",
+    "trigger": "New rail extension adds stations and substations to the schedule",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "ridership": 25000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-marta",
+    "seg": "transit",
+    "name": "Metropolitan Atlanta Rapid Transit Authority (MARTA)",
+    "city": "Atlanta",
+    "state": "GA",
+    "lat": 33.8232,
+    "lng": -84.3655,
+    "site": "MARTA Headquarters",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 2436000000,
+    "prem": 2923000,
+    "inc": "Gallagher",
+    "renew": "2027-03-01",
+    "trigger": "New rail extension adds stations and substations to the schedule",
+    "producer": "brown",
+    "verif": "no-record",
+    "ridership": 87000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-sound",
+    "seg": "transit",
+    "name": "Sound Transit",
+    "city": "Seattle",
+    "state": "WA",
+    "lat": 47.599,
+    "lng": -122.3284,
+    "site": "Union Station Headquarters",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1064000000,
+    "prem": 1277000,
+    "inc": "USI",
+    "renew": "2026-11-01",
+    "trigger": "New rail extension adds stations and substations to the schedule",
+    "producer": "lindstrom",
+    "verif": "no-record",
+    "ridership": 38000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-nj-transit",
+    "seg": "transit",
+    "name": "New Jersey Transit Corporation",
+    "city": "Newark",
+    "state": "NJ",
+    "lat": 40.7347,
+    "lng": -74.165,
+    "site": "NJ Transit Headquarters",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 5208000000,
+    "prem": 6250000,
+    "inc": "Brown & Brown",
+    "renew": "2027-02-01",
+    "trigger": "Fleet electrification program changes the property risk profile",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "ridership": 186000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-mbta",
+    "seg": "transit",
+    "name": "Massachusetts Bay Transportation Authority (MBTA)",
+    "city": "Boston",
+    "state": "MA",
+    "lat": 42.351,
+    "lng": -71.0672,
+    "site": "State Transportation Building",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 6860000000,
+    "prem": 8232000,
+    "inc": "Brown & Brown",
+    "renew": "2026-10-01",
+    "trigger": "Fleet electrification program changes the property risk profile",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "ridership": 245000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-rtd",
+    "seg": "transit",
+    "name": "Regional Transportation District (RTD)",
+    "city": "Denver",
+    "state": "CO",
+    "lat": 39.7532,
+    "lng": -105.0003,
+    "site": "RTD Administrative Offices (Blake St)",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1820000000,
+    "prem": 2184000,
+    "inc": "Aon",
+    "renew": "2027-06-01",
+    "trigger": "Fleet electrification program changes the property risk profile",
+    "producer": "lindstrom",
+    "verif": "no-record",
+    "ridership": 65000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-indygo",
+    "seg": "transit",
+    "name": "Indianapolis Public Transportation Corporation (IndyGo)",
+    "city": "Indianapolis",
+    "state": "IN",
+    "lat": 39.7663,
+    "lng": -86.1866,
+    "site": "IndyGo Administration and Garage",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 210000000,
+    "prem": 252000,
+    "inc": "Brown & Brown",
+    "renew": "2027-06-01",
+    "trigger": "Fleet electrification program changes the property risk profile",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "ridership": 7500000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-metro-transit-mn",
+    "seg": "transit",
+    "name": "Metro Transit (Minneapolis-St. Paul)",
+    "city": "Minneapolis",
+    "state": "MN",
+    "lat": 44.9866,
+    "lng": -93.283,
+    "site": "Fred T. Heywood Office and Garage",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1260000000,
+    "prem": 1512000,
+    "inc": "Gallagher",
+    "renew": "2026-11-01",
+    "trigger": "New rail extension adds stations and substations to the schedule",
+    "producer": "brown",
+    "verif": "no-record",
+    "ridership": 45000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-wmata",
+    "seg": "transit",
+    "name": "Washington Metropolitan Area Transit Authority (WMATA)",
+    "city": "Washington",
+    "state": "DC",
+    "lat": 38.8845,
+    "lng": -77.022,
+    "site": "WMATA Headquarters (L'Enfant Plaza)",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 6720000000,
+    "prem": 8064000,
+    "inc": "McGriff",
+    "renew": "2027-08-01",
+    "trigger": "State of good repair backlog drawing board attention",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "ridership": 240000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-bistate",
+    "seg": "transit",
+    "name": "Bi-State Development Agency (Metro Transit St. Louis)",
+    "city": "St. Louis",
+    "state": "MO",
+    "lat": 38.6273,
+    "lng": -90.1888,
+    "site": "Metro Headquarters",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 560000000,
+    "prem": 672000,
+    "inc": "Aon",
+    "renew": "2026-10-01",
+    "trigger": "Fleet electrification program changes the property risk profile",
+    "producer": "brown",
+    "verif": "no-record",
+    "ridership": 20000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-trimet",
+    "seg": "transit",
+    "name": "Tri-County Metropolitan Transportation District (TriMet)",
+    "city": "Portland",
+    "state": "OR",
+    "lat": 45.5107,
+    "lng": -122.6773,
+    "site": "TriMet Administration Building",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1568000000,
+    "prem": 1882000,
+    "inc": "Lockton",
+    "renew": "2027-05-01",
+    "trigger": "Bus rapid transit corridor opening within 18 months",
+    "producer": "lindstrom",
+    "verif": "no-record",
+    "ridership": 56000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "transit-uta",
+    "seg": "transit",
+    "name": "Utah Transit Authority (UTA)",
+    "city": "Salt Lake City",
+    "state": "UT",
+    "lat": 40.7639,
+    "lng": -111.9106,
+    "site": "UTA Frontlines Headquarters",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 840000000,
+    "prem": 1008000,
+    "inc": "Aon",
+    "renew": "2027-06-01",
+    "trigger": "Fleet electrification program changes the property risk profile",
+    "producer": "lindstrom",
+    "verif": "no-record",
+    "ridership": 30000000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "ntd_agency",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = ridership * 28 (USD per annual unlinked trip, fleet and facility heuristic)",
+        "inputs": [
+          "ridership"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "ridership": {
+        "kind": "public",
+        "source": "ntd_upt",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "key": "lorenz",
+    "name": "Jacob Lorenz",
+    "lastName": "Lorenz",
+    "territory": "Northeast, Mideast and Great Lakes",
+    "states": ["CT", "ME", "MA", "NH", "RI", "VT", "DE", "DC", "MD", "NJ", "NY", "PA", "IL", "IN", "MI", "OH", "WI"]
+  },
+  {
+    "key": "brown",
+    "name": "Catherine Brown",
+    "lastName": "Brown",
+    "territory": "Southeast, Southwest and Plains",
+    "states": ["AL", "AR", "FL", "GA", "KY", "LA", "MS", "NC", "SC", "TN", "VA", "WV", "AZ", "NM", "OK", "TX", "IA", "KS", "MN", "MO", "NE", "ND", "SD"]
+  },
+  {
+    "key": "lindstrom",
+    "name": "Jon Lindstrom",
+    "lastName": "Lindstrom",
+    "territory": "Rocky Mountain and Far West",
+    "states": ["CO", "ID", "MT", "UT", "WY", "AK", "CA", "HI", "NV", "OR", "WA"]
+  }
+]

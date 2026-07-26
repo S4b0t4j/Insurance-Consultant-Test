@@ -1,0 +1,1445 @@
+[
+  {
+    "id": "fed-gsa-hq",
+    "seg": "fed",
+    "name": "GSA Headquarters (1800 F Street NW)",
+    "city": "Washington",
+    "state": "DC",
+    "lat": 38.8973,
+    "lng": -77.0415,
+    "site": "1800 F Street NW",
+    "floors": null,
+    "height": null,
+    "sqft": 780000,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 374000000,
+    "prem": 449000,
+    "inc": "Gallagher",
+    "renew": "2027-03-01",
+    "trigger": "Major modernization funded through the Federal Buildings Fund",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = sqft * 480 (USD per gross square foot, federal office replacement heuristic)",
+        "inputs": [
+          "sqft"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      }
+    }
+  },
+  {
+    "id": "fed-javits",
+    "seg": "fed",
+    "name": "Jacob K. Javits Federal Building",
+    "city": "New York",
+    "state": "NY",
+    "lat": 40.7153,
+    "lng": -74.0036,
+    "site": "26 Federal Plaza",
+    "floors": 41,
+    "height": null,
+    "sqft": 1500000,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 720000000,
+    "prem": 864000,
+    "inc": "Gallagher",
+    "renew": "2026-11-01",
+    "trigger": "Major modernization funded through the Federal Buildings Fund",
+    "producer": "lorenz",
+    "verif": "unverified",
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = sqft * 480 (USD per gross square foot, federal office replacement heuristic)",
+        "inputs": [
+          "sqft"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      }
+    }
+  },
+  {
+    "id": "fed-kluczynski",
+    "seg": "fed",
+    "name": "John C. Kluczynski Federal Building",
+    "city": "Chicago",
+    "state": "IL",
+    "lat": 41.8786,
+    "lng": -87.6297,
+    "site": "230 S Dearborn St",
+    "floors": 45,
+    "height": null,
+    "sqft": 1200000,
+    "built": 1974,
+    "constr": null,
+    "roof": null,
+    "tiv": 576000000,
+    "prem": 691000,
+    "inc": "Gallagher",
+    "renew": "2026-11-01",
+    "trigger": "Major modernization funded through the Federal Buildings Fund",
+    "producer": "lorenz",
+    "verif": "unverified",
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = sqft * 480 (USD per gross square foot, federal office replacement heuristic)",
+        "inputs": [
+          "sqft"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      }
+    }
+  },
+  {
+    "id": "fed-cabell",
+    "seg": "fed",
+    "name": "Earle Cabell Federal Building",
+    "city": "Dallas",
+    "state": "TX",
+    "lat": 32.7786,
+    "lng": -96.7987,
+    "site": "1100 Commerce St",
+    "floors": null,
+    "height": null,
+    "sqft": 1100000,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 528000000,
+    "prem": 634000,
+    "inc": "Gallagher",
+    "renew": "2027-07-01",
+    "trigger": "Major modernization funded through the Federal Buildings Fund",
+    "producer": "brown",
+    "verif": "no-record",
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = sqft * 480 (USD per gross square foot, federal office replacement heuristic)",
+        "inputs": [
+          "sqft"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      }
+    }
+  },
+  {
+    "id": "fed-burton",
+    "seg": "fed",
+    "name": "Phillip Burton Federal Building",
+    "city": "San Francisco",
+    "state": "CA",
+    "lat": 37.781,
+    "lng": -122.421,
+    "site": "450 Golden Gate Ave",
+    "floors": null,
+    "height": null,
+    "sqft": 1300000,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 624000000,
+    "prem": 749000,
+    "inc": "Brown & Brown",
+    "renew": "2027-02-01",
+    "trigger": "GSA disposition review may change occupancy assumptions",
+    "producer": "lindstrom",
+    "verif": "no-record",
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = sqft * 480 (USD per gross square foot, federal office replacement heuristic)",
+        "inputs": [
+          "sqft"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      }
+    }
+  },
+  {
+    "id": "fed-denver-center",
+    "seg": "fed",
+    "name": "Denver Federal Center",
+    "city": "Lakewood",
+    "state": "CO",
+    "lat": 39.7239,
+    "lng": -105.1103,
+    "site": "Denver Federal Center Campus",
+    "floors": null,
+    "height": null,
+    "sqft": 4000000,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1920000000,
+    "prem": 2304000,
+    "inc": "Brown & Brown",
+    "renew": "2026-10-01",
+    "trigger": "GSA disposition review may change occupancy assumptions",
+    "producer": "lindstrom",
+    "verif": "no-record",
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = sqft * 480 (USD per gross square foot, federal office replacement heuristic)",
+        "inputs": [
+          "sqft"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      }
+    }
+  },
+  {
+    "id": "fed-bean",
+    "seg": "fed",
+    "name": "Major General Emmett J. Bean Federal Center",
+    "city": "Indianapolis",
+    "state": "IN",
+    "lat": 39.8586,
+    "lng": -86.0155,
+    "site": "Bean Federal Center",
+    "floors": null,
+    "height": null,
+    "sqft": 1600000,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 768000000,
+    "prem": 922000,
+    "inc": "Aon",
+    "renew": "2027-06-01",
+    "trigger": "GSA disposition review may change occupancy assumptions",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = sqft * 480 (USD per gross square foot, federal office replacement heuristic)",
+        "inputs": [
+          "sqft"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      }
+    }
+  },
+  {
+    "id": "fed-celebrezze",
+    "seg": "fed",
+    "name": "Anthony J. Celebrezze Federal Building",
+    "city": "Cleveland",
+    "state": "OH",
+    "lat": 41.5052,
+    "lng": -81.6934,
+    "site": "1240 E 9th St",
+    "floors": 32,
+    "height": null,
+    "sqft": 1200000,
+    "built": 1967,
+    "constr": null,
+    "roof": null,
+    "tiv": 576000000,
+    "prem": 691000,
+    "inc": "Lockton",
+    "renew": "2027-01-01",
+    "trigger": "Security upgrade program adds builders risk exposure",
+    "producer": "lorenz",
+    "verif": "unverified",
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = sqft * 480 (USD per gross square foot, federal office replacement heuristic)",
+        "inputs": [
+          "sqft"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      }
+    }
+  },
+  {
+    "id": "fed-green",
+    "seg": "fed",
+    "name": "William J. Green Jr. Federal Building",
+    "city": "Philadelphia",
+    "state": "PA",
+    "lat": 39.9528,
+    "lng": -75.1508,
+    "site": "600 Arch St",
+    "floors": null,
+    "height": null,
+    "sqft": 980000,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 470000000,
+    "prem": 564000,
+    "inc": "Lockton",
+    "renew": "2027-01-01",
+    "trigger": "Security upgrade program adds builders risk exposure",
+    "producer": "lorenz",
+    "verif": "no-record",
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = sqft * 480 (USD per gross square foot, federal office replacement heuristic)",
+        "inputs": [
+          "sqft"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      }
+    }
+  },
+  {
+    "id": "fed-jackson",
+    "seg": "fed",
+    "name": "Henry M. Jackson Federal Building",
+    "city": "Seattle",
+    "state": "WA",
+    "lat": 47.6046,
+    "lng": -122.334,
+    "site": "915 2nd Ave",
+    "floors": 37,
+    "height": null,
+    "sqft": 815000,
+    "built": 1974,
+    "constr": null,
+    "roof": null,
+    "tiv": 391000000,
+    "prem": 469000,
+    "inc": "Lockton",
+    "renew": "2027-05-01",
+    "trigger": "Security upgrade program adds builders risk exposure",
+    "producer": "lindstrom",
+    "verif": "unverified",
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = sqft * 480 (USD per gross square foot, federal office replacement heuristic)",
+        "inputs": [
+          "sqft"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      }
+    }
+  },
+  {
+    "id": "fed-russell",
+    "seg": "fed",
+    "name": "Richard B. Russell Federal Building",
+    "city": "Atlanta",
+    "state": "GA",
+    "lat": 33.752,
+    "lng": -84.3946,
+    "site": "75 Ted Turner Dr SW",
+    "floors": null,
+    "height": null,
+    "sqft": 1250000,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 600000000,
+    "prem": 720000,
+    "inc": "Alliant",
+    "renew": "2026-12-01",
+    "trigger": "Agency consolidation increases contents values on site",
+    "producer": "brown",
+    "verif": "no-record",
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = sqft * 480 (USD per gross square foot, federal office replacement heuristic)",
+        "inputs": [
+          "sqft"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      }
+    }
+  },
+  {
+    "id": "fed-jfk-boston",
+    "seg": "fed",
+    "name": "John F. Kennedy Federal Building",
+    "city": "Boston",
+    "state": "MA",
+    "lat": 42.361,
+    "lng": -71.0596,
+    "site": "15 New Sudbury St",
+    "floors": 26,
+    "height": null,
+    "sqft": 828000,
+    "built": 1966,
+    "constr": null,
+    "roof": null,
+    "tiv": 397000000,
+    "prem": 476000,
+    "inc": "Lockton",
+    "renew": "2027-09-01",
+    "trigger": "Security upgrade program adds builders risk exposure",
+    "producer": "lorenz",
+    "verif": "unverified",
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = sqft * 480 (USD per gross square foot, federal office replacement heuristic)",
+        "inputs": [
+          "sqft"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      }
+    }
+  },
+  {
+    "id": "fed-young",
+    "seg": "fed",
+    "name": "Robert A. Young Federal Building",
+    "city": "St. Louis",
+    "state": "MO",
+    "lat": 38.6258,
+    "lng": -90.2049,
+    "site": "1222 Spruce St",
+    "floors": null,
+    "height": null,
+    "sqft": 1100000,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 528000000,
+    "prem": 634000,
+    "inc": "Aon",
+    "renew": "2026-10-01",
+    "trigger": "GSA disposition review may change occupancy assumptions",
+    "producer": "brown",
+    "verif": "no-record",
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "gsa_iolp",
+        "note": "2024 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = sqft * 480 (USD per gross square foot, federal office replacement heuristic)",
+        "inputs": [
+          "sqft"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      }
+    }
+  }
+]

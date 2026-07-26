@@ -1,0 +1,34 @@
+name: VANTAGE CI
+
+on:
+  push:
+    paths:
+      - 'vantage-public-sector/**'
+      - '.github/workflows/vantage-ci.yml'
+  pull_request:
+    paths:
+      - 'vantage-public-sector/**'
+      - '.github/workflows/vantage-ci.yml'
+
+jobs:
+  validate-and-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: vantage-public-sector
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Validate data (schema, coverage, provenance, em dash scan)
+        run: node scripts/validate-data.js
+      - name: Build single-file bundle (CDN variant)
+        run: node build.js
+      - name: Build single-file bundle (vendored three.js)
+        run: node build.js --vendor
+      - name: Upload bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: VANTAGE_PublicSector
+          path: vantage-public-sector/dist/VANTAGE_PublicSector.html
