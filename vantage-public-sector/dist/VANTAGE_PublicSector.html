@@ -632,6 +632,62 @@ a:hover { text-decoration: underline; }
 .section-title-row .card-sub { margin-left: 2px; }
 .view-note { color: var(--muted); font-size: var(--fs-sm); margin: 4px 0 14px; }
 
+#seg-detail { overflow-x: auto; }
+
+.noscript-msg {
+  max-width: 420px;
+  margin: 80px auto;
+  text-align: center;
+  color: var(--muted);
+  padding: 0 20px;
+  line-height: 1.6;
+}
+
+/* ------------------------------------------------ mobile */
+@media (max-width: 700px) {
+  .topbar { padding: 10px 12px 8px; gap: 10px; }
+  .topbar .brand-word { font-size: var(--fs-md); letter-spacing: 0.2em; }
+  .topbar .brand-practice { font-size: 9px; }
+  .user-chip { margin-left: auto; }
+  .user-chip .user-name { display: none; }
+
+  .nav-tabs {
+    order: 5;
+    width: 100%;
+    margin-left: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tab { padding: 10px 12px; white-space: nowrap; flex: none; }
+
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 10px 12px 0; }
+  .kpi { padding: 10px 12px; }
+  .kpi .kpi-value { font-size: 19px; }
+  .kpi .kpi-label { font-size: 9.5px; }
+
+  #view-root { padding: 12px; }
+  .card { padding: 12px; }
+
+  .map-controls { gap: 8px; }
+  .pool-ctl { margin-left: 0; width: 100%; }
+  .mode-toggle button { padding: 8px 12px; }
+  .entity-list { max-height: 48vh; }
+
+  #drawer { width: 100vw; max-width: 100vw; padding: 14px 12px 48px; }
+  .drawer-head h2 { font-size: var(--fs-md); }
+  .drawer-tab { padding: 10px 12px; }
+  .facts-grid { gap: 7px 8px; }
+  .viewer-wrap { height: 210px; }
+  .opp-row { flex-direction: column; gap: 3px; }
+  .opp-row .opp-label { width: auto; }
+
+  .auth-card { padding: 26px 18px; }
+  .section-title-row h2 { font-size: var(--fs-md); }
+}
+
 </style>
 <!-- three.js r128, pinned. The bundle inlines vendor/three.r128.min.js when
      built with the vendor flag; the app degrades to the SVG elevation
@@ -648,6 +704,7 @@ a:hover { text-decoration: underline; }
 </head>
 <body>
 <div id="demo-banner">DEMONSTRATION BUILD &middot; values marked MODELED are synthetic placeholders, not research &middot; this banner stays until every modeled field is replaced</div>
+<noscript><div class="noscript-msg">VANTAGE needs JavaScript to run. This viewer has scripts disabled; download the file and open it in a browser instead.</div></noscript>
 
 <div id="auth-screen"></div>
 
