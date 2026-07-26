@@ -49,8 +49,10 @@ html, body {
   font-family: var(--font-stack);
   font-size: var(--fs-base);
   min-height: 100vh;
+  -webkit-text-size-adjust: 100%;
 }
 
+button, a, select, input, textarea { touch-action: manipulation; }
 button { font-family: inherit; }
 [hidden] { display: none !important; }
 
@@ -686,6 +688,23 @@ a:hover { text-decoration: underline; }
 
   .auth-card { padding: 26px 18px; }
   .section-title-row h2 { font-size: var(--fs-md); }
+
+  /* iOS zooms the page when a focused control's font is under 16px */
+  .text-input,
+  .pool-ctl input,
+  .flag-form select,
+  .flag-form textarea,
+  .flag-form input,
+  .lenore-panel select,
+  .lenore-panel input {
+    font-size: 16px;
+  }
+  .pool-ctl input { width: 76px; }
+
+  .drawer-close { width: 42px; height: 42px; font-size: 20px; }
+  .btn { padding: 12px 20px; }
+  .btn.btn-sm { padding: 10px 14px; }
+  .roster-btn { padding: 14px 16px; }
 }
 
 </style>
@@ -735,6 +754,17 @@ window.V = window.V || {};
 
 (function (V) {
   'use strict';
+
+  /* Some hosts (embedded viewers, wrapper pages) strip or omit the head
+     viewport tag; without it, phones lay the app out at desktop width.
+     A dynamically inserted viewport meta is honored by mobile Safari and
+     Chrome, so guarantee one exists before anything renders. */
+  if (!document.querySelector('meta[name="viewport"]')) {
+    var vp = document.createElement('meta');
+    vp.name = 'viewport';
+    vp.content = 'width=device-width, initial-scale=1.0';
+    (document.head || document.documentElement).appendChild(vp);
+  }
 
   var LS_VERIF = 'vantage_ps_verif';
   var LS_POOL = 'vantage_ps_poolbps';
@@ -960,9 +990,13 @@ window.V = window.V || {};
 
   /* ---------------- tooltip ---------------- */
 
+  /* Hover tooltips make no sense on touch screens: the synthetic
+     mousemove before a tap would leave a tooltip stuck over the UI. */
+  var touchOnly = window.matchMedia && window.matchMedia('(hover: none)').matches;
   var tipEl = null;
   V.tip = {
     show: function (html, x, y) {
+      if (touchOnly) return;
       if (!tipEl) {
         tipEl = document.createElement('div');
         tipEl.className = 'map-tip';
@@ -1721,6 +1755,7 @@ window.V = window.V || {};
   var flagFormOpen = false;
 
   V.drawer.open = function (id) {
+    V.tip.hide();
     V.state.drawerId = id;
     V.state.drawerTab = 'property';
     flagFormOpen = false;

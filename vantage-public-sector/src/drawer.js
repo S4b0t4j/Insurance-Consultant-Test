@@ -13,6 +13,7 @@ window.V = window.V || {};
   var flagFormOpen = false;
 
   V.drawer.open = function (id) {
+    V.tip.hide();
     V.state.drawerId = id;
     V.state.drawerTab = 'property';
     flagFormOpen = false;

@@ -7,6 +7,17 @@ window.V = window.V || {};
 (function (V) {
   'use strict';
 
+  /* Some hosts (embedded viewers, wrapper pages) strip or omit the head
+     viewport tag; without it, phones lay the app out at desktop width.
+     A dynamically inserted viewport meta is honored by mobile Safari and
+     Chrome, so guarantee one exists before anything renders. */
+  if (!document.querySelector('meta[name="viewport"]')) {
+    var vp = document.createElement('meta');
+    vp.name = 'viewport';
+    vp.content = 'width=device-width, initial-scale=1.0';
+    (document.head || document.documentElement).appendChild(vp);
+  }
+
   var LS_VERIF = 'vantage_ps_verif';
   var LS_POOL = 'vantage_ps_poolbps';
 
@@ -231,9 +242,13 @@ window.V = window.V || {};
 
   /* ---------------- tooltip ---------------- */
 
+  /* Hover tooltips make no sense on touch screens: the synthetic
+     mousemove before a tap would leave a tooltip stuck over the UI. */
+  var touchOnly = window.matchMedia && window.matchMedia('(hover: none)').matches;
   var tipEl = null;
   V.tip = {
     show: function (html, x, y) {
+      if (touchOnly) return;
       if (!tipEl) {
         tipEl = document.createElement('div');
         tipEl.className = 'map-tip';
