@@ -1,0 +1,58 @@
+[
+  {
+    "key": "city",
+    "label": "Cities and Municipalities",
+    "accent": "#04B4BF",
+    "metricKey": "employees",
+    "metricLabel": "Municipal FTE employees",
+    "registry": "census_aspep"
+  },
+  {
+    "key": "transit",
+    "label": "Transit Authorities",
+    "accent": "#FFBF00",
+    "metricKey": "ridership",
+    "metricLabel": "Annual unlinked passenger trips",
+    "registry": "ntd_agency"
+  },
+  {
+    "key": "water",
+    "label": "Water and Wastewater",
+    "accent": "#56CCF2",
+    "metricKey": "served",
+    "metricLabel": "Population served",
+    "registry": "epa_sdwis"
+  },
+  {
+    "key": "highered",
+    "label": "Higher Education",
+    "accent": "#B58CFF",
+    "metricKey": "enrollment",
+    "metricLabel": "Fall enrollment",
+    "registry": "ipeds"
+  },
+  {
+    "key": "health",
+    "label": "Public Health Systems",
+    "accent": "#FF7A85",
+    "metricKey": "beds",
+    "metricLabel": "Licensed beds",
+    "registry": "cms_pos"
+  },
+  {
+    "key": "fed",
+    "label": "Federal and GovCon",
+    "accent": "#9FE870",
+    "metricKey": "sqft",
+    "metricLabel": "Gross square feet",
+    "registry": "gsa_iolp"
+  },
+  {
+    "key": "air",
+    "label": "Airports and Aviation",
+    "accent": "#FFA45E",
+    "metricKey": "passengers",
+    "metricLabel": "Annual enplanements",
+    "registry": "faa_npias"
+  }
+]
