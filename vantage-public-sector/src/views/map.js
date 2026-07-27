@@ -10,6 +10,8 @@ V.views = V.views || {};
 
   V.views.map = function (root) {
     var segs = V.state.data.segments;
+    var isGlobe = V.state.mapMode === 'globe';
+    V.globe.unmount();
     root.innerHTML =
       '<div class="map-layout">' +
       '<div class="card">' +
@@ -17,19 +19,22 @@ V.views = V.views || {};
       '<div class="mode-toggle">' +
       '<button id="mode-market" class="' + (V.state.mapMode === 'market' ? 'active' : '') + '">Market view</button>' +
       '<button id="mode-geo" class="' + (V.state.mapMode === 'geo' ? 'active' : '') + '">Geographic view</button>' +
+      '<button id="mode-globe" class="' + (isGlobe ? 'active' : '') + '">Global view</button>' +
       '</div>' +
-      (V.state.selectedState ? '<button class="btn btn-ghost btn-sm" id="clear-state">Clear ' + V.state.selectedState + ' filter</button>' : '') +
-      '<div class="pool-ctl"><label for="pool-bps">POOL_BPS</label>' +
-      '<input id="pool-bps" type="number" step="0.1" min="0.1" value="' + V.state.poolBps + '" aria-label="Premium pool assumption in basis points of state GDP">' +
-      '<span>bps of GDP &rarr;</span><span class="pool-out" id="pool-out"></span></div>' +
+      (!isGlobe && V.state.selectedState ? '<button class="btn btn-ghost btn-sm" id="clear-state">Clear ' + V.state.selectedState + ' filter</button>' : '') +
+      (isGlobe ? '' :
+        '<div class="pool-ctl"><label for="pool-bps">POOL_BPS</label>' +
+        '<input id="pool-bps" type="number" step="0.1" min="0.1" value="' + V.state.poolBps + '" aria-label="Premium pool assumption in basis points of state GDP">' +
+        '<span>bps of GDP &rarr;</span><span class="pool-out" id="pool-out"></span></div>') +
       '</div>' +
       '<div class="map-svg-wrap" id="map-canvas"></div>' +
       '<div class="legend" id="map-legend"></div>' +
       '</div>' +
-      '<div class="card">' +
-      '<h3 id="list-title"></h3>' +
-      '<div class="legend" id="seg-filter" style="margin:0 0 10px"></div>' +
-      '<div class="entity-list" id="entity-list"></div>' +
+      '<div class="card" id="map-side">' +
+      (isGlobe ? '' :
+        '<h3 id="list-title"></h3>' +
+        '<div class="legend" id="seg-filter" style="margin:0 0 10px"></div>' +
+        '<div class="entity-list" id="entity-list"></div>') +
       '</div>' +
       '</div>';
 
@@ -41,6 +46,19 @@ V.views = V.views || {};
       V.state.mapMode = 'geo';
       V.renderShell();
     });
+    document.getElementById('mode-globe').addEventListener('click', function () {
+      V.state.mapMode = 'globe';
+      V.renderShell();
+    });
+
+    if (isGlobe) {
+      var legend = document.getElementById('map-legend');
+      V.globe.render(document.getElementById('map-canvas'), document.getElementById('map-side'));
+      legend.innerHTML = segs.map(function (s) {
+        return '<span class="legend-item"><span class="swatch" style="background:' + s.accent + ';border-radius:50%"></span> ' + s.label + '</span>';
+      }).join('') + '<span class="legend-item">orthographic globe &middot; Natural Earth coastlines &middot; US book detail stays in the Market and Geographic views</span>';
+      return;
+    }
     var clearBtn = document.getElementById('clear-state');
     if (clearBtn) clearBtn.addEventListener('click', function () {
       V.state.selectedState = null;

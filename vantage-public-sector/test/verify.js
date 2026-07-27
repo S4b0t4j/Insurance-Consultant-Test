@@ -89,6 +89,31 @@ async function passWebglOn() {
   });
   check('Alaska entity plots inside the Alaska inset', !!akPos && akPos[0] < 250 && akPos[1] > 450, JSON.stringify(akPos));
 
+  /* globe view: rotation, dots, country legend spin and zoom */
+  await page.click('#mode-globe');
+  await page.waitForSelector('#globe-canvas');
+  const dbg1 = await page.evaluate(() => window.V.globe.debug());
+  check('globe shows 60+ global entity dots', dbg1.dots >= 60, 'dots ' + dbg1.dots);
+  check('globe auto-rotation running', dbg1.spinning === true);
+  const lng1 = dbg1.center[0];
+  await page.waitForTimeout(700);
+  const dbg2 = await page.evaluate(() => window.V.globe.debug());
+  const drift = ((lng1 - dbg2.center[0]) + 360) % 360;
+  check('globe rotates counterclockwise (center drifts west)', drift > 0.5 && drift < 30, 'drift ' + drift.toFixed(2));
+  check('country legend lists 45+ countries', (await page.locator('.globe-country').count()) >= 45);
+  await page.click('.globe-country[data-code="JP"]');
+  await page.waitForTimeout(1700);
+  const dbg3 = await page.evaluate(() => window.V.globe.debug());
+  check('legend click spins to the country and zooms', dbg3.focus === 'JP' && dbg3.zoom > 1.5 && Math.abs(dbg3.center[0] - 138.3) < 2 && Math.abs(dbg3.center[1] - 36.2) < 2, JSON.stringify(dbg3));
+  check('rotation paused while focused', dbg3.spinning === false);
+  await page.click('#globe-reset');
+  await page.waitForTimeout(1100);
+  const dbg4 = await page.evaluate(() => window.V.globe.debug());
+  check('reset resumes rotation and zooms out', dbg4.spinning === true && dbg4.zoom < 1.1, JSON.stringify(dbg4));
+  await page.click('#mode-geo');
+  await page.waitForSelector('.geo-marker');
+  check('US geographic view unchanged after globe visit', (await page.locator('.geo-marker').count()) === 136);
+
   /* drawer via marker click: floored entity gets 3D massing.
      dispatchEvent because a co-located federal building marker overlaps
      the Philadelphia City Hall marker at real coordinates. */

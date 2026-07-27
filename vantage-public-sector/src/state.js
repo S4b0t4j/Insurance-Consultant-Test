@@ -118,7 +118,7 @@ window.V = window.V || {};
       return Promise.resolve(V.state.data);
     }
     var segFiles = ['city', 'transit', 'water', 'highered', 'health', 'fed', 'air'];
-    var urls = ['data/gdp-by-state.json', 'data/segments.json', 'data/producers.json', 'data/sources.json', 'data/us-borders.json']
+    var urls = ['data/gdp-by-state.json', 'data/segments.json', 'data/producers.json', 'data/sources.json', 'data/us-borders.json', 'data/world-land.json', 'data/global-cities.json']
       .concat(segFiles.map(function (s) { return 'data/entities/' + s + '.json'; }));
     return Promise.all(urls.map(function (u) {
       return fetch(u).then(function (r) {
@@ -132,7 +132,9 @@ window.V = window.V || {};
         producers: parts[2],
         sources: parts[3],
         borders: parts[4],
-        entities: [].concat(parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
+        worldLand: parts[5],
+        globalCities: parts[6],
+        entities: [].concat(parts[7], parts[8], parts[9], parts[10], parts[11], parts[12], parts[13])
       };
       V.state.data = normalize(raw);
       return V.state.data;
@@ -150,7 +152,9 @@ window.V = window.V || {};
       producers: raw.producers,
       sources: raw.sources.sources,
       sourcesNote: raw.sources.compileNote,
-      borders: raw.borders
+      borders: raw.borders,
+      worldLand: raw.worldLand,
+      globalCities: raw.globalCities
     };
   }
 

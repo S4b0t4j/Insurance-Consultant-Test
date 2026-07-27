@@ -39,6 +39,7 @@ const JS_ORDER = [
   'src/scope.js',
   'src/map-cartogram.js',
   'src/map-geo.js',
+  'src/map-globe.js',
   'src/viewer-3d.js',
   'src/drawer.js',
   'src/lenore.js',
@@ -55,6 +56,8 @@ const data = {
   producers: JSON.parse(read('data/producers.json')),
   sources: JSON.parse(read('data/sources.json')),
   borders: JSON.parse(read('data/us-borders.json')),
+  worldLand: JSON.parse(read('data/world-land.json')),
+  globalCities: JSON.parse(read('data/global-cities.json')),
   entities: []
 };
 for (const seg of ['city', 'transit', 'water', 'highered', 'health', 'fed', 'air']) {

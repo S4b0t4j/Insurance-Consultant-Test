@@ -72,6 +72,22 @@
       "fields": "building attributes: floors, height, built year, construction, roof",
       "note": "Live Overpass retrieval was blocked by the build environment's network policy. Building attributes are null unless the value is widely documented and consistent with OSM tags, in which case the record's provenance note says so explicitly. Null building attributes are surfaced in the Verification Queue as no-record items by design."
     },
+    "world_atlas": {
+      "name": "world-atlas TopoJSON, land-110m (Natural Earth 1:110M coastlines)",
+      "publisher": "Natural Earth via the world-atlas project",
+      "url": "https://github.com/topojson/world-atlas",
+      "retrieved": "2026-07-27",
+      "fields": "world land geometry for the globe view",
+      "note": "Retrieved live from the world-atlas npm package at build time."
+    },
+    "global_showcase": {
+      "name": "Global public entity showcase layer",
+      "publisher": "compiled for this demonstration",
+      "url": "n/a",
+      "retrieved": "2026-07-27",
+      "fields": "city coordinates and entity names on the globe view",
+      "note": "Illustrative display layer: real public entities at real city coordinates compiled from public knowledge, no insured values or pipeline records attached. Marked as a showcase in the UI. Not underwriting research."
+    },
     "us_atlas": {
       "name": "US Atlas TopoJSON, states-albers-10m (Census Bureau cartographic boundary files, 1:10M, pre-projected d3 geoAlbersUsa)",
       "publisher": "U.S. Census Bureau via the us-atlas project",
