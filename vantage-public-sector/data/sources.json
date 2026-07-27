@@ -72,6 +72,14 @@
       "fields": "building attributes: floors, height, built year, construction, roof",
       "note": "Live Overpass retrieval was blocked by the build environment's network policy. Building attributes are null unless the value is widely documented and consistent with OSM tags, in which case the record's provenance note says so explicitly. Null building attributes are surfaced in the Verification Queue as no-record items by design."
     },
+    "us_atlas": {
+      "name": "US Atlas TopoJSON, states-albers-10m (Census Bureau cartographic boundary files, 1:10M, pre-projected d3 geoAlbersUsa)",
+      "publisher": "U.S. Census Bureau via the us-atlas project",
+      "url": "https://github.com/topojson/us-atlas",
+      "retrieved": "2026-07-27",
+      "fields": "state and nation boundary geometry and projected entity map points",
+      "note": "Retrieved live from the us-atlas npm package at build time. This is the one dataset in this compile that was fetched, not reconstructed."
+    },
     "bea_gdp": {
       "name": "SAGDP1 State Annual Gross Domestic Product, 2024",
       "publisher": "U.S. Bureau of Economic Analysis",

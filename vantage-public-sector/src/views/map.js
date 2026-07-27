@@ -73,7 +73,7 @@ V.views = V.views || {};
       V.geo.render(canvas);
       legend.innerHTML = segs.map(function (s) {
         return '<span class="legend-item"><span class="swatch" style="background:' + s.accent + ';border-radius:50%"></span> ' + s.label + '</span>';
-      }).join('') + '<span class="legend-item">marker radius = total insured value &middot; Albers equal-area conic</span>';
+      }).join('') + '<span class="legend-item">marker radius = total insured value &middot; Albers equal-area conic, Census cartographic boundaries</span>';
     }
 
     /* segment filter chips */

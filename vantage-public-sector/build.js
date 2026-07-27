@@ -54,6 +54,7 @@ const data = {
   segments: JSON.parse(read('data/segments.json')),
   producers: JSON.parse(read('data/producers.json')),
   sources: JSON.parse(read('data/sources.json')),
+  borders: JSON.parse(read('data/us-borders.json')),
   entities: []
 };
 for (const seg of ['city', 'transit', 'water', 'highered', 'health', 'fed', 'air']) {

@@ -14,6 +14,8 @@
  *  8. At least 120 entities total.
  *  9. States above 500B nominal GDP have at least 3 entities; top 10 have at least 5.
  * 10. No em dash character anywhere in any file under data/.
+ * 11. Every entity has a projected map point in data/us-borders.json
+ *     (regenerate with scripts/build-geo.mjs after adding entities).
  */
 
 'use strict';
@@ -140,6 +142,19 @@ for (const seg of segKeys) {
   const n = bySeg[seg] || 0;
   if (n < 12) fail('Segment ' + seg + ' has ' + n + ' entities; at least 12 required');
   if (n / entities.length > 0.3) fail('Segment ' + seg + ' has ' + n + ' of ' + entities.length + ' entities; exceeds the 30 percent cap');
+}
+
+/* ---- 11. projected map points cover every entity ---- */
+const bordersPath = path.join(DATA_DIR, 'us-borders.json');
+if (!fs.existsSync(bordersPath)) {
+  fail('data/us-borders.json missing; run scripts/build-geo.mjs');
+} else {
+  const borders = JSON.parse(fs.readFileSync(bordersPath, 'utf8'));
+  for (const e of entities) {
+    if (!borders.points || !borders.points[e.id]) {
+      fail(e.id + ': no projected point in us-borders.json; rerun scripts/build-geo.mjs');
+    }
+  }
 }
 
 /* ---- report ---- */

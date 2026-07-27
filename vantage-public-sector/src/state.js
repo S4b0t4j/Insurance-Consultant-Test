@@ -118,7 +118,7 @@ window.V = window.V || {};
       return Promise.resolve(V.state.data);
     }
     var segFiles = ['city', 'transit', 'water', 'highered', 'health', 'fed', 'air'];
-    var urls = ['data/gdp-by-state.json', 'data/segments.json', 'data/producers.json', 'data/sources.json']
+    var urls = ['data/gdp-by-state.json', 'data/segments.json', 'data/producers.json', 'data/sources.json', 'data/us-borders.json']
       .concat(segFiles.map(function (s) { return 'data/entities/' + s + '.json'; }));
     return Promise.all(urls.map(function (u) {
       return fetch(u).then(function (r) {
@@ -131,7 +131,8 @@ window.V = window.V || {};
         segments: parts[1],
         producers: parts[2],
         sources: parts[3],
-        entities: [].concat(parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10])
+        borders: parts[4],
+        entities: [].concat(parts[5], parts[6], parts[7], parts[8], parts[9], parts[10], parts[11])
       };
       V.state.data = normalize(raw);
       return V.state.data;
@@ -148,7 +149,8 @@ window.V = window.V || {};
       stateNames: raw.gdp.names,
       producers: raw.producers,
       sources: raw.sources.sources,
-      sourcesNote: raw.sources.compileNote
+      sourcesNote: raw.sources.compileNote,
+      borders: raw.borders
     };
   }
 

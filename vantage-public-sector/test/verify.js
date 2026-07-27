@@ -80,8 +80,14 @@ async function passWebglOn() {
   await page.waitForSelector('.geo-marker');
   const markers = await page.locator('.geo-marker').count();
   check('geographic view plots all in-scope entities', markers === 136, 'saw ' + markers);
-  const akMarker = await page.locator('.geo-marker[data-id="air-anc"]').count();
-  check('Alaska entity plots in the inset', akMarker === 1);
+  const nationD = await page.getAttribute('.geo-nation', 'd');
+  check('US nation outline rendered from Census boundaries', !!nationD && nationD.length > 10000, 'path length ' + (nationD || '').length);
+  check('interior state borders rendered', !!(await page.getAttribute('.geo-states', 'd')));
+  const akPos = await page.evaluate(() => {
+    const m = document.querySelector('.geo-marker[data-id="air-anc"]');
+    return m ? [parseFloat(m.getAttribute('cx')), parseFloat(m.getAttribute('cy'))] : null;
+  });
+  check('Alaska entity plots inside the Alaska inset', !!akPos && akPos[0] < 250 && akPos[1] > 450, JSON.stringify(akPos));
 
   /* drawer via marker click: floored entity gets 3D massing.
      dispatchEvent because a co-located federal building marker overlaps
