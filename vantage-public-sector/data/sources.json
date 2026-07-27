@@ -88,6 +88,14 @@
       "fields": "city coordinates and entity names on the globe view",
       "note": "Illustrative display layer: real public entities at real city coordinates compiled from public knowledge, no insured values or pipeline records attached. Marked as a showcase in the UI. Not underwriting research."
     },
+    "metro_gdp": {
+      "name": "Metropolitan area nominal GDP, OECD Metropolitan Areas database and Brookings Global Metro Monitor",
+      "publisher": "OECD and Brookings Institution",
+      "url": "https://stats.oecd.org and https://www.brookings.edu/articles/global-metro-monitor",
+      "retrieved": "2026-07-27",
+      "fields": "metro GDP for globe showcase cities, billions of USD",
+      "note": "Compiled offline from the named datasets' published editions as known at compile time, rounded to magnitude. Live retrieval was blocked by network policy. Re-verify before client use."
+    },
     "us_atlas": {
       "name": "US Atlas TopoJSON, states-albers-10m (Census Bureau cartographic boundary files, 1:10M, pre-projected d3 geoAlbersUsa)",
       "publisher": "U.S. Census Bureau via the us-atlas project",

@@ -637,6 +637,23 @@ a:hover { text-decoration: underline; }
   padding: 1px 8px;
 }
 .globe-country.active .globe-count { color: var(--gold); border-color: var(--gold); }
+
+#globe-cities { display: flex; flex-direction: column; gap: 7px; }
+.gcity-row {
+  background: var(--navy);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  padding: 8px 11px 9px;
+  cursor: pointer;
+}
+.gcity-row:hover { border-color: var(--active-blue); }
+.gcity-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.gcity-name { color: var(--sky); font-size: var(--fs-sm); font-weight: 600; }
+.gcity-gdp { color: var(--gold); font-size: var(--fs-sm); font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.gcity-sub { color: var(--muted); font-size: var(--fs-xs); margin-top: 2px; }
+.gcity-bar { height: 4px; background: var(--card-bg); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+.gcity-bar span { display: block; height: 100%; border-radius: 2px; }
+
 @media (max-width: 700px) {
   .globe-legend { max-height: 300px; }
 }

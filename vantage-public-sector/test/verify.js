@@ -95,6 +95,10 @@ async function passWebglOn() {
   const dbg1 = await page.evaluate(() => window.V.globe.debug());
   check('globe shows 60+ global entity dots', dbg1.dots >= 60, 'dots ' + dbg1.dots);
   check('globe auto-rotation running', dbg1.spinning === true);
+  check('every showcase city carries metro GDP', dbg1.gdpTotal > 20000, 'gdp total ' + dbg1.gdpTotal);
+  const panelText = await page.textContent('#globe-cities');
+  check('influence panel ranks top global entities', (await page.locator('.gcity-row').count()) === 10 && panelText.includes('metro GDP') && panelText.includes('influence est.'));
+  check('top influence entity is a megacity system', dbg1.topInfluence && panelText.includes(dbg1.topInfluence), dbg1.topInfluence);
   const lng1 = dbg1.center[0];
   await page.waitForTimeout(700);
   const dbg2 = await page.evaluate(() => window.V.globe.debug());
@@ -106,6 +110,8 @@ async function passWebglOn() {
   const dbg3 = await page.evaluate(() => window.V.globe.debug());
   check('legend click spins to the country and zooms', dbg3.focus === 'JP' && dbg3.zoom > 1.5 && Math.abs(dbg3.center[0] - 138.3) < 2 && Math.abs(dbg3.center[1] - 36.2) < 2, JSON.stringify(dbg3));
   check('rotation paused while focused', dbg3.spinning === false);
+  const jpPanel = await page.textContent('#globe-cities');
+  check('focused country panel shows its cities with GDP', jpPanel.includes('Tokyo Metro') && jpPanel.includes('Osaka Metro') && jpPanel.includes('$1,800B'), jpPanel.slice(0, 120));
   await page.click('#globe-reset');
   await page.waitForTimeout(1100);
   const dbg4 = await page.evaluate(() => window.V.globe.debug());
