@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AVWAP Reading Ledger — Maximum Trading Gains with Anchored VWAP</title>
+<style>
+  /* ---------- printed chart paper ---------- */
+  :root {
+    --paper: #E9EDE7;
+    --panel: #EFF2ED;
+    --grid-fine: #DDE4DC;
+    --grid-major: #CFD9CE;
+    --ink: #26333A;
+    --ink-muted: #55645F;
+    --ink-faint: #8A978F;
+    --rule: #9FACA2;
+    --teal: #03836F;      /* actual progress */
+    --ochre: #A87F16;     /* anchored pace */
+    --red: #963F38;       /* required pace */
+    --font-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+    --font-body: 'Source Serif 4', 'Source Serif Pro', Georgia, 'Times New Roman', serif;
+    --font-mono: 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, 'Courier New', monospace;
+  }
+
+  * { box-sizing: border-box; border-radius: 0 !important; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(var(--grid-major) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+      linear-gradient(var(--grid-fine) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-fine) 1px, transparent 1px);
+    background-size: 48px 48px, 48px 48px, 8px 8px, 8px 8px;
+  }
+
+  .wrap { max-width: 980px; margin: 0 auto; padding: 20px 16px 64px; }
+
+  h1, h2, h3, .label, button, .badge, .part-head {
+    font-family: var(--font-display);
+  }
+  .num, input, td.num, .tick, .stat-value, .range {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  header.masthead {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+  }
+  header.masthead h1 {
+    margin: 0;
+    font-size: 22px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  header.masthead p {
+    margin: 4px 0 0;
+    color: var(--ink-muted);
+    font-size: 15px;
+  }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .panel h2 {
+    margin: 0 0 12px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 6px;
+  }
+
+  /* ---------- controls ---------- */
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 32px;
+    align-items: flex-end;
+  }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .hint { font-size: 12px; color: var(--ink-faint); font-family: var(--font-mono); }
+
+  input[type="number"], input[type="date"] {
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    font-size: 16px;
+    padding: 6px 8px;
+    width: 110px;
+  }
+  input[type="date"] { width: 160px; }
+
+  .stepper { display: flex; align-items: stretch; }
+  .stepper input { width: 90px; text-align: center; border-left: 0; border-right: 0; }
+  .stepper button { width: 40px; font-size: 18px; line-height: 1; }
+
+  button, .file-btn {
+    background: var(--panel);
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-family: var(--font-display);
+  }
+  button:hover, .file-btn:hover { background: var(--ink); color: var(--paper); }
+
+  :focus-visible, .file-btn:has(:focus-visible) {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .file-btn input[type="file"] {
+    position: absolute; width: 1px; height: 1px;
+    clip: rect(0 0 0 0); overflow: hidden; white-space: nowrap;
+  }
+  .file-btn { position: relative; display: inline-block; }
+
+  /* ---------- stats ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .stat { background: var(--panel); padding: 10px 12px; }
+  .stat .label { display: block; margin-bottom: 2px; }
+  .stat-value { font-size: 20px; }
+  .stat-value small { font-size: 12px; color: var(--ink-muted); }
+
+  /* ---------- chart ---------- */
+  .chart-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 12px; flex-wrap: wrap;
+  }
+  .badge {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid;
+    padding: 3px 8px;
+  }
+  .badge.above { color: var(--teal); border-color: var(--teal); }
+  .badge.below { color: var(--red); border-color: var(--red); }
+  .badge.none { color: var(--ink-faint); border-color: var(--ink-faint); }
+
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 8px 20px;
+    margin: 10px 0 6px;
+    font-size: 12px;
+    font-family: var(--font-display);
+    color: var(--ink-muted);
+  }
+  .legend .chip {
+    display: inline-block; width: 14px; height: 3px;
+    margin-right: 6px; vertical-align: middle;
+  }
+  .legend .chip.dashed {
+    background: none;
+    border-top: 3px dotted currentColor;
+    height: 0;
+  }
+
+  svg { display: block; width: 100%; height: auto; }
+  .tick { font-size: 11px; fill: var(--ink-muted); }
+  .empty-state {
+    padding: 40px 16px;
+    text-align: center;
+    color: var(--ink-muted);
+    border: 1px dashed var(--rule);
+  }
+
+  /* ---------- contents + notes ---------- */
+  .columns { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; align-items: start; }
+
+  .part-head {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 14px 0 4px;
+  }
+  .part-head:first-child { margin-top: 0; }
+
+  .chapter {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 1px solid transparent;
+    padding: 6px 6px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    letter-spacing: 0;
+    color: var(--ink);
+  }
+  .chapter:hover { background: var(--paper); color: var(--ink); border-color: var(--rule); }
+  .chapter.here { border-color: var(--ink); background: var(--paper); }
+  .chapter-row { display: flex; justify-content: space-between; gap: 12px; }
+  .chapter .range { font-size: 12px; color: var(--ink-muted); white-space: nowrap; }
+  .bar {
+    display: block;
+    margin-top: 4px;
+    height: 4px;
+    background: var(--grid-major);
+    position: relative;
+  }
+  .bar .fill {
+    position: absolute; inset: 0 auto 0 0;
+    background: var(--teal);
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 260px;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 10px;
+    resize: vertical;
+  }
+  .notes-meta { font-size: 12px; color: var(--ink-faint); font-family: var(--font-mono); margin-top: 4px; min-height: 1em; }
+
+  footer { color: var(--ink-faint); font-size: 12px; font-family: var(--font-mono); margin-top: 24px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .bar .fill { transition: width 200ms ease; }
+    button, .chapter { transition: background-color 120ms ease, color 120ms ease; }
+  }
+
+  @media (max-width: 760px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat:last-child { grid-column: 1 / -1; }
+    .columns { grid-template-columns: 1fr; }
+    .controls { gap: 14px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <h1>AVWAP Reading Ledger</h1>
+    <p>Brian Shannon — <em>Maximum Trading Gains with Anchored VWAP</em> · <span class="num">409</span> pages (PDF numbering)</p>
+  </header>
+
+  <section class="panel" aria-label="Controls">
+    <h2>Position</h2>
+    <div class="controls">
+      <div class="field">
+        <label class="label" for="pageInput">Current page</label>
+        <div class="stepper">
+          <button type="button" id="pageMinus" aria-label="Back one page">&minus;</button>
+          <input type="number" id="pageInput" inputmode="numeric" step="1" aria-describedby="pageHint">
+          <button type="button" id="pagePlus" aria-label="Forward one page">+</button>
+        </div>
+        <span class="hint" id="pageHint"></span>
+      </div>
+      <div class="field">
+        <label class="label" for="offsetInput">Print offset</label>
+        <input type="number" id="offsetInput" inputmode="numeric" step="1">
+        <span class="hint">added to displayed page numbers</span>
+      </div>
+      <div class="field">
+        <label class="label" for="targetInput">Finish by</label>
+        <input type="date" id="targetInput">
+      </div>
+      <div class="field">
+        <span class="label" id="backupLabel">Backup</span>
+        <div style="display:flex; gap:8px;" role="group" aria-labelledby="backupLabel">
+          <button type="button" id="exportBtn">Download backup</button>
+          <label class="file-btn">Import backup<input type="file" id="importInput" accept=".json,application/json"></label>
+        </div>
+        <span class="hint" id="storageHint"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="Statistics" id="statsRow"></section>
+
+  <section class="panel" aria-label="Pace chart" style="margin-top:16px;">
+    <div class="chart-head">
+      <h2 style="border:0; margin:0; padding:0;">Pace chart</h2>
+      <span class="badge none" id="verdict">No anchor yet</span>
+    </div>
+    <div class="legend" aria-hidden="true">
+      <span><span class="chip" style="background:var(--teal)"></span>Actual pages read</span>
+      <span style="color:var(--ochre)"><span class="chip" style="background:var(--ochre)"></span><span style="color:var(--ink-muted)">Anchored pace</span></span>
+      <span><span class="chip dashed" style="color:var(--red)"></span>Required pace</span>
+    </div>
+    <div id="chart"></div>
+  </section>
+
+  <div class="columns">
+    <section class="panel" aria-label="Contents">
+      <h2>Contents</h2>
+      <nav id="contents"></nav>
+    </section>
+    <section class="panel" aria-label="Chapter notes">
+      <h2 id="notesTitle">Notes</h2>
+      <textarea id="notesArea" aria-labelledby="notesTitle" placeholder="Notes for the chapter you are in. Saved automatically."></textarea>
+      <div class="notes-meta" id="notesMeta"></div>
+    </section>
+  </div>
+
+  <footer>Data lives in this browser's localStorage only. Download a backup before clearing site data or switching machines.</footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var KEY = 'avwap-reading-ledger:v1';
+  var TOTAL = 409;
+
+  var BOOK = [
+    { part: 'Front matter', chapters: [
+      { id: 'fm', t: 'Title, praise, dedication, introduction', s: 1, e: 30 }
+    ]},
+    { part: 'Part I: Foundations', chapters: [
+      { id: 'p1c1', t: '1. VWAP and AVWAP', s: 31, e: 40 },
+      { id: 'p1c2', t: '2. Price, Time, and Volume', s: 41, e: 50 },
+      { id: 'p1c3', t: '3. Institutional Background and Algorithmic Trading', s: 51, e: 62 },
+      { id: 'p1c4', t: '4. Market Sentiment Tools, Psychology, and Anchoring', s: 63, e: 74 },
+      { id: 'p1c5', t: '5. Anchored VWAP Components and Comparisons', s: 75, e: 89 }
+    ]},
+    { part: 'Part II: Using AVWAP', chapters: [
+      { id: 'p2c1', t: '1. Strategy Overview', s: 90, e: 100 },
+      { id: 'p2c2', t: '2. Support and Resistance', s: 101, e: 129 },
+      { id: 'p2c3', t: '3. AVWAP Entry and Exit Techniques', s: 130, e: 157 },
+      { id: 'p2c4', t: '4. Where to Set the Anchor', s: 158, e: 185 },
+      { id: 'p2c5', t: '5. The AVWAP Pinch', s: 186, e: 205 },
+      { id: 'p2c6', t: '6. New Anchor Points in a Trend (The Handoff)', s: 206, e: 222 },
+      { id: 'p2c7', t: '7. Buy Pullbacks and Breakouts?', s: 223, e: 241 },
+      { id: 'p2c8', t: '8. Multi-Day AVWAPs for Shorter-Term Traders', s: 242, e: 262 },
+      { id: 'p2c9', t: '9. AVWAP Gap Trading', s: 263, e: 292 },
+      { id: 'p2c10', t: '10. The Short Squeeze', s: 293, e: 313 },
+      { id: 'p2c11', t: '11. IPO Trades with the AVWAP', s: 314, e: 332 }
+    ]},
+    { part: 'Part III: Appendices', chapters: [
+      { id: 'p3a', t: 'A. Trends and Market Structure', s: 333, e: 342 },
+      { id: 'p3b', t: 'B. Multiple Timeframes', s: 343, e: 366 },
+      { id: 'p3c', t: 'C. Sources for Anchored VWAP', s: 367, e: 368 },
+      { id: 'p3gl', t: 'Glossary', s: 369, e: 376 },
+      { id: 'p3bib', t: 'Bibliography', s: 377, e: 379 },
+      { id: 'p3ack', t: 'Acknowledgements and About the Author', s: 380, e: 409 }
+    ]}
+  ];
+
+  var ALL_CHAPTERS = [];
+  BOOK.forEach(function (part) {
+    part.chapters.forEach(function (c) { ALL_CHAPTERS.push(c); });
+  });
+
+  /* ---------- dates ---------- */
+
+  function todayStr() {
+    var d = new Date();
+    return d.getFullYear() + '-' +
+      String(d.getMonth() + 1).padStart(2, '0') + '-' +
+      String(d.getDate()).padStart(2, '0');
+  }
+  function parseDay(s) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || '');
+    if (!m) return null;
+    return new Date(+m[1], +m[2] - 1, +m[3]);
+  }
+  function dayDiff(a, b) { // whole days b - a
+    return Math.round((b - a) / 86400000);
+  }
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function fmtShort(d, withYear) {
+    var s = MONTHS[d.getMonth()] + ' ' + d.getDate();
+    if (withYear) s += ' ’' + String(d.getFullYear()).slice(2);
+    return s;
+  }
+  function addDays(d, n) {
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+  }
+
+  /* ---------- state ---------- */
+
+  function defaults() {
+    return { current: 0, offset: 0, target: '', log: [], notes: {} };
+  }
+
+  function clampInt(v, lo, hi, fallback) {
+    v = parseInt(v, 10);
+    if (isNaN(v)) return fallback;
+    return Math.min(hi, Math.max(lo, v));
+  }
+
+  function migrate(raw) {
+    var s = defaults();
+    if (!raw || typeof raw !== 'object') return s;
+    s.current = clampInt(raw.current, 0, TOTAL, 0);
+    s.offset = clampInt(raw.offset, -9999, 9999, 0);
+    if (typeof raw.target === 'string' && parseDay(raw.target)) s.target = raw.target;
+    if (Array.isArray(raw.log)) {
+      var byDay = {};
+      raw.log.forEach(function (e) {
+        if (!e || typeof e !== 'object') return;
+        if (typeof e.d !== 'string' || !parseDay(e.d)) return;
+        var p = clampInt(e.p, 0, TOTAL, null);
+        if (p === null) return;
+        byDay[e.d] = p; // last write wins
+      });
+      s.log = Object.keys(byDay).sort().map(function (d) {
+        return { d: d, p: byDay[d] };
+      });
+    }
+    if (raw.notes && typeof raw.notes === 'object' && !Array.isArray(raw.notes)) {
+      ALL_CHAPTERS.forEach(function (c) {
+        if (typeof raw.notes[c.id] === 'string' && raw.notes[c.id]) s.notes[c.id] = raw.notes[c.id];
+      });
+    }
+    return s;
+  }
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return defaults();
+      return migrate(JSON.parse(raw));
+    } catch (err) {
+      return defaults();
+    }
+  }
+
+  var storageHint = document.getElementById('storageHint');
+  function save() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(state));
+      storageHint.textContent = '';
+    } catch (err) {
+      storageHint.textContent = 'save failed — download a backup';
+    }
+  }
+
+  var state = load();
+
+  function logToday() {
+    var d = todayStr();
+    for (var i = 0; i < state.log.length; i++) {
+      if (state.log[i].d === d) { state.log[i] = { d: d, p: state.current }; return; }
+    }
+    state.log.push({ d: d, p: state.current });
+    state.log.sort(function (a, b) { return a.d < b.d ? -1 : 1; });
+  }
+
+  /* ---------- chapter helpers ---------- */
+
+  function chapterAt(page) {
+    for (var i = 0; i < ALL_CHAPTERS.length; i++) {
+      var c = ALL_CHAPTERS[i];
+      if (page >= c.s && page <= c.e) return c;
+    }
+    return null;
+  }
+  function chapterProgress(c) {
+    if (state.current >= c.e) return 1;
+    if (state.current < c.s) return 0;
+    return (state.current - c.s + 1) / (c.e - c.s + 1);
+  }
+  function disp(page) { return page + state.offset; }
+
+  /* ---------- derived pace ---------- */
+
+  function derive() {
+    var d = {
+      pagesLeft: TOTAL - state.current,
+      actualPace: null, requiredPace: null,
+      daysSinceAnchor: null, projected: null,
+      anchorSlope: null, verdict: null
+    };
+    var n = state.log.length;
+    var today = parseDay(todayStr());
+    if (n >= 1) {
+      d.daysSinceAnchor = dayDiff(parseDay(state.log[0].d), today);
+    }
+    if (n >= 2) {
+      var first = state.log[0], last = state.log[n - 1];
+      var span = dayDiff(parseDay(first.d), parseDay(last.d));
+      if (span > 0) d.actualPace = (last.p - first.p) / span;
+
+      // anchored reference: pace over the first half of the log
+      var k = Math.max(2, Math.ceil(n / 2));
+      var halfSpan = dayDiff(parseDay(first.d), parseDay(state.log[k - 1].d));
+      if (halfSpan > 0) d.anchorSlope = (state.log[k - 1].p - first.p) / halfSpan;
+      if (d.anchorSlope !== null) {
+        var refAtLast = first.p + d.anchorSlope * span;
+        d.verdict = last.p >= refAtLast - 1e-9 ? 'above' : 'below';
+      }
+      if (d.actualPace !== null && d.actualPace > 0 && d.pagesLeft > 0) {
+        d.projected = addDays(today, Math.ceil(d.pagesLeft / d.actualPace));
+      } else if (d.pagesLeft === 0) {
+        d.projected = today;
+      }
+    }
+    var target = parseDay(state.target);
+    if (target && d.pagesLeft > 0) {
+      var daysToTarget = dayDiff(today, target);
+      if (daysToTarget > 0) d.requiredPace = d.pagesLeft / daysToTarget;
+    }
+    return d;
+  }
+
+  /* ---------- render: stats ---------- */
+
+  function fmt1(v) { return (Math.round(v * 10) / 10).toFixed(1); }
+
+  function renderStats(d) {
+    var row = document.getElementById('statsRow');
+    var cells = [
+      ['Pages left', String(d.pagesLeft)],
+      ['Actual pages/day', d.actualPace !== null ? fmt1(d.actualPace) : '—'],
+      ['Required pages/day', d.requiredPace !== null ? fmt1(d.requiredPace) : '—'],
+      ['Days since anchor', d.daysSinceAnchor !== null ? String(d.daysSinceAnchor) : '—'],
+      ['Projected finish', d.projected ? fmtShort(d.projected, true) : '—']
+    ];
+    row.innerHTML = cells.map(function (c) {
+      return '<div class="stat"><span class="label">' + c[0] +
+        '</span><span class="stat-value">' + c[1] + '</span></div>';
+    }).join('');
+  }
+
+  /* ---------- render: chart ---------- */
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function renderChart(d) {
+    var host = document.getElementById('chart');
+    var badge = document.getElementById('verdict');
+    var n = state.log.length;
+
+    if (d.verdict === 'above') {
+      badge.className = 'badge above'; badge.textContent = 'Above anchor';
+    } else if (d.verdict === 'below') {
+      badge.className = 'badge below'; badge.textContent = 'Below anchor';
+    } else {
+      badge.className = 'badge none'; badge.textContent = 'No anchor yet';
+    }
+
+    if (n < 2) {
+      host.innerHTML = '<div class="empty-state">Log your page on two different days and the pace chart draws itself.</div>';
+      return;
+    }
+
+    var W = 720, H = 340, ML = 46, MR = 14, MT = 14, MB = 34;
+    var PW = W - ML - MR, PH = H - MT - MB;
+
+    var first = state.log[0], last = state.log[n - 1];
+    var d0 = parseDay(first.d);
+    var dEnd = parseDay(last.d);
+    var target = parseDay(state.target);
+    if (target && target > dEnd) dEnd = target;
+    var span = Math.max(1, dayDiff(d0, dEnd));
+
+    function x(date) { return ML + (dayDiff(d0, date) / span) * PW; }
+    function y(p) { return MT + (1 - p / TOTAL) * PH; }
+
+    var svg = [];
+    svg.push('<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Pace chart: actual pages read versus anchored and required pace">');
+
+    // horizontal grid + y ticks
+    [0, 100, 200, 300, TOTAL].forEach(function (p) {
+      svg.push('<line x1="' + ML + '" y1="' + y(p) + '" x2="' + (W - MR) + '" y2="' + y(p) +
+        '" stroke="var(--grid-major)" stroke-width="1"/>');
+      svg.push('<text class="tick" x="' + (ML - 6) + '" y="' + (y(p) + 3.5) + '" text-anchor="end">' + p + '</text>');
+    });
+
+    // x ticks: up to 4 across the span
+    var tickCount = Math.min(4, span);
+    var multiYear = d0.getFullYear() !== dEnd.getFullYear();
+    var seen = {};
+    for (var i = 0; i <= tickCount; i++) {
+      var td = addDays(d0, Math.round((span * i) / tickCount));
+      var kx = Math.round(x(td));
+      if (seen[kx]) continue;
+      seen[kx] = 1;
+      svg.push('<line x1="' + kx + '" y1="' + (H - MB) + '" x2="' + kx + '" y2="' + (H - MB + 4) +
+        '" stroke="var(--rule)" stroke-width="1"/>');
+      svg.push('<text class="tick" x="' + kx + '" y="' + (H - MB + 16) + '" text-anchor="middle">' +
+        fmtShort(td, multiYear) + '</text>');
+    }
+
+    // axes
+    svg.push('<line x1="' + ML + '" y1="' + MT + '" x2="' + ML + '" y2="' + (H - MB) + '" stroke="var(--rule)" stroke-width="1"/>');
+    svg.push('<line x1="' + ML + '" y1="' + (H - MB) + '" x2="' + (W - MR) + '" y2="' + (H - MB) + '" stroke="var(--rule)" stroke-width="1"/>');
+
+    // line 2: anchored pace reference (ochre)
+    if (d.anchorSlope !== null) {
+      var m = d.anchorSlope;
+      var endDays = span;
+      if (m > 0) endDays = Math.min(span, (TOTAL - first.p) / m);
+      var x2 = ML + (endDays / span) * PW;
+      var y2v = Math.min(TOTAL, first.p + m * endDays);
+      svg.push('<line x1="' + x(d0) + '" y1="' + y(first.p) + '" x2="' + x2 + '" y2="' + y(y2v) +
+        '" stroke="var(--ochre)" stroke-width="2"/>');
+    }
+
+    // line 3: required pace to target (muted red, dotted)
+    if (target && dayDiff(parseDay(last.d), target) > 0) {
+      svg.push('<line x1="' + x(parseDay(last.d)) + '" y1="' + y(last.p) +
+        '" x2="' + x(target) + '" y2="' + y(TOTAL) +
+        '" stroke="var(--red)" stroke-width="2" stroke-dasharray="2 5" stroke-linecap="round"/>');
+      svg.push('<line x1="' + x(target) + '" y1="' + MT + '" x2="' + x(target) + '" y2="' + (H - MB) +
+        '" stroke="var(--red)" stroke-width="1" stroke-dasharray="1 4" opacity="0.6"/>');
+    }
+
+    // line 1: actual (teal) with markers
+    var pts = state.log.map(function (e) {
+      return x(parseDay(e.d)) + ',' + y(e.p);
+    }).join(' ');
+    svg.push('<polyline points="' + pts + '" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linejoin="round"/>');
+    state.log.forEach(function (e) {
+      var printed = disp(e.p);
+      var tip = e.d + ' · p. ' + e.p + (state.offset !== 0 ? ' (printed ' + printed + ')' : '');
+      svg.push('<circle cx="' + x(parseDay(e.d)) + '" cy="' + y(e.p) +
+        '" r="4" fill="var(--teal)" stroke="var(--panel)" stroke-width="2"><title>' + esc(tip) + '</title></circle>');
+    });
+
+    svg.push('</svg>');
+    host.innerHTML = svg.join('');
+  }
+
+  /* ---------- render: contents ---------- */
+
+  function renderContents() {
+    var nav = document.getElementById('contents');
+    var here = chapterAt(state.current);
+    var focusId = null;
+    if (document.activeElement && document.activeElement.dataset && document.activeElement.dataset.ch) {
+      focusId = document.activeElement.dataset.ch;
+    }
+    var html = [];
+    BOOK.forEach(function (part) {
+      html.push('<div class="part-head">' + esc(part.part) + '</div>');
+      part.chapters.forEach(function (c) {
+        var pct = Math.round(chapterProgress(c) * 100);
+        html.push(
+          '<button type="button" class="chapter' + (here && here.id === c.id ? ' here' : '') +
+          '" data-ch="' + c.id + '" aria-label="' + esc(c.t) + ', pages ' + disp(c.s) + ' to ' + disp(c.e) +
+          ', ' + pct + ' percent read. Set bookmark to page ' + disp(c.s) + '.">' +
+          '<span class="chapter-row"><span>' + esc(c.t) + '</span>' +
+          '<span class="range">' + disp(c.s) + '–' + disp(c.e) + '</span></span>' +
+          '<span class="bar"><span class="fill" style="width:' + pct + '%"></span></span>' +
+          '</button>');
+      });
+    });
+    nav.innerHTML = html.join('');
+    if (focusId) {
+      var el = nav.querySelector('[data-ch="' + focusId + '"]');
+      if (el) el.focus();
+    }
+  }
+
+  /* ---------- render: notes ---------- */
+
+  var notesArea = document.getElementById('notesArea');
+  var notesTitle = document.getElementById('notesTitle');
+  var notesMeta = document.getElementById('notesMeta');
+  var notesChapterId = null;
+  var notesTimer = null;
+
+  function flushNotes() {
+    if (notesTimer) { clearTimeout(notesTimer); notesTimer = null; }
+    if (!notesChapterId) return;
+    var text = notesArea.value;
+    if (text) state.notes[notesChapterId] = text;
+    else delete state.notes[notesChapterId];
+    save();
+  }
+
+  function renderNotes() {
+    var here = chapterAt(state.current);
+    var id = here ? here.id : null;
+    if (id !== notesChapterId) {
+      flushNotes();
+      notesChapterId = id;
+      notesArea.value = (id && state.notes[id]) || '';
+      notesMeta.textContent = '';
+    }
+    if (here) {
+      notesTitle.textContent = 'Notes — ' + here.t;
+      notesArea.disabled = false;
+    } else {
+      notesTitle.textContent = 'Notes';
+      notesArea.disabled = true;
+      notesArea.value = '';
+    }
+  }
+
+  notesArea.addEventListener('input', function () {
+    if (!notesChapterId) return;
+    if (notesTimer) clearTimeout(notesTimer);
+    notesMeta.textContent = 'saving…';
+    notesTimer = setTimeout(function () {
+      notesTimer = null;
+      var text = notesArea.value;
+      if (text) state.notes[notesChapterId] = text;
+      else delete state.notes[notesChapterId];
+      save();
+      notesMeta.textContent = 'saved';
+    }, 600);
+  });
+  window.addEventListener('beforeunload', flushNotes);
+
+  /* ---------- render: controls ---------- */
+
+  var pageInput = document.getElementById('pageInput');
+  var pageHint = document.getElementById('pageHint');
+  var offsetInput = document.getElementById('offsetInput');
+  var targetInput = document.getElementById('targetInput');
+
+  function renderControls() {
+    pageInput.value = disp(state.current);
+    offsetInput.value = state.offset;
+    targetInput.value = state.target;
+    pageHint.textContent = state.offset !== 0
+      ? 'printed number · PDF p. ' + state.current
+      : 'of ' + TOTAL;
+  }
+
+  /* ---------- render all ---------- */
+
+  function renderAll() {
+    var d = derive();
+    renderControls();
+    renderStats(d);
+    renderChart(d);
+    renderContents();
+    renderNotes();
+  }
+
+  function setCurrent(page) {
+    state.current = clampInt(page, 0, TOTAL, state.current);
+    logToday();
+    save();
+    renderAll();
+  }
+
+  function commitPageInput() {
+    var v = parseInt(pageInput.value, 10);
+    if (isNaN(v)) { renderControls(); return; }
+    setCurrent(v - state.offset); // input shows printed numbers; store PDF numbers
+  }
+
+  pageInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); commitPageInput(); }
+  });
+  pageInput.addEventListener('blur', commitPageInput);
+  document.getElementById('pageMinus').addEventListener('click', function () {
+    setCurrent(state.current - 1);
+  });
+  document.getElementById('pagePlus').addEventListener('click', function () {
+    setCurrent(state.current + 1);
+  });
+
+  offsetInput.addEventListener('change', function () {
+    state.offset = clampInt(offsetInput.value, -9999, 9999, state.offset);
+    save();
+    renderAll();
+  });
+
+  targetInput.addEventListener('change', function () {
+    state.target = parseDay(targetInput.value) ? targetInput.value : '';
+    save();
+    renderAll();
+  });
+
+  document.getElementById('contents').addEventListener('click', function (e) {
+    var btn = e.target.closest('button.chapter');
+    if (!btn) return;
+    var ch = ALL_CHAPTERS.filter(function (c) { return c.id === btn.dataset.ch; })[0];
+    if (ch) setCurrent(ch.s);
+  });
+
+  /* ---------- backup ---------- */
+
+  document.getElementById('exportBtn').addEventListener('click', function () {
+    flushNotes();
+    var blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'avwap-reading-ledger-' + todayStr() + '.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  });
+
+  document.getElementById('importInput').addEventListener('change', function (e) {
+    var file = e.target.files && e.target.files[0];
+    e.target.value = '';
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () {
+      var incoming;
+      try {
+        incoming = migrate(JSON.parse(reader.result));
+      } catch (err) {
+        alert('That file is not a valid ledger backup.');
+        return;
+      }
+      var hasData = state.log.length > 0 || Object.keys(state.notes).length > 0;
+      if (hasData && !confirm('Replace the current ledger with the imported backup?')) return;
+      notesChapterId = null; // force notes re-bind without flushing stale text over import
+      state = incoming;
+      save();
+      renderAll();
+    };
+    reader.onerror = function () { alert('Could not read that file.'); };
+    reader.readAsText(file);
+  });
+
+  renderAll();
+})();
+</script>
+</body>
+</html>
