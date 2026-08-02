@@ -10,6 +10,10 @@ class AppUser {
   final DateTime? lastLoginAt;
   final bool active;
 
+  /// Grants access to Report Studio + Risk Desk. Default deny; admins are
+  /// implicitly granted via AuthProvider.
+  final bool canUseReportStudio;
+
   const AppUser({
     required this.id,
     required this.email,
@@ -19,6 +23,7 @@ class AppUser {
     required this.createdAt,
     this.lastLoginAt,
     this.active = true,
+    this.canUseReportStudio = false,
   });
 
   bool get isAdmin => role == UserRole.admin;
@@ -29,6 +34,7 @@ class AppUser {
     UserRole? role,
     DateTime? lastLoginAt,
     bool? active,
+    bool? canUseReportStudio,
   }) {
     return AppUser(
       id: id,
@@ -39,6 +45,7 @@ class AppUser {
       createdAt: createdAt,
       lastLoginAt: lastLoginAt ?? this.lastLoginAt,
       active: active ?? this.active,
+      canUseReportStudio: canUseReportStudio ?? this.canUseReportStudio,
     );
   }
 
@@ -51,6 +58,7 @@ class AppUser {
         'createdAt': createdAt.toIso8601String(),
         'lastLoginAt': lastLoginAt?.toIso8601String(),
         'active': active,
+        'canUseReportStudio': canUseReportStudio,
       };
 
   factory AppUser.fromJson(Map<String, dynamic> json) => AppUser(
@@ -65,5 +73,6 @@ class AppUser {
             ? DateTime.parse(json['lastLoginAt'])
             : null,
         active: json['active'] ?? true,
+        canUseReportStudio: json['canUseReportStudio'] ?? false,
       );
 }

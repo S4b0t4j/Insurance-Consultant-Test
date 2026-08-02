@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/ai_provider.dart';
 import 'providers/alert_provider.dart';
+import 'providers/audit_provider.dart';
 import 'providers/auth_provider.dart';
 import 'providers/discord_provider.dart';
 import 'providers/layout_provider.dart';
 import 'providers/news_provider.dart';
+import 'providers/report_studio_provider.dart';
+import 'providers/risk_desk_provider.dart';
 import 'providers/subscriber_provider.dart';
 import 'providers/theme_provider.dart';
 import 'screens/home_screen.dart';
@@ -32,6 +35,23 @@ class EducationNewsMonitorApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AIProvider()),
         ChangeNotifierProvider(create: (_) => DiscordProvider()),
         ChangeNotifierProvider(create: (_) => LayoutProvider()),
+        ChangeNotifierProxyProvider<AuthProvider, AuditProvider>(
+          create: (_) => AuditProvider(),
+          update: (_, auth, audit) =>
+              audit!..updateCurrentUser(auth.currentUser),
+        ),
+        ChangeNotifierProxyProvider2<AuditProvider, AIProvider,
+            ReportStudioProvider>(
+          create: (_) => ReportStudioProvider(),
+          update: (_, audit, ai, studio) =>
+              studio!..wire(audit: audit, apiKey: ai.apiKey),
+        ),
+        ChangeNotifierProxyProvider2<AuditProvider, AIProvider,
+            RiskDeskProvider>(
+          create: (_) => RiskDeskProvider(),
+          update: (_, audit, ai, desk) =>
+              desk!..wire(audit: audit, apiKey: ai.apiKey),
+        ),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, _) {

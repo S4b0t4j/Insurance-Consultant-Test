@@ -25,6 +25,8 @@ import '../widgets/status_bar.dart';
 import '../widgets/trending_section.dart';
 import 'admin_screen.dart';
 import 'ask_ai_screen.dart';
+import 'report_studio_screen.dart';
+import 'risk_desk_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -165,11 +167,40 @@ View full report with risk analysis in the Education News Monitor app.
         return _buildDashboard();
       case AppSection.askAi:
         return const AskAiScreen();
+      case AppSection.riskDesk:
+        return _guarded(RiskDeskScreen(
+          onBuildReport: () =>
+              setState(() => _section = AppSection.reportStudio),
+        ));
+      case AppSection.reportStudio:
+        return _guarded(const ReportStudioScreen());
       case AppSection.alerts:
         return const AlertsPanel(inline: true);
       case AppSection.admin:
         return const AdminScreen();
     }
+  }
+
+  /// Access can be revoked mid-session; both gated sections re-check here.
+  Widget _guarded(Widget child) {
+    final auth = context.watch<AuthProvider>();
+    if (!auth.canUseReportStudio) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.lock_outline, size: 48),
+            const SizedBox(height: 12),
+            Text('No access',
+                style: Theme.of(context).textTheme.headlineMedium),
+            const SizedBox(height: 8),
+            const Text(
+                'Ask an administrator to grant you Report Studio access.'),
+          ],
+        ),
+      );
+    }
+    return child;
   }
 
   Widget _buildDashboard() {
@@ -275,6 +306,10 @@ View full report with risk analysis in the Education News Monitor app.
         return 'Education News Monitor';
       case AppSection.askAi:
         return 'Ask AI';
+      case AppSection.riskDesk:
+        return 'Risk Desk';
+      case AppSection.reportStudio:
+        return 'Report Studio';
       case AppSection.alerts:
         return 'Alerts';
       case AppSection.admin:

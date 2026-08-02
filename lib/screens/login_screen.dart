@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/audit_event.dart';
+import '../providers/audit_provider.dart';
 import '../providers/auth_provider.dart';
 import '../utils/theme.dart';
 
@@ -32,9 +34,17 @@ class _LoginScreenState extends State<LoginScreen> {
       _errorMessage = null;
     });
     final auth = context.read<AuthProvider>();
+    final audit = context.read<AuditProvider>();
+    final email = _emailController.text.trim();
     final success = await auth.login(
       _emailController.text,
       _passwordController.text,
+    );
+    await audit.log(
+      success ? AuditAction.login : AuditAction.loginFailed,
+      detail: email,
+      userEmail: email,
+      userId: auth.currentUser?.id,
     );
     if (!mounted) return;
     setState(() => _loading = false);

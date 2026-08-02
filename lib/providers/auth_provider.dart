@@ -19,6 +19,11 @@ class AuthProvider extends ChangeNotifier {
   bool get initialized => _initialized;
   List<AppUser> get users => List.unmodifiable(_users);
 
+  /// Report Studio / Risk Desk gate: default deny, admins implicit.
+  bool get canUseReportStudio =>
+      _currentUser != null &&
+      (_currentUser!.isAdmin || _currentUser!.canUseReportStudio);
+
   AuthProvider() {
     _bootstrap();
   }
@@ -136,6 +141,18 @@ class AuthProvider extends ChangeNotifier {
     _users[idx] = _users[idx].copyWith(active: !_users[idx].active);
     await _persist();
     notifyListeners();
+  }
+
+  /// Returns the new grant state, or null if the user wasn't found.
+  Future<bool?> toggleReportStudioAccess(String id) async {
+    final idx = _users.indexWhere((u) => u.id == id);
+    if (idx == -1) return null;
+    final next = !_users[idx].canUseReportStudio;
+    _users[idx] = _users[idx].copyWith(canUseReportStudio: next);
+    if (_currentUser?.id == id) _currentUser = _users[idx];
+    await _persist();
+    notifyListeners();
+    return next;
   }
 
   Future<bool> hasSeenOnboarding() async {
