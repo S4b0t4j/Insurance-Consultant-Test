@@ -80,7 +80,18 @@ Risk Desk uses Anthropic's server-side **web search** tool for live research.
 If web search is not enabled for your organization, Risk Desk automatically
 degrades to feed/upload-grounded research and says so in the UI.
 
-## 5. Local/offline use
+## 5. Continuous risk radar — scope and cost
+
+The Radar tab in Risk Desk scans the selected news topics on an interval and
+triages new headlines with one **low-effort Claude call per scan** (cheap, but
+non-zero — budget for it on the API key). Because this is a static web app
+with no backend, **the radar only runs while the dashboard is open in a
+browser tab**; detection history and settings persist between sessions so
+nothing is re-flagged. If you need true 24/7 scanning with alerts while
+nobody has the app open, that requires a small backend/cron worker — ask and
+we can add one alongside the Cloudflare deployment.
+
+## 6. Local/offline use
 
 For maximum shielding you can skip hosting entirely and run locally:
 

@@ -836,6 +836,9 @@ class _AuditLogTabState extends State<_AuditLogTab> {
       case AuditAction.riskAnalysisCompleted:
       case AuditAction.riskAnalysisFailed:
         return Icons.hub_outlined;
+      case AuditAction.radarScanCompleted:
+      case AuditAction.radarRiskDetected:
+        return Icons.radar_outlined;
     }
   }
 }

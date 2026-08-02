@@ -34,16 +34,18 @@ class RiskResearchService {
 
   RiskResearchService(this.client);
 
-  /// Stage 1: decompose the emerging risk into 3-5 research angles.
-  Future<List<ResearchAngle>> plan(String topic, String focus) async {
+  /// Stage 1: decompose the emerging risk into research angles (count per
+  /// [depth]).
+  Future<List<ResearchAngle>> plan(String topic, String focus,
+      {ResearchDepth depth = ResearchDepth.standard}) async {
     final data = await client.send({
       'model': ClaudeHttp.model,
       'max_tokens': 6000,
       'system':
           'You are a research director at a commercial insurance brokerage planning '
-              'an emerging-risk investigation. Decompose the topic into 3-5 distinct, '
-              'non-overlapping research angles that together cover: current facts and '
-              'timeline, affected industries/entities, loss and claim potential, '
+              'an emerging-risk investigation. ${depth.angleInstruction} The angles '
+              'must be distinct and non-overlapping, together covering: current facts '
+              'and timeline, affected industries/entities, loss and claim potential, '
               'regulatory/legal developments, and market response.',
       'output_config': {
         'effort': 'low',
@@ -97,6 +99,7 @@ class RiskResearchService {
     ResearchAngle angle, {
     List<RssNewsItem> newsItems = const [],
     List<ReportSource> uploads = const [],
+    ResearchDepth depth = ResearchDepth.standard,
   }) async {
     final context = StringBuffer();
     if (newsItems.isNotEmpty) {
@@ -132,13 +135,13 @@ class RiskResearchService {
               'You are a research analyst investigating an emerging risk for a '
                   'commercial insurance audience. Prioritize recent, verifiable facts '
                   'with sources. Be concrete: numbers, dates, named companies/agencies.',
-          'output_config': {'effort': 'medium'},
+          'output_config': {'effort': depth.researchEffort},
           if (withSearch)
             'tools': [
               {
                 'type': 'web_search_20260209',
                 'name': 'web_search',
-                'max_uses': 4,
+                'max_uses': depth.searchUses,
               },
             ],
           'messages': List.of(baseMessages),
@@ -199,11 +202,30 @@ class RiskResearchService {
             'mitigation measures, business continuity implications, total cost of risk '
             'impact, claims scenarios to pre-plan, contractual risk transfer, and '
             'board-level talking points.',
+    'Claims':
+        'Analyze through a claims professional\'s lens (AIC mindset): which policy '
+            'wordings and coverage triggers will be tested, likely claim and litigation '
+            'scenarios, defense-cost and coverage-dispute exposure, notice/reporting '
+            'pitfalls for insureds, early reserving signals, and claim-handling '
+            'preparations carriers and TPAs should make now.',
+    'Actuarial':
+        'Analyze through an actuarial/pricing lens: expected frequency and severity '
+            'trends, availability and credibility of data to rate this exposure, rate '
+            'adequacy of current pricing, accumulation and PML modeling considerations, '
+            'reinsurance and retro market signals, and what to watch in loss '
+            'development over the next 4-8 quarters.',
   };
 
+  /// The three default lenses (the two extra are opt-in for deeper runs).
+  static const List<String> defaultLenses = [
+    'Underwriter',
+    'Broker',
+    'Risk manager'
+  ];
+
   /// Stage 3: one specialist lens over the pooled research.
-  Future<String> lens(
-      String topic, String lensName, String pooledResearch) async {
+  Future<String> lens(String topic, String lensName, String pooledResearch,
+      {ResearchDepth depth = ResearchDepth.standard}) async {
     final data = await client.send({
       'model': ClaudeHttp.model,
       'max_tokens': 6000,
@@ -212,7 +234,7 @@ class RiskResearchService {
               'analysis of an emerging risk. ${lensPrompts[lensName] ?? ''} '
               'Base the analysis strictly on the research provided. Be specific to '
               'lines of business and quantify where the research allows.',
-      'output_config': {'effort': 'high'},
+      'output_config': {'effort': depth.lensEffort},
       'messages': [
         {
           'role': 'user',
@@ -355,6 +377,115 @@ class RiskResearchService {
     ],
     'additionalProperties': false,
   };
+
+  /// Follow-up Q&A on a finished brief: plain-text answer grounded in the
+  /// brief (and the pooled research when still in memory).
+  Future<String> followUp({
+    required String topic,
+    required Map<String, dynamic> briefJson,
+    String pooledResearch = '',
+    List<({String role, String text})> history = const [],
+    required String question,
+  }) async {
+    final context = StringBuffer('EMERGING RISK BRIEF (JSON):\n')
+      ..writeln(briefJson.toString());
+    if (pooledResearch.isNotEmpty) {
+      final capped = pooledResearch.length > 20000
+          ? pooledResearch.substring(0, 20000)
+          : pooledResearch;
+      context.writeln('\nUNDERLYING RESEARCH:\n$capped');
+    }
+
+    final messages = <Map<String, dynamic>>[
+      for (final turn in history)
+        {'role': turn.role, 'content': turn.text},
+      {'role': 'user', 'content': question},
+    ];
+
+    final data = await client.send({
+      'model': ClaudeHttp.model,
+      'max_tokens': 4000,
+      'system':
+          'You are a senior commercial insurance practitioner (CPCU) answering '
+              'follow-up questions about an emerging-risk brief on "$topic". Ground '
+              'answers in the brief and research below; where they are silent, say so '
+              'and reason carefully from standard insurance practice, flagging the '
+              'inference. Be concise and practical.\n\n$context',
+      'output_config': {'effort': 'medium'},
+      'messages': messages,
+    });
+    return ClaudeHttp.textOf(data);
+  }
+
+  /// Radar triage: given fresh headlines and the risks already being tracked,
+  /// identify genuinely new emerging risks worth a full analysis. One cheap
+  /// low-effort call per scan.
+  Future<List<Map<String, dynamic>>> triage(
+    List<String> newHeadlines,
+    List<String> knownRiskTitles,
+  ) async {
+    if (newHeadlines.isEmpty) return const [];
+    final data = await client.send({
+      'model': ClaudeHttp.model,
+      'max_tokens': 4000,
+      'system':
+          'You are a risk-intelligence triage analyst at a commercial insurance '
+              'brokerage. From the fresh headlines, identify EMERGING RISKS that '
+              'warrant practitioner analysis: developing situations with plausible '
+              'commercial insurance implications (new loss drivers, litigation waves, '
+              'supply shocks, regulatory shifts, catastrophe patterns). Ignore '
+              'routine news, one-off incidents with no systemic angle, and anything '
+              'matching a risk already being tracked. Return an empty list when '
+              'nothing qualifies — most scans should find nothing.',
+      'output_config': {
+        'effort': 'low',
+        'format': {
+          'type': 'json_schema',
+          'schema': {
+            'type': 'object',
+            'properties': {
+              'emergingRisks': {
+                'type': 'array',
+                'items': {
+                  'type': 'object',
+                  'properties': {
+                    'title': {'type': 'string'},
+                    'rationale': {'type': 'string'},
+                    'urgency': {
+                      'type': 'string',
+                      'enum': ['low', 'medium', 'high'],
+                    },
+                    'headlines': {
+                      'type': 'array',
+                      'items': {'type': 'string'},
+                    },
+                  },
+                  'required': ['title', 'rationale', 'urgency', 'headlines'],
+                  'additionalProperties': false,
+                },
+              },
+            },
+            'required': ['emergingRisks'],
+            'additionalProperties': false,
+          },
+        },
+      },
+      'messages': [
+        {
+          'role': 'user',
+          'content': 'Risks already being tracked (do NOT re-report these '
+              'or close variants):\n'
+              '${knownRiskTitles.isEmpty ? '(none)' : knownRiskTitles.map((t) => '- $t').join('\n')}\n\n'
+              'Fresh headlines since the last scan:\n'
+              '${newHeadlines.map((h) => '- $h').join('\n')}',
+        },
+      ],
+    });
+    final parsed = ClaudeHttp.jsonOf(data);
+    return (parsed['emergingRisks'] as List? ?? [])
+        .whereType<Map<String, dynamic>>()
+        .toList();
+  }
 
   /// Converts a finished brief into the Report Studio edition-brief shape so
   /// "Build report from this" can feed the template pipeline directly.

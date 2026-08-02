@@ -14,6 +14,8 @@ enum AuditAction {
   riskAnalysisStarted,
   riskAnalysisCompleted,
   riskAnalysisFailed,
+  radarScanCompleted,
+  radarRiskDetected,
 }
 
 extension AuditActionLabel on AuditAction {
@@ -49,6 +51,10 @@ extension AuditActionLabel on AuditAction {
         return 'Risk analysis completed';
       case AuditAction.riskAnalysisFailed:
         return 'Risk analysis failed';
+      case AuditAction.radarScanCompleted:
+        return 'Radar scan completed';
+      case AuditAction.radarRiskDetected:
+        return 'Radar risk detected';
     }
   }
 }

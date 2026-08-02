@@ -498,6 +498,29 @@ class AlertProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Lets other features (e.g. the Risk Radar) surface alerts through the
+  /// standard alerts panel without owning an AlertRule.
+  void addExternalAlert({
+    required String title,
+    required String message,
+    AlertSeverity severity = AlertSeverity.medium,
+  }) {
+    final now = DateTime.now();
+    _triggerAlert(TriggeredAlert(
+      id: 'ext_${now.microsecondsSinceEpoch}',
+      rule: AlertRule(
+        id: 'external',
+        name: title,
+        description: 'External alert',
+        type: AlertRuleType.keywordMatch,
+        severity: severity,
+        createdAt: now,
+      ),
+      triggeredAt: now,
+      message: message,
+    ));
+  }
+
   // CRUD Operations for Rules
   Future<void> addRule(AlertRule rule) async {
     _rules.add(rule);

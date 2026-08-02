@@ -9,6 +9,7 @@ import 'providers/layout_provider.dart';
 import 'providers/news_provider.dart';
 import 'providers/report_studio_provider.dart';
 import 'providers/risk_desk_provider.dart';
+import 'providers/risk_radar_provider.dart';
 import 'providers/subscriber_provider.dart';
 import 'providers/theme_provider.dart';
 import 'screens/home_screen.dart';
@@ -51,6 +52,18 @@ class EducationNewsMonitorApp extends StatelessWidget {
           create: (_) => RiskDeskProvider(),
           update: (_, audit, ai, desk) =>
               desk!..wire(audit: audit, apiKey: ai.apiKey),
+        ),
+        ChangeNotifierProxyProvider3<AuditProvider, AIProvider,
+            RiskDeskProvider, RiskRadarProvider>(
+          create: (_) => RiskRadarProvider(),
+          update: (context, audit, ai, desk, radar) => radar!
+            ..wire(
+              audit: audit,
+              apiKey: ai.apiKey,
+              alerts: context.read<AlertProvider>(),
+              discord: context.read<DiscordProvider>(),
+              desk: desk,
+            ),
         ),
       ],
       child: Consumer<ThemeProvider>(

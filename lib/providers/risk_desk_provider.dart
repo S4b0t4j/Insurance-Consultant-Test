@@ -26,7 +26,28 @@ class RiskDeskProvider extends ChangeNotifier {
   EmergingRiskBrief? brief;
   bool webSearchDegraded = false;
 
+  /// Practitioner lenses selected for the next run.
+  final Set<String> selectedLenses =
+      Set.of(RiskResearchService.defaultLenses);
+  ResearchDepth depth = ResearchDepth.standard;
+
+  /// Follow-up Q&A on the current brief.
+  final List<({String role, String text})> briefChat = [];
+  bool chatLoading = false;
+  String _pooledResearch = '';
+
   static const int _maxConcurrentResearchers = 3;
+
+  void toggleLens(String lens) {
+    if (!selectedLenses.remove(lens)) selectedLenses.add(lens);
+    if (selectedLenses.isEmpty) selectedLenses.add('Underwriter');
+    notifyListeners();
+  }
+
+  void setDepth(ResearchDepth d) {
+    depth = d;
+    notifyListeners();
+  }
 
   void wire({required AuditProvider audit, required String? apiKey}) {
     _audit = audit;
@@ -63,7 +84,10 @@ class RiskDeskProvider extends ChangeNotifier {
     brief = null;
     webSearchDegraded = false;
     stages.clear();
-    _audit?.log(AuditAction.riskAnalysisStarted, detail: topic);
+    briefChat.clear();
+    _pooledResearch = '';
+    _audit?.log(AuditAction.riskAnalysisStarted,
+        detail: '$topic (${depth.name}, lenses: ${selectedLenses.join(', ')})');
 
     final planStage = SwarmStage(id: 'plan', label: 'Planner: decompose the risk');
     stages.add(planStage);
@@ -82,7 +106,7 @@ class RiskDeskProvider extends ChangeNotifier {
       // Stage 1: planner.
       planStage.status = SwarmStageStatus.running;
       notifyListeners();
-      final angles = await _service.plan(topic, focus);
+      final angles = await _service.plan(topic, focus, depth: depth);
       if (angles.isEmpty) {
         throw ReportAiException('Planner produced no research angles.');
       }
@@ -107,7 +131,7 @@ class RiskDeskProvider extends ChangeNotifier {
         final results = await Future.wait(chunk.map((a) async {
           try {
             final r = await _service.research(topic, a,
-                newsItems: newsItems, uploads: uploads);
+                newsItems: newsItems, uploads: uploads, depth: depth);
             researchStages[a.title]!.status = SwarmStageStatus.done;
             if (!r.usedWebSearch) {
               webSearchDegraded = true;
@@ -134,10 +158,14 @@ class RiskDeskProvider extends ChangeNotifier {
       final pooled = findings
           .map((r) => '=== ${r.angle.title} ===\n${r.findings}')
           .join('\n\n');
+      _pooledResearch = pooled;
 
-      // Stage 3: specialist lenses in parallel.
+      // Stage 3: selected specialist lenses in parallel.
+      final lensNames = selectedLenses
+          .where(RiskResearchService.lensPrompts.containsKey)
+          .toList();
       final lensStages = {
-        for (final name in RiskResearchService.lensPrompts.keys)
+        for (final name in lensNames)
           name: SwarmStage(
               id: 'lens_$name',
               label: '$name lens',
@@ -147,9 +175,10 @@ class RiskDeskProvider extends ChangeNotifier {
       notifyListeners();
 
       final lensAnalyses = <String, String>{};
-      await Future.wait(RiskResearchService.lensPrompts.keys.map((name) async {
+      await Future.wait(lensNames.map((name) async {
         try {
-          lensAnalyses[name] = await _service.lens(topic, name, pooled);
+          lensAnalyses[name] =
+              await _service.lens(topic, name, pooled, depth: depth);
           lensStages[name]!.status = SwarmStageStatus.done;
         } catch (e) {
           lensStages[name]!.status = SwarmStageStatus.failed;
@@ -191,6 +220,31 @@ class RiskDeskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Follow-up question about the current brief.
+  Future<void> askFollowUp(String question) async {
+    final b = brief;
+    if (b == null || question.trim().isEmpty || chatLoading) return;
+    briefChat.add((role: 'user', text: question.trim()));
+    chatLoading = true;
+    notifyListeners();
+    try {
+      final answer = await _service.followUp(
+        topic: b.topic,
+        briefJson: b.toJson(),
+        pooledResearch: _pooledResearch,
+        history: briefChat.sublist(0, briefChat.length - 1),
+        question: question.trim(),
+      );
+      briefChat.add((role: 'assistant', text: answer));
+    } on ReportAiException catch (e) {
+      briefChat.add((role: 'assistant', text: 'Error: ${e.message}'));
+    } catch (e) {
+      briefChat.add((role: 'assistant', text: 'Error: $e'));
+    }
+    chatLoading = false;
+    notifyListeners();
+  }
+
   /// Edition-brief payload for the Report Studio handoff.
   Map<String, dynamic>? get editionBrief =>
       brief == null ? null : RiskResearchService.briefToEditionBrief(brief!);
@@ -200,6 +254,8 @@ class RiskDeskProvider extends ChangeNotifier {
     brief = null;
     error = null;
     running = false;
+    briefChat.clear();
+    _pooledResearch = '';
     notifyListeners();
   }
 }
