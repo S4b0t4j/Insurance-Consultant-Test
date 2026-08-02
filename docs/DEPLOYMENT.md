@@ -29,12 +29,16 @@ can load the app. The in-app login is client-side JavaScript and is
 
 ## 2. Private hosting: Cloudflare Pages + Cloudflare Access
 
-The repo already contains `wrangler.toml` configured for Cloudflare Pages
-(`pages_build_output_dir = "build/web"`).
+> **Follow `docs/CLOUDFLARE_SETUP.md` for the click-by-click walkthrough.**
+> The summary below is the shape of the setup.
+
+The repo contains `wrangler.toml` (`pages_build_output_dir = "build/web"`) and
+`cloudflare-build.sh`, which bootstraps the Flutter SDK inside Cloudflare's
+build image.
 
 1. **Create the Pages project** (Cloudflare dashboard → Workers & Pages →
    Create → Pages → connect this repository).
-   - Build command: `flutter build web --release`
+   - Build command: `bash cloudflare-build.sh`
    - Build output: `build/web`
    - Do **not** set a `--base-href`; Pages serves at the domain root.
 2. **Protect it with Cloudflare Access** (Zero Trust → Access → Applications

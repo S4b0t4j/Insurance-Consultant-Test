@@ -21,7 +21,8 @@ access-controlled tools:
 Both tools are hidden behind per-user access grants (Admin → Users) and all
 activity is recorded in Admin → Audit Log. **Read `docs/DEPLOYMENT.md` before
 deploying — this feature must be hosted privately (Cloudflare Pages + Access),
-not on public GitHub Pages.**
+not on public GitHub Pages.** For the click-by-click hosting walkthrough, see
+`docs/CLOUDFLARE_SETUP.md`.
 
 ## Development
 
