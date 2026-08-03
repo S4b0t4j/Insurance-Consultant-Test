@@ -35,14 +35,22 @@ class RiskResearchService {
   RiskResearchService(this.client);
 
   // Per-stage output caps and context char-caps. Sized so every call stays
-  // under ClaudeHttp.perCallBudgetUsd at Haiku rates — worked numbers in
-  // test/cost_budget_test.dart, which fails if these drift out of budget.
+  // under ClaudeHttp.perCallBudgetUsd at its own model's rates — worked
+  // numbers in test/cost_budget_test.dart, which fails if these drift out
+  // of budget. research() and synthesize() run on ClaudeHttp.deepModel
+  // (Sonnet 5); everything else runs on ClaudeHttp.model (Haiku).
   static const int planMaxTokens = 2000;
   static const int researchMaxTokens = 3000;
   static const int researchContextCharCap = 6000;
   static const int lensMaxTokens = 2500;
   static const int lensResearchCharCap = 10000;
-  static const int synthesizeMaxTokens = 6000;
+  // Lower than research's 3000 despite being the "main" output: Sonnet's
+  // output price ($15/MTok standard) means max_tokens is the dominant cost
+  // term, and 6000 alone would clear perCallBudgetUsd with no room left for
+  // input. The pooled research/lens context below is left at full size —
+  // more grounding material matters more to synthesis quality than a
+  // longer written brief.
+  static const int synthesizeMaxTokens = 5000;
   static const int synthesizeSectionCharCap = 8000;
   static const int followUpMaxTokens = 1500;
   static const int followUpBriefCharCap = 8000;
@@ -151,7 +159,10 @@ class RiskResearchService {
     ];
 
     Map<String, dynamic> body(bool withSearch) => {
-          'model': ClaudeHttp.model,
+          // Sonnet 5: research quality is what a brief is actually judged
+          // on, and this is the one stage whose `effort` setting couldn't
+          // do anything on Haiku (stripped as unsupported).
+          'model': ClaudeHttp.deepModel,
           'max_tokens': researchMaxTokens,
           'system':
               'You are a research analyst investigating an emerging risk for a '
@@ -161,7 +172,7 @@ class RiskResearchService {
           if (withSearch)
             'tools': [
               {
-                'type': ClaudeHttp.webSearchType,
+                'type': ClaudeHttp.webSearchTypeFor(ClaudeHttp.deepModel),
                 'name': 'web_search',
                 'max_uses': depth.searchUses,
               },
@@ -292,7 +303,8 @@ class RiskResearchService {
         synthesizeSectionCharCap);
 
     final data = await client.send({
-      'model': ClaudeHttp.model,
+      // Sonnet 5: this is the call the whole brief is judged on.
+      'model': ClaudeHttp.deepModel,
       'max_tokens': synthesizeMaxTokens,
       'system':
           'You are the practice leader synthesizing an emerging-risk briefing for '

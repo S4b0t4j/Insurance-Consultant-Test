@@ -19,8 +19,16 @@ import 'package:vantage_public_sector/services/report/risk_research_service.dart
 ///
 /// Haiku 4.5 pricing (input/output per MTok, web search per call):
 /// https://platform.claude.com/docs/en/about-claude/pricing
-const double _inputPerMTok = 1.0;
-const double _outputPerMTok = 5.0;
+const double _haikuInputPerMTok = 1.0;
+const double _haikuOutputPerMTok = 5.0;
+
+/// Sonnet 5's *standard* pricing ($3/$15), not today's introductory rate
+/// ($2/$10 through 2026-08-31). research() and synthesize() must clear
+/// budget after the discount lapses too, or this guarantee quietly breaks
+/// on 2026-09-01 with no code change to explain it.
+const double _sonnetInputPerMTok = 3.0;
+const double _sonnetOutputPerMTok = 15.0;
+
 const double _perSearch = 0.01;
 
 /// Rough chars-per-token ratio for English text (Anthropic's own estimate).
@@ -28,27 +36,32 @@ const int _charsPerToken = 4;
 
 /// Flat token allowance per call for content this test doesn't model:
 /// system prompt prose, JSON-schema encoding, and (where used) the tool-use
-/// system-prompt addition (~500-600 tokens for Haiku per the pricing docs).
+/// system-prompt addition (~500-600 tokens per the pricing docs).
 const int _overheadTokens = 1500;
 
 double _estimateCost({
   required int maxOutputTokens,
   required int inputChars,
   int searches = 0,
+  double inputPerMTok = _haikuInputPerMTok,
+  double outputPerMTok = _haikuOutputPerMTok,
 }) {
   final inputTokens = (inputChars / _charsPerToken).ceil() + _overheadTokens;
-  final inputCost = inputTokens * _inputPerMTok / 1e6;
-  final outputCost = maxOutputTokens * _outputPerMTok / 1e6;
+  final inputCost = inputTokens * inputPerMTok / 1e6;
+  final outputCost = maxOutputTokens * outputPerMTok / 1e6;
   final searchCost = searches * _perSearch;
   return inputCost + outputCost + searchCost;
 }
 
 void main() {
-  test('this suite is pinned to Haiku pricing', () {
+  test('the two models this suite prices are still the ones in use', () {
     expect(ClaudeHttp.model, 'claude-haiku-4-5',
-        reason: 'The dollar constants above are Haiku 4.5 rates. If the '
-            'model constant changes, every budget below needs re-deriving '
-            'against the new price sheet before this test means anything.');
+        reason: 'The _haiku* constants above are Haiku 4.5 rates. If this '
+            'constant changes, every Haiku-priced budget below needs '
+            're-deriving against the new price sheet first.');
+    expect(ClaudeHttp.deepModel, 'claude-sonnet-5',
+        reason: 'The _sonnet* constants above are Sonnet 5 rates. If this '
+            'constant changes, research() and synthesize() need re-pricing.');
   });
 
   group('Risk Desk swarm — every call under budget', () {
@@ -60,7 +73,8 @@ void main() {
       expect(cost, lessThan(ClaudeHttp.perCallBudgetUsd));
     });
 
-    test('research(), worst case: deep depth, max search fees', () {
+    test('research(), worst case: deep depth, max search fees, Sonnet rates',
+        () {
       final cost = _estimateCost(
         maxOutputTokens: RiskResearchService.researchMaxTokens,
         inputChars: RiskResearchService.researchContextCharCap + 2000,
@@ -68,6 +82,8 @@ void main() {
         // returned snippets add to input too, on top of the flat fee.
         // Budget generously for that here rather than trying to model it.
         searches: ResearchDepth.deep.searchUses,
+        inputPerMTok: _sonnetInputPerMTok,
+        outputPerMTok: _sonnetOutputPerMTok,
       );
       expect(cost, lessThan(ClaudeHttp.perCallBudgetUsd));
     });
@@ -80,10 +96,14 @@ void main() {
       expect(cost, lessThan(ClaudeHttp.perCallBudgetUsd));
     });
 
-    test('synthesize(), worst case: capped research + capped lenses', () {
+    test(
+        'synthesize(), worst case: capped research + capped lenses, Sonnet rates',
+        () {
       final cost = _estimateCost(
         maxOutputTokens: RiskResearchService.synthesizeMaxTokens,
         inputChars: RiskResearchService.synthesizeSectionCharCap * 2 + 500,
+        inputPerMTok: _sonnetInputPerMTok,
+        outputPerMTok: _sonnetOutputPerMTok,
       );
       expect(cost, lessThan(ClaudeHttp.perCallBudgetUsd));
     });

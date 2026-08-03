@@ -17,29 +17,35 @@ class ReportAiException implements Exception {
 class ClaudeHttp {
   static const String apiUrl = 'https://api.anthropic.com/v1/messages';
 
-  /// The single switch for every deep-research call (Risk Desk swarm, Report
-  /// Studio, radar triage). Flip this one constant to change models; the
-  /// capability shims below adapt the request body so call sites never have
-  /// to branch on which model is selected.
+  /// Default model for every high-frequency, low-stakes call: chat,
+  /// summaries, triage, and most of the swarm. Cheap and fast.
   static const String model = 'claude-haiku-4-5';
+
+  /// Used only where reasoning quality matters most and the call is rare
+  /// enough to afford it: research() and synthesize() in the Risk Desk
+  /// swarm. Supports `effort` and the newer web-search tool, unlike Haiku;
+  /// still fits under perCallBudgetUsd — see test/cost_budget_test.dart.
+  static const String deepModel = 'claude-sonnet-5';
+
   static const String _apiVersion = '2023-06-01';
 
   /// Haiku 4.5 rejects `output_config.effort` outright (400) and does not
-  /// support the newer dynamic-filtering web-search tool. Opus/Sonnet accept
-  /// both. Keeping this knowledge here means switching models is a one-line
-  /// change instead of an edit across every request builder.
-  static bool get supportsEffort => !model.startsWith('claude-haiku');
+  /// support the newer dynamic-filtering web-search tool; Sonnet/Opus accept
+  /// both. Per-model rather than a single global check, since [model] and
+  /// [deepModel] now coexist in the same app.
+  static bool modelSupportsEffort(String m) => !m.startsWith('claude-haiku');
 
-  /// Web-search tool version valid for the selected model.
-  static String get webSearchType =>
-      supportsEffort ? 'web_search_20260209' : 'web_search_20250305';
+  /// Web-search tool version valid for [m].
+  static String webSearchTypeFor(String m) =>
+      modelSupportsEffort(m) ? 'web_search_20260209' : 'web_search_20250305';
 
   /// Hard per-call cost ceiling in USD. Every max_tokens value and context
   /// char-cap in risk_research_service.dart and report_ai_service.dart is
-  /// sized to stay under this at Haiku 4.5 rates ($1/$5 per MTok input/
-  /// output, $0.01/search) — see test/cost_budget_test.dart for the worked
-  /// numbers. These are Haiku-specific: raising `model` back to an Opus or
-  /// Sonnet tier means revisiting every cap, not just this constant.
+  /// sized to stay under this at each call's own model's rates — see
+  /// test/cost_budget_test.dart for the worked numbers, computed against
+  /// Sonnet 5's *standard* (post-introductory) pricing rather than today's
+  /// discounted rate, so the guarantee doesn't quietly break when the
+  /// introductory period ends.
   static const double perCallBudgetUsd = 0.10;
 
   /// Truncates [text] to at most [maxChars], marking the cut so it reads as
@@ -50,10 +56,10 @@ class ClaudeHttp {
     return '${text.substring(0, maxChars)}\n[...truncated for length...]';
   }
 
-  /// Drops request fields the selected model would reject. Returns a new map;
-  /// the caller's body is not mutated.
+  /// Drops request fields the body's own `model` would reject. Returns a
+  /// new map; the caller's body is not mutated.
   static Map<String, dynamic> adaptToModel(Map<String, dynamic> body) {
-    if (supportsEffort) return body;
+    if (modelSupportsEffort(body['model'] as String? ?? model)) return body;
     final out = Map<String, dynamic>.from(body);
     final oc = out['output_config'];
     if (oc is Map) {
