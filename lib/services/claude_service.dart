@@ -48,7 +48,10 @@ class RiskAssessment {
 
 class ClaudeService {
   static const String _apiUrl = 'https://api.anthropic.com/v1/messages';
-  static const String _model = 'claude-opus-4-7';
+  // Haiku: these are short summaries, classifications and chat turns — the
+  // high-frequency path. At $1/$5 per MTok a chat turn costs well under a
+  // cent; on Opus the same turn was ~$0.03+ and grew with history.
+  static const String _model = 'claude-haiku-4-5';
   static const String _apiVersion = '2023-06-01';
 
   String? _apiKey;

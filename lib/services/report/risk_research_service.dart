@@ -426,8 +426,12 @@ class RiskResearchService {
   ) async {
     if (newHeadlines.isEmpty) return const [];
     final data = await client.send({
-      'model': ClaudeHttp.model,
-      'max_tokens': 4000,
+      // Haiku: triage runs on a timer (default every 30 min) whenever the app
+      // is open, so this is the cost floor of the whole app. It is a
+      // classification pass — cheap model, small cap. The deep-research
+      // stages above stay on ClaudeHttp.model.
+      'model': 'claude-haiku-4-5',
+      'max_tokens': 2000,
       'system':
           'You are a risk-intelligence triage analyst at a commercial insurance '
               'brokerage. From the fresh headlines, identify EMERGING RISKS that '

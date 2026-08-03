@@ -59,7 +59,11 @@ class AIProvider extends ChangeNotifier {
 
     try {
       final response = await _service.chat(
-        messages: _chatHistory,
+        // Only the recent tail — resending the whole history makes every
+        // turn dearer than the last for no quality gain in casual Q&A.
+        messages: _chatHistory.length > 12
+            ? _chatHistory.sublist(_chatHistory.length - 12)
+            : _chatHistory,
         systemPrompt: systemPrompt,
         maxTokens: 1024,
       );
