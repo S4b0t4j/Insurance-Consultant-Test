@@ -139,7 +139,7 @@ class RiskResearchService {
           if (withSearch)
             'tools': [
               {
-                'type': 'web_search_20260209',
+                'type': ClaudeHttp.webSearchType,
                 'name': 'web_search',
                 'max_uses': depth.searchUses,
               },
@@ -426,11 +426,11 @@ class RiskResearchService {
   ) async {
     if (newHeadlines.isEmpty) return const [];
     final data = await client.send({
-      // Haiku: triage runs on a timer (default every 30 min) whenever the app
-      // is open, so this is the cost floor of the whole app. It is a
-      // classification pass — cheap model, small cap. The deep-research
-      // stages above stay on ClaudeHttp.model.
-      'model': 'claude-haiku-4-5',
+      // Triage runs on a timer (default every 30 min) whenever the app is
+      // open, so it is the cost floor of the whole app: cheap model, small
+      // cap. Uses the shared constant so it tracks whatever the rest of the
+      // pipeline is set to.
+      'model': ClaudeHttp.model,
       'max_tokens': 2000,
       'system':
           'You are a risk-intelligence triage analyst at a commercial insurance '

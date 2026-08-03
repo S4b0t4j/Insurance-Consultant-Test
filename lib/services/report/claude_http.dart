@@ -16,8 +16,41 @@ class ReportAiException implements Exception {
 /// with demo content.
 class ClaudeHttp {
   static const String apiUrl = 'https://api.anthropic.com/v1/messages';
-  static const String model = 'claude-opus-5';
+
+  /// The single switch for every deep-research call (Risk Desk swarm, Report
+  /// Studio, radar triage). Flip this one constant to change models; the
+  /// capability shims below adapt the request body so call sites never have
+  /// to branch on which model is selected.
+  static const String model = 'claude-haiku-4-5';
   static const String _apiVersion = '2023-06-01';
+
+  /// Haiku 4.5 rejects `output_config.effort` outright (400) and does not
+  /// support the newer dynamic-filtering web-search tool. Opus/Sonnet accept
+  /// both. Keeping this knowledge here means switching models is a one-line
+  /// change instead of an edit across every request builder.
+  static bool get supportsEffort => !model.startsWith('claude-haiku');
+
+  /// Web-search tool version valid for the selected model.
+  static String get webSearchType =>
+      supportsEffort ? 'web_search_20260209' : 'web_search_20250305';
+
+  /// Drops request fields the selected model would reject. Returns a new map;
+  /// the caller's body is not mutated.
+  static Map<String, dynamic> adaptToModel(Map<String, dynamic> body) {
+    if (supportsEffort) return body;
+    final out = Map<String, dynamic>.from(body);
+    final oc = out['output_config'];
+    if (oc is Map) {
+      // Keep `format` (structured outputs work on Haiku); drop only `effort`.
+      final kept = Map<String, dynamic>.from(oc)..remove('effort');
+      if (kept.isEmpty) {
+        out.remove('output_config');
+      } else {
+        out['output_config'] = kept;
+      }
+    }
+    return out;
+  }
 
   String? _apiKey;
 
@@ -45,7 +78,7 @@ class ClaudeHttp {
                 'anthropic-version': _apiVersion,
                 'anthropic-dangerous-direct-browser-access': 'true',
               },
-              body: jsonEncode(body),
+              body: jsonEncode(adaptToModel(body)),
             )
             .timeout(const Duration(minutes: 6));
       } catch (e) {
