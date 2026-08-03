@@ -1092,17 +1092,17 @@ window.V = window.V || {};
 })(window.V);
 
 /* ==== src/auth.js ==== */
-/* VANTAGE Public Sector Edition: dual access codes and producer confirmation.
-   5596 unlocks the admin session. 1905 opens the producer roster; a producer
-   is confirmed by typing their last name. */
+/* VANTAGE Public Sector Edition: role chooser and producer confirmation.
+   No access code: the dashboard already sits behind the app login and
+   Cloudflare Access, so a fourth gate here only cost clicks. Pick
+   Administrator to go straight in, or pick a producer and confirm by
+   typing their last name. That last-name check still stands, because it
+   scopes the session to that producer's own accounts. */
 
 window.V = window.V || {};
 
 (function (V) {
   'use strict';
-
-  var ADMIN_CODE = '5596';
-  var PRODUCER_CODE = '1905';
 
   var authRoot = function () { return document.getElementById('auth-screen'); };
 
@@ -1115,23 +1115,18 @@ window.V = window.V || {};
     el.innerHTML =
       '<div class="auth-card" id="auth-card">' +
       brand() +
-      '<div class="auth-label">Enter your access code</div>' +
-      '<input class="code-input" id="code-input" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="Access code">' +
+      '<div class="auth-label">How are you viewing today?</div>' +
+      '<button class="roster-btn" id="enter-admin" type="button">Continue as Administrator' +
+      '<span class="roster-territory">Full portfolio across all territories</span></button>' +
+      '<button class="roster-btn" id="enter-producer" type="button">Sign in as a producer' +
+      '<span class="roster-territory">See only your own accounts</span></button>' +
       '<div class="auth-error" id="auth-error"></div>' +
       '</div>';
-    var input = document.getElementById('code-input');
-    input.focus();
-    input.addEventListener('input', function () {
-      if (input.value.length < 4) return;
-      if (input.value === ADMIN_CODE) {
-        V.auth.start({ role: 'admin', name: 'Administrator', producerKey: null });
-      } else if (input.value === PRODUCER_CODE) {
-        V.auth.renderRoster();
-      } else {
-        input.value = '';
-        showError('Code not recognized');
-      }
+    document.getElementById('enter-admin').addEventListener('click', function () {
+      V.auth.start({ role: 'admin', name: 'Administrator', producerKey: null });
     });
+    document.getElementById('enter-producer')
+      .addEventListener('click', V.auth.renderRoster);
   };
 
   V.auth.renderRoster = function () {

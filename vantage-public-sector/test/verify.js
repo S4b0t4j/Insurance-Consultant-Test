@@ -33,8 +33,8 @@ function check(name, cond, extra) {
   }
 }
 
-async function login(page, code) {
-  await page.fill('#code-input', code);
+async function login(page, selector) {
+  await page.click(selector);
 }
 
 async function passWebglOn() {
@@ -46,15 +46,17 @@ async function passWebglOn() {
   page.on('pageerror', (e) => consoleErrors.push(String(e)));
 
   await page.goto(DIST);
-  await page.waitForSelector('#code-input');
+  await page.waitForSelector('#enter-admin');
   check('demo banner visible', await page.isVisible('#demo-banner'));
 
-  /* wrong code rejected */
-  await login(page, '9999');
-  check('wrong code rejected', (await page.textContent('#auth-error')).includes('not recognized'));
+  /* role chooser replaces the old access-code gate */
+  check('role chooser offers both paths',
+    (await page.locator('#enter-admin').count()) === 1 &&
+    (await page.locator('#enter-producer').count()) === 1);
+  check('no access-code field remains', (await page.locator('#code-input').count()) === 0);
 
   /* admin path */
-  await login(page, '5596');
+  await login(page, '#enter-admin');
   await page.waitForSelector('#app-shell:not([hidden])');
   check('admin lands on map view', await page.isVisible('#map-canvas'));
   const adminAccounts = await page.locator('.entity-row').count();
@@ -197,8 +199,8 @@ async function passWebglOn() {
 
   /* logout, producer path with roster confirmation */
   await page.click('#logout-btn');
-  await page.waitForSelector('#code-input');
-  await login(page, '1905');
+  await page.waitForSelector('#enter-producer');
+  await login(page, '#enter-producer');
   await page.waitForSelector('.roster-btn');
   check('producer roster lists 3 producers', (await page.locator('.roster-btn').count()) === 3);
   check('roster labeled as mock data', (await page.textContent('#auth-card')).includes('Mock roster'));
@@ -232,8 +234,8 @@ async function passWebglOff() {
   page.on('pageerror', (e) => consoleErrors.push(String(e)));
 
   await page.goto(DIST);
-  await page.waitForSelector('#code-input');
-  await login(page, '5596');
+  await page.waitForSelector('#enter-admin');
+  await login(page, '#enter-admin');
   await page.waitForSelector('#app-shell:not([hidden])');
 
   const webgl = await page.evaluate(() => {
