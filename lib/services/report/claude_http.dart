@@ -34,6 +34,22 @@ class ClaudeHttp {
   static String get webSearchType =>
       supportsEffort ? 'web_search_20260209' : 'web_search_20250305';
 
+  /// Hard per-call cost ceiling in USD. Every max_tokens value and context
+  /// char-cap in risk_research_service.dart and report_ai_service.dart is
+  /// sized to stay under this at Haiku 4.5 rates ($1/$5 per MTok input/
+  /// output, $0.01/search) — see test/cost_budget_test.dart for the worked
+  /// numbers. These are Haiku-specific: raising `model` back to an Opus or
+  /// Sonnet tier means revisiting every cap, not just this constant.
+  static const double perCallBudgetUsd = 0.10;
+
+  /// Truncates [text] to at most [maxChars], marking the cut so it reads as
+  /// intentional (to Claude and to anyone debugging output quality) rather
+  /// than a silently clipped response.
+  static String truncate(String text, int maxChars) {
+    if (text.length <= maxChars) return text;
+    return '${text.substring(0, maxChars)}\n[...truncated for length...]';
+  }
+
   /// Drops request fields the selected model would reject. Returns a new map;
   /// the caller's body is not mutated.
   static Map<String, dynamic> adaptToModel(Map<String, dynamic> body) {

@@ -25,14 +25,18 @@ extension ResearchDepthInfo on ResearchDepth {
     }
   }
 
+  // Web search is a flat $0.01/search regardless of model or tokens — the
+  // one cost lever token caps can't touch. Capped low across all tiers to
+  // keep a single research() call's worst case (search fees + tokens) under
+  // ClaudeHttp.perCallBudgetUsd; see test/cost_budget_test.dart.
   int get searchUses {
     switch (this) {
       case ResearchDepth.quick:
-        return 2;
+        return 1;
       case ResearchDepth.standard:
-        return 4;
+        return 2;
       case ResearchDepth.deep:
-        return 6;
+        return 3;
     }
   }
 

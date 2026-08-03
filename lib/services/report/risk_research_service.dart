@@ -34,13 +34,31 @@ class RiskResearchService {
 
   RiskResearchService(this.client);
 
+  // Per-stage output caps and context char-caps. Sized so every call stays
+  // under ClaudeHttp.perCallBudgetUsd at Haiku rates — worked numbers in
+  // test/cost_budget_test.dart, which fails if these drift out of budget.
+  static const int planMaxTokens = 2000;
+  static const int researchMaxTokens = 3000;
+  static const int researchContextCharCap = 6000;
+  static const int lensMaxTokens = 2500;
+  static const int lensResearchCharCap = 10000;
+  static const int synthesizeMaxTokens = 6000;
+  static const int synthesizeSectionCharCap = 8000;
+  static const int followUpMaxTokens = 1500;
+  static const int followUpBriefCharCap = 8000;
+  static const int followUpResearchCharCap = 8000;
+  static const int followUpHistoryTurns = 6;
+  static const int triageMaxTokens = 2000;
+  static const int triageMaxHeadlines = 30;
+  static const int triageMaxKnownRisks = 50;
+
   /// Stage 1: decompose the emerging risk into research angles (count per
   /// [depth]).
   Future<List<ResearchAngle>> plan(String topic, String focus,
       {ResearchDepth depth = ResearchDepth.standard}) async {
     final data = await client.send({
       'model': ClaudeHttp.model,
-      'max_tokens': 6000,
+      'max_tokens': planMaxTokens,
       'system':
           'You are a research director at a commercial insurance brokerage planning '
               'an emerging-risk investigation. ${depth.angleInstruction} The angles '
@@ -114,6 +132,10 @@ class RiskResearchService {
           : u.extractedText;
       context.writeln('\n=== Uploaded material: ${u.name} ===\n$text');
     }
+    // Per-upload cap above bounds one file; this bounds the total when
+    // several are attached — upload count is user-controlled, not ours.
+    final boundedContext =
+        ClaudeHttp.truncate(context.toString(), researchContextCharCap);
 
     final baseMessages = [
       {
@@ -121,7 +143,7 @@ class RiskResearchService {
         'content': 'Emerging risk under investigation: $topic\n'
             'Your research angle: ${angle.title}\n'
             'Research question: ${angle.question}\n\n'
-            '${context.isEmpty ? '' : 'Supporting context:\n$context\n'}'
+            '${boundedContext.isEmpty ? '' : 'Supporting context:\n$boundedContext\n'}'
             'Research this thoroughly using web search for current, real-world '
             'information. Report concrete facts, figures, dates and named entities. '
             'End with a FINDINGS section of bullet points.',
@@ -130,7 +152,7 @@ class RiskResearchService {
 
     Map<String, dynamic> body(bool withSearch) => {
           'model': ClaudeHttp.model,
-          'max_tokens': 8000,
+          'max_tokens': researchMaxTokens,
           'system':
               'You are a research analyst investigating an emerging risk for a '
                   'commercial insurance audience. Prioritize recent, verifiable facts '
@@ -226,9 +248,11 @@ class RiskResearchService {
   /// Stage 3: one specialist lens over the pooled research.
   Future<String> lens(String topic, String lensName, String pooledResearch,
       {ResearchDepth depth = ResearchDepth.standard}) async {
+    final boundedResearch =
+        ClaudeHttp.truncate(pooledResearch, lensResearchCharCap);
     final data = await client.send({
       'model': ClaudeHttp.model,
-      'max_tokens': 6000,
+      'max_tokens': lensMaxTokens,
       'system':
           'You are a credentialed commercial insurance practitioner producing expert '
               'analysis of an emerging risk. ${lensPrompts[lensName] ?? ''} '
@@ -239,7 +263,7 @@ class RiskResearchService {
         {
           'role': 'user',
           'content':
-              'Emerging risk: $topic\n\nPooled research findings:\n$pooledResearch',
+              'Emerging risk: $topic\n\nPooled research findings:\n$boundedResearch',
         },
       ],
     });
@@ -253,16 +277,23 @@ class RiskResearchService {
     List<ResearchFindings> research,
     Map<String, String> lensAnalyses,
   ) async {
-    final researchText = research
-        .map((r) => '=== ${r.angle.title} ===\n${r.findings}')
-        .join('\n\n');
-    final lensText = lensAnalyses.entries
-        .map((e) => '=== ${e.key} analysis ===\n${e.value}')
-        .join('\n\n');
+    // Unbounded joins: up to 6 research angles and 5 lenses feed in here.
+    // Cap each pooled section rather than the per-piece text above, so this
+    // stays bounded regardless of how many angles/lenses a run used.
+    final researchText = ClaudeHttp.truncate(
+        research
+            .map((r) => '=== ${r.angle.title} ===\n${r.findings}')
+            .join('\n\n'),
+        synthesizeSectionCharCap);
+    final lensText = ClaudeHttp.truncate(
+        lensAnalyses.entries
+            .map((e) => '=== ${e.key} analysis ===\n${e.value}')
+            .join('\n\n'),
+        synthesizeSectionCharCap);
 
     final data = await client.send({
       'model': ClaudeHttp.model,
-      'max_tokens': 16000,
+      'max_tokens': synthesizeMaxTokens,
       'system':
           'You are the practice leader synthesizing an emerging-risk briefing for '
               'commercial insurance professionals. Merge the research and the three '
@@ -388,23 +419,26 @@ class RiskResearchService {
     required String question,
   }) async {
     final context = StringBuffer('EMERGING RISK BRIEF (JSON):\n')
-      ..writeln(briefJson.toString());
+      ..writeln(ClaudeHttp.truncate(briefJson.toString(), followUpBriefCharCap));
     if (pooledResearch.isNotEmpty) {
-      final capped = pooledResearch.length > 20000
-          ? pooledResearch.substring(0, 20000)
-          : pooledResearch;
-      context.writeln('\nUNDERLYING RESEARCH:\n$capped');
+      context.writeln(
+          '\nUNDERLYING RESEARCH:\n${ClaudeHttp.truncate(pooledResearch, followUpResearchCharCap)}');
     }
 
+    // Every turn resends the whole chat — cap it or a long Q&A thread
+    // grows this call's cost without bound.
+    final boundedHistory = history.length > followUpHistoryTurns
+        ? history.sublist(history.length - followUpHistoryTurns)
+        : history;
     final messages = <Map<String, dynamic>>[
-      for (final turn in history)
+      for (final turn in boundedHistory)
         {'role': turn.role, 'content': turn.text},
       {'role': 'user', 'content': question},
     ];
 
     final data = await client.send({
       'model': ClaudeHttp.model,
-      'max_tokens': 4000,
+      'max_tokens': followUpMaxTokens,
       'system':
           'You are a senior commercial insurance practitioner (CPCU) answering '
               'follow-up questions about an emerging-risk brief on "$topic". Ground '
@@ -425,13 +459,22 @@ class RiskResearchService {
     List<String> knownRiskTitles,
   ) async {
     if (newHeadlines.isEmpty) return const [];
+    // knownRiskTitles accumulates for the app's whole lifetime; without a
+    // cap this call's cost creeps up the longer the radar has been running.
+    final boundedHeadlines = newHeadlines.length > triageMaxHeadlines
+        ? newHeadlines.sublist(0, triageMaxHeadlines)
+        : newHeadlines;
+    final boundedKnown = knownRiskTitles.length > triageMaxKnownRisks
+        ? knownRiskTitles.sublist(
+            knownRiskTitles.length - triageMaxKnownRisks)
+        : knownRiskTitles;
     final data = await client.send({
       // Triage runs on a timer (default every 30 min) whenever the app is
       // open, so it is the cost floor of the whole app: cheap model, small
       // cap. Uses the shared constant so it tracks whatever the rest of the
       // pipeline is set to.
       'model': ClaudeHttp.model,
-      'max_tokens': 2000,
+      'max_tokens': triageMaxTokens,
       'system':
           'You are a risk-intelligence triage analyst at a commercial insurance '
               'brokerage. From the fresh headlines, identify EMERGING RISKS that '
@@ -479,9 +522,9 @@ class RiskResearchService {
           'role': 'user',
           'content': 'Risks already being tracked (do NOT re-report these '
               'or close variants):\n'
-              '${knownRiskTitles.isEmpty ? '(none)' : knownRiskTitles.map((t) => '- $t').join('\n')}\n\n'
+              '${boundedKnown.isEmpty ? '(none)' : boundedKnown.map((t) => '- $t').join('\n')}\n\n'
               'Fresh headlines since the last scan:\n'
-              '${newHeadlines.map((h) => '- $h').join('\n')}',
+              '${boundedHeadlines.map((h) => '- $h').join('\n')}',
         },
       ],
     });

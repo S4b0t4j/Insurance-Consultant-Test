@@ -13,8 +13,15 @@ class ReportAiService {
 
   ReportAiService(this.client);
 
+  // Sized so every call stays under ClaudeHttp.perCallBudgetUsd at Haiku
+  // rates — worked numbers in test/cost_budget_test.dart.
   static const int _perSourceCharCap = 8000;
+  static const int sourceTotalCharCap = 16000;
   static const int slidesPerBatch = 5;
+  static const int editionBriefMaxTokens = 3000;
+  static const int cloneBatchMaxTokens = 5000;
+  static const int cloneBlockOriginalCharCap = 800;
+  static const int rebuildPlanMaxTokens = 5000;
 
   /// Call 0: digest all sources into an edition brief. Later calls receive
   /// this digest instead of raw source text — the token-control lever.
@@ -22,8 +29,11 @@ class ReportAiService {
     ReportJobConfig config,
     List<ReportSource> sources,
   ) async {
+    // Per-source cap bounds one file; total cap bounds an unbounded number
+    // of them (source count is user-controlled, not ours).
     final sourceText = StringBuffer();
     for (final s in sources) {
+      if (sourceText.length >= sourceTotalCharCap) break;
       final text = s.extractedText.length > _perSourceCharCap
           ? s.extractedText.substring(0, _perSourceCharCap)
           : s.extractedText;
@@ -34,7 +44,7 @@ class ReportAiService {
 
     final data = await client.send({
       'model': ClaudeHttp.model,
-      'max_tokens': 12000,
+      'max_tokens': editionBriefMaxTokens,
       'system':
           'You are a senior risk-report editor at a commercial insurance brokerage. '
               'Distill the provided source material into a factual JSON brief for a new '
@@ -122,13 +132,17 @@ class ReportAiService {
     Map<String, dynamic> brief,
     List<SlideInventory> batch,
   ) async {
+    // A template paragraph's original text is unbounded (a dense body block
+    // could be a full paragraph); cap what we echo back to Claude. Doesn't
+    // affect maxChars, which still reflects the real original length.
     final slidesPayload = batch
         .map((slide) => {
               'slide': slide.index,
               'blocks': slide.allParagraphs
                   .map((p) => {
                         'id': p.blockId,
-                        'original': p.mergedText,
+                        'original': ClaudeHttp.truncate(
+                            p.mergedText, cloneBlockOriginalCharCap),
                         'maxChars': p.charBudget,
                       })
                   .toList(),
@@ -137,7 +151,7 @@ class ReportAiService {
 
     final data = await client.send({
       'model': ClaudeHttp.model,
-      'max_tokens': 16000,
+      'max_tokens': cloneBatchMaxTokens,
       'system':
           'You rewrite the text of an existing report template to produce a new edition. '
               'For each block, write replacement text grounded ONLY in the edition brief. '
@@ -206,7 +220,7 @@ class ReportAiService {
   ) async {
     final data = await client.send({
       'model': ClaudeHttp.model,
-      'max_tokens': 16000,
+      'max_tokens': rebuildPlanMaxTokens,
       'system':
           'You are composing a risk-report slide deck from an edition brief. '
               'Produce one slides[] entry per requested archetype, in the requested order, '
