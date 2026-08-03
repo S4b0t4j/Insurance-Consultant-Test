@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'providers/ai_provider.dart';
 import 'providers/alert_provider.dart';
@@ -18,6 +19,10 @@ import 'utils/theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  // Fonts ship in assets (see pubspec `google_fonts/`). Fetching them at
+  // runtime would leave the UI textless on networks that block Google CDNs,
+  // so fail loudly in dev instead of silently depending on the network.
+  GoogleFonts.config.allowRuntimeFetching = false;
   runApp(const EducationNewsMonitorApp());
 }
 

@@ -37,3 +37,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    # Inter + Fraunces bundled locally so google_fonts never reaches
+    # fonts.gstatic.com at runtime — text renders on networks that block
+    # Google CDNs. Same reason we build with --no-web-resources-cdn.
+    - google_fonts/
