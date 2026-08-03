@@ -2,7 +2,7 @@ enum GenerationMode { clone, rebuild }
 
 enum JobStatus { idle, generating, reviewing, done, error }
 
-/// The nine slide archetypes learned from the Marsh Risk Report deck.
+/// The nine slide archetypes learned from a public-entity risk report deck.
 enum SlideArchetype {
   cover,
   agenda,

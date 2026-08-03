@@ -29,7 +29,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   String _hashPassword(String password) {
-    final salt = 'marsh_edu_news_2026';
+    final salt = 'vantage_public_sector_2026';
     final bytes = utf8.encode('$salt:$password');
     return crypto.sha256.convert(bytes).toString();
   }
@@ -46,9 +46,9 @@ class AuthProvider extends ChangeNotifier {
     if (_users.where((u) => u.isAdmin).isEmpty) {
       _users.add(AppUser(
         id: 'admin-seed',
-        email: 'admin@marsh.com',
-        displayName: 'Marsh Admin',
-        passwordHash: _hashPassword('marsh2026'),
+        email: 'admin@vantage.local',
+        displayName: 'VANTAGE Admin',
+        passwordHash: _hashPassword('vantage2026'),
         role: UserRole.admin,
         createdAt: DateTime.now(),
       ));

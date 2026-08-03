@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import '../models/article.dart';
 
 class PdfService {
-  static const PdfColor marshBlue = PdfColor.fromInt(0xFF002D72);
+  static const PdfColor brandBlue = PdfColor.fromInt(0xFF002D72);
   static const PdfColor highPriorityColor = PdfColor.fromInt(0xFFDC2626);
   static const PdfColor mediumPriorityColor = PdfColor.fromInt(0xFFF59E0B);
   static const PdfColor lowPriorityColor = PdfColor.fromInt(0xFF16A34A);
@@ -67,7 +67,7 @@ class PdfService {
 
     await Printing.layoutPdf(
       onLayout: (PdfPageFormat format) async => pdf.save(),
-      name: 'Education_News_Report_${DateFormat('yyyy-MM-dd').format(DateTime.now())}.pdf',
+      name: 'Public_Sector_Report_${DateFormat('yyyy-MM-dd').format(DateTime.now())}.pdf',
     );
   }
 
@@ -76,7 +76,7 @@ class PdfService {
       padding: const pw.EdgeInsets.only(bottom: 20),
       decoration: const pw.BoxDecoration(
         border: pw.Border(
-          bottom: pw.BorderSide(color: marshBlue, width: 2),
+          bottom: pw.BorderSide(color: brandBlue, width: 2),
         ),
       ),
       child: pw.Row(
@@ -86,16 +86,16 @@ class PdfService {
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
               pw.Text(
-                'Education News Monitor',
+                'VANTAGE Public Sector',
                 style: pw.TextStyle(
                   fontSize: 24,
                   fontWeight: pw.FontWeight.bold,
-                  color: marshBlue,
+                  color: brandBlue,
                 ),
               ),
               pw.SizedBox(height: 4),
               pw.Text(
-                'Marsh Education Practice',
+                'VANTAGE Public Sector',
                 style: pw.TextStyle(
                   fontSize: 14,
                   color: PdfColors.grey700,
@@ -140,7 +140,7 @@ class PdfService {
         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
         children: [
           pw.Text(
-            'Confidential - Marsh Education Practice',
+            'Confidential - VANTAGE Public Sector',
             style: const pw.TextStyle(
               fontSize: 9,
               color: PdfColors.grey500,
@@ -177,7 +177,7 @@ class PdfService {
             style: pw.TextStyle(
               fontSize: 16,
               fontWeight: pw.FontWeight.bold,
-              color: marshBlue,
+              color: brandBlue,
             ),
           ),
           pw.SizedBox(height: 12),
@@ -187,7 +187,7 @@ class PdfService {
               _buildSummaryItem('High Priority', highCount, highPriorityColor),
               _buildSummaryItem('Medium Priority', mediumCount, mediumPriorityColor),
               _buildSummaryItem('Low Priority', lowCount, lowPriorityColor),
-              _buildSummaryItem('Total Articles', highCount + mediumCount + lowCount, marshBlue),
+              _buildSummaryItem('Total Articles', highCount + mediumCount + lowCount, brandBlue),
             ],
           ),
         ],
@@ -278,7 +278,7 @@ class PdfService {
                   style: pw.TextStyle(
                     fontSize: 12,
                     fontWeight: pw.FontWeight.bold,
-                    color: marshBlue,
+                    color: brandBlue,
                   ),
                 ),
               ),
@@ -343,7 +343,7 @@ class PdfService {
                   style: pw.TextStyle(
                     fontSize: 9,
                     fontWeight: pw.FontWeight.bold,
-                    color: marshBlue,
+                    color: brandBlue,
                   ),
                 ),
                 pw.SizedBox(height: 4),

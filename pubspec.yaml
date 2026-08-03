@@ -1,5 +1,5 @@
-name: education_news_monitor
-description: "Real-time education news intelligence dashboard for Marsh Education Practice"
+name: vantage_public_sector
+description: "Public sector risk intelligence dashboard — news monitoring, risk research and document generation"
 publish_to: 'none'
 
 version: 1.0.0+1

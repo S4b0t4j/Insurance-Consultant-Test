@@ -5,7 +5,7 @@ import '../providers/auth_provider.dart';
 import '../providers/layout_provider.dart';
 import '../utils/theme.dart';
 
-enum AppSection { dashboard, askAi, riskDesk, reportStudio, alerts, admin }
+enum AppSection { dashboard, vantageMap, askAi, riskDesk, reportStudio, alerts, admin }
 
 class AppSidebar extends StatelessWidget {
   final AppSection currentSection;
@@ -64,10 +64,10 @@ class AppSidebar extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Marsh',
+                            Text('VANTAGE',
                                 style: theme.textTheme.titleMedium
                                     ?.copyWith(fontWeight: FontWeight.w700)),
-                            Text('Education Practice',
+                            Text('Public Sector',
                                 style: theme.textTheme.bodySmall),
                           ],
                         ),
@@ -119,6 +119,15 @@ class AppSidebar extends StatelessWidget {
                         accentColor: AppColors.persianBlue,
                       ),
                     ],
+                    _NavItem(
+                      icon: Icons.public_outlined,
+                      activeIcon: Icons.public,
+                      label: 'Entity Map',
+                      collapsed: collapsed,
+                      selected: currentSection == AppSection.vantageMap,
+                      onTap: () => onSectionChange(AppSection.vantageMap),
+                      accentColor: AppColors.fluorescentTeal,
+                    ),
                     _NavItem(
                       icon: Icons.notifications_outlined,
                       activeIcon: Icons.notifications,

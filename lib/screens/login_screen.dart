@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Education News Monitor by Marsh',
+                        'VANTAGE Public Sector',
                         style: theme.textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 32),
@@ -243,7 +243,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
-                                'Default admin: admin@marsh.com / marsh2026',
+                                'Default admin: admin@vantage.local / vantage2026',
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: AppColors.lightTextSecondary,
                                 ),

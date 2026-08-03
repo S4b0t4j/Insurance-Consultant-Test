@@ -51,8 +51,8 @@ class AIProvider extends ChangeNotifier {
     notifyListeners();
 
     final systemPrompt =
-        'You are an AI insurance risk advisor for Marsh\'s Education Practice. '
-        'You help risk professionals understand education news, NIL developments, regulatory changes, '
+        'You are an AI insurance risk advisor for the public sector practice. '
+        'You help risk professionals understand public sector news, policy and regulatory changes, '
         'and their insurance implications. Be concise, professional, and actionable. '
         'When relevant, mention specific coverage types (D&O, EPLI, cyber, general liability). '
         '${context != null && context.isNotEmpty ? "\n\nRecent articles for context:\n${context.take(10).map((a) => "- ${a.headline}").join("\n")}" : ""}';

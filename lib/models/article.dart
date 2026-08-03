@@ -1,33 +1,33 @@
 enum Priority { high, medium, low }
 
 enum NewsCategory {
-  federalDoe,
-  higherEducation,
-  sportsNil,
-  healthcareEducation,
+  federalPolicy,
+  stateLocal,
+  publicSafety,
+  publicHealth,
   regulatoryCompliance,
-  financialAid,
-  edTech,
+  grantsFunding,
+  govTech,
   workforceLabor,
 }
 
 extension NewsCategoryExtension on NewsCategory {
   String get displayName {
     switch (this) {
-      case NewsCategory.federalDoe:
-        return 'Federal/DOE';
-      case NewsCategory.higherEducation:
-        return 'Higher Education';
-      case NewsCategory.sportsNil:
-        return 'Sports & NIL';
-      case NewsCategory.healthcareEducation:
-        return 'Healthcare in Education';
+      case NewsCategory.federalPolicy:
+        return 'Federal Policy';
+      case NewsCategory.stateLocal:
+        return 'State & Local';
+      case NewsCategory.publicSafety:
+        return 'Public Safety';
+      case NewsCategory.publicHealth:
+        return 'Public Health';
       case NewsCategory.regulatoryCompliance:
         return 'Regulatory/Compliance';
-      case NewsCategory.financialAid:
-        return 'Financial Aid';
-      case NewsCategory.edTech:
-        return 'EdTech';
+      case NewsCategory.grantsFunding:
+        return 'Grants & Funding';
+      case NewsCategory.govTech:
+        return 'GovTech';
       case NewsCategory.workforceLabor:
         return 'Workforce/Labor';
     }
@@ -35,20 +35,20 @@ extension NewsCategoryExtension on NewsCategory {
 
   String get shortName {
     switch (this) {
-      case NewsCategory.federalDoe:
-        return 'DOE';
-      case NewsCategory.higherEducation:
-        return 'Higher Ed';
-      case NewsCategory.sportsNil:
-        return 'NIL/Sports';
-      case NewsCategory.healthcareEducation:
-        return 'Healthcare';
+      case NewsCategory.federalPolicy:
+        return 'Federal';
+      case NewsCategory.stateLocal:
+        return 'State/Local';
+      case NewsCategory.publicSafety:
+        return 'Safety';
+      case NewsCategory.publicHealth:
+        return 'Health';
       case NewsCategory.regulatoryCompliance:
         return 'Regulatory';
-      case NewsCategory.financialAid:
-        return 'Financial Aid';
-      case NewsCategory.edTech:
-        return 'EdTech';
+      case NewsCategory.grantsFunding:
+        return 'Grants';
+      case NewsCategory.govTech:
+        return 'GovTech';
       case NewsCategory.workforceLabor:
         return 'Workforce';
     }
@@ -70,8 +70,8 @@ class Article {
   final String? businessOpportunity;
   final String? actionRequired;
   final List<String> keyEntities;
-  final List<String> institutionsAffected;
-  final List<String> conferencesAffected;
+  final List<String> entitiesAffected;
+  final List<String> jurisdictionsAffected;
   final String geographicScope;
   final int sourceTier;
   final bool isBreaking;
@@ -97,8 +97,8 @@ class Article {
     this.businessOpportunity,
     this.actionRequired,
     this.keyEntities = const [],
-    this.institutionsAffected = const [],
-    this.conferencesAffected = const [],
+    this.entitiesAffected = const [],
+    this.jurisdictionsAffected = const [],
     this.geographicScope = 'National',
     this.sourceTier = 2,
     this.isBreaking = false,
@@ -136,8 +136,8 @@ class Article {
       businessOpportunity: businessOpportunity,
       actionRequired: actionRequired,
       keyEntities: keyEntities,
-      institutionsAffected: institutionsAffected,
-      conferencesAffected: conferencesAffected,
+      entitiesAffected: entitiesAffected,
+      jurisdictionsAffected: jurisdictionsAffected,
       geographicScope: geographicScope,
       sourceTier: sourceTier,
       isBreaking: isBreaking,
@@ -148,13 +148,11 @@ class Article {
     );
   }
 
-  bool get isNilSports =>
-      primaryCategory == NewsCategory.sportsNil ||
-      additionalCategories.contains(NewsCategory.sportsNil);
-
-  bool get isEducationOnly =>
-      !isNilSports &&
-      primaryCategory != NewsCategory.sportsNil;
+  /// Public-safety stories get their own dashboard tab, so they are also
+  /// excluded from the general feed to keep the two views disjoint.
+  bool get isPublicSafety =>
+      primaryCategory == NewsCategory.publicSafety ||
+      additionalCategories.contains(NewsCategory.publicSafety);
 
   String get timeAgo {
     final now = DateTime.now();
@@ -189,8 +187,8 @@ class Article {
       'businessOpportunity': businessOpportunity,
       'actionRequired': actionRequired,
       'keyEntities': keyEntities,
-      'institutionsAffected': institutionsAffected,
-      'conferencesAffected': conferencesAffected,
+      'entitiesAffected': entitiesAffected,
+      'jurisdictionsAffected': jurisdictionsAffected,
       'geographicScope': geographicScope,
       'sourceTier': sourceTier,
       'isBreaking': isBreaking,
@@ -215,8 +213,8 @@ class Article {
       businessOpportunity: json['businessOpportunity'],
       actionRequired: json['actionRequired'],
       keyEntities: List<String>.from(json['keyEntities']),
-      institutionsAffected: List<String>.from(json['institutionsAffected']),
-      conferencesAffected: List<String>.from(json['conferencesAffected']),
+      entitiesAffected: List<String>.from(json['entitiesAffected']),
+      jurisdictionsAffected: List<String>.from(json['jurisdictionsAffected']),
       geographicScope: json['geographicScope'],
       sourceTier: json['sourceTier'],
       isBreaking: json['isBreaking'],

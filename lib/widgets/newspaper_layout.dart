@@ -54,7 +54,7 @@ class NewspaperLayout extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'THE MARSH EDUCATION GAZETTE',
+                  'THE PUBLIC SECTOR GAZETTE',
                   style: theme.textTheme.displaySmall?.copyWith(
                     letterSpacing: 2,
                     fontSize: 28,

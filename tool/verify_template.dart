@@ -6,8 +6,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:education_news_monitor/services/report/ooxml_reader.dart';
-import 'package:education_news_monitor/services/report/ooxml_rewriter.dart';
+import 'package:vantage_public_sector/services/report/ooxml_reader.dart';
+import 'package:vantage_public_sector/services/report/ooxml_rewriter.dart';
 
 void main(List<String> args) {
   if (args.length < 2) {

@@ -97,7 +97,7 @@ class _UsersTab extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Only invited users can access the Education News Monitor',
+              'Only invited users can access the VANTAGE Public Sector',
               style: theme.textTheme.bodyMedium,
             ),
             const SizedBox(height: 24),

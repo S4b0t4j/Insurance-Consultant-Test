@@ -803,7 +803,7 @@ class _AddRuleDialogState extends State<_AddRuleDialog> {
                   controller: _nameController,
                   decoration: const InputDecoration(
                     labelText: 'Rule Name',
-                    hintText: 'e.g., Title IX Monitoring',
+                    hintText: 'e.g., Cyber Incident Monitoring',
                   ),
                   validator: (v) =>
                       v?.isEmpty == true ? 'Name is required' : null,
@@ -848,7 +848,7 @@ class _AddRuleDialogState extends State<_AddRuleDialog> {
                     controller: _keywordsController,
                     decoration: const InputDecoration(
                       labelText: 'Keywords (comma-separated)',
-                      hintText: 'e.g., Title IX, OCR, investigation',
+                      hintText: 'e.g., ransomware, consent decree, audit finding',
                     ),
                     maxLines: 2,
                   ),

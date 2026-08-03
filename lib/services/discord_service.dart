@@ -35,7 +35,7 @@ class DiscordService {
               : 0x16A34A;
 
       final payload = {
-        'username': 'Marsh Education News Monitor',
+        'username': 'VANTAGE Public Sector',
         'embeds': [
           {
             'title': article.headline,
@@ -60,7 +60,7 @@ class DiscordService {
               },
             ],
             'timestamp': article.publishedAt.toIso8601String(),
-            'footer': {'text': 'Marsh Education Practice'},
+            'footer': {'text': 'VANTAGE Public Sector'},
           }
         ],
       };
@@ -122,9 +122,9 @@ class DiscordService {
         Uri.parse(_webhookUrl!),
         headers: {'content-type': 'application/json'},
         body: jsonEncode({
-          'username': 'Marsh Education News Monitor',
+          'username': 'VANTAGE Public Sector',
           'content':
-              'Test message from Education News Monitor. Discord integration is working.',
+              'Test message from VANTAGE Public Sector. Discord integration is working.',
         }),
       );
       return response.statusCode >= 200 && response.statusCode < 300;

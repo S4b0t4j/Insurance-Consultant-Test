@@ -23,11 +23,11 @@ void main() {
   // runtime would leave the UI textless on networks that block Google CDNs,
   // so fail loudly in dev instead of silently depending on the network.
   GoogleFonts.config.allowRuntimeFetching = false;
-  runApp(const EducationNewsMonitorApp());
+  runApp(const VantagePublicSectorApp());
 }
 
-class EducationNewsMonitorApp extends StatelessWidget {
-  const EducationNewsMonitorApp({super.key});
+class VantagePublicSectorApp extends StatelessWidget {
+  const VantagePublicSectorApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class EducationNewsMonitorApp extends StatelessWidget {
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, _) {
           return MaterialApp(
-            title: 'Education News Monitor',
+            title: 'VANTAGE Public Sector',
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,

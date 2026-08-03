@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
-/// The app must never fetch fonts from fonts.gstatic.com at runtime — Marsh
-/// networks block Google CDNs, and a missing font renders the whole UI
+/// The app must never fetch fonts from fonts.gstatic.com at runtime — many
+/// government and corporate networks block Google CDNs, and a missing font renders the whole UI
 /// textless. `GoogleFonts.config.allowRuntimeFetching = false` in main.dart
 /// turns that failure into a thrown exception, so every weight the theme asks
 /// for has to exist in google_fonts/ as `<Family>-<Variant>.ttf` (the name

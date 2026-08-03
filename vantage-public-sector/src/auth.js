@@ -112,7 +112,7 @@ window.V = window.V || {};
 
   function brand() {
     return '<h1 class="brand-word">VANTA<span class="brand-tail">GE</span></h1>' +
-      '<div class="brand-sub">Public Entity and Education</div>';
+      '<div class="brand-sub">Public Sector</div>';
   }
 
   function showError(msg) {

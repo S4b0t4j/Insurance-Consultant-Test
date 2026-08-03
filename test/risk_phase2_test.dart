@@ -1,6 +1,6 @@
-import 'package:education_news_monitor/models/emerging_risk_brief.dart';
-import 'package:education_news_monitor/models/radar.dart';
-import 'package:education_news_monitor/models/report_source.dart';
+import 'package:vantage_public_sector/models/emerging_risk_brief.dart';
+import 'package:vantage_public_sector/models/radar.dart';
+import 'package:vantage_public_sector/models/report_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

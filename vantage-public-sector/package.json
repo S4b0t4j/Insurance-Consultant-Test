@@ -2,7 +2,7 @@
   "name": "vantage-public-sector",
   "version": "1.0.0",
   "private": true,
-  "description": "VANTAGE Public Sector Edition: prospecting and property intelligence for the Marsh Public Entity and Education practice. Repo for maintainability, single-file bundle for delivery.",
+  "description": "VANTAGE Public Sector Edition: prospecting and property intelligence for the public sector practice. Repo for maintainability, single-file bundle for delivery.",
   "scripts": {
     "dev": "npx -y http-server -p 8080 -c-1 .",
     "data": "node scripts/build-entities.js",

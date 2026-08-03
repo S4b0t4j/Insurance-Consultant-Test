@@ -19,8 +19,8 @@ extension NotificationFrequencyExtension on NotificationFrequency {
 
 enum FeedPreference {
   all,
-  educationOnly,
-  nilSportsOnly,
+  generalOnly,
+  publicSafetyOnly,
 }
 
 extension FeedPreferenceExtension on FeedPreference {
@@ -28,10 +28,10 @@ extension FeedPreferenceExtension on FeedPreference {
     switch (this) {
       case FeedPreference.all:
         return 'All News';
-      case FeedPreference.educationOnly:
-        return 'Education Only';
-      case FeedPreference.nilSportsOnly:
-        return 'NIL/Sports Only';
+      case FeedPreference.generalOnly:
+        return 'General Only';
+      case FeedPreference.publicSafetyOnly:
+        return 'Public Safety Only';
     }
   }
 }

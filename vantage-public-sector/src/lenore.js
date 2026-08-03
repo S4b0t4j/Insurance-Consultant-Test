@@ -1,5 +1,5 @@
 /* VANTAGE Public Sector Edition: Lenore generation panel.
-   Lenore is the Marsh internal AI portal. This panel offers a model
+   Lenore is the internal AI portal. This panel offers a model
    selector and generates outreach copy for the open entity. With no
    credential present it uses a deterministic offline fallback and says
    so plainly. No API keys live anywhere in this source. */
@@ -93,7 +93,7 @@ window.V = window.V || {};
     lines.push('');
     lines.push('Hi [CONTACT NAME],');
     lines.push('');
-    lines.push('I lead public entity property placements at Marsh in our Public Entity and Education practice. ' +
+    lines.push('I lead public entity property placements in our public sector practice. ' +
       'We have been mapping ' + seg.label.toLowerCase() + ' exposures and ' + e.name + ' stands out: ' +
       'roughly ' + V.fmt.money(e.tiv) + ' in insured values (our derived estimate) against an estimated ' +
       V.fmt.money(e.prem) + ' annual property spend.');
@@ -114,7 +114,7 @@ window.V = window.V || {};
     lines.push('');
     lines.push('Best regards,');
     lines.push(V.state.user ? V.state.user.name : '[PRODUCER]');
-    lines.push('Marsh, Public Entity and Education');
+    lines.push('Public Entity Practice');
     return lines.join('\n');
   };
 })(window.V);

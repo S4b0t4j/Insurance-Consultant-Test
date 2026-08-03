@@ -13,6 +13,7 @@ import '../services/pdf_service.dart';
 import '../utils/theme.dart';
 import '../widgets/alerts_panel.dart';
 import '../widgets/app_sidebar.dart';
+import '../widgets/vantage_view.dart';
 import '../widgets/filter_panel.dart';
 import '../widgets/grid_layout.dart';
 import '../widgets/layout_switcher.dart';
@@ -144,17 +145,17 @@ class _HomeScreenState extends State<HomeScreen> {
         articles.where((a) => a.priority == Priority.low).length;
 
     final text = '''
-Education News Monitor - $dateStr
-Marsh Education Practice
+VANTAGE Public Sector - $dateStr
+VANTAGE Public Sector
 
 Summary: $highCount High Priority | $mediumCount Medium | $lowCount Low Priority
 
 Top Stories:
 ${articles.take(5).map((a) => '• ${a.headline}').join('\n')}
 
-View full report with risk analysis in the Education News Monitor app.
+View full report with risk analysis in the VANTAGE Public Sector app.
 ''';
-    await Share.share(text, subject: 'Education News Report - $dateStr');
+    await Share.share(text, subject: 'Public Sector Risk Report - $dateStr');
   }
 
   void _showAlertsPanel() {
@@ -165,6 +166,8 @@ View full report with risk analysis in the Education News Monitor app.
     switch (_section) {
       case AppSection.dashboard:
         return _buildDashboard();
+      case AppSection.vantageMap:
+        return const VantageView();
       case AppSection.askAi:
         return const AskAiScreen();
       case AppSection.riskDesk:
@@ -303,7 +306,9 @@ View full report with risk analysis in the Education News Monitor app.
   String _sectionTitle() {
     switch (_section) {
       case AppSection.dashboard:
-        return 'Education News Monitor';
+        return 'VANTAGE Public Sector';
+      case AppSection.vantageMap:
+        return 'Entity Map';
       case AppSection.askAi:
         return 'Ask AI';
       case AppSection.riskDesk:

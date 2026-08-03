@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
-import 'package:education_news_monitor/models/report_job.dart';
-import 'package:education_news_monitor/models/report_template.dart';
-import 'package:education_news_monitor/services/report/docx_builder.dart';
-import 'package:education_news_monitor/services/report/ooxml_reader.dart';
-import 'package:education_news_monitor/services/report/ooxml_rewriter.dart';
-import 'package:education_news_monitor/services/report/pptx_builder.dart';
+import 'package:vantage_public_sector/models/report_job.dart';
+import 'package:vantage_public_sector/models/report_template.dart';
+import 'package:vantage_public_sector/services/report/docx_builder.dart';
+import 'package:vantage_public_sector/services/report/ooxml_reader.dart';
+import 'package:vantage_public_sector/services/report/ooxml_rewriter.dart';
+import 'package:vantage_public_sector/services/report/pptx_builder.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 const theme = ExtractedTheme(

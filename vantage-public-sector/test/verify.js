@@ -147,7 +147,7 @@ async function passWebglOn() {
   check('offline status shown without credential', (await page.textContent('#lenore-status')).includes('Offline fallback'));
   await page.click('#lenore-generate');
   const draft = await page.textContent('#lenore-out');
-  check('offline draft generated', draft.includes('Public Entity and Education') && draft.includes('Offline fallback'));
+  check('offline draft generated', draft.includes('Public Entity Practice') && draft.includes('Offline fallback'));
 
   /* discrepancy flag flow */
   await page.click('.drawer-tab[data-tab="property"]');

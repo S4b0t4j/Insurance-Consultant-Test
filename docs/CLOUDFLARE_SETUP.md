@@ -66,7 +66,7 @@ protected too — or disable preview deployments in the Pages project settings.
 ## Step 4 — First login in the app
 
 1. Open `https://<project>.pages.dev`, pass the Cloudflare login.
-2. Sign in with the seeded admin `admin@marsh.com` / `marsh2026` and
+2. Sign in with the seeded admin `admin@vantage.local` / `vantage2026` and
    **change it** (Admin → Users: create your own admin account, then remove
    or deactivate the seed).
 3. Admin → **Claude API**: paste your Anthropic API key. Use a dedicated key

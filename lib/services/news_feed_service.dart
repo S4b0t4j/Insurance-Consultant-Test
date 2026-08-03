@@ -8,93 +8,105 @@ class NewsFeedSource {
   final String url;
   final NewsCategory defaultCategory;
   final int sourceTier;
-  final bool isNilSource;
+  final bool isPublicSafetySource;
 
   const NewsFeedSource({
     required this.name,
     required this.url,
     required this.defaultCategory,
     this.sourceTier = 2,
-    this.isNilSource = false,
+    this.isPublicSafetySource = false,
   });
 }
 
 class NewsFeedService {
   static const String _corsProxy = 'https://api.allorigins.win/raw?url=';
 
-  static const List<NewsFeedSource> _educationFeeds = [
+  static const List<NewsFeedSource> _generalFeeds = [
     NewsFeedSource(
-      name: 'Inside Higher Ed',
-      url: 'https://www.insidehighered.com/rss.xml',
-      defaultCategory: NewsCategory.higherEducation,
+      name: 'Government Executive',
+      url: 'https://www.govexec.com/rss/all/',
+      defaultCategory: NewsCategory.federalPolicy,
       sourceTier: 1,
     ),
     NewsFeedSource(
-      name: 'Education Week',
-      url: 'https://www.edweek.org/feed',
-      defaultCategory: NewsCategory.federalDoe,
+      name: 'Route Fifty',
+      url: 'https://www.route-fifty.com/rss/all/',
+      defaultCategory: NewsCategory.stateLocal,
       sourceTier: 1,
     ),
     NewsFeedSource(
-      name: 'Chronicle of Higher Ed',
-      url: 'https://www.chronicle.com/feed',
-      defaultCategory: NewsCategory.higherEducation,
+      name: 'StateScoop',
+      url: 'https://statescoop.com/feed/',
+      defaultCategory: NewsCategory.govTech,
       sourceTier: 1,
     ),
     NewsFeedSource(
-      name: 'Google News - Higher Education',
-      url: 'https://news.google.com/rss/search?q=higher+education+college+university&hl=en-US&gl=US&ceid=US:en',
-      defaultCategory: NewsCategory.higherEducation,
+      name: 'Google News - State & Local Government',
+      url: 'https://news.google.com/rss/search?q=state+local+government+policy&hl=en-US&gl=US&ceid=US:en',
+      defaultCategory: NewsCategory.stateLocal,
       sourceTier: 2,
     ),
     NewsFeedSource(
-      name: 'Google News - Title IX',
-      url: 'https://news.google.com/rss/search?q=Title+IX+education&hl=en-US&gl=US&ceid=US:en',
+      name: 'Google News - Federal Grants & Funding',
+      url: 'https://news.google.com/rss/search?q=federal+grant+funding+municipality+county&hl=en-US&gl=US&ceid=US:en',
+      defaultCategory: NewsCategory.grantsFunding,
+      sourceTier: 2,
+    ),
+    NewsFeedSource(
+      name: 'Google News - Public Sector Compliance',
+      url: 'https://news.google.com/rss/search?q=government+regulatory+compliance+audit&hl=en-US&gl=US&ceid=US:en',
       defaultCategory: NewsCategory.regulatoryCompliance,
       sourceTier: 2,
     ),
     NewsFeedSource(
-      name: 'Google News - Department of Education',
-      url: 'https://news.google.com/rss/search?q=Department+of+Education+federal&hl=en-US&gl=US&ceid=US:en',
-      defaultCategory: NewsCategory.federalDoe,
+      name: 'Google News - Public Health Agencies',
+      url: 'https://news.google.com/rss/search?q=public+health+department+county+state&hl=en-US&gl=US&ceid=US:en',
+      defaultCategory: NewsCategory.publicHealth,
+      sourceTier: 2,
+    ),
+    NewsFeedSource(
+      name: 'Google News - Public Workforce & Labor',
+      url: 'https://news.google.com/rss/search?q=public+sector+union+workforce+pension&hl=en-US&gl=US&ceid=US:en',
+      defaultCategory: NewsCategory.workforceLabor,
       sourceTier: 2,
     ),
   ];
 
-  static const List<NewsFeedSource> _nilSportsFeeds = [
+  static const List<NewsFeedSource> _publicSafetyFeeds = [
     NewsFeedSource(
-      name: 'Google News - NIL College Sports',
-      url: 'https://news.google.com/rss/search?q=NIL+college+athletes+name+image+likeness&hl=en-US&gl=US&ceid=US:en',
-      defaultCategory: NewsCategory.sportsNil,
+      name: 'Google News - Emergency Management',
+      url: 'https://news.google.com/rss/search?q=emergency+management+FEMA+disaster+declaration&hl=en-US&gl=US&ceid=US:en',
+      defaultCategory: NewsCategory.publicSafety,
       sourceTier: 1,
-      isNilSource: true,
+      isPublicSafetySource: true,
     ),
     NewsFeedSource(
-      name: 'Google News - NCAA',
-      url: 'https://news.google.com/rss/search?q=NCAA+college+sports&hl=en-US&gl=US&ceid=US:en',
-      defaultCategory: NewsCategory.sportsNil,
+      name: 'Google News - Municipal Cybersecurity',
+      url: 'https://news.google.com/rss/search?q=ransomware+city+county+government+cyberattack&hl=en-US&gl=US&ceid=US:en',
+      defaultCategory: NewsCategory.publicSafety,
       sourceTier: 1,
-      isNilSource: true,
+      isPublicSafetySource: true,
     ),
     NewsFeedSource(
-      name: 'Google News - Transfer Portal',
-      url: 'https://news.google.com/rss/search?q=college+football+transfer+portal&hl=en-US&gl=US&ceid=US:en',
-      defaultCategory: NewsCategory.sportsNil,
+      name: 'Google News - Police & Fire Liability',
+      url: 'https://news.google.com/rss/search?q=police+fire+department+liability+settlement&hl=en-US&gl=US&ceid=US:en',
+      defaultCategory: NewsCategory.publicSafety,
       sourceTier: 2,
-      isNilSource: true,
+      isPublicSafetySource: true,
     ),
     NewsFeedSource(
-      name: 'Google News - College Football',
-      url: 'https://news.google.com/rss/search?q=college+football+news&hl=en-US&gl=US&ceid=US:en',
-      defaultCategory: NewsCategory.sportsNil,
+      name: 'Google News - Critical Infrastructure',
+      url: 'https://news.google.com/rss/search?q=critical+infrastructure+water+grid+security&hl=en-US&gl=US&ceid=US:en',
+      defaultCategory: NewsCategory.publicSafety,
       sourceTier: 2,
-      isNilSource: true,
+      isPublicSafetySource: true,
     ),
   ];
 
-  static List<NewsFeedSource> get allFeeds => [..._educationFeeds, ..._nilSportsFeeds];
-  static List<NewsFeedSource> get educationFeeds => _educationFeeds;
-  static List<NewsFeedSource> get nilSportsFeeds => _nilSportsFeeds;
+  static List<NewsFeedSource> get allFeeds => [..._generalFeeds, ..._publicSafetyFeeds];
+  static List<NewsFeedSource> get generalFeeds => _generalFeeds;
+  static List<NewsFeedSource> get publicSafetyFeeds => _publicSafetyFeeds;
 
   Future<List<Article>> fetchAllFeeds() async {
     final allArticles = <Article>[];
@@ -118,11 +130,11 @@ class NewsFeedService {
     return allArticles;
   }
 
-  Future<List<Article>> fetchEducationFeeds() async {
+  Future<List<Article>> fetchGeneralFeeds() async {
     final allArticles = <Article>[];
     final seenUrls = <String>{};
 
-    for (final feed in educationFeeds) {
+    for (final feed in generalFeeds) {
       try {
         final articles = await fetchFeed(feed);
         for (final article in articles) {
@@ -140,11 +152,11 @@ class NewsFeedService {
     return allArticles;
   }
 
-  Future<List<Article>> fetchNilSportsFeeds() async {
+  Future<List<Article>> fetchPublicSafetyFeeds() async {
     final allArticles = <Article>[];
     final seenUrls = <String>{};
 
-    for (final feed in nilSportsFeeds) {
+    for (final feed in publicSafetyFeeds) {
       try {
         final articles = await fetchFeed(feed);
         for (final article in articles) {
@@ -233,7 +245,8 @@ class NewsFeedService {
       riskAnalysis: _generateRiskAnalysis(title, cleanDescription, category),
       businessOpportunity: _identifyOpportunity(title, cleanDescription, category),
       keyEntities: keyEntities,
-      institutionsAffected: _extractInstitutions(title, cleanDescription),
+      entitiesAffected: _extractEntities(title, cleanDescription),
+      jurisdictionsAffected: _extractJurisdictions(title, cleanDescription),
       geographicScope: _determineScope(title, cleanDescription),
       sourceTier: source.sourceTier,
       isBreaking: isBreaking,
@@ -297,38 +310,43 @@ class NewsFeedService {
   NewsCategory _categorizeArticle(String title, String description, NewsFeedSource source) {
     final text = '$title $description'.toLowerCase();
 
-    if (text.contains('nil') || text.contains('name, image') ||
-        text.contains('name image likeness') || text.contains('collective')) {
-      return NewsCategory.sportsNil;
+    if (text.contains('ransomware') || text.contains('cyberattack') ||
+        text.contains('data breach') || text.contains('critical infrastructure')) {
+      return NewsCategory.publicSafety;
     }
-    if (text.contains('transfer portal') || text.contains('ncaa') ||
-        text.contains('college football') || text.contains('college basketball')) {
-      return NewsCategory.sportsNil;
+    if (text.contains('emergency management') || text.contains('fema') ||
+        text.contains('disaster declaration') || text.contains('first responder') ||
+        text.contains('police department') || text.contains('fire department')) {
+      return NewsCategory.publicSafety;
     }
-    if (text.contains('title ix') || text.contains('title 9') ||
-        text.contains('discrimination')) {
+    if (text.contains('audit') || text.contains('compliance') ||
+        text.contains('open records') || text.contains('procurement rule')) {
       return NewsCategory.regulatoryCompliance;
     }
-    if (text.contains('department of education') || text.contains('doe') ||
-        text.contains('federal') || text.contains('betsy devos') ||
-        text.contains('secretary of education')) {
-      return NewsCategory.federalDoe;
+    if (text.contains('congress') || text.contains('white house') ||
+        text.contains('federal agency') || text.contains('executive order')) {
+      return NewsCategory.federalPolicy;
     }
-    if (text.contains('fafsa') || text.contains('financial aid') ||
-        text.contains('student loan') || text.contains('pell grant')) {
-      return NewsCategory.financialAid;
+    if (text.contains('grant') || text.contains('appropriation') ||
+        text.contains('bond measure') || text.contains('budget shortfall')) {
+      return NewsCategory.grantsFunding;
     }
-    if (text.contains('edtech') || text.contains('online learning') ||
-        text.contains('digital learning') || text.contains('ai in education')) {
-      return NewsCategory.edTech;
+    if (text.contains('govtech') || text.contains('digital services') ||
+        text.contains('legacy system') || text.contains('cloud migration')) {
+      return NewsCategory.govTech;
     }
-    if (text.contains('faculty') || text.contains('professor') ||
-        text.contains('union') || text.contains('labor')) {
+    if (text.contains('union') || text.contains('collective bargaining') ||
+        text.contains('pension') || text.contains('public employee')) {
       return NewsCategory.workforceLabor;
     }
-    if (text.contains('health') || text.contains('mental health') ||
-        text.contains('campus safety')) {
-      return NewsCategory.healthcareEducation;
+    if (text.contains('public health') || text.contains('health department') ||
+        text.contains('outbreak')) {
+      return NewsCategory.publicHealth;
+    }
+    if (text.contains('city council') || text.contains('county board') ||
+        text.contains('governor') || text.contains('state legislature') ||
+        text.contains('municipal')) {
+      return NewsCategory.stateLocal;
     }
 
     return source.defaultCategory;
@@ -341,9 +359,9 @@ class NewsFeedService {
     if (text.contains('compliance') || text.contains('regulation')) {
       categories.add(NewsCategory.regulatoryCompliance);
     }
-    if (text.contains('university') || text.contains('college') ||
-        text.contains('campus')) {
-      categories.add(NewsCategory.higherEducation);
+    if (text.contains('city') || text.contains('county') ||
+        text.contains('state agency') || text.contains('municipal')) {
+      categories.add(NewsCategory.stateLocal);
     }
     if (text.contains('employee') || text.contains('worker') ||
         text.contains('nlrb')) {
@@ -366,7 +384,7 @@ class NewsFeedService {
         text.contains('billion') || text.contains('million')) {
       return Priority.high;
     }
-    if (text.contains('nlrb') || text.contains('title ix') ||
+    if (text.contains('consent decree') || text.contains('federal monitor') ||
         text.contains('investigation') || text.contains('scandal')) {
       return Priority.high;
     }
@@ -388,13 +406,14 @@ class NewsFeedService {
       'Compliance Risk': ['compliance', 'regulation', 'policy', 'rule'],
       'Legal Liability': ['lawsuit', 'litigation', 'court', 'legal'],
       'Financial Risk': ['budget', 'funding', 'revenue', 'cost'],
-      'NIL Compliance': ['nil', 'name image likeness', 'collective'],
-      'Title IX': ['title ix', 'discrimination', 'gender'],
-      'Labor Relations': ['union', 'nlrb', 'employee', 'worker'],
+      'Cyber Risk': ['ransomware', 'cyberattack', 'data breach', 'phishing'],
+      'Civil Rights': ['discrimination', 'civil rights', 'consent decree'],
+      'Labor Relations': ['union', 'collective bargaining', 'pension', 'employee'],
       'Reputational Risk': ['scandal', 'investigation', 'misconduct'],
       'Policy Change': ['new regulation', 'amendment', 'reform'],
       'Contract Risk': ['contract', 'deal', 'agreement'],
-      'Revenue Sharing': ['revenue sharing', 'compensation', 'payment'],
+      'Procurement Risk': ['procurement', 'bid protest', 'sole source'],
+      'Infrastructure Risk': ['bridge', 'water system', 'power grid', 'transit'],
     };
 
     for (final entry in riskKeywords.entries) {
@@ -406,40 +425,46 @@ class NewsFeedService {
     return tags.take(4).toList();
   }
 
+  /// Named bodies mentioned in the story — agencies, regulators, courts.
   List<String> _extractEntities(String title, String description) {
     final entities = <String>[];
     final text = '$title $description';
 
-    final knownEntities = [
-      'NCAA', 'NLRB', 'Department of Education', 'DOE', 'OCR',
-      'Supreme Court', 'Congress', 'Title IX', 'FAFSA',
-      'Big Ten', 'SEC', 'ACC', 'Big 12', 'Pac-12', 'Ivy League',
+    const knownEntities = [
+      'FEMA', 'GSA', 'DHS', 'CISA', 'HUD', 'DOT', 'EPA', 'GAO', 'OMB',
+      'CMS', 'CDC', 'HHS', 'DOJ', 'NIST', 'Supreme Court', 'Congress',
+      'Federal Reserve', 'Treasury', 'National Guard',
     ];
 
     for (final entity in knownEntities) {
-      if (text.contains(entity)) {
-        entities.add(entity);
-      }
+      if (text.contains(entity)) entities.add(entity);
     }
 
-    final universityPattern = RegExp(r'(University of \w+|\w+ University|\w+ College)');
-    for (final match in universityPattern.allMatches(text)) {
-      entities.add(match.group(0)!);
+    // "City of Austin", "Cook County", "Texas Department of ...", agencies.
+    final bodyPattern = RegExp(
+      r'(City of \w+|County of \w+|\w+ County|\w+ Department of [\w ]{3,30}|'
+      r'\w+ Municipal \w+|State of \w+)',
+    );
+    for (final match in bodyPattern.allMatches(text)) {
+      entities.add(match.group(0)!.trim());
     }
 
-    return entities.take(5).toList();
+    return entities.toSet().take(5).toList();
   }
 
-  List<String> _extractInstitutions(String title, String description) {
-    final institutions = <String>[];
+  /// Where the story applies — states, counties, cities.
+  List<String> _extractJurisdictions(String title, String description) {
     final text = '$title $description';
+    final jurisdictions = <String>[];
 
-    final universityPattern = RegExp(r'(University of \w+|\w+ University|\w+ College|[A-Z]{2,4} (?:State|Tech))');
-    for (final match in universityPattern.allMatches(text)) {
-      institutions.add(match.group(0)!);
+    final pattern = RegExp(
+      r'(City of \w+|\w+ County|State of \w+|\w+ Metro(?:politan)? Area)',
+    );
+    for (final match in pattern.allMatches(text)) {
+      jurisdictions.add(match.group(0)!.trim());
     }
 
-    return institutions.take(3).toList();
+    return jurisdictions.toSet().take(3).toList();
   }
 
   String _determineScope(String title, String description) {
@@ -449,7 +474,8 @@ class NewsFeedService {
         text.contains('federal') || text.contains('all states')) {
       return 'National';
     }
-    if (text.contains('conference') || text.contains('regional')) {
+    if (text.contains('county') || text.contains('regional') ||
+        text.contains('metro') || text.contains('statewide')) {
       return 'Regional';
     }
 
@@ -470,41 +496,56 @@ class NewsFeedService {
   String _generateRiskAnalysis(String title, String description, NewsCategory category) {
     final text = '$title $description'.toLowerCase();
 
-    if (text.contains('nil') || category == NewsCategory.sportsNil) {
-      return 'NIL-related development requires monitoring for compliance implications, '
-             'contract structure risks, and potential impacts on athletic program budgets.';
+    if (text.contains('ransomware') || text.contains('cyberattack') ||
+        text.contains('data breach')) {
+      return 'Cyber incident affecting a public entity. Review network segmentation, '
+             'incident response readiness and cyber coverage limits across comparable '
+             'agencies in the portfolio.';
     }
-    if (text.contains('title ix') || text.contains('discrimination')) {
-      return 'Title IX developments may require policy reviews, training updates, and '
-             'assessment of institutional compliance procedures. Monitor for enforcement guidance.';
+    if (category == NewsCategory.publicSafety) {
+      return 'Public safety development with potential liability and continuity of '
+             'operations exposure. Assess emergency response obligations and mutual aid '
+             'agreements.';
     }
-    if (text.contains('lawsuit') || text.contains('settlement')) {
-      return 'Legal developments may set precedents affecting institutional liability exposure. '
-             'Review current coverage and risk mitigation strategies.';
+    if (text.contains('lawsuit') || text.contains('settlement') ||
+        text.contains('consent decree')) {
+      return 'Legal development may set precedent affecting public entity liability. '
+             'Review current coverage, sovereign immunity posture and reserves.';
     }
-    if (text.contains('federal') || text.contains('department of education')) {
-      return 'Federal policy changes may impact compliance requirements, funding eligibility, '
-             'or institutional obligations. Track implementation timelines.';
+    if (text.contains('grant') || text.contains('appropriation') ||
+        text.contains('budget')) {
+      return 'Funding change may affect programme continuity and compliance obligations '
+             'attached to the award. Track eligibility and reporting deadlines.';
+    }
+    if (category == NewsCategory.federalPolicy) {
+      return 'Federal policy change may alter compliance requirements or funding '
+             'eligibility for state and local recipients. Track implementation timelines.';
     }
 
-    return 'Monitor this development for potential impacts on institutional operations, '
-           'compliance requirements, or risk exposure. Assess relevance to client portfolio.';
+    return 'Monitor for impacts on agency operations, compliance obligations or risk '
+           'exposure. Assess relevance to the entity portfolio.';
   }
 
   String? _identifyOpportunity(String title, String description, NewsCategory category) {
     final text = '$title $description'.toLowerCase();
 
-    if (text.contains('nil') || category == NewsCategory.sportsNil) {
-      return 'Opportunity to develop NIL-specific coverage products or consulting services '
-             'for institutions and collectives navigating the evolving landscape.';
+    if (text.contains('ransomware') || text.contains('cyberattack') ||
+        text.contains('data breach')) {
+      return 'Cyber risk assessment and coverage review for agencies with comparable '
+             'infrastructure and threat exposure.';
     }
-    if (text.contains('compliance') || text.contains('regulation')) {
-      return 'Potential for compliance consulting engagement to help institutions '
-             'navigate new requirements and mitigate regulatory risk.';
+    if (text.contains('compliance') || text.contains('audit') ||
+        text.contains('regulation')) {
+      return 'Compliance advisory engagement to help agencies meet new requirements '
+             'and reduce audit findings.';
     }
-    if (text.contains('cybersecurity') || text.contains('data')) {
-      return 'Cyber insurance and risk assessment services opportunity for institutions '
-             'addressing data protection requirements.';
+    if (text.contains('grant') || text.contains('appropriation')) {
+      return 'Grant compliance and programme risk support for recipients managing new '
+             'award conditions.';
+    }
+    if (category == NewsCategory.publicSafety) {
+      return 'Emergency preparedness and continuity of operations consulting for '
+             'agencies reassessing response capability.';
     }
 
     return null;

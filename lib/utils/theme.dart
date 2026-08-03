@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
-  // Refined Marsh palette (2025 rebrand)
+  // Brand palette (2025 rebrand)
   static const Color darkCobalt = Color(0xFF002C77);
   static const Color persianBlue = Color(0xFF016D9E);
   static const Color fluorescentTeal = Color(0xFF00A8C7);
