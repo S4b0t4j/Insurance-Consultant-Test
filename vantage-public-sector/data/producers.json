@@ -1,0 +1,29 @@
+[
+  {
+    "key": "alpha",
+    "name": "Producer Alpha",
+    "lastName": "Alpha",
+    "territory": "Northeast, Mideast and Great Lakes",
+    "mock": true,
+    "note": "Mock roster entry for demonstration. Replace with the real producer roster before internal rollout.",
+    "states": ["CT", "ME", "MA", "NH", "RI", "VT", "DE", "DC", "MD", "NJ", "NY", "PA", "IL", "IN", "MI", "OH", "WI"]
+  },
+  {
+    "key": "bravo",
+    "name": "Producer Bravo",
+    "lastName": "Bravo",
+    "territory": "Southeast, Southwest and Plains",
+    "mock": true,
+    "note": "Mock roster entry for demonstration. Replace with the real producer roster before internal rollout.",
+    "states": ["AL", "AR", "FL", "GA", "KY", "LA", "MS", "NC", "SC", "TN", "VA", "WV", "AZ", "NM", "OK", "TX", "IA", "KS", "MN", "MO", "NE", "ND", "SD"]
+  },
+  {
+    "key": "charlie",
+    "name": "Producer Charlie",
+    "lastName": "Charlie",
+    "territory": "Rocky Mountain and Far West",
+    "mock": true,
+    "note": "Mock roster entry for demonstration. Replace with the real producer roster before internal rollout.",
+    "states": ["CO", "ID", "MT", "UT", "WY", "AK", "CA", "HI", "NV", "OR", "WA"]
+  }
+]

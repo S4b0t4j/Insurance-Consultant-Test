@@ -1,0 +1,1757 @@
+[
+  {
+    "id": "health-la-general",
+    "seg": "health",
+    "name": "Los Angeles General Medical Center",
+    "city": "Los Angeles",
+    "state": "CA",
+    "lat": 34.0587,
+    "lng": -118.2077,
+    "site": "Main Hospital Tower",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1758000000,
+    "prem": 2110000,
+    "inc": "Mock Broker B",
+    "renew": "2026-11-01",
+    "trigger": "System considering consolidation of aging inpatient plants",
+    "producer": "charlie",
+    "verif": "no-record",
+    "beds": 676,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = beds * 2600000 (USD per licensed bed, hospital replacement heuristic)",
+        "inputs": [
+          "beds"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "beds": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "health-harris",
+    "seg": "health",
+    "name": "Harris Health System",
+    "city": "Houston",
+    "state": "TX",
+    "lat": 29.71,
+    "lng": -95.396,
+    "site": "Ben Taub Hospital",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1690000000,
+    "prem": 2028000,
+    "inc": "Mock Broker C",
+    "renew": "2027-06-01",
+    "trigger": "Bed tower expansion announced in the capital budget",
+    "producer": "bravo",
+    "verif": "no-record",
+    "beds": 650,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = beds * 2600000 (USD per licensed bed, hospital replacement heuristic)",
+        "inputs": [
+          "beds"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "beds": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "health-nyc-hh",
+    "seg": "health",
+    "name": "NYC Health + Hospitals",
+    "city": "New York",
+    "state": "NY",
+    "lat": 40.7392,
+    "lng": -73.9766,
+    "site": "Bellevue Hospital",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 10920000000,
+    "prem": 13104000,
+    "inc": "Mock Broker C",
+    "renew": "2026-12-01",
+    "trigger": "Seismic compliance deadline drives retrofit spending",
+    "producer": "alpha",
+    "verif": "no-record",
+    "beds": 4200,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = beds * 2600000 (USD per licensed bed, hospital replacement heuristic)",
+        "inputs": [
+          "beds"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "beds": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "health-jackson",
+    "seg": "health",
+    "name": "Jackson Health System",
+    "city": "Miami",
+    "state": "FL",
+    "lat": 25.7907,
+    "lng": -80.2107,
+    "site": "Jackson Memorial Hospital",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 4030000000,
+    "prem": 4836000,
+    "inc": "Mock Broker E",
+    "renew": "2027-08-01",
+    "trigger": "Seismic compliance deadline drives retrofit spending",
+    "producer": "bravo",
+    "verif": "no-record",
+    "beds": 1550,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = beds * 2600000 (USD per licensed bed, hospital replacement heuristic)",
+        "inputs": [
+          "beds"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "beds": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "health-cook-county",
+    "seg": "health",
+    "name": "Cook County Health",
+    "city": "Chicago",
+    "state": "IL",
+    "lat": 41.8746,
+    "lng": -87.6741,
+    "site": "John H. Stroger Jr. Hospital",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1170000000,
+    "prem": 1404000,
+    "inc": "Mock Broker C",
+    "renew": "2026-12-01",
+    "trigger": "Seismic compliance deadline drives retrofit spending",
+    "producer": "alpha",
+    "verif": "no-record",
+    "beds": 450,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = beds * 2600000 (USD per licensed bed, hospital replacement heuristic)",
+        "inputs": [
+          "beds"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "beds": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "health-metrohealth",
+    "seg": "health",
+    "name": "The MetroHealth System",
+    "city": "Cleveland",
+    "state": "OH",
+    "lat": 41.4622,
+    "lng": -81.6987,
+    "site": "Glick Center",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 811000000,
+    "prem": 973000,
+    "inc": "Mock Broker A",
+    "renew": "2026-10-01",
+    "trigger": "Bed tower expansion announced in the capital budget",
+    "producer": "alpha",
+    "verif": "no-record",
+    "beds": 312,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = beds * 2600000 (USD per licensed bed, hospital replacement heuristic)",
+        "inputs": [
+          "beds"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "beds": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "health-grady",
+    "seg": "health",
+    "name": "Grady Health System",
+    "city": "Atlanta",
+    "state": "GA",
+    "lat": 33.7522,
+    "lng": -84.3816,
+    "site": "Grady Memorial Hospital",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 2478000000,
+    "prem": 2974000,
+    "inc": "Mock Broker E",
+    "renew": "2027-08-01",
+    "trigger": "Seismic compliance deadline drives retrofit spending",
+    "producer": "bravo",
+    "verif": "no-record",
+    "beds": 953,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = beds * 2600000 (USD per licensed bed, hospital replacement heuristic)",
+        "inputs": [
+          "beds"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "beds": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "health-harborview",
+    "seg": "health",
+    "name": "Harborview Medical Center",
+    "city": "Seattle",
+    "state": "WA",
+    "lat": 47.6044,
+    "lng": -122.3244,
+    "site": "Main Hospital (Center Tower)",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1074000000,
+    "prem": 1289000,
+    "inc": "Mock Broker E",
+    "renew": "2027-08-01",
+    "trigger": "Seismic compliance deadline drives retrofit spending",
+    "producer": "charlie",
+    "verif": "no-record",
+    "beds": 413,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = beds * 2600000 (USD per licensed bed, hospital replacement heuristic)",
+        "inputs": [
+          "beds"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "beds": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "health-uh-newark",
+    "seg": "health",
+    "name": "University Hospital",
+    "city": "Newark",
+    "state": "NJ",
+    "lat": 40.7419,
+    "lng": -74.1901,
+    "site": "Main Hospital Building",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1349000000,
+    "prem": 1619000,
+    "inc": "Mock Broker B",
+    "renew": "2027-05-01",
+    "trigger": "New trauma designation increases business interruption values",
+    "producer": "alpha",
+    "verif": "no-record",
+    "beds": 519,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = beds * 2600000 (USD per licensed bed, hospital replacement heuristic)",
+        "inputs": [
+          "beds"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "beds": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "health-hennepin",
+    "seg": "health",
+    "name": "Hennepin Healthcare (HCMC)",
+    "city": "Minneapolis",
+    "state": "MN",
+    "lat": 44.9723,
+    "lng": -93.2617,
+    "site": "HCMC Main Campus",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1258000000,
+    "prem": 1510000,
+    "inc": "Mock Broker A",
+    "renew": "2027-04-01",
+    "trigger": "Seismic compliance deadline drives retrofit spending",
+    "producer": "bravo",
+    "verif": "no-record",
+    "beds": 484,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = beds * 2600000 (USD per licensed bed, hospital replacement heuristic)",
+        "inputs": [
+          "beds"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "beds": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "health-uab",
+    "seg": "health",
+    "name": "UAB Hospital",
+    "city": "Birmingham",
+    "state": "AL",
+    "lat": 33.5057,
+    "lng": -86.8028,
+    "site": "North Pavilion",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 3138000000,
+    "prem": 3766000,
+    "inc": "Mock Broker B",
+    "renew": "2026-11-01",
+    "trigger": "System considering consolidation of aging inpatient plants",
+    "producer": "bravo",
+    "verif": "no-record",
+    "beds": 1207,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = beds * 2600000 (USD per licensed bed, hospital replacement heuristic)",
+        "inputs": [
+          "beds"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "beds": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "health-uihc",
+    "seg": "health",
+    "name": "University of Iowa Hospitals and Clinics",
+    "city": "Iowa City",
+    "state": "IA",
+    "lat": 41.6588,
+    "lng": -91.5474,
+    "site": "John Pappajohn Pavilion",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 2252000000,
+    "prem": 2702000,
+    "inc": "Mock Broker A",
+    "renew": "2026-10-01",
+    "trigger": "Bed tower expansion announced in the capital budget",
+    "producer": "bravo",
+    "verif": "no-record",
+    "beds": 866,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = beds * 2600000 (USD per licensed bed, hospital replacement heuristic)",
+        "inputs": [
+          "beds"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "beds": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "health-ummc",
+    "seg": "health",
+    "name": "University of Mississippi Medical Center",
+    "city": "Jackson",
+    "state": "MS",
+    "lat": 32.3295,
+    "lng": -90.173,
+    "site": "University Hospital",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1877000000,
+    "prem": 2252000,
+    "inc": "Mock Broker D",
+    "renew": "2027-01-01",
+    "trigger": "New trauma designation increases business interruption values",
+    "producer": "bravo",
+    "verif": "no-record",
+    "beds": 722,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = beds * 2600000 (USD per licensed bed, hospital replacement heuristic)",
+        "inputs": [
+          "beds"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "beds": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "health-unm",
+    "seg": "health",
+    "name": "University of New Mexico Hospital",
+    "city": "Albuquerque",
+    "state": "NM",
+    "lat": 35.09,
+    "lng": -106.6169,
+    "site": "UNM Hospital Main Building",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1396000000,
+    "prem": 1675000,
+    "inc": "Mock Broker B",
+    "renew": "2027-05-01",
+    "trigger": "New trauma designation increases business interruption values",
+    "producer": "bravo",
+    "verif": "no-record",
+    "beds": 537,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = beds * 2600000 (USD per licensed bed, hospital replacement heuristic)",
+        "inputs": [
+          "beds"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "beds": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "health-musc",
+    "seg": "health",
+    "name": "MUSC Health University Medical Center",
+    "city": "Charleston",
+    "state": "SC",
+    "lat": 32.7833,
+    "lng": -79.9481,
+    "site": "Main Hospital",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1820000000,
+    "prem": 2184000,
+    "inc": "Mock Broker D",
+    "renew": "2027-07-01",
+    "trigger": "System considering consolidation of aging inpatient plants",
+    "producer": "bravo",
+    "verif": "no-record",
+    "beds": 700,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = beds * 2600000 (USD per licensed bed, hospital replacement heuristic)",
+        "inputs": [
+          "beds"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "beds": {
+        "kind": "public",
+        "source": "cms_pos",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "source": "bea_gdp",
+  "unit": "billions of current USD, 2024",
+  "regions": {
+    "New England": ["CT", "ME", "MA", "NH", "RI", "VT"],
+    "Mideast": ["DE", "DC", "MD", "NJ", "NY", "PA"],
+    "Great Lakes": ["IL", "IN", "MI", "OH", "WI"],
+    "Plains": ["IA", "KS", "MN", "MO", "NE", "ND", "SD"],
+    "Southeast": ["AL", "AR", "FL", "GA", "KY", "LA", "MS", "NC", "SC", "TN", "VA", "WV"],
+    "Southwest": ["AZ", "NM", "OK", "TX"],
+    "Rocky Mountain": ["CO", "ID", "MT", "UT", "WY"],
+    "Far West": ["AK", "CA", "HI", "NV", "OR", "WA"]
+  },
+  "gdp": {
+    "AL": 305, "AK": 69, "AZ": 552, "AR": 176, "CA": 4103,
+    "CO": 553, "CT": 362, "DE": 102, "DC": 191, "FL": 1706,
+    "GA": 882, "HI": 116, "ID": 121, "IL": 1137, "IN": 528,
+    "IA": 253, "KS": 234, "KY": 291, "LA": 328, "ME": 96,
+    "MD": 542, "MA": 785, "MI": 719, "MN": 505, "MS": 157,
+    "MO": 460, "MT": 75, "NE": 190, "NV": 260, "NH": 122,
+    "NJ": 845, "NM": 139, "NY": 2297, "NC": 843, "ND": 75,
+    "OH": 927, "OK": 267, "OR": 328, "PA": 1017, "RI": 84,
+    "SC": 348, "SD": 76, "TN": 553, "TX": 2709, "UT": 317,
+    "VT": 46, "VA": 764, "WA": 854, "WV": 104, "WI": 459,
+    "WY": 52
+  },
+  "names": {
+    "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California",
+    "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware", "DC": "District of Columbia", "FL": "Florida",
+    "GA": "Georgia", "HI": "Hawaii", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana",
+    "IA": "Iowa", "KS": "Kansas", "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine",
+    "MD": "Maryland", "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi",
+    "MO": "Missouri", "MT": "Montana", "NE": "Nebraska", "NV": "Nevada", "NH": "New Hampshire",
+    "NJ": "New Jersey", "NM": "New Mexico", "NY": "New York", "NC": "North Carolina", "ND": "North Dakota",
+    "OH": "Ohio", "OK": "Oklahoma", "OR": "Oregon", "PA": "Pennsylvania", "RI": "Rhode Island",
+    "SC": "South Carolina", "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas", "UT": "Utah",
+    "VT": "Vermont", "VA": "Virginia", "WA": "Washington", "WV": "West Virginia", "WI": "Wisconsin",
+    "WY": "Wyoming"
+  }
+}
