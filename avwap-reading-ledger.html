@@ -192,6 +192,18 @@
     border: 1px dashed var(--rule);
   }
 
+  /* ---------- book reader ---------- */
+  .reader-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  #readerFrame {
+    width: 100%;
+    height: 75vh;
+    min-height: 420px;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    margin-top: 12px;
+    display: block;
+  }
+
   /* ---------- contents + notes ---------- */
   .columns { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; align-items: start; }
 
@@ -314,6 +326,17 @@
       <span><span class="chip dashed" style="color:var(--red)"></span>Required pace</span>
     </div>
     <div id="chart"></div>
+  </section>
+
+  <section class="panel" aria-label="Book reader">
+    <h2>Book</h2>
+    <div class="reader-controls">
+      <label class="file-btn">Open book PDF<input type="file" id="bookInput" accept=".pdf,application/pdf"></label>
+      <button type="button" id="goPageBtn" disabled>Go to current page</button>
+      <button type="button" id="newTabBtn" disabled>Open in new tab</button>
+      <span class="hint">your PDF stays on this device and is re-opened per session</span>
+    </div>
+    <div id="readerHost"></div>
   </section>
 
   <div class="columns">
@@ -800,7 +823,38 @@
     var btn = e.target.closest('button.chapter');
     if (!btn) return;
     var ch = ALL_CHAPTERS.filter(function (c) { return c.id === btn.dataset.ch; })[0];
-    if (ch) setCurrent(ch.s);
+    if (ch) { setCurrent(ch.s); jumpBook(ch.s); }
+  });
+
+  /* ---------- book reader (user's own PDF, browser-native viewer) ---------- */
+
+  var bookUrl = null;
+  var readerHost = document.getElementById('readerHost');
+  var goPageBtn = document.getElementById('goPageBtn');
+  var newTabBtn = document.getElementById('newTabBtn');
+
+  function jumpBook(page) {
+    if (!bookUrl) return;
+    var frame = document.getElementById('readerFrame');
+    if (!frame) return;
+    frame.src = bookUrl + '#page=' + Math.max(1, Math.min(TOTAL, page || 1));
+  }
+
+  document.getElementById('bookInput').addEventListener('change', function (e) {
+    var file = e.target.files && e.target.files[0];
+    if (!file) return;
+    if (bookUrl) URL.revokeObjectURL(bookUrl);
+    bookUrl = URL.createObjectURL(file);
+    readerHost.innerHTML = '<iframe id="readerFrame" title="Book PDF"></iframe>';
+    jumpBook(state.current);
+    goPageBtn.disabled = false;
+    newTabBtn.disabled = false;
+  });
+
+  goPageBtn.addEventListener('click', function () { jumpBook(state.current); });
+  newTabBtn.addEventListener('click', function () {
+    if (!bookUrl) return;
+    window.open(bookUrl + '#page=' + Math.max(1, state.current), '_blank');
   });
 
   /* ---------- backup ---------- */
