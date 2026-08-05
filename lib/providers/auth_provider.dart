@@ -9,6 +9,13 @@ class AuthProvider extends ChangeNotifier {
   static const _sessionKey = 'app_session_v1';
   static const _onboardingKey = 'app_onboarded_';
 
+  /// TEMPORARY: skips the sign-in screen and starts every session as the
+  /// seeded admin, requested to speed up testing while the app isn't yet
+  /// behind a durable access gate. Flip to false to restore normal sign-in
+  /// — LoginScreen, per-user grants, and the audit log are all untouched
+  /// and still work exactly as before.
+  static const bool skipLoginForNow = true;
+
   final List<AppUser> _users = [];
   AppUser? _currentUser;
   bool _initialized = false;
@@ -62,6 +69,18 @@ class AuthProvider extends ChangeNotifier {
       } catch (_) {
         _currentUser = null;
       }
+    }
+
+    // Only kicks in when nothing already resolved a real session above, so
+    // logging in as someone else still sticks for that session. Note this
+    // bootstrap re-runs on every page load, so an explicit logout followed
+    // by a refresh lands back on the admin bypass, not LoginScreen — that's
+    // the nature of a "skip sign-in" flag, not a bug in it.
+    if (_currentUser == null && skipLoginForNow) {
+      final admin =
+          _users.firstWhere((u) => u.isAdmin && u.active, orElse: () => _users.first);
+      _currentUser = admin;
+      await prefs.setString(_sessionKey, admin.id);
     }
 
     _initialized = true;
