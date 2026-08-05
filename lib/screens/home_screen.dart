@@ -36,7 +36,13 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+/// Below this width the sidebar moves into a Drawer instead of sitting
+/// inline — matches FilterPanel's existing isWide breakpoint so the app
+/// doesn't grow a second, different notion of "mobile".
+const double _mobileBreakpoint = 768;
+
 class _HomeScreenState extends State<HomeScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final ScrollController _scrollController = ScrollController();
   bool _showScrollToTop = false;
   bool _alertsProcessed = false;
@@ -322,24 +328,40 @@ View full report with risk analysis in the VANTAGE Public Sector app.
     }
   }
 
+  void _selectSection(AppSection s) {
+    setState(() => _section = s);
+    if (_scrollController.hasClients) {
+      _scrollController.jumpTo(0);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < _mobileBreakpoint;
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: isMobile
+          ? Drawer(
+              child: AppSidebar(
+                currentSection: _section,
+                onSectionChange: (s) {
+                  Navigator.of(context).pop();
+                  _selectSection(s);
+                },
+              ),
+            )
+          : null,
       body: Row(
         children: [
-          AppSidebar(
-            currentSection: _section,
-            onSectionChange: (s) {
-              setState(() => _section = s);
-              if (_scrollController.hasClients) {
-                _scrollController.jumpTo(0);
-              }
-            },
-          ),
+          if (!isMobile)
+            AppSidebar(
+              currentSection: _section,
+              onSectionChange: _selectSection,
+            ),
           Expanded(
             child: Column(
               children: [
-                _buildTopBar(),
+                _buildTopBar(isMobile: isMobile),
                 Expanded(child: _buildSectionContent()),
               ],
             ),
@@ -359,11 +381,12 @@ View full report with risk analysis in the VANTAGE Public Sector app.
     );
   }
 
-  Widget _buildTopBar() {
+  Widget _buildTopBar({required bool isMobile}) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      padding: EdgeInsets.symmetric(
+          horizontal: isMobile ? 12 : 24, vertical: 16),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         border: Border(
@@ -376,11 +399,22 @@ View full report with risk analysis in the VANTAGE Public Sector app.
       ),
       child: Row(
         children: [
+          if (isMobile)
+            IconButton(
+              onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+              icon: const Icon(Icons.menu),
+              tooltip: 'Menu',
+            ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(_sectionTitle(), style: theme.textTheme.headlineLarge),
+                Text(
+                  _sectionTitle(),
+                  style: theme.textTheme.headlineLarge,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
                 if (_section == AppSection.dashboard)
                   Text(
                     'Real-time news intelligence · ${DateFormat.yMMMMd().format(DateTime.now())}',

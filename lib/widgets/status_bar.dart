@@ -15,6 +15,49 @@ class StatusBar extends StatelessWidget {
 
     return Consumer<NewsProvider>(
       builder: (context, newsProvider, _) {
+        final isWide = MediaQuery.of(context).size.width > 700;
+        final liveIndicator = _buildLiveIndicator(newsProvider);
+        final lastUpdated = Text(
+          'Last updated: ${timeFormat.format(newsProvider.lastUpdated)}',
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontSize: 12,
+            color: isDark ? Colors.grey[400] : Colors.grey[600],
+          ),
+        );
+        final counts = Wrap(
+          spacing: 8,
+          runSpacing: 6,
+          children: [
+            _buildCountBadge(
+              context,
+              count: newsProvider.highPriorityCount,
+              label: 'High',
+              color: AppColors.highPriority,
+            ),
+            _buildCountBadge(
+              context,
+              count: newsProvider.mediumPriorityCount,
+              label: 'Med',
+              color: AppColors.mediumPriority,
+            ),
+            _buildCountBadge(
+              context,
+              count: newsProvider.lowPriorityCount,
+              label: 'Low',
+              color: AppColors.lowPriority,
+            ),
+            if (newsProvider.breakingNewsCount > 0)
+              _buildCountBadge(
+                context,
+                count: newsProvider.breakingNewsCount,
+                label: 'Breaking',
+                color: AppColors.breaking,
+                isBreaking: true,
+              ),
+          ],
+        );
+
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 16),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -25,106 +68,77 @@ class StatusBar extends StatelessWidget {
               color: isDark ? AppColors.darkCardBorder : AppColors.lightCardBorder,
             ),
           ),
-          child: Row(
-            children: [
-              // Live/Paused indicator
-              GestureDetector(
-                onTap: newsProvider.toggleAutoUpdate,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: newsProvider.isAutoUpdateEnabled
-                        ? AppColors.live.withValues(alpha: 0.15)
-                        : AppColors.paused.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: newsProvider.isAutoUpdateEnabled
-                          ? AppColors.live.withValues(alpha: 0.3)
-                          : AppColors.paused.withValues(alpha: 0.3),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: 8,
-                        height: 8,
-                        decoration: BoxDecoration(
-                          color: newsProvider.isAutoUpdateEnabled
-                              ? AppColors.live
-                              : AppColors.paused,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        newsProvider.isAutoUpdateEnabled ? 'LIVE' : 'PAUSED',
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: newsProvider.isAutoUpdateEnabled
-                              ? AppColors.live
-                              : AppColors.paused,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(width: 16),
-
-              // Last updated
-              Text(
-                'Last updated: ${timeFormat.format(newsProvider.lastUpdated)}',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: isDark ? Colors.grey[400] : Colors.grey[600],
-                ),
-              ),
-              const Spacer(),
-
-              // Article counts
-              Row(
-                children: [
-                  _buildCountBadge(
-                    context,
-                    count: newsProvider.highPriorityCount,
-                    label: 'High',
-                    color: AppColors.highPriority,
-                  ),
-                  const SizedBox(width: 8),
-                  _buildCountBadge(
-                    context,
-                    count: newsProvider.mediumPriorityCount,
-                    label: 'Med',
-                    color: AppColors.mediumPriority,
-                  ),
-                  const SizedBox(width: 8),
-                  _buildCountBadge(
-                    context,
-                    count: newsProvider.lowPriorityCount,
-                    label: 'Low',
-                    color: AppColors.lowPriority,
-                  ),
-                  if (newsProvider.breakingNewsCount > 0) ...[
-                    const SizedBox(width: 8),
-                    _buildCountBadge(
-                      context,
-                      count: newsProvider.breakingNewsCount,
-                      label: 'Breaking',
-                      color: AppColors.breaking,
-                      isBreaking: true,
-                    ),
+          child: isWide
+              ? Row(
+                  children: [
+                    liveIndicator,
+                    const SizedBox(width: 16),
+                    Expanded(child: lastUpdated),
+                    counts,
                   ],
-                ],
-              ),
-            ],
-          ),
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        liveIndicator,
+                        const SizedBox(width: 12),
+                        Expanded(child: lastUpdated),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    counts,
+                  ],
+                ),
         );
       },
+    );
+  }
+
+  Widget _buildLiveIndicator(NewsProvider newsProvider) {
+    return GestureDetector(
+      onTap: newsProvider.toggleAutoUpdate,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        decoration: BoxDecoration(
+          color: newsProvider.isAutoUpdateEnabled
+              ? AppColors.live.withValues(alpha: 0.15)
+              : AppColors.paused.withValues(alpha: 0.15),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: newsProvider.isAutoUpdateEnabled
+                ? AppColors.live.withValues(alpha: 0.3)
+                : AppColors.paused.withValues(alpha: 0.3),
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 8,
+              height: 8,
+              decoration: BoxDecoration(
+                color: newsProvider.isAutoUpdateEnabled
+                    ? AppColors.live
+                    : AppColors.paused,
+                shape: BoxShape.circle,
+              ),
+            ),
+            const SizedBox(width: 6),
+            Text(
+              newsProvider.isAutoUpdateEnabled ? 'LIVE' : 'PAUSED',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: newsProvider.isAutoUpdateEnabled
+                    ? AppColors.live
+                    : AppColors.paused,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
