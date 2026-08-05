@@ -1,5 +1,5 @@
-name: education_news_monitor
-description: "Real-time education news intelligence dashboard for Marsh Education Practice"
+name: vantage_public_sector
+description: "Public sector risk intelligence dashboard — news monitoring, risk research and document generation"
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -13,7 +13,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   provider: ^6.1.2
   intl: ^0.20.2
-  google_fonts: ^6.2.1
+  google_fonts: ^8.2.1
   url_launcher: ^6.3.1
   shimmer: ^3.0.0
   shared_preferences: ^2.3.4
@@ -26,6 +26,9 @@ dependencies:
   http: ^1.2.2
   fl_chart: ^0.69.0
   xml: ^6.5.0
+  archive: ^4.0.7
+  file_picker: ^8.1.0
+  web: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -34,3 +37,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    # Inter + Fraunces bundled locally so google_fonts never reaches
+    # fonts.gstatic.com at runtime — text renders on networks that block
+    # Google CDNs. Same reason we build with --no-web-resources-cdn.
+    - google_fonts/

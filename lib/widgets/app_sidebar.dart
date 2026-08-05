@@ -5,7 +5,7 @@ import '../providers/auth_provider.dart';
 import '../providers/layout_provider.dart';
 import '../utils/theme.dart';
 
-enum AppSection { dashboard, askAi, alerts, admin }
+enum AppSection { dashboard, vantageMap, askAi, riskDesk, reportStudio, alerts, admin }
 
 class AppSidebar extends StatelessWidget {
   final AppSection currentSection;
@@ -64,10 +64,10 @@ class AppSidebar extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Marsh',
+                            Text('VANTAGE',
                                 style: theme.textTheme.titleMedium
                                     ?.copyWith(fontWeight: FontWeight.w700)),
-                            Text('Education Practice',
+                            Text('Public Sector',
                                 style: theme.textTheme.bodySmall),
                           ],
                         ),
@@ -98,6 +98,35 @@ class AppSidebar extends StatelessWidget {
                       selected: currentSection == AppSection.askAi,
                       onTap: () => onSectionChange(AppSection.askAi),
                       accentColor: AppColors.claudeOrange,
+                    ),
+                    if (auth.canUseReportStudio) ...[
+                      _NavItem(
+                        icon: Icons.hub_outlined,
+                        activeIcon: Icons.hub,
+                        label: 'Risk Desk',
+                        collapsed: collapsed,
+                        selected: currentSection == AppSection.riskDesk,
+                        onTap: () => onSectionChange(AppSection.riskDesk),
+                        accentColor: AppColors.claudeOrange,
+                      ),
+                      _NavItem(
+                        icon: Icons.slideshow_outlined,
+                        activeIcon: Icons.slideshow,
+                        label: 'Report Studio',
+                        collapsed: collapsed,
+                        selected: currentSection == AppSection.reportStudio,
+                        onTap: () => onSectionChange(AppSection.reportStudio),
+                        accentColor: AppColors.persianBlue,
+                      ),
+                    ],
+                    _NavItem(
+                      icon: Icons.public_outlined,
+                      activeIcon: Icons.public,
+                      label: 'Entity Map',
+                      collapsed: collapsed,
+                      selected: currentSection == AppSection.vantageMap,
+                      onTap: () => onSectionChange(AppSection.vantageMap),
+                      accentColor: AppColors.fluorescentTeal,
                     ),
                     _NavItem(
                       icon: Icons.notifications_outlined,

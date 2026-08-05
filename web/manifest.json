@@ -1,14 +1,14 @@
 {
-    "name": "Education News Monitor",
-    "short_name": "News Monitor",
+    "name": "VANTAGE Public Sector",
+    "short_name": "VANTAGE",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#002D72",
     "theme_color": "#002D72",
-    "description": "Real-time education news intelligence dashboard for Marsh Education Practice. Monitor education news, NIL/Sports updates, and risk analysis.",
+    "description": "Public sector risk intelligence — news monitoring, risk research and document generation for state, local and federal agencies.",
     "orientation": "any",
     "prefer_related_applications": false,
-    "categories": ["news", "business", "education"],
+    "categories": ["news", "business", "government"],
     "icons": [
         {
             "src": "icons/Icon-192.png",

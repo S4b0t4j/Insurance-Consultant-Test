@@ -29,6 +29,10 @@ class DiscordProvider extends ChangeNotifier {
     return _service.sendArticleAlert(article);
   }
 
+  Future<bool> sendRadarAlert(String title, String message, String urgency) {
+    return _service.sendRadarAlert(title, message, urgency);
+  }
+
   Future<bool> sendTestMessage() {
     return _service.sendTestMessage();
   }

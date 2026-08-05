@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import '../models/article.dart';
 import '../services/news_feed_service.dart';
 
-enum NewsFeedTab { all, education, nilSports }
+enum NewsFeedTab { all, general, publicSafety }
 
 class NewsProvider with ChangeNotifier {
   List<Article> _articles = [];
@@ -41,11 +41,11 @@ class NewsProvider with ChangeNotifier {
     var filtered = _articles.where((article) {
       // Tab filter
       switch (_currentTab) {
-        case NewsFeedTab.education:
-          if (article.isNilSports) return false;
+        case NewsFeedTab.general:
+          if (article.isPublicSafety) return false;
           break;
-        case NewsFeedTab.nilSports:
-          if (!article.isNilSports) return false;
+        case NewsFeedTab.publicSafety:
+          if (!article.isPublicSafety) return false;
           break;
         case NewsFeedTab.all:
           break;
@@ -110,11 +110,11 @@ class NewsProvider with ChangeNotifier {
 
   int get allNewsCount => _articles.length;
 
-  int get educationCount =>
-      _articles.where((a) => !a.isNilSports).length;
+  int get generalCount =>
+      _articles.where((a) => !a.isPublicSafety).length;
 
-  int get nilSportsCount =>
-      _articles.where((a) => a.isNilSports).length;
+  int get publicSafetyCount =>
+      _articles.where((a) => a.isPublicSafety).length;
 
   int get highPriorityCount =>
       filteredArticles.where((a) => a.priority == Priority.high).length;

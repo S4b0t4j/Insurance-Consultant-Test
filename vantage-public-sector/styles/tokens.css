@@ -1,0 +1,29 @@
+/* VANTAGE Public Sector Edition: brand palette and type scale. */
+/* Palette is locked. Do not add colors outside this set plus the
+   segment accents defined in data/segments.json. */
+
+:root {
+  --navy: #00263A;
+  --card-bg: #0C3348;
+  --gold: #FFBF00;
+  --active-blue: #04B4BF;
+  --sky: #CEECFF;
+  --slate: #4A6B7C;
+  --muted: #9FB4C2;
+  --rule: #2A5068;
+
+  --font-stack: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono-stack: "Consolas", "SF Mono", Menlo, monospace;
+
+  --fs-xs: 11px;
+  --fs-sm: 12.5px;
+  --fs-base: 14px;
+  --fs-md: 16px;
+  --fs-lg: 20px;
+  --fs-xl: 28px;
+
+  --radius: 8px;
+  --radius-sm: 5px;
+  --gap: 14px;
+  --shadow: 0 8px 28px rgba(0, 10, 18, 0.45);
+}

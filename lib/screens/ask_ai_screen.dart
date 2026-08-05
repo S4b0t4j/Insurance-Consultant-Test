@@ -17,10 +17,10 @@ class _AskAiScreenState extends State<AskAiScreen> {
   final ScrollController _scrollController = ScrollController();
 
   final List<String> _suggestedPrompts = [
-    'What are the top NIL risk trends right now?',
-    'Summarize this week\'s Title IX developments',
-    'How should I think about cyber risk for K-12 districts?',
-    'What insurance coverage do colleges need for athlete employment?',
+    'What are the top public sector risk trends right now?',
+    'Summarize this week\'s federal policy developments',
+    'How should I think about cyber risk for county governments?',
+    'What coverage do counties need for cyber incidents?',
   ];
 
   @override
@@ -92,7 +92,7 @@ class _AskAiScreenState extends State<AskAiScreen> {
                     children: [
                       Text('Ask AI', style: theme.textTheme.headlineMedium),
                       Text(
-                        'Powered by Claude · Marsh Education Practice',
+                        'Powered by Claude · VANTAGE Public Sector',
                         style: theme.textTheme.bodySmall,
                       ),
                     ],
@@ -159,7 +159,7 @@ class _AskAiScreenState extends State<AskAiScreen> {
                       textInputAction: TextInputAction.send,
                       onSubmitted: (_) => _send(),
                       decoration: InputDecoration(
-                        hintText: 'Ask about education news, NIL, regulations...',
+                        hintText: 'Ask about public sector news, policy, regulations...',
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 14),
                         border: OutlineInputBorder(
@@ -236,7 +236,7 @@ class _AskAiScreenState extends State<AskAiScreen> {
               ),
               const SizedBox(height: 12),
               Text(
-                'Ask me about education news, regulatory changes, NIL developments, or any insurance risk question. I have access to your monitored articles for context.',
+                'Ask me about public sector news, policy shifts, regulatory changes, or any risk question. I have access to your monitored articles for context.',
                 style: theme.textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),

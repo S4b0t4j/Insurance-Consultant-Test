@@ -48,7 +48,10 @@ class RiskAssessment {
 
 class ClaudeService {
   static const String _apiUrl = 'https://api.anthropic.com/v1/messages';
-  static const String _model = 'claude-opus-4-7';
+  // Haiku: these are short summaries, classifications and chat turns — the
+  // high-frequency path. At $1/$5 per MTok a chat turn costs well under a
+  // cent; on Opus the same turn was ~$0.03+ and grew with history.
+  static const String _model = 'claude-haiku-4-5';
   static const String _apiVersion = '2023-06-01';
 
   String? _apiKey;
@@ -104,7 +107,7 @@ class ClaudeService {
     }
 
     final systemPrompt =
-        'You are a senior insurance risk analyst at Marsh\'s Education Practice. '
+        'You are a senior insurance risk analyst at the public sector practice. '
         'Generate concise executive summaries (2-3 sentences) focused on insurance and risk implications. '
         'Be precise, professional, and actionable.';
 
@@ -114,7 +117,7 @@ Source: ${article.sourceName}
 Category: ${article.primaryCategory.displayName}
 Content: ${article.summary}
 
-Generate an executive summary highlighting the key risk implications for educational institutions.''';
+Generate an executive summary highlighting the key risk implications for public sector entities.''';
 
     return await chat(
       messages: [ClaudeMessage(role: 'user', content: userMessage)],
@@ -140,7 +143,7 @@ Summary: ${article.summary}
 Category: ${article.primaryCategory.displayName}
 Existing Risk Tags: ${article.riskTags.join(', ')}
 
-Assess insurance risk for educational institutions. Return JSON only.''';
+Assess insurance risk for public sector entities. Return JSON only.''';
 
     try {
       final response = await chat(
@@ -198,31 +201,39 @@ Assess insurance risk for educational institutions. Return JSON only.''';
 
   String _demoChatResponse(String userQuery) {
     final lower = userQuery.toLowerCase();
-    if (lower.contains('nil') || lower.contains('athlete')) {
-      return 'NIL (Name, Image, Likeness) developments continue to reshape collegiate athletics insurance. '
-          'Key risks include: revenue-sharing settlement compliance, employment classification disputes, '
-          'and Title IX implications. I recommend reviewing your athletic department\'s D&O coverage and '
-          'general liability limits.';
+    if (lower.contains('cyber') || lower.contains('ransomware') ||
+        lower.contains('data')) {
+      return 'Cyber risk against public entities keeps escalating — counties, municipal '
+          'utilities and school districts are among the most targeted, because legacy '
+          'systems and thin security staffing make them soft targets. Ransomware, '
+          'resident PII exposure and multi-week service outages are the recurring themes. '
+          'Consider dedicated cyber liability with breach response and business '
+          'interruption for continuity of operations.';
     }
-    if (lower.contains('title ix') || lower.contains('compliance')) {
-      return 'Title IX compliance remains a high-priority risk area, particularly with recent regulatory changes. '
-          'Educational institutions should ensure adequate EPLI coverage and review investigation protocols. '
-          'Coverage gaps often emerge around third-party harassment and retaliation claims.';
+    if (lower.contains('emergency') || lower.contains('disaster') ||
+        lower.contains('fema')) {
+      return 'Emergency management exposure concentrates in two places: liability arising '
+          'from the response itself, and the compliance obligations attached to federal '
+          'disaster funding. Review mutual aid agreements, continuity of operations plans '
+          'and the documentation standards FEMA reimbursement depends on.';
     }
-    if (lower.contains('cyber') || lower.contains('data')) {
-      return 'Cyber risk in education is escalating, with K-12 districts and higher ed institutions '
-          'as primary targets. Ransomware, FERPA violations, and student PII breaches are top concerns. '
-          'Consider dedicated cyber liability policies with breach response coverage.';
+    if (lower.contains('compliance') || lower.contains('audit')) {
+      return 'Compliance risk for public entities tends to surface through audit findings '
+          'and open-records disputes rather than litigation. Ensure EPLI and public '
+          'officials liability limits are adequate, and review procurement controls — '
+          'bid protests and sole-source awards are a common source of findings.';
     }
-    return 'Based on current education news trends, key insurance risks include: regulatory compliance '
-        '(Title IX, FERPA), cyber threats targeting student data, NIL-related liability for athletic programs, '
-        'and increased D&O exposure for institutional leadership. I can provide deeper analysis on any specific area.';
+    return 'Across current public sector trends the recurring risks are: cyber threats '
+        'against municipal and county systems, liability exposure from public safety '
+        'operations, grant compliance obligations attached to federal funding, and '
+        'public officials liability for governing bodies. Ask about any of these for a '
+        'deeper read.';
   }
 
   String _demoSummary(Article article) {
     return 'AI Summary: ${article.summary} '
         'Key insurance implications include heightened ${article.primaryCategory.displayName.toLowerCase()} exposure '
-        'and potential coverage review needs for affected institutions.';
+        'and potential coverage review needs for affected entities.';
   }
 
   RiskAssessment _demoRiskAssessment(Article article) {
@@ -245,11 +256,11 @@ Assess insurance risk for educational institutions. Return JSON only.''';
 
   List<String> _demoTrends(List<Article> articles) {
     return [
-      'NIL Settlement Implementation',
-      'Title IX Regulatory Updates',
-      'Cyber Threats in Education',
-      'Federal DOE Policy Shifts',
-      'Higher Ed Financial Stress',
+      'Municipal Ransomware Incidents',
+      'Federal Grant Compliance Tightening',
+      'Public Officials Liability Claims',
+      'Emergency Management Funding Shifts',
+      'Aging Infrastructure Exposure',
     ];
   }
 }

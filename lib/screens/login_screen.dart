@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/audit_event.dart';
+import '../providers/audit_provider.dart';
 import '../providers/auth_provider.dart';
 import '../utils/theme.dart';
 
@@ -32,9 +34,17 @@ class _LoginScreenState extends State<LoginScreen> {
       _errorMessage = null;
     });
     final auth = context.read<AuthProvider>();
+    final audit = context.read<AuditProvider>();
+    final email = _emailController.text.trim();
     final success = await auth.login(
       _emailController.text,
       _passwordController.text,
+    );
+    await audit.log(
+      success ? AuditAction.login : AuditAction.loginFailed,
+      detail: email,
+      userEmail: email,
+      userId: auth.currentUser?.id,
     );
     if (!mounted) return;
     setState(() => _loading = false);
@@ -140,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Education News Monitor by Marsh',
+                        'VANTAGE Public Sector',
                         style: theme.textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 32),
@@ -233,7 +243,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
-                                'Default admin: admin@marsh.com / marsh2026',
+                                'Default admin: admin@vantage.local / vantage2026',
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: AppColors.lightTextSecondary,
                                 ),

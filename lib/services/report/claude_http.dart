@@ -1,0 +1,173 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
+class ReportAiException implements Exception {
+  final int? statusCode;
+  final String message;
+  ReportAiException(this.message, {this.statusCode});
+  @override
+  String toString() =>
+      'ReportAiException${statusCode != null ? ' ($statusCode)' : ''}: $message';
+}
+
+/// Thin raw-HTTP Claude Messages API client for Report Studio and Risk Desk.
+/// Unlike the legacy ClaudeService, errors are propagated — never masked
+/// with demo content.
+class ClaudeHttp {
+  static const String apiUrl = 'https://api.anthropic.com/v1/messages';
+
+  /// Default model for every high-frequency, low-stakes call: chat,
+  /// summaries, triage, and most of the swarm. Cheap and fast.
+  static const String model = 'claude-haiku-4-5';
+
+  /// Used only where reasoning quality matters most and the call is rare
+  /// enough to afford it: research() and synthesize() in the Risk Desk
+  /// swarm. Supports `effort` and the newer web-search tool, unlike Haiku;
+  /// still fits under perCallBudgetUsd — see test/cost_budget_test.dart.
+  static const String deepModel = 'claude-sonnet-5';
+
+  static const String _apiVersion = '2023-06-01';
+
+  /// Haiku 4.5 rejects `output_config.effort` outright (400) and does not
+  /// support the newer dynamic-filtering web-search tool; Sonnet/Opus accept
+  /// both. Per-model rather than a single global check, since [model] and
+  /// [deepModel] now coexist in the same app.
+  static bool modelSupportsEffort(String m) => !m.startsWith('claude-haiku');
+
+  /// Web-search tool version valid for [m].
+  static String webSearchTypeFor(String m) =>
+      modelSupportsEffort(m) ? 'web_search_20260209' : 'web_search_20250305';
+
+  /// Hard per-call cost ceiling in USD. Every max_tokens value and context
+  /// char-cap in risk_research_service.dart and report_ai_service.dart is
+  /// sized to stay under this at each call's own model's rates — see
+  /// test/cost_budget_test.dart for the worked numbers, computed against
+  /// Sonnet 5's *standard* (post-introductory) pricing rather than today's
+  /// discounted rate, so the guarantee doesn't quietly break when the
+  /// introductory period ends.
+  static const double perCallBudgetUsd = 0.10;
+
+  /// Truncates [text] to at most [maxChars], marking the cut so it reads as
+  /// intentional (to Claude and to anyone debugging output quality) rather
+  /// than a silently clipped response.
+  static String truncate(String text, int maxChars) {
+    if (text.length <= maxChars) return text;
+    return '${text.substring(0, maxChars)}\n[...truncated for length...]';
+  }
+
+  /// Drops request fields the body's own `model` would reject. Returns a
+  /// new map; the caller's body is not mutated.
+  static Map<String, dynamic> adaptToModel(Map<String, dynamic> body) {
+    if (modelSupportsEffort(body['model'] as String? ?? model)) return body;
+    final out = Map<String, dynamic>.from(body);
+    final oc = out['output_config'];
+    if (oc is Map) {
+      // Keep `format` (structured outputs work on Haiku); drop only `effort`.
+      final kept = Map<String, dynamic>.from(oc)..remove('effort');
+      if (kept.isEmpty) {
+        out.remove('output_config');
+      } else {
+        out['output_config'] = kept;
+      }
+    }
+    return out;
+  }
+
+  String? _apiKey;
+
+  void setApiKey(String? key) => _apiKey = key;
+
+  bool get hasApiKey => _apiKey != null && _apiKey!.isNotEmpty;
+
+  /// POSTs a Messages API request body; retries once on 429/5xx/529.
+  /// Returns the decoded response JSON.
+  Future<Map<String, dynamic>> send(Map<String, dynamic> body) async {
+    if (!hasApiKey) {
+      throw ReportAiException(
+          'No Claude API key configured. Ask an admin to add one under Admin → Claude API.');
+    }
+
+    http.Response response;
+    for (var attempt = 0;; attempt++) {
+      try {
+        response = await http
+            .post(
+              Uri.parse(apiUrl),
+              headers: {
+                'content-type': 'application/json',
+                'x-api-key': _apiKey!,
+                'anthropic-version': _apiVersion,
+                'anthropic-dangerous-direct-browser-access': 'true',
+              },
+              body: jsonEncode(adaptToModel(body)),
+            )
+            .timeout(const Duration(minutes: 6));
+      } catch (e) {
+        if (attempt == 0) {
+          await Future.delayed(const Duration(seconds: 3));
+          continue;
+        }
+        throw ReportAiException('Network error calling Claude: $e');
+      }
+
+      if (response.statusCode == 200) break;
+      final retryable = response.statusCode == 429 ||
+          response.statusCode >= 500;
+      if (retryable && attempt == 0) {
+        await Future.delayed(const Duration(seconds: 5));
+        continue;
+      }
+      String detail = response.body;
+      try {
+        detail = jsonDecode(response.body)['error']?['message'] ?? detail;
+      } catch (_) {}
+      throw ReportAiException(detail, statusCode: response.statusCode);
+    }
+
+    final data = jsonDecode(response.body) as Map<String, dynamic>;
+    if (data['stop_reason'] == 'refusal') {
+      throw ReportAiException(
+          'Claude declined this request (safety refusal). Adjust the topic or sources and try again.');
+    }
+    return data;
+  }
+
+  /// Concatenated text of all text blocks in a response.
+  static String textOf(Map<String, dynamic> data) {
+    final content = (data['content'] as List?) ?? [];
+    return content
+        .whereType<Map<String, dynamic>>()
+        .where((b) => b['type'] == 'text')
+        .map((b) => b['text'] as String? ?? '')
+        .join();
+  }
+
+  /// Parses the JSON produced by a structured-output request.
+  static Map<String, dynamic> jsonOf(Map<String, dynamic> data) {
+    final text = textOf(data);
+    try {
+      return jsonDecode(text) as Map<String, dynamic>;
+    } catch (e) {
+      throw ReportAiException(
+          'Claude returned malformed JSON despite structured output: $e');
+    }
+  }
+
+  /// Web-search citations attached to text blocks: list of {title, url}.
+  static List<Map<String, String>> citationsOf(Map<String, dynamic> data) {
+    final out = <Map<String, String>>[];
+    final seen = <String>{};
+    final content = (data['content'] as List?) ?? [];
+    for (final block in content.whereType<Map<String, dynamic>>()) {
+      final citations = (block['citations'] as List?) ?? [];
+      for (final c in citations.whereType<Map<String, dynamic>>()) {
+        final url = c['url'] as String? ?? '';
+        if (url.isEmpty || seen.contains(url)) continue;
+        seen.add(url);
+        out.add({'title': c['title'] as String? ?? url, 'url': url});
+      }
+    }
+    return out;
+  }
+}

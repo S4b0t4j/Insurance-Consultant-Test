@@ -35,7 +35,7 @@ class DiscordService {
               : 0x16A34A;
 
       final payload = {
-        'username': 'Marsh Education News Monitor',
+        'username': 'VANTAGE Public Sector',
         'embeds': [
           {
             'title': article.headline,
@@ -60,7 +60,7 @@ class DiscordService {
               },
             ],
             'timestamp': article.publishedAt.toIso8601String(),
-            'footer': {'text': 'Marsh Education Practice'},
+            'footer': {'text': 'VANTAGE Public Sector'},
           }
         ],
       };
@@ -76,6 +76,45 @@ class DiscordService {
     }
   }
 
+  /// Radar detection alert: simple embed with title + rationale.
+  Future<bool> sendRadarAlert(
+      String title, String message, String urgency) async {
+    if (!isConfigured) return false;
+    try {
+      final color = urgency == 'high'
+          ? 0xDC2626
+          : urgency == 'medium'
+              ? 0xF59E0B
+              : 0x16A34A;
+      final response = await http.post(
+        Uri.parse(_webhookUrl!),
+        headers: {'content-type': 'application/json'},
+        body: jsonEncode({
+          'username': 'Risk Radar',
+          'embeds': [
+            {
+              'title': 'Emerging risk detected: $title',
+              'description': message,
+              'color': color,
+              'fields': [
+                {
+                  'name': 'Urgency',
+                  'value': urgency.toUpperCase(),
+                  'inline': true,
+                },
+              ],
+              'timestamp': DateTime.now().toIso8601String(),
+              'footer': {'text': 'Risk Desk — Radar'},
+            }
+          ],
+        }),
+      );
+      return response.statusCode >= 200 && response.statusCode < 300;
+    } catch (_) {
+      return false;
+    }
+  }
+
   Future<bool> sendTestMessage() async {
     if (!isConfigured) return false;
     try {
@@ -83,9 +122,9 @@ class DiscordService {
         Uri.parse(_webhookUrl!),
         headers: {'content-type': 'application/json'},
         body: jsonEncode({
-          'username': 'Marsh Education News Monitor',
+          'username': 'VANTAGE Public Sector',
           'content':
-              'Test message from Education News Monitor. Discord integration is working.',
+              'Test message from VANTAGE Public Sector. Discord integration is working.',
         }),
       );
       return response.statusCode >= 200 && response.statusCode < 300;

@@ -1,0 +1,2576 @@
+[
+  {
+    "id": "city-san-diego",
+    "seg": "city",
+    "name": "City of San Diego",
+    "city": "San Diego",
+    "state": "CA",
+    "lat": 32.7174,
+    "lng": -117.1628,
+    "site": "City Administration Building",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 4914000000,
+    "prem": 5897000,
+    "inc": "Mock Broker B",
+    "renew": "2026-11-01",
+    "trigger": "New risk manager hired from the private sector",
+    "producer": "charlie",
+    "verif": "no-record",
+    "employees": 11700,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-houston",
+    "seg": "city",
+    "name": "City of Houston",
+    "city": "Houston",
+    "state": "TX",
+    "lat": 29.7604,
+    "lng": -95.3698,
+    "site": "Houston City Hall",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 9030000000,
+    "prem": 10836000,
+    "inc": "Mock Broker A",
+    "renew": "2026-10-01",
+    "trigger": "Bond referendum passed for municipal facility upgrades",
+    "producer": "bravo",
+    "verif": "no-record",
+    "employees": 21500,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-jacksonville",
+    "seg": "city",
+    "name": "City of Jacksonville",
+    "city": "Jacksonville",
+    "state": "FL",
+    "lat": 30.3293,
+    "lng": -81.6606,
+    "site": "St. James Building",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 3990000000,
+    "prem": 4788000,
+    "inc": "Mock Broker D",
+    "renew": "2027-07-01",
+    "trigger": "New risk manager hired from the private sector",
+    "producer": "bravo",
+    "verif": "no-record",
+    "employees": 9500,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-chicago",
+    "seg": "city",
+    "name": "City of Chicago",
+    "city": "Chicago",
+    "state": "IL",
+    "lat": 41.8837,
+    "lng": -87.6324,
+    "site": "Chicago City Hall",
+    "floors": 11,
+    "height": null,
+    "sqft": null,
+    "built": 1911,
+    "constr": null,
+    "roof": null,
+    "tiv": 12600000000,
+    "prem": 15120000,
+    "inc": "Mock Broker E",
+    "renew": "2027-02-01",
+    "trigger": "Bond referendum passed for municipal facility upgrades",
+    "producer": "alpha",
+    "verif": "unverified",
+    "employees": 30000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-philadelphia",
+    "seg": "city",
+    "name": "City of Philadelphia",
+    "city": "Philadelphia",
+    "state": "PA",
+    "lat": 39.9524,
+    "lng": -75.1636,
+    "site": "Philadelphia City Hall",
+    "floors": 9,
+    "height": null,
+    "sqft": null,
+    "built": 1901,
+    "constr": null,
+    "roof": null,
+    "tiv": 10500000000,
+    "prem": 12600000,
+    "inc": "Mock Broker F",
+    "renew": "2027-09-01",
+    "trigger": "Aging civic core flagged in the latest capital improvement plan",
+    "producer": "alpha",
+    "verif": "unverified",
+    "employees": 25000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-columbus",
+    "seg": "city",
+    "name": "City of Columbus",
+    "city": "Columbus",
+    "state": "OH",
+    "lat": 39.9634,
+    "lng": -83.0016,
+    "site": "Columbus City Hall",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 3780000000,
+    "prem": 4536000,
+    "inc": "Mock Broker E",
+    "renew": "2027-08-01",
+    "trigger": "Consolidated public safety facility under construction",
+    "producer": "alpha",
+    "verif": "no-record",
+    "employees": 9000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-atlanta",
+    "seg": "city",
+    "name": "City of Atlanta",
+    "city": "Atlanta",
+    "state": "GA",
+    "lat": 33.749,
+    "lng": -84.3902,
+    "site": "Atlanta City Hall",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 3360000000,
+    "prem": 4032000,
+    "inc": "Mock Broker B",
+    "renew": "2026-11-01",
+    "trigger": "New risk manager hired from the private sector",
+    "producer": "bravo",
+    "verif": "no-record",
+    "employees": 8000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-newark",
+    "seg": "city",
+    "name": "City of Newark",
+    "city": "Newark",
+    "state": "NJ",
+    "lat": 40.7328,
+    "lng": -74.1723,
+    "site": "Newark City Hall",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1596000000,
+    "prem": 1915000,
+    "inc": "Mock Broker E",
+    "renew": "2027-02-01",
+    "trigger": "Bond referendum passed for municipal facility upgrades",
+    "producer": "alpha",
+    "verif": "no-record",
+    "employees": 3800,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-virginia-beach",
+    "seg": "city",
+    "name": "City of Virginia Beach",
+    "city": "Virginia Beach",
+    "state": "VA",
+    "lat": 36.7529,
+    "lng": -76.0574,
+    "site": "Virginia Beach City Hall",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 3066000000,
+    "prem": 3679000,
+    "inc": "Mock Broker F",
+    "renew": "2027-03-01",
+    "trigger": "New risk manager hired from the private sector",
+    "producer": "bravo",
+    "verif": "no-record",
+    "employees": 7300,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-detroit",
+    "seg": "city",
+    "name": "City of Detroit",
+    "city": "Detroit",
+    "state": "MI",
+    "lat": 42.3293,
+    "lng": -83.044,
+    "site": "Coleman A. Young Municipal Center",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 3738000000,
+    "prem": 4486000,
+    "inc": "Mock Broker B",
+    "renew": "2026-11-01",
+    "trigger": "New risk manager hired from the private sector",
+    "producer": "alpha",
+    "verif": "no-record",
+    "employees": 8900,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-phoenix",
+    "seg": "city",
+    "name": "City of Phoenix",
+    "city": "Phoenix",
+    "state": "AZ",
+    "lat": 33.4489,
+    "lng": -112.077,
+    "site": "Phoenix City Hall",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 5880000000,
+    "prem": 7056000,
+    "inc": "Mock Broker F",
+    "renew": "2027-03-01",
+    "trigger": "New risk manager hired from the private sector",
+    "producer": "bravo",
+    "verif": "no-record",
+    "employees": 14000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-baltimore",
+    "seg": "city",
+    "name": "City of Baltimore",
+    "city": "Baltimore",
+    "state": "MD",
+    "lat": 39.2909,
+    "lng": -76.6107,
+    "site": "Baltimore City Hall",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 5670000000,
+    "prem": 6804000,
+    "inc": "Mock Broker B",
+    "renew": "2026-11-01",
+    "trigger": "New risk manager hired from the private sector",
+    "producer": "alpha",
+    "verif": "no-record",
+    "employees": 13500,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-indianapolis",
+    "seg": "city",
+    "name": "City of Indianapolis",
+    "city": "Indianapolis",
+    "state": "IN",
+    "lat": 39.7683,
+    "lng": -86.1555,
+    "site": "City-County Building",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 3276000000,
+    "prem": 3931000,
+    "inc": "Mock Broker D",
+    "renew": "2027-01-01",
+    "trigger": "Aging civic core flagged in the latest capital improvement plan",
+    "producer": "alpha",
+    "verif": "no-record",
+    "employees": 7800,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-wilmington",
+    "seg": "city",
+    "name": "City of Wilmington",
+    "city": "Wilmington",
+    "state": "DE",
+    "lat": 39.7447,
+    "lng": -75.545,
+    "site": "Louis L. Redding City/County Building",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 462000000,
+    "prem": 554000,
+    "inc": "Mock Broker E",
+    "renew": "2027-08-01",
+    "trigger": "Consolidated public safety facility under construction",
+    "producer": "alpha",
+    "verif": "no-record",
+    "employees": 1100,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-boise",
+    "seg": "city",
+    "name": "City of Boise",
+    "city": "Boise",
+    "state": "ID",
+    "lat": 43.6165,
+    "lng": -116.2003,
+    "site": "Boise City Hall",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 798000000,
+    "prem": 958000,
+    "inc": "Mock Broker A",
+    "renew": "2026-10-01",
+    "trigger": "Bond referendum passed for municipal facility upgrades",
+    "producer": "charlie",
+    "verif": "no-record",
+    "employees": 1900,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-wichita",
+    "seg": "city",
+    "name": "City of Wichita",
+    "city": "Wichita",
+    "state": "KS",
+    "lat": 37.6922,
+    "lng": -97.3375,
+    "site": "Wichita City Hall",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 1344000000,
+    "prem": 1613000,
+    "inc": "Mock Broker D",
+    "renew": "2027-07-01",
+    "trigger": "New risk manager hired from the private sector",
+    "producer": "bravo",
+    "verif": "no-record",
+    "employees": 3200,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-kansas-city",
+    "seg": "city",
+    "name": "City of Kansas City",
+    "city": "Kansas City",
+    "state": "MO",
+    "lat": 39.0997,
+    "lng": -94.5783,
+    "site": "Kansas City City Hall",
+    "floors": 29,
+    "height": null,
+    "sqft": null,
+    "built": 1937,
+    "constr": null,
+    "roof": null,
+    "tiv": 1806000000,
+    "prem": 2167000,
+    "inc": "Mock Broker D",
+    "renew": "2027-07-01",
+    "trigger": "New risk manager hired from the private sector",
+    "producer": "bravo",
+    "verif": "unverified",
+    "employees": 4300,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-fargo",
+    "seg": "city",
+    "name": "City of Fargo",
+    "city": "Fargo",
+    "state": "ND",
+    "lat": 46.879,
+    "lng": -96.786,
+    "site": "Fargo City Hall",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 462000000,
+    "prem": 554000,
+    "inc": "Mock Broker D",
+    "renew": "2027-07-01",
+    "trigger": "New risk manager hired from the private sector",
+    "producer": "bravo",
+    "verif": "no-record",
+    "employees": 1100,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-oklahoma-city",
+    "seg": "city",
+    "name": "City of Oklahoma City",
+    "city": "Oklahoma City",
+    "state": "OK",
+    "lat": 35.47,
+    "lng": -97.5195,
+    "site": "Oklahoma City Municipal Building",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 2058000000,
+    "prem": 2470000,
+    "inc": "Mock Broker C",
+    "renew": "2026-12-01",
+    "trigger": "Consolidated public safety facility under construction",
+    "producer": "bravo",
+    "verif": "no-record",
+    "employees": 4900,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-sioux-falls",
+    "seg": "city",
+    "name": "City of Sioux Falls",
+    "city": "Sioux Falls",
+    "state": "SD",
+    "lat": 43.5473,
+    "lng": -96.7294,
+    "site": "Sioux Falls City Hall",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 588000000,
+    "prem": 706000,
+    "inc": "Mock Broker B",
+    "renew": "2026-11-01",
+    "trigger": "New risk manager hired from the private sector",
+    "producer": "bravo",
+    "verif": "no-record",
+    "employees": 1400,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-milwaukee",
+    "seg": "city",
+    "name": "City of Milwaukee",
+    "city": "Milwaukee",
+    "state": "WI",
+    "lat": 43.0417,
+    "lng": -87.9098,
+    "site": "Milwaukee City Hall",
+    "floors": 15,
+    "height": null,
+    "sqft": null,
+    "built": 1895,
+    "constr": null,
+    "roof": null,
+    "tiv": 2940000000,
+    "prem": 3528000,
+    "inc": "Mock Broker A",
+    "renew": "2027-04-01",
+    "trigger": "Consolidated public safety facility under construction",
+    "producer": "alpha",
+    "verif": "unverified",
+    "employees": 7000,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Widely documented public value consistent with OpenStreetMap building tags. Compiled offline (Overpass blocked at build time). Re-verify against live OSM before client use."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  },
+  {
+    "id": "city-charlotte",
+    "seg": "city",
+    "name": "City of Charlotte",
+    "city": "Charlotte",
+    "state": "NC",
+    "lat": 35.2219,
+    "lng": -80.8386,
+    "site": "Charlotte-Mecklenburg Government Center",
+    "floors": null,
+    "height": null,
+    "sqft": null,
+    "built": null,
+    "constr": null,
+    "roof": null,
+    "tiv": 3150000000,
+    "prem": 3780000,
+    "inc": "Mock Broker E",
+    "renew": "2027-08-01",
+    "trigger": "Consolidated public safety facility under construction",
+    "producer": "bravo",
+    "verif": "no-record",
+    "employees": 7500,
+    "provenance": {
+      "name": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "city": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "state": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lat": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "lng": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "site": {
+        "kind": "public",
+        "source": "osm",
+        "note": "Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      },
+      "floors": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "height": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "sqft": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "built": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "constr": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "roof": {
+        "kind": "public",
+        "source": "osm",
+        "note": "No value confirmed in OpenStreetMap or agency publications at compile time. Live Overpass retrieval was blocked by network policy. Null per the no-invention rule."
+      },
+      "tiv": {
+        "kind": "derived",
+        "formula": "tiv = employees * 420000 (USD per municipal FTE, schedule of values heuristic)",
+        "inputs": [
+          "employees"
+        ]
+      },
+      "prem": {
+        "kind": "derived",
+        "formula": "prem = tiv * 0.0012 (12 bps blended property rate assumption)",
+        "inputs": [
+          "tiv"
+        ]
+      },
+      "inc": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "renew": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "trigger": {
+        "kind": "modeled",
+        "note": "Synthetic placeholder. Not research. Flagged in the UI."
+      },
+      "employees": {
+        "kind": "public",
+        "source": "census_aspep",
+        "note": "2023 reporting period. Compiled from the named registry's most recent published edition. Re-verify against the live dataset before client use."
+      }
+    }
+  }
+]

@@ -1,16 +1,11 @@
-# Cloudflare Pages Configuration
-# For Education News Monitor - Marsh Education Practice
-
-name = "education-news-monitor"
-compatibility_date = "2024-01-01"
-
-# Pages configuration
+# Cloudflare Pages configuration.
+#
+# When this file exists it overrides the Pages dashboard settings, so `name`
+# must match the Pages project exactly or the build fails before it starts.
+#
+# Deliberately no [build] section: the build command lives in the dashboard
+# (`bash cloudflare-build.sh`) because Flutter is not on the Pages build
+# image and has to be bootstrapped first. A bare `flutter build web` here
+# would run before that bootstrap and fail with "flutter: command not found".
+name = "riskde"
 pages_build_output_dir = "build/web"
-
-# Build settings (used when running wrangler pages dev)
-[build]
-command = "flutter build web --release"
-
-# Environment variables (if needed)
-[vars]
-APP_NAME = "Education News Monitor"

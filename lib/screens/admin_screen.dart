@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import '../models/audit_event.dart';
 import '../models/user.dart';
 import '../providers/ai_provider.dart';
+import '../providers/audit_provider.dart';
 import '../providers/auth_provider.dart';
 import '../providers/discord_provider.dart';
 import '../utils/theme.dart';
@@ -21,7 +24,7 @@ class _AdminScreenState extends State<AdminScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -46,6 +49,7 @@ class _AdminScreenState extends State<AdminScreen>
             Tab(icon: Icon(Icons.people_outline), text: 'Users'),
             Tab(icon: Icon(Icons.smart_toy_outlined), text: 'Claude API'),
             Tab(icon: Icon(Icons.discord), text: 'Discord'),
+            Tab(icon: Icon(Icons.receipt_long_outlined), text: 'Audit Log'),
           ],
         ),
       ),
@@ -55,6 +59,7 @@ class _AdminScreenState extends State<AdminScreen>
           _UsersTab(),
           _ClaudeApiTab(),
           _DiscordTab(),
+          _AuditLogTab(),
         ],
       ),
     );
@@ -92,7 +97,7 @@ class _UsersTab extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Only invited users can access the Education News Monitor',
+              'Only invited users can access the VANTAGE Public Sector',
               style: theme.textTheme.bodyMedium,
             ),
             const SizedBox(height: 24),
@@ -190,6 +195,30 @@ class _UserCard extends StatelessWidget {
                 ],
               ),
             ),
+            if (!user.isAdmin)
+              Tooltip(
+                message: 'Report Studio & Risk Desk access',
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.slideshow_outlined, size: 16),
+                    Switch(
+                      value: user.canUseReportStudio,
+                      onChanged: (_) async {
+                        final granted =
+                            await auth.toggleReportStudioAccess(user.id);
+                        if (granted != null && context.mounted) {
+                          context.read<AuditProvider>().log(
+                                AuditAction.accessGrantChanged,
+                                detail:
+                                    '${user.email}: Report Studio ${granted ? 'granted' : 'revoked'}',
+                              );
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
             IconButton(
               icon: Icon(user.active
                   ? Icons.toggle_on
@@ -684,5 +713,132 @@ class _DiscordTabState extends State<_DiscordTab> {
         );
       },
     );
+  }
+}
+
+class _AuditLogTab extends StatefulWidget {
+  const _AuditLogTab();
+
+  @override
+  State<_AuditLogTab> createState() => _AuditLogTabState();
+}
+
+class _AuditLogTabState extends State<_AuditLogTab> {
+  AuditAction? _filter;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Consumer<AuditProvider>(
+      builder: (context, audit, _) {
+        final events = _filter == null
+            ? audit.events
+            : audit.events.where((e) => e.action == _filter).toList();
+        return ListView(
+          padding: const EdgeInsets.all(24),
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text('Audit Log',
+                      style: theme.textTheme.headlineMedium),
+                ),
+                DropdownButton<AuditAction?>(
+                  value: _filter,
+                  hint: const Text('All actions'),
+                  items: [
+                    const DropdownMenuItem(
+                        value: null, child: Text('All actions')),
+                    for (final action in AuditAction.values)
+                      DropdownMenuItem(
+                          value: action, child: Text(action.label)),
+                  ],
+                  onChanged: (v) => setState(() => _filter = v),
+                ),
+                const SizedBox(width: 12),
+                OutlinedButton.icon(
+                  icon: const Icon(Icons.copy, size: 16),
+                  label: const Text('Copy JSON'),
+                  onPressed: () async {
+                    await Clipboard.setData(
+                        ClipboardData(text: audit.exportJson()));
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Audit log copied to clipboard')),
+                      );
+                    }
+                  },
+                ),
+                const SizedBox(width: 8),
+                OutlinedButton.icon(
+                  icon: const Icon(Icons.delete_sweep_outlined, size: 16),
+                  label: const Text('Clear'),
+                  onPressed: () => audit.clear(),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Advisory client-side log of logins, access grants, uploads, generations and downloads '
+              '(last ${AuditProvider.maxEvents} events, this browser only). The authoritative access log '
+              'is the hosting layer — see docs/DEPLOYMENT.md.',
+              style: theme.textTheme.bodySmall,
+            ),
+            const SizedBox(height: 16),
+            if (events.isEmpty)
+              const Padding(
+                padding: EdgeInsets.all(32),
+                child: Center(child: Text('No events recorded yet.')),
+              ),
+            for (final event in events)
+              Card(
+                margin: const EdgeInsets.only(bottom: 8),
+                child: ListTile(
+                  dense: true,
+                  leading: Icon(_iconFor(event.action), size: 20),
+                  title: Text('${event.action.label} — ${event.userEmail}'),
+                  subtitle: Text(event.detail.isEmpty
+                      ? DateFormat.yMMMd().add_jms().format(event.timestamp)
+                      : '${event.detail}\n${DateFormat.yMMMd().add_jms().format(event.timestamp)}'),
+                  isThreeLine: event.detail.isNotEmpty,
+                ),
+              ),
+          ],
+        );
+      },
+    );
+  }
+
+  IconData _iconFor(AuditAction action) {
+    switch (action) {
+      case AuditAction.login:
+        return Icons.login;
+      case AuditAction.loginFailed:
+        return Icons.gpp_bad_outlined;
+      case AuditAction.logout:
+        return Icons.logout;
+      case AuditAction.userAdded:
+      case AuditAction.userRemoved:
+        return Icons.person_outline;
+      case AuditAction.accessGrantChanged:
+        return Icons.key_outlined;
+      case AuditAction.templateUploaded:
+      case AuditAction.sourceAdded:
+        return Icons.upload_file_outlined;
+      case AuditAction.generationStarted:
+      case AuditAction.generationCompleted:
+      case AuditAction.generationFailed:
+        return Icons.auto_awesome_outlined;
+      case AuditAction.reportDownloaded:
+        return Icons.download_outlined;
+      case AuditAction.riskAnalysisStarted:
+      case AuditAction.riskAnalysisCompleted:
+      case AuditAction.riskAnalysisFailed:
+        return Icons.hub_outlined;
+      case AuditAction.radarScanCompleted:
+      case AuditAction.radarRiskDetected:
+        return Icons.radar_outlined;
+    }
   }
 }

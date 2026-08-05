@@ -1,0 +1,14 @@
+{
+  "name": "vantage-public-sector",
+  "version": "1.0.0",
+  "private": true,
+  "description": "VANTAGE Public Sector Edition: prospecting and property intelligence for the public sector practice. Repo for maintainability, single-file bundle for delivery.",
+  "scripts": {
+    "dev": "npx -y http-server -p 8080 -c-1 .",
+    "data": "node scripts/build-entities.js",
+    "validate": "node scripts/validate-data.js",
+    "build": "node build.js",
+    "build:vendor": "node build.js --vendor",
+    "test": "node scripts/validate-data.js && node build.js --vendor"
+  }
+}

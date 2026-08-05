@@ -9,6 +9,13 @@ class AuthProvider extends ChangeNotifier {
   static const _sessionKey = 'app_session_v1';
   static const _onboardingKey = 'app_onboarded_';
 
+  /// TEMPORARY: skips the sign-in screen and starts every session as the
+  /// seeded admin, requested to speed up testing while the app isn't yet
+  /// behind a durable access gate. Flip to false to restore normal sign-in
+  /// — LoginScreen, per-user grants, and the audit log are all untouched
+  /// and still work exactly as before.
+  static const bool skipLoginForNow = true;
+
   final List<AppUser> _users = [];
   AppUser? _currentUser;
   bool _initialized = false;
@@ -19,12 +26,17 @@ class AuthProvider extends ChangeNotifier {
   bool get initialized => _initialized;
   List<AppUser> get users => List.unmodifiable(_users);
 
+  /// Report Studio / Risk Desk gate: default deny, admins implicit.
+  bool get canUseReportStudio =>
+      _currentUser != null &&
+      (_currentUser!.isAdmin || _currentUser!.canUseReportStudio);
+
   AuthProvider() {
     _bootstrap();
   }
 
   String _hashPassword(String password) {
-    final salt = 'marsh_edu_news_2026';
+    final salt = 'vantage_public_sector_2026';
     final bytes = utf8.encode('$salt:$password');
     return crypto.sha256.convert(bytes).toString();
   }
@@ -41,9 +53,9 @@ class AuthProvider extends ChangeNotifier {
     if (_users.where((u) => u.isAdmin).isEmpty) {
       _users.add(AppUser(
         id: 'admin-seed',
-        email: 'admin@marsh.com',
-        displayName: 'Marsh Admin',
-        passwordHash: _hashPassword('marsh2026'),
+        email: 'admin@vantage.local',
+        displayName: 'VANTAGE Admin',
+        passwordHash: _hashPassword('vantage2026'),
         role: UserRole.admin,
         createdAt: DateTime.now(),
       ));
@@ -57,6 +69,18 @@ class AuthProvider extends ChangeNotifier {
       } catch (_) {
         _currentUser = null;
       }
+    }
+
+    // Only kicks in when nothing already resolved a real session above, so
+    // logging in as someone else still sticks for that session. Note this
+    // bootstrap re-runs on every page load, so an explicit logout followed
+    // by a refresh lands back on the admin bypass, not LoginScreen — that's
+    // the nature of a "skip sign-in" flag, not a bug in it.
+    if (_currentUser == null && skipLoginForNow) {
+      final admin =
+          _users.firstWhere((u) => u.isAdmin && u.active, orElse: () => _users.first);
+      _currentUser = admin;
+      await prefs.setString(_sessionKey, admin.id);
     }
 
     _initialized = true;
@@ -136,6 +160,18 @@ class AuthProvider extends ChangeNotifier {
     _users[idx] = _users[idx].copyWith(active: !_users[idx].active);
     await _persist();
     notifyListeners();
+  }
+
+  /// Returns the new grant state, or null if the user wasn't found.
+  Future<bool?> toggleReportStudioAccess(String id) async {
+    final idx = _users.indexWhere((u) => u.id == id);
+    if (idx == -1) return null;
+    final next = !_users[idx].canUseReportStudio;
+    _users[idx] = _users[idx].copyWith(canUseReportStudio: next);
+    if (_currentUser?.id == id) _currentUser = _users[idx];
+    await _persist();
+    notifyListeners();
+    return next;
   }
 
   Future<bool> hasSeenOnboarding() async {

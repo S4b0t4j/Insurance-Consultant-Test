@@ -8,7 +8,7 @@ enum AlertRuleType {
   categorySpike,       // Unusual activity in a category
   breakingNews,        // Any breaking news
   regulatoryDeadline,  // Upcoming compliance deadline
-  institutionMention,  // Specific institution mentioned
+  entityMention,  // Specific agency or jurisdiction mentioned
   conferenceMention,   // Specific conference mentioned
 }
 
@@ -25,8 +25,8 @@ extension AlertRuleTypeExtension on AlertRuleType {
         return 'Breaking News';
       case AlertRuleType.regulatoryDeadline:
         return 'Regulatory Deadline';
-      case AlertRuleType.institutionMention:
-        return 'Institution Mention';
+      case AlertRuleType.entityMention:
+        return 'Entity Mention';
       case AlertRuleType.conferenceMention:
         return 'Conference Mention';
     }
@@ -44,7 +44,7 @@ extension AlertRuleTypeExtension on AlertRuleType {
         return Icons.flash_on;
       case AlertRuleType.regulatoryDeadline:
         return Icons.event;
-      case AlertRuleType.institutionMention:
+      case AlertRuleType.entityMention:
         return Icons.school;
       case AlertRuleType.conferenceMention:
         return Icons.sports_football;
@@ -111,9 +111,9 @@ class AlertRule {
   final NewsCategory? targetCategory;
   final int? spikeThreshold;
 
-  // Institution/Conference settings
-  final List<String> watchedInstitutions;
-  final List<String> watchedConferences;
+  // Entity/jurisdiction watch settings
+  final List<String> watchedEntities;
+  final List<String> watchedJurisdictions;
 
   // Deadline settings (for regulatoryDeadline type)
   final DateTime? deadlineDate;
@@ -134,8 +134,8 @@ class AlertRule {
     this.keywordCaseSensitive = false,
     this.targetCategory,
     this.spikeThreshold,
-    this.watchedInstitutions = const [],
-    this.watchedConferences = const [],
+    this.watchedEntities = const [],
+    this.watchedJurisdictions = const [],
     this.deadlineDate,
     this.reminderDaysBefore,
   });
@@ -155,8 +155,8 @@ class AlertRule {
     bool? keywordCaseSensitive,
     NewsCategory? targetCategory,
     int? spikeThreshold,
-    List<String>? watchedInstitutions,
-    List<String>? watchedConferences,
+    List<String>? watchedEntities,
+    List<String>? watchedJurisdictions,
     DateTime? deadlineDate,
     int? reminderDaysBefore,
   }) {
@@ -175,8 +175,8 @@ class AlertRule {
       keywordCaseSensitive: keywordCaseSensitive ?? this.keywordCaseSensitive,
       targetCategory: targetCategory ?? this.targetCategory,
       spikeThreshold: spikeThreshold ?? this.spikeThreshold,
-      watchedInstitutions: watchedInstitutions ?? this.watchedInstitutions,
-      watchedConferences: watchedConferences ?? this.watchedConferences,
+      watchedEntities: watchedEntities ?? this.watchedEntities,
+      watchedJurisdictions: watchedJurisdictions ?? this.watchedJurisdictions,
       deadlineDate: deadlineDate ?? this.deadlineDate,
       reminderDaysBefore: reminderDaysBefore ?? this.reminderDaysBefore,
     );
@@ -198,8 +198,8 @@ class AlertRule {
       'keywordCaseSensitive': keywordCaseSensitive,
       'targetCategory': targetCategory?.index,
       'spikeThreshold': spikeThreshold,
-      'watchedInstitutions': watchedInstitutions,
-      'watchedConferences': watchedConferences,
+      'watchedEntities': watchedEntities,
+      'watchedJurisdictions': watchedJurisdictions,
       'deadlineDate': deadlineDate?.toIso8601String(),
       'reminderDaysBefore': reminderDaysBefore,
     };
@@ -225,8 +225,8 @@ class AlertRule {
           ? NewsCategory.values[json['targetCategory']]
           : null,
       spikeThreshold: json['spikeThreshold'],
-      watchedInstitutions: List<String>.from(json['watchedInstitutions'] ?? []),
-      watchedConferences: List<String>.from(json['watchedConferences'] ?? []),
+      watchedEntities: List<String>.from(json['watchedEntities'] ?? []),
+      watchedJurisdictions: List<String>.from(json['watchedJurisdictions'] ?? []),
       deadlineDate: json['deadlineDate'] != null
           ? DateTime.parse(json['deadlineDate'])
           : null,
@@ -310,7 +310,7 @@ class RegulatoryDeadline {
   final String description;
   final DateTime deadline;
   final String? regulatoryBody;
-  final List<String> affectedInstitutionTypes;
+  final List<String> affectedEntityTypes;
   final String? complianceUrl;
   final bool isCompleted;
 
@@ -320,7 +320,7 @@ class RegulatoryDeadline {
     required this.description,
     required this.deadline,
     this.regulatoryBody,
-    this.affectedInstitutionTypes = const [],
+    this.affectedEntityTypes = const [],
     this.complianceUrl,
     this.isCompleted = false,
   });
@@ -340,7 +340,7 @@ class RegulatoryDeadline {
       'description': description,
       'deadline': deadline.toIso8601String(),
       'regulatoryBody': regulatoryBody,
-      'affectedInstitutionTypes': affectedInstitutionTypes,
+      'affectedEntityTypes': affectedEntityTypes,
       'complianceUrl': complianceUrl,
       'isCompleted': isCompleted,
     };
@@ -353,8 +353,8 @@ class RegulatoryDeadline {
       description: json['description'],
       deadline: DateTime.parse(json['deadline']),
       regulatoryBody: json['regulatoryBody'],
-      affectedInstitutionTypes:
-          List<String>.from(json['affectedInstitutionTypes'] ?? []),
+      affectedEntityTypes:
+          List<String>.from(json['affectedEntityTypes'] ?? []),
       complianceUrl: json['complianceUrl'],
       isCompleted: json['isCompleted'] ?? false,
     );

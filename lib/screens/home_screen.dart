@@ -13,6 +13,7 @@ import '../services/pdf_service.dart';
 import '../utils/theme.dart';
 import '../widgets/alerts_panel.dart';
 import '../widgets/app_sidebar.dart';
+import '../widgets/vantage_view.dart';
 import '../widgets/filter_panel.dart';
 import '../widgets/grid_layout.dart';
 import '../widgets/layout_switcher.dart';
@@ -25,6 +26,8 @@ import '../widgets/status_bar.dart';
 import '../widgets/trending_section.dart';
 import 'admin_screen.dart';
 import 'ask_ai_screen.dart';
+import 'report_studio_screen.dart';
+import 'risk_desk_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -33,7 +36,13 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+/// Below this width the sidebar moves into a Drawer instead of sitting
+/// inline — matches FilterPanel's existing isWide breakpoint so the app
+/// doesn't grow a second, different notion of "mobile".
+const double _mobileBreakpoint = 768;
+
 class _HomeScreenState extends State<HomeScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final ScrollController _scrollController = ScrollController();
   bool _showScrollToTop = false;
   bool _alertsProcessed = false;
@@ -142,17 +151,17 @@ class _HomeScreenState extends State<HomeScreen> {
         articles.where((a) => a.priority == Priority.low).length;
 
     final text = '''
-Education News Monitor - $dateStr
-Marsh Education Practice
+VANTAGE Public Sector - $dateStr
+VANTAGE Public Sector
 
 Summary: $highCount High Priority | $mediumCount Medium | $lowCount Low Priority
 
 Top Stories:
 ${articles.take(5).map((a) => '• ${a.headline}').join('\n')}
 
-View full report with risk analysis in the Education News Monitor app.
+View full report with risk analysis in the VANTAGE Public Sector app.
 ''';
-    await Share.share(text, subject: 'Education News Report - $dateStr');
+    await Share.share(text, subject: 'Public Sector Risk Report - $dateStr');
   }
 
   void _showAlertsPanel() {
@@ -163,13 +172,44 @@ View full report with risk analysis in the Education News Monitor app.
     switch (_section) {
       case AppSection.dashboard:
         return _buildDashboard();
+      case AppSection.vantageMap:
+        return const VantageView();
       case AppSection.askAi:
         return const AskAiScreen();
+      case AppSection.riskDesk:
+        return _guarded(RiskDeskScreen(
+          onBuildReport: () =>
+              setState(() => _section = AppSection.reportStudio),
+        ));
+      case AppSection.reportStudio:
+        return _guarded(const ReportStudioScreen());
       case AppSection.alerts:
         return const AlertsPanel(inline: true);
       case AppSection.admin:
         return const AdminScreen();
     }
+  }
+
+  /// Access can be revoked mid-session; both gated sections re-check here.
+  Widget _guarded(Widget child) {
+    final auth = context.watch<AuthProvider>();
+    if (!auth.canUseReportStudio) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.lock_outline, size: 48),
+            const SizedBox(height: 12),
+            Text('No access',
+                style: Theme.of(context).textTheme.headlineMedium),
+            const SizedBox(height: 8),
+            const Text(
+                'Ask an administrator to grant you Report Studio access.'),
+          ],
+        ),
+      );
+    }
+    return child;
   }
 
   Widget _buildDashboard() {
@@ -272,9 +312,15 @@ View full report with risk analysis in the Education News Monitor app.
   String _sectionTitle() {
     switch (_section) {
       case AppSection.dashboard:
-        return 'Education News Monitor';
+        return 'VANTAGE Public Sector';
+      case AppSection.vantageMap:
+        return 'Entity Map';
       case AppSection.askAi:
         return 'Ask AI';
+      case AppSection.riskDesk:
+        return 'Risk Desk';
+      case AppSection.reportStudio:
+        return 'Report Studio';
       case AppSection.alerts:
         return 'Alerts';
       case AppSection.admin:
@@ -282,24 +328,40 @@ View full report with risk analysis in the Education News Monitor app.
     }
   }
 
+  void _selectSection(AppSection s) {
+    setState(() => _section = s);
+    if (_scrollController.hasClients) {
+      _scrollController.jumpTo(0);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < _mobileBreakpoint;
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: isMobile
+          ? Drawer(
+              child: AppSidebar(
+                currentSection: _section,
+                onSectionChange: (s) {
+                  Navigator.of(context).pop();
+                  _selectSection(s);
+                },
+              ),
+            )
+          : null,
       body: Row(
         children: [
-          AppSidebar(
-            currentSection: _section,
-            onSectionChange: (s) {
-              setState(() => _section = s);
-              if (_scrollController.hasClients) {
-                _scrollController.jumpTo(0);
-              }
-            },
-          ),
+          if (!isMobile)
+            AppSidebar(
+              currentSection: _section,
+              onSectionChange: _selectSection,
+            ),
           Expanded(
             child: Column(
               children: [
-                _buildTopBar(),
+                _buildTopBar(isMobile: isMobile),
                 Expanded(child: _buildSectionContent()),
               ],
             ),
@@ -319,11 +381,12 @@ View full report with risk analysis in the Education News Monitor app.
     );
   }
 
-  Widget _buildTopBar() {
+  Widget _buildTopBar({required bool isMobile}) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      padding: EdgeInsets.symmetric(
+          horizontal: isMobile ? 12 : 24, vertical: 16),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         border: Border(
@@ -336,11 +399,22 @@ View full report with risk analysis in the Education News Monitor app.
       ),
       child: Row(
         children: [
+          if (isMobile)
+            IconButton(
+              onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+              icon: const Icon(Icons.menu),
+              tooltip: 'Menu',
+            ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(_sectionTitle(), style: theme.textTheme.headlineLarge),
+                Text(
+                  _sectionTitle(),
+                  style: theme.textTheme.headlineLarge,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
                 if (_section == AppSection.dashboard)
                   Text(
                     'Real-time news intelligence · ${DateFormat.yMMMMd().format(DateTime.now())}',

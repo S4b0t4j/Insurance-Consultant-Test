@@ -143,39 +143,39 @@ class AlertProvider with ChangeNotifier {
           createdAt: DateTime.now(),
         ),
         AlertRule(
-          id: 'default_title_ix',
-          name: 'Title IX Keywords',
-          description: 'Monitor for Title IX related news',
-          type: AlertRuleType.keywordMatch,
-          severity: AlertSeverity.high,
-          keywords: ['Title IX', 'OCR investigation', 'sexual misconduct', 'gender equity'],
-          createdAt: DateTime.now(),
-        ),
-        AlertRule(
-          id: 'default_nil',
-          name: 'NIL Compliance',
-          description: 'Monitor for NIL compliance and regulation changes',
-          type: AlertRuleType.keywordMatch,
-          severity: AlertSeverity.medium,
-          keywords: ['NIL violation', 'NIL regulation', 'NIL compliance', 'collective'],
-          createdAt: DateTime.now(),
-        ),
-        AlertRule(
-          id: 'default_accreditation',
-          name: 'Accreditation Risk',
-          description: 'Alert on accreditation-related news',
+          id: 'default_cyber',
+          name: 'Municipal Cyber Incident',
+          description: 'Monitor for ransomware and breaches against public entities',
           type: AlertRuleType.keywordMatch,
           severity: AlertSeverity.critical,
-          keywords: ['accreditation', 'probation', 'loss of accreditation', 'HLC', 'SACSCOC'],
+          keywords: ['ransomware', 'cyberattack', 'data breach', 'systems offline'],
           createdAt: DateTime.now(),
         ),
         AlertRule(
-          id: 'default_doe_category',
-          name: 'DOE Activity Spike',
-          description: 'Alert when Federal/DOE category sees unusual activity',
+          id: 'default_officials_liability',
+          name: 'Public Officials Liability',
+          description: 'Monitor for claims and suits against governing bodies',
+          type: AlertRuleType.keywordMatch,
+          severity: AlertSeverity.high,
+          keywords: ['public officials liability', 'consent decree', 'civil rights suit', 'indemnification'],
+          createdAt: DateTime.now(),
+        ),
+        AlertRule(
+          id: 'default_fiscal_distress',
+          name: 'Fiscal Distress',
+          description: 'Alert on budget and credit deterioration at public entities',
+          type: AlertRuleType.keywordMatch,
+          severity: AlertSeverity.critical,
+          keywords: ['budget shortfall', 'credit downgrade', 'state takeover', 'insolvency'],
+          createdAt: DateTime.now(),
+        ),
+        AlertRule(
+          id: 'default_federal_category',
+          name: 'Federal Policy Activity Spike',
+          description: 'Alert when Federal Policy sees unusual activity',
           type: AlertRuleType.categorySpike,
           severity: AlertSeverity.high,
-          targetCategory: NewsCategory.federalDoe,
+          targetCategory: NewsCategory.federalPolicy,
           spikeThreshold: 5,
           createdAt: DateTime.now(),
         ),
@@ -190,44 +190,45 @@ class AlertProvider with ChangeNotifier {
       _deadlines = [
         RegulatoryDeadline(
           id: 'dl_1',
-          title: 'Title IX Final Rule Implementation',
-          description: 'New Title IX regulations take effect. All institutions must have updated policies and procedures in place.',
-          deadline: DateTime(2026, 8, 1),
-          regulatoryBody: 'Department of Education',
-          affectedInstitutionTypes: ['All Title IV institutions'],
-          complianceUrl: 'https://www.ed.gov/title-ix',
+          title: 'Single Audit Submission (2 CFR 200)',
+          description: 'Entities expending \$1M or more in federal awards must submit the Single Audit reporting package to the Federal Audit Clearinghouse.',
+          deadline: DateTime(now.year, 9, 30),
+          regulatoryBody: 'Office of Management and Budget',
+          affectedEntityTypes: ['All federal award recipients'],
+          complianceUrl: 'https://www.whitehouse.gov/omb/management/office-federal-financial-management/',
         ),
         RegulatoryDeadline(
           id: 'dl_2',
-          title: 'IPEDS Fall Enrollment Survey',
-          description: 'Annual submission of fall enrollment data to IPEDS.',
-          deadline: DateTime(now.year, 10, 15),
-          regulatoryBody: 'NCES / Department of Education',
-          affectedInstitutionTypes: ['All Title IV institutions'],
+          title: 'Annual Comprehensive Financial Report',
+          description: 'Publication of the ACFR for the prior fiscal year under GASB reporting standards.',
+          deadline: DateTime(now.year, 12, 31),
+          regulatoryBody: 'Governmental Accounting Standards Board',
+          affectedEntityTypes: ['State and local governments'],
         ),
         RegulatoryDeadline(
           id: 'dl_3',
-          title: 'NCAA NIL Disclosure Deadline',
-          description: 'All NIL arrangements must be disclosed per new NCAA requirements.',
-          deadline: DateTime(2026, 7, 1),
-          regulatoryBody: 'NCAA',
-          affectedInstitutionTypes: ['NCAA Division I', 'NCAA Division II', 'NCAA Division III'],
+          title: 'CISA Incident Reporting (CIRCIA)',
+          description: 'Covered entities must report substantial cyber incidents within 72 hours and ransom payments within 24 hours.',
+          deadline: DateTime(now.year, 10, 1),
+          regulatoryBody: 'Cybersecurity and Infrastructure Security Agency',
+          affectedEntityTypes: ['Critical infrastructure entities'],
+          complianceUrl: 'https://www.cisa.gov/circia',
         ),
         RegulatoryDeadline(
           id: 'dl_4',
-          title: 'Clery Act Annual Security Report',
-          description: 'Publish and distribute annual security report to campus community.',
-          deadline: DateTime(now.year, 10, 1),
-          regulatoryBody: 'Department of Education',
-          affectedInstitutionTypes: ['All Title IV institutions'],
+          title: 'Emergency Operations Plan Review',
+          description: 'Annual review and certification of the jurisdiction emergency operations plan.',
+          deadline: DateTime(now.year, 7, 1),
+          regulatoryBody: 'Federal Emergency Management Agency',
+          affectedEntityTypes: ['Counties and municipalities'],
         ),
         RegulatoryDeadline(
           id: 'dl_5',
-          title: 'FERPA Annual Notification',
-          description: 'Annual notification to students of FERPA rights.',
-          deadline: DateTime(now.year, 9, 1),
-          regulatoryBody: 'Department of Education',
-          affectedInstitutionTypes: ['All educational institutions'],
+          title: 'Public Records Retention Certification',
+          description: 'Annual certification that records retention and open-records procedures meet state requirements.',
+          deadline: DateTime(now.year, 6, 30),
+          regulatoryBody: 'State Records Administration',
+          affectedEntityTypes: ['All public agencies'],
         ),
       ];
       _saveDeadlines();
@@ -286,8 +287,8 @@ class AlertProvider with ChangeNotifier {
         case AlertRuleType.categorySpike:
           _checkCategorySpike(rule, articles);
           break;
-        case AlertRuleType.institutionMention:
-          _checkInstitutionMention(rule, articles);
+        case AlertRuleType.entityMention:
+          _checkEntityMention(rule, articles);
           break;
         case AlertRuleType.conferenceMention:
           _checkConferenceMention(rule, articles);
@@ -400,22 +401,22 @@ class AlertProvider with ChangeNotifier {
     }
   }
 
-  void _checkInstitutionMention(AlertRule rule, List<Article> articles) {
-    if (rule.watchedInstitutions.isEmpty) return;
+  void _checkEntityMention(AlertRule rule, List<Article> articles) {
+    if (rule.watchedEntities.isEmpty) return;
 
     for (final article in articles) {
       if (_processedArticleIds.contains('${rule.id}_${article.id}')) continue;
 
-      for (final institution in rule.watchedInstitutions) {
-        if (article.institutionsAffected
-            .any((i) => i.toLowerCase().contains(institution.toLowerCase()))) {
+      for (final entity in rule.watchedEntities) {
+        if (article.entitiesAffected
+            .any((i) => i.toLowerCase().contains(entity.toLowerCase()))) {
           _processedArticleIds.add('${rule.id}_${article.id}');
           _triggerAlert(
             TriggeredAlert(
               id: '${rule.id}_${article.id}',
               rule: rule,
               triggeredAt: DateTime.now(),
-              message: '$institution mentioned: ${article.headline}',
+              message: '\$entity mentioned: \${article.headline}',
               relatedArticles: [article],
             ),
           );
@@ -426,13 +427,13 @@ class AlertProvider with ChangeNotifier {
   }
 
   void _checkConferenceMention(AlertRule rule, List<Article> articles) {
-    if (rule.watchedConferences.isEmpty) return;
+    if (rule.watchedJurisdictions.isEmpty) return;
 
     for (final article in articles) {
       if (_processedArticleIds.contains('${rule.id}_${article.id}')) continue;
 
-      for (final conference in rule.watchedConferences) {
-        if (article.conferencesAffected
+      for (final conference in rule.watchedJurisdictions) {
+        if (article.jurisdictionsAffected
             .any((c) => c.toLowerCase().contains(conference.toLowerCase()))) {
           _processedArticleIds.add('${rule.id}_${article.id}');
           _triggerAlert(
@@ -496,6 +497,29 @@ class AlertProvider with ChangeNotifier {
     _triggeredAlerts.insert(0, alert);
     _saveTriggeredAlerts();
     notifyListeners();
+  }
+
+  /// Lets other features (e.g. the Risk Radar) surface alerts through the
+  /// standard alerts panel without owning an AlertRule.
+  void addExternalAlert({
+    required String title,
+    required String message,
+    AlertSeverity severity = AlertSeverity.medium,
+  }) {
+    final now = DateTime.now();
+    _triggerAlert(TriggeredAlert(
+      id: 'ext_${now.microsecondsSinceEpoch}',
+      rule: AlertRule(
+        id: 'external',
+        name: title,
+        description: 'External alert',
+        type: AlertRuleType.keywordMatch,
+        severity: severity,
+        createdAt: now,
+      ),
+      triggeredAt: now,
+      message: message,
+    ));
   }
 
   // CRUD Operations for Rules
@@ -579,7 +603,7 @@ class AlertProvider with ChangeNotifier {
         description: _deadlines[index].description,
         deadline: _deadlines[index].deadline,
         regulatoryBody: _deadlines[index].regulatoryBody,
-        affectedInstitutionTypes: _deadlines[index].affectedInstitutionTypes,
+        affectedEntityTypes: _deadlines[index].affectedEntityTypes,
         complianceUrl: _deadlines[index].complianceUrl,
         isCompleted: true,
       );

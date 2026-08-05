@@ -18,7 +18,7 @@ class _OnboardingTourState extends State<OnboardingTour> {
       icon: Icons.dashboard_rounded,
       title: 'Real-time News Dashboard',
       description:
-          'Stay informed on education, NIL, and regulatory news that impacts insurance risk for your clients. AI-curated and prioritized for you.',
+          'Stay informed on federal, state and local developments that shape public sector risk. AI-curated and prioritized for you.',
       color: AppColors.darkCobalt,
     ),
     _TourStep(
