@@ -194,6 +194,18 @@
 
   /* ---------- book reader ---------- */
   .reader-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .reader-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 8px; margin-top: 12px;
+  }
+  #bookCanvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--rule);
+    background: #FFFFFF;
+    margin-top: 8px;
+  }
   #readerFrame {
     width: 100%;
     height: 75vh;
@@ -789,6 +801,7 @@
     logToday();
     save();
     renderAll();
+    renderBookPage();
   }
 
   function commitPageInput() {
@@ -827,16 +840,44 @@
     if (ch) { setCurrent(ch.s); jumpBook(ch.s); }
   });
 
-  /* ---------- book reader (user's own PDF, browser-native viewer) ----------
+  /* ---------- book reader ----------
      The chosen PDF is kept in this browser's IndexedDB so the book re-opens
-     automatically at the bookmark on the next visit. It never leaves the device. */
+     automatically at the bookmark on the next visit. It never leaves the device.
+     Rendering: PDF.js onto a canvas (works on mobile and inside the claude.ai
+     viewer, where embedded PDF frames do not render); if PDF.js cannot load
+     (e.g. the local file used offline), fall back to the browser's native
+     viewer in an iframe. */
 
   var bookUrl = null;
+  var pdfDoc = null;
+  var renderTask = null;
+  var readerMode = null; // 'canvas' | 'frame' | null
   var readerHost = document.getElementById('readerHost');
   var goPageBtn = document.getElementById('goPageBtn');
   var newTabBtn = document.getElementById('newTabBtn');
   var forgetBtn = document.getElementById('forgetBtn');
   var readerHint = document.getElementById('readerHint');
+
+  var pdfjsReady = null;
+  function loadPdfJs() {
+    if (pdfjsReady) return pdfjsReady;
+    pdfjsReady = new Promise(function (res, rej) {
+      if (window.pdfjsLib) { res(window.pdfjsLib); return; }
+      var s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+      s.onload = function () {
+        if (!window.pdfjsLib) { rej(new Error('pdfjs missing')); return; }
+        // cross-origin worker creation may fail; PDF.js then falls back to
+        // parsing on the main thread by itself
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+          'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        res(window.pdfjsLib);
+      };
+      s.onerror = function () { rej(new Error('pdfjs load failed')); };
+      document.head.appendChild(s);
+    });
+    return pdfjsReady;
+  }
 
   function bookDb() {
     return new Promise(function (res, rej) {
@@ -858,7 +899,32 @@
     });
   }
 
+  function renderBookPage() {
+    if (readerMode !== 'canvas' || !pdfDoc) return;
+    var n = Math.max(1, Math.min(pdfDoc.numPages, state.current || 1));
+    var label = document.getElementById('bookPageNum');
+    if (label) {
+      label.textContent = state.offset === 0
+        ? 'p. ' + n + ' / ' + pdfDoc.numPages
+        : 'p. ' + disp(n);
+    }
+    pdfDoc.getPage(n).then(function (pg) {
+      var canvas = document.getElementById('bookCanvas');
+      if (!canvas) return;
+      var cssW = readerHost.clientWidth || 600;
+      var vp1 = pg.getViewport({ scale: 1 });
+      var ratio = Math.min(2, window.devicePixelRatio || 1);
+      var vp = pg.getViewport({ scale: (cssW / vp1.width) * ratio });
+      canvas.width = Math.floor(vp.width);
+      canvas.height = Math.floor(vp.height);
+      if (renderTask) renderTask.cancel();
+      renderTask = pg.render({ canvasContext: canvas.getContext('2d'), viewport: vp });
+      renderTask.promise.catch(function () {});
+    }).catch(function () {});
+  }
+
   function jumpBook(page) {
+    if (readerMode === 'canvas') { renderBookPage(); return; }
     if (!bookUrl) return;
     var frame = document.getElementById('readerFrame');
     if (!frame) return;
@@ -868,15 +934,50 @@
   function openReader(blob, stored) {
     if (bookUrl) URL.revokeObjectURL(bookUrl);
     bookUrl = URL.createObjectURL(blob);
-    readerHost.innerHTML = '<iframe id="readerFrame" title="Book PDF"></iframe>';
-    jumpBook(state.current);
     goPageBtn.disabled = false;
     newTabBtn.disabled = false;
     forgetBtn.hidden = !stored;
     readerHint.textContent = stored
       ? 'stored in this browser — auto-opens at your bookmark'
       : 'your PDF stays on this device';
+    readerHost.innerHTML = '<div class="empty-state">Opening the book…</div>';
+    loadPdfJs().then(function (lib) {
+      return blob.arrayBuffer().then(function (buf) {
+        return lib.getDocument({ data: buf }).promise;
+      });
+    }).then(function (doc) {
+      pdfDoc = doc;
+      readerMode = 'canvas';
+      goPageBtn.hidden = true; // canvas always follows the bookmark
+      readerHost.innerHTML =
+        '<div class="reader-nav">' +
+        '<button type="button" id="bookPrev">&larr; page</button>' +
+        '<span class="hint num" id="bookPageNum"></span>' +
+        '<button type="button" id="bookNext">page &rarr;</button>' +
+        '</div>' +
+        '<canvas id="bookCanvas" aria-label="Book page"></canvas>';
+      document.getElementById('bookPrev').addEventListener('click', function () {
+        setCurrent(state.current - 1);
+      });
+      document.getElementById('bookNext').addEventListener('click', function () {
+        setCurrent(state.current + 1);
+      });
+      renderBookPage();
+    }).catch(function () {
+      pdfDoc = null;
+      readerMode = 'frame';
+      goPageBtn.hidden = false;
+      readerHost.innerHTML = '<iframe id="readerFrame" title="Book PDF"></iframe>';
+      jumpBook(state.current);
+    });
   }
+
+  var resizeTimer = null;
+  window.addEventListener('resize', function () {
+    if (readerMode !== 'canvas') return;
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(renderBookPage, 200);
+  });
 
   document.getElementById('bookInput').addEventListener('change', function (e) {
     var file = e.target.files && e.target.files[0];
@@ -893,8 +994,12 @@
   forgetBtn.addEventListener('click', function () {
     bookStore('readwrite', function (s) { s.delete('pdf'); }).catch(function () {});
     if (bookUrl) { URL.revokeObjectURL(bookUrl); bookUrl = null; }
+    if (renderTask) { renderTask.cancel(); renderTask = null; }
+    pdfDoc = null;
+    readerMode = null;
     readerHost.innerHTML = '';
     goPageBtn.disabled = true;
+    goPageBtn.hidden = false;
     newTabBtn.disabled = true;
     forgetBtn.hidden = true;
     readerHint.textContent = 'your PDF stays on this device';
