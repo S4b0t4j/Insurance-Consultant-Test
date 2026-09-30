@@ -334,7 +334,8 @@
       <label class="file-btn">Open book PDF<input type="file" id="bookInput" accept=".pdf,application/pdf"></label>
       <button type="button" id="goPageBtn" disabled>Go to current page</button>
       <button type="button" id="newTabBtn" disabled>Open in new tab</button>
-      <span class="hint">your PDF stays on this device and is re-opened per session</span>
+      <button type="button" id="forgetBtn" hidden>Forget stored book</button>
+      <span class="hint" id="readerHint">your PDF stays on this device</span>
     </div>
     <div id="readerHost"></div>
   </section>
@@ -826,12 +827,36 @@
     if (ch) { setCurrent(ch.s); jumpBook(ch.s); }
   });
 
-  /* ---------- book reader (user's own PDF, browser-native viewer) ---------- */
+  /* ---------- book reader (user's own PDF, browser-native viewer) ----------
+     The chosen PDF is kept in this browser's IndexedDB so the book re-opens
+     automatically at the bookmark on the next visit. It never leaves the device. */
 
   var bookUrl = null;
   var readerHost = document.getElementById('readerHost');
   var goPageBtn = document.getElementById('goPageBtn');
   var newTabBtn = document.getElementById('newTabBtn');
+  var forgetBtn = document.getElementById('forgetBtn');
+  var readerHint = document.getElementById('readerHint');
+
+  function bookDb() {
+    return new Promise(function (res, rej) {
+      if (!window.indexedDB) { rej(new Error('no idb')); return; }
+      var rq = indexedDB.open('avwap-reading-ledger', 1);
+      rq.onupgradeneeded = function () { rq.result.createObjectStore('book'); };
+      rq.onsuccess = function () { res(rq.result); };
+      rq.onerror = function () { rej(rq.error); };
+    });
+  }
+  function bookStore(mode, fn) {
+    return bookDb().then(function (db) {
+      return new Promise(function (res, rej) {
+        var tx = db.transaction('book', mode);
+        var out = fn(tx.objectStore('book'));
+        tx.oncomplete = function () { res(out && out.result); };
+        tx.onerror = function () { rej(tx.error); };
+      });
+    });
+  }
 
   function jumpBook(page) {
     if (!bookUrl) return;
@@ -840,15 +865,39 @@
     frame.src = bookUrl + '#page=' + Math.max(1, Math.min(TOTAL, page || 1));
   }
 
-  document.getElementById('bookInput').addEventListener('change', function (e) {
-    var file = e.target.files && e.target.files[0];
-    if (!file) return;
+  function openReader(blob, stored) {
     if (bookUrl) URL.revokeObjectURL(bookUrl);
-    bookUrl = URL.createObjectURL(file);
+    bookUrl = URL.createObjectURL(blob);
     readerHost.innerHTML = '<iframe id="readerFrame" title="Book PDF"></iframe>';
     jumpBook(state.current);
     goPageBtn.disabled = false;
     newTabBtn.disabled = false;
+    forgetBtn.hidden = !stored;
+    readerHint.textContent = stored
+      ? 'stored in this browser — auto-opens at your bookmark'
+      : 'your PDF stays on this device';
+  }
+
+  document.getElementById('bookInput').addEventListener('change', function (e) {
+    var file = e.target.files && e.target.files[0];
+    if (!file) return;
+    openReader(file, false);
+    bookStore('readwrite', function (s) { s.put(file, 'pdf'); }).then(function () {
+      forgetBtn.hidden = false;
+      readerHint.textContent = 'stored in this browser — auto-opens at your bookmark';
+    }).catch(function () {
+      readerHint.textContent = 'could not store the PDF — re-open it next visit';
+    });
+  });
+
+  forgetBtn.addEventListener('click', function () {
+    bookStore('readwrite', function (s) { s.delete('pdf'); }).catch(function () {});
+    if (bookUrl) { URL.revokeObjectURL(bookUrl); bookUrl = null; }
+    readerHost.innerHTML = '';
+    goPageBtn.disabled = true;
+    newTabBtn.disabled = true;
+    forgetBtn.hidden = true;
+    readerHint.textContent = 'your PDF stays on this device';
   });
 
   goPageBtn.addEventListener('click', function () { jumpBook(state.current); });
@@ -856,6 +905,11 @@
     if (!bookUrl) return;
     window.open(bookUrl + '#page=' + Math.max(1, state.current), '_blank');
   });
+
+  // restore a previously stored book
+  bookStore('readonly', function (s) { return s.get('pdf'); }).then(function (blob) {
+    if (blob) openReader(blob, true);
+  }).catch(function () {});
 
   /* ---------- backup ---------- */
 
