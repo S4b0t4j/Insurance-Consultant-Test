@@ -913,16 +913,33 @@
 
   /* ---------- backup ---------- */
 
-  document.getElementById('exportBtn').addEventListener('click', function () {
-    flushNotes();
-    var blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+  function saveViaAnchor(json, name) {
+    var blob = new Blob([json], { type: 'application/json' });
     var a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'avwap-reading-ledger-' + todayStr() + '.json';
+    a.download = name;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  }
+
+  document.getElementById('exportBtn').addEventListener('click', function () {
+    flushNotes();
+    var json = JSON.stringify(state, null, 2);
+    var name = 'avwap-reading-ledger-' + todayStr() + '.json';
+    // on claude.ai the page must hand the file to the viewer through the
+    // downloads capability; a plain anchor click is blocked there
+    if (window.claude && typeof window.claude.use === 'function') {
+      window.claude.use('downloads').then(function (downloads) {
+        if (downloads) {
+          return downloads.save({ filename: name, data: json }).catch(function () {});
+        }
+        saveViaAnchor(json, name);
+      });
+    } else {
+      saveViaAnchor(json, name);
+    }
   });
 
   document.getElementById('importInput').addEventListener('change', function (e) {
