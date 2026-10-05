@@ -248,6 +248,30 @@
     margin-top: 0;
   }
 
+  /* ---------- RSVP speed reader ---------- */
+  .rsvp-stage {
+    margin-top: 12px;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 16px 8px;
+  }
+  .rsvp-guide { width: 2px; height: 10px; background: var(--rule); margin: 0 auto; }
+  #rsvpWord {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: clamp(28px, 8vw, 40px);
+    line-height: 1.2;
+    min-height: 1.3em;
+    padding: 6px 0;
+    white-space: pre;
+  }
+  .rsvp-pre { flex: 1; text-align: right; }
+  .rsvp-post { flex: 1; text-align: left; }
+  .rsvp-pivot { color: var(--teal); }
+  #rsvpWpm { width: 80px; }
+
   /* ---------- contents + notes ---------- */
   .columns { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; align-items: start; }
 
@@ -383,6 +407,21 @@
       <span class="hint" id="readerHint">your PDF stays on this device</span>
     </div>
     <div id="readerHost"></div>
+  </section>
+
+  <section class="panel" aria-label="Speed read">
+    <h2>Speed read — RSVP</h2>
+    <div class="reader-controls">
+      <button type="button" id="rsvpToggle" disabled>Start</button>
+      <label class="label" for="rsvpWpm">wpm</label>
+      <input type="number" id="rsvpWpm" inputmode="numeric" step="25" min="100" max="900" value="300">
+      <span class="hint" id="rsvpStatus">open the book first</span>
+    </div>
+    <div class="rsvp-stage">
+      <div class="rsvp-guide" aria-hidden="true"></div>
+      <div id="rsvpWord" aria-live="off"><span class="rsvp-pre"></span><span class="rsvp-pivot"></span><span class="rsvp-post"></span></div>
+      <div class="rsvp-guide" aria-hidden="true"></div>
+    </div>
   </section>
 
   <div class="columns">
@@ -1048,6 +1087,7 @@
         else if (x > 0.67) setCurrent(state.current + 1);
       });
       renderBookPage();
+      rsvpEnable();
     }).catch(function () {
       pdfDoc = null;
       readerMode = 'frame';
@@ -1055,6 +1095,7 @@
       fsBtn.hidden = true;
       readerHost.innerHTML = '<iframe id="readerFrame" title="Book PDF"></iframe>';
       jumpBook(state.current);
+      rsvpEnable();
     });
   }
 
@@ -1082,6 +1123,10 @@
     if (bookUrl) { URL.revokeObjectURL(bookUrl); bookUrl = null; }
     if (renderTask) { renderTask.cancel(); renderTask = null; }
     setFs(false);
+    rsvpStop();
+    rsvpWords = [];
+    rsvpPage = 0;
+    rsvpIdx = 0;
     pdfDoc = null;
     readerMode = null;
     readerHost.innerHTML = '';
@@ -1091,12 +1136,132 @@
     newTabBtn.disabled = true;
     forgetBtn.hidden = true;
     readerHint.textContent = 'your PDF stays on this device';
+    rsvpEnable();
   });
 
   goPageBtn.addEventListener('click', function () { jumpBook(state.current); });
   newTabBtn.addEventListener('click', function () {
     if (!bookUrl) return;
     window.open(bookUrl + '#page=' + Math.max(1, state.current), '_blank');
+  });
+
+  /* ---------- RSVP speed reader ----------
+     Flashes the book's text one word at a time at a chosen wpm, pivot letter
+     highlighted. Reads from the bookmarked page; crossing into the next page
+     advances the bookmark and the daily log like any other page turn. */
+
+  var rsvpToggle = document.getElementById('rsvpToggle');
+  var rsvpWpm = document.getElementById('rsvpWpm');
+  var rsvpStatus = document.getElementById('rsvpStatus');
+  var rsvpPre = document.querySelector('#rsvpWord .rsvp-pre');
+  var rsvpPivot = document.querySelector('#rsvpWord .rsvp-pivot');
+  var rsvpPost = document.querySelector('#rsvpWord .rsvp-post');
+  var rsvpTimer = null;
+  var rsvpRunning = false;
+  var rsvpPage = 0;
+  var rsvpIdx = 0;
+  var rsvpWords = [];
+
+  try {
+    var savedWpm = parseInt(localStorage.getItem('avwap-reading-ledger:wpm'), 10);
+    if (savedWpm >= 100 && savedWpm <= 900) rsvpWpm.value = savedWpm;
+  } catch (err) {}
+  rsvpWpm.addEventListener('change', function () {
+    try { localStorage.setItem('avwap-reading-ledger:wpm', clampInt(rsvpWpm.value, 100, 900, 300)); } catch (err) {}
+  });
+
+  function rsvpEnable() {
+    rsvpToggle.disabled = !(readerMode === 'canvas' && pdfDoc);
+    rsvpStatus.textContent = rsvpToggle.disabled
+      ? 'open the book first'
+      : 'reads from your bookmark';
+  }
+
+  function rsvpPageWords(n) {
+    return pdfDoc.getPage(n).then(function (pg) {
+      return pg.getTextContent();
+    }).then(function (tc) {
+      return tc.items.map(function (it) { return it.str; })
+        .join(' ').split(/\s+/).filter(Boolean);
+    });
+  }
+
+  function orpIndex(len) {
+    if (len <= 1) return 0;
+    if (len <= 5) return 1;
+    if (len <= 9) return 2;
+    if (len <= 13) return 3;
+    return 4;
+  }
+
+  function rsvpShow(w) {
+    var i = orpIndex(w.length);
+    rsvpPre.textContent = w.slice(0, i);
+    rsvpPivot.textContent = w.charAt(i);
+    rsvpPost.textContent = w.slice(i + 1);
+  }
+
+  function rsvpStop(msg) {
+    rsvpRunning = false;
+    if (rsvpTimer) { clearTimeout(rsvpTimer); rsvpTimer = null; }
+    rsvpToggle.textContent = 'Start';
+    if (msg) rsvpStatus.textContent = msg;
+  }
+
+  function rsvpTick() {
+    if (!rsvpRunning) return;
+    if (rsvpIdx >= rsvpWords.length) {
+      var next = rsvpPage + 1;
+      if (!pdfDoc || next > pdfDoc.numPages) { rsvpStop('end of book'); return; }
+      setCurrent(next); // page crossed: bookmark and log advance
+      rsvpLoadPage(next);
+      return;
+    }
+    var w = rsvpWords[rsvpIdx++];
+    rsvpShow(w);
+    rsvpStatus.textContent = 'p. ' + disp(rsvpPage) + ' · word ' + rsvpIdx + ' / ' + rsvpWords.length;
+    var delay = 60000 / clampInt(rsvpWpm.value, 100, 900, 300);
+    if (/[.!?;:]["')\]]?$/.test(w)) delay *= 2;
+    else if (/,$/.test(w) || w.length > 9) delay *= 1.4;
+    rsvpTimer = setTimeout(rsvpTick, delay);
+  }
+
+  function rsvpLoadPage(n) {
+    rsvpStatus.textContent = 'loading p. ' + disp(n) + '…';
+    rsvpPageWords(n).then(function (ws) {
+      rsvpPage = n;
+      rsvpIdx = 0;
+      rsvpWords = ws;
+      if (!ws.length) {
+        rsvpStop('no text on this page — RSVP needs a text-based (not scanned) PDF');
+        return;
+      }
+      if (rsvpRunning) rsvpTick();
+    }).catch(function () {
+      rsvpStop('could not read text from this page');
+    });
+  }
+
+  rsvpToggle.addEventListener('click', function () {
+    if (rsvpRunning) {
+      rsvpStop('paused — p. ' + disp(rsvpPage) + ' · word ' + rsvpIdx + ' / ' + rsvpWords.length);
+      return;
+    }
+    if (!pdfDoc) return;
+    rsvpRunning = true;
+    rsvpToggle.textContent = 'Pause';
+    var startPage = Math.max(1, Math.min(pdfDoc.numPages, state.current || 1));
+    if (rsvpWords.length && rsvpPage === startPage && rsvpIdx > 0 && rsvpIdx < rsvpWords.length) {
+      rsvpTick(); // resume where it was paused
+    } else {
+      rsvpLoadPage(startPage);
+    }
+  });
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden && rsvpRunning) {
+      rsvpStop('paused — p. ' + disp(rsvpPage) + ' · word ' + rsvpIdx + ' / ' + rsvpWords.length);
+    }
   });
 
   // restore a previously stored book
