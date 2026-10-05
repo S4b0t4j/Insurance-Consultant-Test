@@ -253,24 +253,72 @@
     margin-top: 12px;
     border: 1px solid var(--rule);
     background: var(--paper);
-    padding: 16px 8px;
+    padding: 0 8px 16px;
   }
+  .rsvp-progress { height: 3px; background: var(--grid-major); margin: 0 -8px 14px; }
+  .rsvp-progress .fill { height: 100%; width: 0; background: var(--teal); }
   .rsvp-guide { width: 2px; height: 10px; background: var(--rule); margin: 0 auto; }
   #rsvpWord {
     display: flex;
     align-items: baseline;
     justify-content: center;
     font-family: var(--font-body);
-    font-size: clamp(28px, 8vw, 40px);
-    line-height: 1.2;
-    min-height: 1.3em;
+    font-size: var(--rsvp-size, clamp(28px, 8vw, 40px));
+    line-height: 1.25;
+    min-height: 1.35em;
     padding: 6px 0;
     white-space: pre;
   }
   .rsvp-pre { flex: 1; text-align: right; }
   .rsvp-post { flex: 1; text-align: left; }
   .rsvp-pivot { color: var(--teal); }
+  #rsvpWord.plain .rsvp-pivot { color: var(--ink); white-space: normal; text-align: center; }
   #rsvpWpm { width: 80px; }
+  select {
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    padding: 6px 4px;
+  }
+  #rsvpClose { display: none; }
+
+  /* full-screen RSVP stage */
+  #rsvpSection.fs .rsvp-stage {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    margin: 0;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 16px;
+  }
+  #rsvpSection.fs .rsvp-progress {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    margin: 0;
+    z-index: 61;
+  }
+  #rsvpSection.fs .reader-controls {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 61;
+    background: var(--panel);
+    border-top: 1px solid var(--rule);
+    padding: 8px 12px;
+  }
+  #rsvpSection.fs .reader-controls .hint { display: none; }
+  #rsvpSection.fs #rsvpFsBtn { display: none; }
+  #rsvpSection.fs #rsvpClose {
+    display: block;
+    position: fixed;
+    top: 8px; right: 8px;
+    z-index: 62;
+  }
+  #rsvpSection.fs #rsvpWord { font-size: calc(var(--rsvp-size, 36px) * 1.3); }
 
   /* ---------- contents + notes ---------- */
   .columns { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; align-items: start; }
@@ -409,15 +457,23 @@
     <div id="readerHost"></div>
   </section>
 
-  <section class="panel" aria-label="Speed read">
+  <section class="panel" aria-label="Speed read" id="rsvpSection">
     <h2>Speed read — RSVP</h2>
     <div class="reader-controls">
       <button type="button" id="rsvpToggle" disabled>Start</button>
+      <button type="button" id="rsvpBack" disabled aria-label="Back ten words">&larr; 10</button>
       <label class="label" for="rsvpWpm">wpm</label>
       <input type="number" id="rsvpWpm" inputmode="numeric" step="25" min="100" max="900" value="300">
+      <label class="label" for="rsvpChunk">words</label>
+      <select id="rsvpChunk"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+      <label class="label" for="rsvpSize">size</label>
+      <select id="rsvpSize"><option value="s">S</option><option value="m" selected>M</option><option value="l">L</option><option value="xl">XL</option></select>
+      <button type="button" id="rsvpFsBtn" disabled>Full screen</button>
       <span class="hint" id="rsvpStatus">open the book first</span>
     </div>
+    <button type="button" id="rsvpClose">&times; close</button>
     <div class="rsvp-stage">
+      <div class="rsvp-progress" aria-hidden="true"><div class="fill" id="rsvpFill"></div></div>
       <div class="rsvp-guide" aria-hidden="true"></div>
       <div id="rsvpWord" aria-live="off"><span class="rsvp-pre"></span><span class="rsvp-pivot"></span><span class="rsvp-post"></span></div>
       <div class="rsvp-guide" aria-hidden="true"></div>
@@ -1150,9 +1206,17 @@
      highlighted. Reads from the bookmarked page; crossing into the next page
      advances the bookmark and the daily log like any other page turn. */
 
+  var rsvpSection = document.getElementById('rsvpSection');
   var rsvpToggle = document.getElementById('rsvpToggle');
+  var rsvpBack = document.getElementById('rsvpBack');
   var rsvpWpm = document.getElementById('rsvpWpm');
+  var rsvpChunk = document.getElementById('rsvpChunk');
+  var rsvpSize = document.getElementById('rsvpSize');
+  var rsvpFsBtn = document.getElementById('rsvpFsBtn');
+  var rsvpClose = document.getElementById('rsvpClose');
   var rsvpStatus = document.getElementById('rsvpStatus');
+  var rsvpFill = document.getElementById('rsvpFill');
+  var rsvpWordEl = document.getElementById('rsvpWord');
   var rsvpPre = document.querySelector('#rsvpWord .rsvp-pre');
   var rsvpPivot = document.querySelector('#rsvpWord .rsvp-pivot');
   var rsvpPost = document.querySelector('#rsvpWord .rsvp-post');
@@ -1162,19 +1226,42 @@
   var rsvpIdx = 0;
   var rsvpWords = [];
 
+  var RSVP_SIZES = { s: '26px', m: '36px', l: '48px', xl: '62px' };
+
+  function rsvpSaveSettings() {
+    try {
+      localStorage.setItem('avwap-reading-ledger:rsvp', JSON.stringify({
+        wpm: clampInt(rsvpWpm.value, 100, 900, 300),
+        chunk: clampInt(rsvpChunk.value, 1, 5, 1),
+        size: RSVP_SIZES[rsvpSize.value] ? rsvpSize.value : 'm'
+      }));
+    } catch (err) {}
+  }
+  function rsvpApplySize() {
+    rsvpWordEl.style.setProperty('--rsvp-size', RSVP_SIZES[rsvpSize.value] || RSVP_SIZES.m);
+  }
   try {
-    var savedWpm = parseInt(localStorage.getItem('avwap-reading-ledger:wpm'), 10);
-    if (savedWpm >= 100 && savedWpm <= 900) rsvpWpm.value = savedWpm;
+    var rs = JSON.parse(localStorage.getItem('avwap-reading-ledger:rsvp'));
+    if (rs && typeof rs === 'object') {
+      rsvpWpm.value = clampInt(rs.wpm, 100, 900, 300);
+      rsvpChunk.value = clampInt(rs.chunk, 1, 5, 1);
+      if (RSVP_SIZES[rs.size]) rsvpSize.value = rs.size;
+    } else {
+      var oldWpm = parseInt(localStorage.getItem('avwap-reading-ledger:wpm'), 10);
+      if (oldWpm >= 100 && oldWpm <= 900) rsvpWpm.value = oldWpm;
+    }
   } catch (err) {}
-  rsvpWpm.addEventListener('change', function () {
-    try { localStorage.setItem('avwap-reading-ledger:wpm', clampInt(rsvpWpm.value, 100, 900, 300)); } catch (err) {}
-  });
+  rsvpApplySize();
+  rsvpWpm.addEventListener('change', rsvpSaveSettings);
+  rsvpChunk.addEventListener('change', rsvpSaveSettings);
+  rsvpSize.addEventListener('change', function () { rsvpApplySize(); rsvpSaveSettings(); });
 
   function rsvpEnable() {
-    rsvpToggle.disabled = !(readerMode === 'canvas' && pdfDoc);
-    rsvpStatus.textContent = rsvpToggle.disabled
-      ? 'open the book first'
-      : 'reads from your bookmark';
+    var off = !(readerMode === 'canvas' && pdfDoc);
+    rsvpToggle.disabled = off;
+    rsvpBack.disabled = off;
+    rsvpFsBtn.disabled = off;
+    rsvpStatus.textContent = off ? 'open the book first' : 'reads from your bookmark';
   }
 
   function rsvpPageWords(n) {
@@ -1194,11 +1281,30 @@
     return 4;
   }
 
-  function rsvpShow(w) {
-    var i = orpIndex(w.length);
-    rsvpPre.textContent = w.slice(0, i);
-    rsvpPivot.textContent = w.charAt(i);
-    rsvpPost.textContent = w.slice(i + 1);
+  function rsvpShow(words) {
+    if (words.length === 1) {
+      rsvpWordEl.classList.remove('plain');
+      var w = words[0];
+      var i = orpIndex(w.length);
+      rsvpPre.textContent = w.slice(0, i);
+      rsvpPivot.textContent = w.charAt(i);
+      rsvpPost.textContent = w.slice(i + 1);
+    } else {
+      rsvpWordEl.classList.add('plain');
+      rsvpPre.textContent = '';
+      rsvpPivot.textContent = words.join(' ');
+      rsvpPost.textContent = '';
+    }
+  }
+
+  function rsvpProgress() {
+    var total = rsvpWords.length || 1;
+    var pct = Math.min(100, Math.round((rsvpIdx / total) * 100));
+    rsvpFill.style.width = pct + '%';
+    var wpm = clampInt(rsvpWpm.value, 100, 900, 300);
+    var minsLeft = (total - rsvpIdx) / wpm;
+    rsvpStatus.textContent = 'p. ' + disp(rsvpPage) + ' · ' + pct + '%' +
+      (minsLeft >= 0.05 ? ' · ~' + (Math.round(minsLeft * 10) / 10) + ' min on page' : '');
   }
 
   function rsvpStop(msg) {
@@ -1217,12 +1323,15 @@
       rsvpLoadPage(next);
       return;
     }
-    var w = rsvpWords[rsvpIdx++];
-    rsvpShow(w);
-    rsvpStatus.textContent = 'p. ' + disp(rsvpPage) + ' · word ' + rsvpIdx + ' / ' + rsvpWords.length;
-    var delay = 60000 / clampInt(rsvpWpm.value, 100, 900, 300);
-    if (/[.!?;:]["')\]]?$/.test(w)) delay *= 2;
-    else if (/,$/.test(w) || w.length > 9) delay *= 1.4;
+    var chunk = clampInt(rsvpChunk.value, 1, 5, 1);
+    var words = rsvpWords.slice(rsvpIdx, rsvpIdx + chunk);
+    rsvpIdx += words.length;
+    rsvpShow(words);
+    rsvpProgress();
+    var delay = words.length * (60000 / clampInt(rsvpWpm.value, 100, 900, 300));
+    var lastWord = words[words.length - 1];
+    if (/[.!?;:]["')\]]?$/.test(lastWord)) delay *= 2;
+    else if (/,$/.test(lastWord) || lastWord.length > 9) delay *= 1.4;
     rsvpTimer = setTimeout(rsvpTick, delay);
   }
 
@@ -1242,9 +1351,10 @@
     });
   }
 
-  rsvpToggle.addEventListener('click', function () {
+  function rsvpPlayPause() {
     if (rsvpRunning) {
-      rsvpStop('paused — p. ' + disp(rsvpPage) + ' · word ' + rsvpIdx + ' / ' + rsvpWords.length);
+      rsvpStop();
+      rsvpProgress();
       return;
     }
     if (!pdfDoc) return;
@@ -1256,11 +1366,62 @@
     } else {
       rsvpLoadPage(startPage);
     }
+  }
+  rsvpToggle.addEventListener('click', rsvpPlayPause);
+
+  function rsvpSkip(delta) {
+    if (!rsvpWords.length) return;
+    rsvpIdx = Math.max(0, Math.min(rsvpWords.length, rsvpIdx + delta));
+    if (!rsvpRunning) {
+      var chunk = clampInt(rsvpChunk.value, 1, 5, 1);
+      var words = rsvpWords.slice(rsvpIdx, rsvpIdx + chunk);
+      if (words.length) rsvpShow(words);
+      rsvpProgress();
+    }
+  }
+  rsvpBack.addEventListener('click', function () { rsvpSkip(-10); });
+
+  function setRsvpFs(on) {
+    if (on) {
+      rsvpSection.classList.add('fs');
+      document.body.classList.add('no-scroll');
+      try {
+        if (rsvpSection.requestFullscreen) rsvpSection.requestFullscreen().catch(function () {});
+      } catch (err) {}
+    } else {
+      rsvpSection.classList.remove('fs');
+      document.body.classList.remove('no-scroll');
+      try {
+        if (document.fullscreenElement === rsvpSection) document.exitFullscreen().catch(function () {});
+      } catch (err) {}
+    }
+  }
+  rsvpFsBtn.addEventListener('click', function () { setRsvpFs(true); });
+  rsvpClose.addEventListener('click', function () { setRsvpFs(false); });
+  document.addEventListener('fullscreenchange', function () {
+    if (!document.fullscreenElement && rsvpSection.classList.contains('fs')) {
+      rsvpSection.classList.remove('fs');
+      document.body.classList.remove('no-scroll');
+    }
+  });
+  // tapping the stage toggles play/pause in full screen
+  document.querySelector('#rsvpSection .rsvp-stage').addEventListener('click', function () {
+    if (rsvpSection.classList.contains('fs')) rsvpPlayPause();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (!rsvpSection.classList.contains('fs')) return;
+    var t = e.target && e.target.tagName;
+    if (t === 'INPUT' || t === 'TEXTAREA' || t === 'SELECT') return;
+    if (e.key === 'Escape') setRsvpFs(false);
+    else if (e.key === ' ') { e.preventDefault(); rsvpPlayPause(); }
+    else if (e.key === 'ArrowLeft') rsvpSkip(-10);
+    else if (e.key === 'ArrowRight') rsvpSkip(10);
   });
 
   document.addEventListener('visibilitychange', function () {
     if (document.hidden && rsvpRunning) {
-      rsvpStop('paused — p. ' + disp(rsvpPage) + ' · word ' + rsvpIdx + ' / ' + rsvpWords.length);
+      rsvpStop();
+      rsvpProgress();
     }
   });
 
