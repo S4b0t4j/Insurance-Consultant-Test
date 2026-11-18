@@ -7,7 +7,7 @@ You are editing VANTAGE v6, an offline prospect pipeline dashboard for a commerc
 4. A final `<script>` marked `DATA SECTION`: a deflate decoder, the state outlines (`VX_STATES`) and the packed ZIP code centers (`VX_ZIPS`). **Never edit it.** The user will usually not send it to you; assume it exists.
 
 ## Hard rules
-1. The file must stay under 500 KB, because it is emailed as one attachment. It is about 415 KB now. Do not embed libraries, fonts or images.
+1. The file must stay under 500 KB, because it is emailed as one attachment. It is about 445 KB now. Do not embed libraries, fonts or images.
 2. Offline only. No CDN, `fetch()`, web fonts, external images, or anything else that needs the internet or an API key.
 3. Never put a literal line break inside a JavaScript string. Use `\n`.
 4. Do not use setInterval/setTimeout for startup. Startup is the `DOMContentLoaded` handler (`// ===== BOOT =====`), where each call is wrapped in its own try/catch.
@@ -16,7 +16,9 @@ You are editing VANTAGE v6, an offline prospect pipeline dashboard for a commerc
 7. Do not invent stage definitions, activity requirements, touch targets or security permissions. Those settings belong to the user.
 
 ## Data model (all of it lives in `STATE`, localStorage key `vantage_ww_v4`)
-- `PROSPECTS`: account records. Records added through import or Add Prospect are saved in `STATE.records` and merged into PROSPECTS on load.
+- `PROSPECTS`: account records (prospects AND clients; `p.type` is 'client' or 'prospect', and missing means prospect). Use `acctType(p)`. Screens show `viewList()`, which is filtered by the sidebar Show dropdown (`currentView()` / `setView()`).
+- Map data is compressed in `VX_DATA` (read with `vxData(key)`): states, zips, county lines (`clines`) and county names (`clabels`), grouped by state. Counties draw only for states with accounts in view (`drawCountyLines`, `drawCountyLabels`).
+- Original note on records: Records added through import or Add Prospect are saved in `STATE.records` and merged into PROSPECTS on load.
 - `FIELDS` (`// ===== DATA FIELDS`): the single source of truth for every account column used by import, review, export and the template. To add a column, add one entry there.
 - `STATE.activity[accountOrCoiId]`: an array of `{type, date, contact, outcome, topic, notes, info?}`.
   - `ACT_TYPES`, `OUTCOMES` and `STATE.settings.topics` define the dropdowns.

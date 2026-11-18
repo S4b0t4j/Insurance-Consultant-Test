@@ -1,18 +1,21 @@
 # VANTAGE v6: offline prospect dashboard
 
-One file: `VANTAGE.html` (about 415 KB). You can email it as a single attachment. It needs no internet, hosting, API key or install. It runs in Edge from a local folder and works alongside MPower; it does not connect to MPower.
+One file: `VANTAGE.html` (about 445 KB). You can email it as a single attachment. It needs no internet, hosting, API key or install. It runs in Edge from a local folder and works alongside MPower; it does not connect to MPower.
 
 ## Setup
 1. Save `VANTAGE.html` anywhere on your work PC (for example `Documents\VANTAGE\`).
 2. Double-click it to open it in Edge.
 3. If a yellow bar says saving is blocked, your browser policy won't keep data between sessions. In that case use **Import / Export > Download backup** before every close.
 
+## Prospects and clients
+Every account is a Prospect or a Client. Set it in the account header, in Add Account, or with an Excel **Type** column. The **Show** dropdown at the top of the sidebar filters every screen to All accounts, Prospects or Clients.
+
 ## Where things are
 | Screen | What it's for |
 |---|---|
 | Dashboard | Pipeline totals by stage and state |
-| Pipeline | Account list. Click an account to see its summary strip and the Intel, Activity, Network and Outreach tabs |
-| Map | State map with a pin per account (exact Lat/Lng, or the ZIP code center). Click a state to zoom; scroll to zoom; drag to pan |
+| Accounts | Account list with a Type column. Click an account to see its summary strip and the Intel, Activity, Network and Outreach tabs |
+| Map | State map with a pin per account (round = prospect, diamond = client; exact Lat/Lng or the ZIP code center). States with accounts show county borders, and county names appear as you zoom in |
 | Activity | Touch counts; a weekly touches chart (last 8 weeks, conversations vs attempts); overdue, due soon, "outreach made, no conversation yet", assigned-touch progress and never-touched accounts; a one-on-one summary you can copy; the task list |
 | Network | Centers of influence (COI): people not tied to one account, who introduced whom, and which accounts they connect to |
 | Import / Export | Excel import with a review step, Excel export, full backup and restore |
