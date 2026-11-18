@@ -12,7 +12,7 @@
   --slate:#4A6B7C;--muted:#9FB4C2;--rule:#2A5068;
   --bg:#F2F6F9;--surface:#FFFFFF;--surface2:#F5F9FC;
   --border:#DCE4EA;--border2:#C3CFD8;
-  --text:#00263A;--text2:#4A6B7C;--text3:#8FA8B7;
+  --text:#00263A;--text2:#2E4A5A;--text3:#557080;
   --bad:#B42318;--bad-bg:#FDECEA;
   --ok-bg:#E6F6EC;--ok-ink:#1B8A4A;
   --warn-bg:#FFF5D6;--warn-ink:#6E5100;
@@ -183,9 +183,9 @@ td{padding:8px 11px;font-size:12px;color:var(--text);vertical-align:middle}
 /* PROMPT GENERATOR (Intel tab) */
 .pg-wrap{background:linear-gradient(135deg,#001A29 0%,var(--navy) 60%,#003552 100%);border-radius:6px;padding:14px 16px;margin-top:12px}
 .pg-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--active);margin-bottom:4px}
-.pg-sub{font-size:10px;color:rgba(255,255,255,.4);margin-bottom:12px}
+.pg-sub{font-size:10px;color:rgba(255,255,255,.7);margin-bottom:12px}
 .pg-row{display:flex;flex-direction:column;gap:3px;margin-bottom:8px}
-.pg-row label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.4)}
+.pg-row label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.7)}
 .pg-row select,.pg-row input{background:#021D2E;color:#F2FAFF;border:1px solid rgba(206,236,255,.2);border-radius:4px;padding:5px 8px;font-size:11px;font-family:inherit;outline:none;width:100%}
 .pg-row select:focus,.pg-row input:focus{border-color:var(--active)}
 .pg-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
@@ -275,6 +275,11 @@ td{padding:8px 11px;font-size:12px;color:var(--text);vertical-align:middle}
   .modal-overlay{align-items:flex-end!important}
 }
 /* ===== v6 additions ===== */
+::placeholder{color:#6A8494;opacity:1}
+.dp-body .pg-chip{color:#03656C;background:rgba(4,180,191,.12);border-color:rgba(3,101,108,.35)}
+.dp-body .pg-chip.on{color:#fff;background:#03838B;border-color:#03838B}
+.pg-wrap .pg-chip{color:#5FD8DF;background:rgba(4,180,191,.15);border-color:rgba(4,180,191,.35)}
+.pg-wrap .pg-chip.on{background:var(--active);color:#00263A;border-color:var(--active)}
 .dp-topbar .dp-close{color:#fff;border-color:rgba(255,255,255,.45);background:transparent}
 .vx-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:12px}
 .vx-card-h{font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px}
@@ -300,7 +305,37 @@ details.vx-card[open]>summary:before{transform:rotate(90deg)}
 .vx-pre{white-space:pre-wrap;font-family:Consolas,Menlo,monospace;font-size:11px;background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:10px;max-height:320px;overflow:auto;color:var(--text);margin:0}
 .vx-logbtn{margin:10px 14px;padding:9px 0;background:var(--active);color:#fff;border:none;border-radius:5px;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit}
 .vx-logbtn:hover{background:#029ea7}
+#scrGuide{flex-direction:column}
+.vx-guide{padding:20px 28px 60px;max-width:860px;overflow-y:auto;flex:1;font-size:13px;line-height:1.65;color:var(--text)}
+.vx-guide h1{font-size:22px;margin:0 0 6px}
+.vx-guide h2{font-size:15px;margin:28px 0 8px;padding-top:12px;border-top:1px solid var(--border);color:var(--navy)}
+.vx-guide p{margin:0 0 10px}
+.vx-guide ol,.vx-guide ul{margin:0 0 10px;padding-left:22px}
+.vx-guide li{margin-bottom:4px}
+.vx-guide code{background:var(--surface2);border:1px solid var(--border);border-radius:3px;padding:0 4px;font-size:12px}
+.vx-guide .tbl td{vertical-align:top;font-size:12px;line-height:1.55}
+.vx-guide .vx-gt td:first-child{width:170px}
+.vx-guide .vx-gt tr{cursor:default}
+.vx-lead{font-size:14px;color:var(--text2)}
+.vx-toc{display:flex;flex-direction:column;gap:2px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:12px 16px;margin:14px 0}
+.vx-toc a{color:var(--active);text-decoration:none;font-size:12px}
+.vx-toc a:hover{text-decoration:underline}
+.vx-tip-box{background:var(--warn-bg);color:var(--warn-ink);border-radius:5px;padding:9px 12px;font-size:12px;margin:8px 0 12px}
+.vx-sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin:0 3px 0 2px;vertical-align:baseline}
+.vx-tip{display:none;position:absolute;pointer-events:none;background:#00263A;color:#fff;padding:7px 10px;border-radius:5px;font-size:11px;line-height:1.6;box-shadow:0 4px 14px rgba(0,0,0,.25);white-space:nowrap;z-index:5}
+@media print{
+  body{overflow:visible!important;height:auto!important;background:#fff!important}
+  #sidebar,.topbar,.vx-logbtn,#toast,.modal-overlay,.vx-toc{display:none!important}
+  #app,#main{display:block!important;height:auto!important;overflow:visible!important;padding:0!important}
+  .screen{display:none!important}
+  #scrGuide.on{display:block!important}
+  .vx-guide{overflow:visible!important;max-width:none;padding:0}
+  .vx-guide h2{break-after:avoid}
+  .vx-guide table,.vx-guide li{break-inside:avoid}
+}
 @media(max-width:768px){
+  .vx-guide{padding:14px 16px 90px}
+  .vx-guide .vx-gt td:first-child{width:110px}
   .vx-logbtn{position:fixed;right:14px;bottom:70px;margin:0;padding:12px 16px;border-radius:24px;z-index:210;box-shadow:0 4px 14px rgba(0,0,0,.25)}
   .vx-glance .vx-g{flex-basis:45%}
   .dp-topbar{flex-wrap:wrap;gap:6px;padding:8px 12px}
@@ -342,6 +377,7 @@ details.vx-card[open]>summary:before{transform:rotate(90deg)}
       <div class="nav-item" id="nav-todo" onclick="showScreen('todo')"><span class="nav-icon">&#9989;</span>Activity</div>
       <div class="nav-item" id="nav-coi" onclick="showScreen('coi')"><span class="nav-icon">&#129309;</span>Network</div>
       <div class="nav-item" id="nav-intake" onclick="showScreen('intake')"><span class="nav-icon">&#128229;</span>Import / Export</div>
+      <div class="nav-item" id="nav-guide" onclick="showScreen('guide')"><span class="nav-icon">&#128214;</span>Guide</div>
     </div>
     <button class="vx-logbtn" onclick="openActivityModal(null)">+ Log Touch</button>
     <div class="sb-foot">VANTAGE v6 &bull; Offline &bull; Internal use only</div>
@@ -522,6 +558,214 @@ details.vx-card[open]>summary:before{transform:rotate(90deg)}
       </div>
     </div>
 
+    <!-- GUIDE -->
+    <div class="screen" id="scrGuide">
+      <div class="topbar">
+        <div class="topbar-title">Guide</div>
+        <div class="topbar-sub">How VANTAGE works, start to finish</div>
+        <button class="tb-btn outline" onclick="window.print()">&#128424; Print / Save as PDF</button>
+      </div>
+      <div class="vx-guide" id="guideBody">
+        <h1>VANTAGE guide</h1>
+        <p class="vx-lead">VANTAGE is your prospect pipeline in one file. It runs in Edge on your work PC with no internet, no install and no logins. It works <em>alongside</em> MPower, not instead of it: MPower stays the system of record for accounts and the timeline, and VANTAGE holds the context, relationships and activity detail you need for calls and one-on-ones.</p>
+
+        <div class="vx-toc">
+          <strong>Contents</strong>
+          <a href="#g-start">1. Quick start (5 minutes)</a>
+          <a href="#g-daily">2. The daily routine</a>
+          <a href="#g-log">3. Logging touches</a>
+          <a href="#g-account">4. Working an account</a>
+          <a href="#g-contacts">5. Contacts and org changes</a>
+          <a href="#g-plan">6. Touch plans and assigned touches</a>
+          <a href="#g-activity">7. The Activity screen and chart</a>
+          <a href="#g-report">8. One-on-ones and status updates</a>
+          <a href="#g-network">9. Network: centers of influence</a>
+          <a href="#g-paste">10. Pasting summaries (Lenwork, Teams, notes)</a>
+          <a href="#g-research">11. Research prompts</a>
+          <a href="#g-map">12. The map</a>
+          <a href="#g-excel">13. Excel import and export</a>
+          <a href="#g-save">14. Saving, backups and new PCs</a>
+          <a href="#g-phone">15. Phones and working away from the laptop</a>
+          <a href="#g-faq">16. Troubleshooting</a>
+        </div>
+
+        <h2 id="g-start">1. Quick start (5 minutes)</h2>
+        <ol>
+          <li>Save <code>VANTAGE.html</code> somewhere permanent, for example <code>Documents\VANTAGE\</code>, and double-click it. It opens in Edge.</li>
+          <li>Go to <b>Import / Export</b>, drop in your prospect Excel file, review what it found, and click <b>Apply</b>.</li>
+          <li>Open <b>Pipeline</b>, click an account, and look around the four tabs: Intel, Activity, Network and Outreach.</li>
+          <li>Click <b>+ Log Touch</b> (bottom of the sidebar) and log something you did today.</li>
+          <li>Open <b>Activity</b> to see it counted.</li>
+          <li>Before you close: <b>Import / Export &gt; Download backup</b>. Do this weekly from then on.</li>
+        </ol>
+        <div class="vx-tip-box">If a yellow bar at the bottom says saving is blocked, Edge isn't allowed to keep data for this file. Everything still works, but download a backup before every close and restore it next time.</div>
+
+        <h2 id="g-daily">2. The daily routine</h2>
+        <table class="tbl vx-gt"><tbody>
+          <tr><td><b>Start of day</b></td><td>Open <b>Activity</b>. Work the <b>Overdue</b> and <b>Due in the next 7 days</b> lists first.</td></tr>
+          <tr><td><b>During the day</b></td><td>Every call, email, LinkedIn message, meeting or event: <b>+ Log Touch</b>. It takes about 10 seconds. Log voicemails and unanswered emails too.</td></tr>
+          <tr><td><b>Something changed</b></td><td>A new contact, someone changed roles, an RFP date came up: update the account (sections 4 and 5).</td></tr>
+          <tr><td><b>End of week</b></td><td>Paste in any Lenwork summary, copy your one-on-one summary, and download a backup.</td></tr>
+        </tbody></table>
+        <p>Why log attempts? Until you're validated as a producer you're measured on documented activity. Attempts that never turn into a conversation are the easiest to forget, and they're exactly what shows the difference between "stopped trying" and "tried, no response."</p>
+
+        <h2 id="g-log">3. Logging touches</h2>
+        <p>Click <b>+ Log Touch</b>. It's in the sidebar on every screen, in each account's header, and on contact cards. Only <b>Type</b> is needed. Everything else is optional, so fill in what's useful and skip the rest.</p>
+        <table class="tbl vx-gt"><tbody>
+          <tr><td><b>Account or COI</b></td><td>Which account, or which center of influence, the touch was with.</td></tr>
+          <tr><td><b>Type</b></td><td>Phone call, email, LinkedIn, meeting, in person / event (tennis, pickleball, conferences), text / Teams, referral intro, proposal, other.</td></tr>
+          <tr><td><b>Outcome</b></td><td><b>Conversations:</b> conversation, replied, meeting booked, not interested. <b>Attempts:</b> left voicemail, no answer, sent with no reply yet. This choice is what separates effort from response.</td></tr>
+          <tr><td><b>Topic</b></td><td>RFP timeline, renewal date, org change, new contact, new administration, referral, follow-up, proposal, other.</td></tr>
+          <tr><td><b>Contact</b></td><td>Suggests people you've already added or logged for that account.</td></tr>
+          <tr><td><b>Notes</b></td><td>Type or paste anything, such as a block of notes copied from email, Teams or your phone.</td></tr>
+        </tbody></table>
+        <p>Logging several in a row? Tick <b>Keep this window open</b> and it clears for the next one. Made a mistake? Delete it with the &#10005; on the account's Activity tab.</p>
+
+        <h2 id="g-account">4. Working an account</h2>
+        <p>Click any account in <b>Pipeline</b> (or a pin on the map). The strip across the top is the at-a-glance picture:</p>
+        <ul>
+          <li><b>Conversations</b> and <b>attempts, no conversation</b>, with dates</li>
+          <li><b>Last touch</b> and <b>next due</b> (red when overdue)</li>
+          <li><b>Spoken with</b>: who you've had conversations with, and how many</li>
+          <li><b>Latest org change</b>, for example "Jane Smith: VP Finance &rarr; CFO"</li>
+          <li><b>Copy status update</b>: a plain-text summary to paste into an email (section 8)</li>
+        </ul>
+        <p>Set <b>Warm/Cold</b> and the <b>stage</b> from the dropdowns in the header. The tabs:</p>
+        <table class="tbl vx-gt"><tbody>
+          <tr><td><b>Intel</b></td><td>Conversation hook, displacement angle, Marsh solutions to lead with, next action, key buyer, notes, and the research prompt generator.</td></tr>
+          <tr><td><b>Activity</b></td><td>This account's touch plan and full engagement log.</td></tr>
+          <tr><td><b>Network</b></td><td>Contacts (with title-change history), linked centers of influence, decision maker and intro strategy.</td></tr>
+          <tr><td><b>Outreach</b></td><td>Ready-to-edit email, follow-up, LinkedIn and voicemail scripts built from the Intel tab.</td></tr>
+        </tbody></table>
+
+        <h2 id="g-contacts">5. Contacts and org changes</h2>
+        <p>On the <b>Network</b> tab, click <b>+ Add Contact</b> for each person you deal with: title, relationship (cold, warm or direct), status, notes, and whether they're a <b>key contact</b>. Click <b>Edit</b> on a card to change anything later.</p>
+        <p><b>When someone changes roles</b>, for example a friend becomes CFO above the VP Finance you've already spoken with twice:</p>
+        <ol>
+          <li>On their contact card, click <b>Title change</b>. If they're not in the list yet, add them first.</li>
+          <li>Enter the new title and date, and a line on why it matters (for example "personal relationship; now outranks the VP").</li>
+          <li>Save. The old and new titles are kept as history, they're flagged <b>New in role</b>, and the change shows in the summary strip, the status update and your one-on-one summary.</li>
+        </ol>
+        <p>The org change is recorded in the engagement log as a <i>note</i>. It is not counted as a touch, so it won't inflate your activity numbers. Mark someone <b>Left company</b> when they leave; their history stays.</p>
+
+        <h2 id="g-plan">6. Touch plans and assigned touches</h2>
+        <p>Optional, per account, on the account's <b>Activity</b> tab. Nothing is set until you set it.</p>
+        <ul>
+          <li><b>Frequency</b>: weekly, every 2 weeks, monthly, quarterly or a custom number of days. The next touch date is calculated from your last touch.</li>
+          <li><b>Next touch due</b>: type a date to override the automatic one. Clear it to go back to automatic.</li>
+          <li><b>Assigned touches</b>: when a manager says "do 8 touches on this account," enter 8. <b>Counting from</b> sets the start date. Progress shows on the account and on the Activity screen.</li>
+        </ul>
+
+        <h2 id="g-activity">7. The Activity screen and chart</h2>
+        <p>Your accountability view:</p>
+        <ul>
+          <li><b>Touches today, this week and this month</b>, each split into conversations and attempts.</li>
+          <li><b>Weekly touches chart</b>: the last 8 weeks, each bar split into <span class="vx-sw" style="background:#2a78d6"></span>conversations, <span class="vx-sw" style="background:#eb6834"></span>attempts with no conversation, and <span class="vx-sw" style="background:#1baf7a"></span>touches logged without an outcome. Hover over a bar for the numbers, or open <b>Show as table</b>. A tall orange section means you're putting in effort that isn't getting responses yet; a growing aqua section means outcomes aren't being recorded.</li>
+          <li><b>Overdue</b> and <b>Due in the next 7 days</b>: based on touch plans.</li>
+          <li><b>Outreach made, no conversation yet</b>: accounts with at least N attempts in the last D days and no conversation. You set N and D in the heading (3 and 30 to start). This list is your evidence that an account is stalled for reasons outside your control.</li>
+          <li><b>Assigned touches in progress</b> and <b>No activity logged</b>.</li>
+          <li><b>Tasks</b>: the free-form to-do list, at the bottom.</li>
+        </ul>
+
+        <h2 id="g-report">8. One-on-ones and status updates</h2>
+        <p><b>One-on-one summary</b> (on the Activity screen): pick a date range (or use <b>Last 7 days</b> / <b>Last 30 days</b>) and click <b>Copy summary</b>. It includes:</p>
+        <ul>
+          <li>Total touches split by type and by conversations vs attempts</li>
+          <li>Every account touched, with dates and notes</li>
+          <li>Accounts where you've reached out with no response</li>
+          <li>Overdue follow-ups, assigned-touch progress and org changes</li>
+        </ul>
+        <p>Paste it into your notes or an email.</p>
+        <p><b>Status update for one account</b>: open the account and click <b>Copy status update</b>. You get the stage, touches, contacts, org changes, centers of influence, next step and recent activity, ready to paste into a reply to a manager or zone leader. No MPower walkthrough needed.</p>
+
+        <h2 id="g-network">9. Network: centers of influence</h2>
+        <p>A center of influence (COI) is someone who can open doors but doesn't belong to one prospect. Examples: a retired Marsh senior leader, a lawyer, a banker, a board member.</p>
+        <ol>
+          <li>Go to <b>Network &gt; + New COI</b>: name, organization or role, relationship, notes on who they can introduce you to.</li>
+          <li><b>Introduced by</b> links the chain. If one COI introduced you to another, the cards show it both ways.</li>
+          <li><b>Linked accounts</b>: tick the companies they connect you to. Those accounts then show the COI on their Network tab, and the COI card shows the accounts with their stage colors.</li>
+          <li>Log touches with COIs the same way as accounts. They appear in the Account or COI list in + Log Touch.</li>
+        </ol>
+
+        <h2 id="g-paste">10. Pasting summaries (Lenwork, Teams, notes)</h2>
+        <p>On the Activity screen, click <b>Paste summary</b>. It reads one line per touch:</p>
+        <pre class="vx-pre">2026-11-18 | Acme Corporation | Jane Smith | Call | Voicemail | Follow-up | Left VM re: renewal</pre>
+        <p>The fields are: date | company | contact | type | outcome | topic | note. Tab-separated rows copied from Excel also work.</p>
+        <ol>
+          <li><b>Copy Lenwork prompt</b> gives you instructions to paste into a Lenwork chat or scheduled task. It asks Lenwork to scan your Outlook and Teams and answer in exactly this format.</li>
+          <li>Paste Lenwork's answer into the box and click <b>Review</b>.</li>
+          <li>Check the list. Companies are matched to your accounts (and COIs) automatically. Unmatched ones are outlined in red, so pick the account or untick them. Lines you've already logged are unticked automatically.</li>
+          <li>Click <b>Save selected</b>.</li>
+        </ol>
+        <p>Paste text with no structure (plain notes) and you can save it as a single note on one account instead.</p>
+        <div class="vx-tip-box">A Lenwork scheduled task that scans Outlook and Teams is still an experiment. Start with once or twice a week and check the review screen each time before saving.</div>
+
+        <h2 id="g-research">11. Research prompts</h2>
+        <ol>
+          <li>Open an account, go to the <b>Intel</b> tab and scroll down to the <b>Research Prompt Generator</b>.</li>
+          <li>Pick a goal (research, hook, displacement angle, email, solutions, meeting prep) and a depth, and tick any context to include.</li>
+          <li>Click <b>Copy Prompt</b> and run it in LenAI or Claude.</li>
+          <li>Paste the full answer into the box under the prompt and click <b>Fill hook &amp; displacement</b>. The research prompts ask for lines starting with <code>HOOK:</code> and <code>DISPLACEMENT:</code>; VANTAGE picks those up and fills the fields. It asks before overwriting anything you've already written.</li>
+        </ol>
+
+        <h2 id="g-map">12. The map</h2>
+        <ul>
+          <li>Every account with a location gets a pin, colored by stage. Hover for the address; click to open the account.</li>
+          <li>States with accounts are highlighted. Click one to zoom in. You can also scroll to zoom, drag to pan, or use the + / &minus; / reset buttons.</li>
+          <li><b>Pin placement:</b> exact Lat/Lng if the account has them; otherwise the center of its ZIP code (built in, no internet needed). Accounts without a ZIP or coordinates don't get a pin.</li>
+        </ul>
+
+        <h2 id="g-excel">13. Excel import and export</h2>
+        <p><b>Import</b> (Import / Export screen): drop an .xlsx or .csv file. Old .xls files need to be re-saved as .xlsx first. Nothing changes until you approve it on the review screen, which shows:</p>
+        <ul>
+          <li><b>New companies</b> to add, and the kind of map pin each will get</li>
+          <li><b>Blank fields</b> that will be filled in</li>
+          <li><b>Conflicts</b> (highlighted), where the file differs from what you already have. Tick the ones to accept, or use "Keep current for all conflicts".</li>
+        </ul>
+        <p>Rules the import follows:</p>
+        <ul>
+          <li>Accounts are matched by ID, then by company name. "Acme Corp." and "Acme Corporation" count as the same company.</li>
+          <li>Blank cells never erase anything.</li>
+          <li>Columns can be in any order, and columns VANTAGE doesn't recognize are ignored. The full list is under <b>Recognized Columns</b>.</li>
+          <li>ZIP codes that Excel shortened (2134) are fixed (02134), and full state names become abbreviations.</li>
+        </ul>
+        <p><b>Export Master Excel</b> creates a workbook with four sheets: <b>Prospects</b>, <b>Activity</b>, <b>Contacts</b> and <b>Network</b>. Importing it again updates accounts and activity.</p>
+        <p><b>Filling in missing addresses with Claude:</b></p>
+        <ol>
+          <li>Export the Excel file.</li>
+          <li>Ask Claude to fill only the blank Street, City, State and ZIP cells, to leave a cell blank if it isn't sure, and to add an "Address Source" column.</li>
+          <li>Import the result and review the changes.</li>
+        </ol>
+
+        <h2 id="g-save">14. Saving, backups and new PCs</h2>
+        <ul>
+          <li>Your data is saved automatically in Edge, on this PC. It is <b>not</b> stored inside the HTML file, so emailing the file to someone sends the dashboard, not your data.</li>
+          <li><b>Download backup</b> saves everything to one .json file: accounts, activity, contacts and their history, COIs, touch plans and tasks. <b>Restore from backup</b> brings it all back exactly. Do this weekly and before clearing your browser.</li>
+          <li><b>New PC, or a new version of VANTAGE:</b> download a backup from the old one, open the new file, and restore the backup.</li>
+          <li>Clearing Edge's browsing data ("cookies and site data") deletes the dashboard's saved data. Back up first.</li>
+        </ul>
+
+        <h2 id="g-phone">15. Phones and working away from the laptop</h2>
+        <p>The layout works on a phone screen. However, data stays in the browser it was entered in, so notes typed on a phone do not appear on your laptop. Whether you may open the file on a personal phone at all depends on Marsh's security rules, so check before you do.</p>
+        <p><b>What works today</b> for a conversation at the golf course or a pickleball court:</p>
+        <ol>
+          <li>Jot a quick note in Teams (for example a chat with yourself) or an email to yourself.</li>
+          <li>Back at the laptop, paste it with <b>Paste summary</b>, or let a Lenwork scan pick it up.</li>
+        </ol>
+
+        <h2 id="g-faq">16. Troubleshooting</h2>
+        <table class="tbl vx-gt"><tbody>
+          <tr><td><b>Yellow bar: saving is blocked</b></td><td>Edge policy won't keep data for local files. Download a backup before closing and restore it when you reopen.</td></tr>
+          <tr><td><b>My data is gone</b></td><td>You opened it in a different browser or on a different PC, or browser data was cleared. Restore your latest backup.</td></tr>
+          <tr><td><b>Import says "old .xls format"</b></td><td>In Excel: File &gt; Save As &gt; Excel Workbook (.xlsx), then import that.</td></tr>
+          <tr><td><b>An account has no map pin</b></td><td>Add a ZIP code (or Lat/Lng) through an Excel import or Add Prospect.</td></tr>
+          <tr><td><b>A paste line shows in red</b></td><td>The company name didn't match. Pick the account from the dropdown, or untick the line.</td></tr>
+          <tr><td><b>Something looks broken</b></td><td>Press F12 &gt; Console, copy any red error text, and send it along with what you clicked.</td></tr>
+        </tbody></table>
+        <p class="vx-lead" style="margin-top:20px">The dashboard only works as well as the habit behind it. Log the touches, attempts included, and the rest builds itself.</p>
+      </div>
+    </div>
+
     <!-- INTAKE -->
     <div class="screen" id="scrIntake">
       <div class="topbar">
@@ -648,6 +892,7 @@ if(!STATE.buyer)    STATE.buyer={};
 if(!STATE.hook)     STATE.hook={};
 if(!STATE.displace) STATE.displace={};
 if(!STATE.solutions)STATE.solutions={};
+try{ Object.keys(STATE.solutions).forEach(function(k){ STATE.solutions[k]=(STATE.solutions[k]||[]).map(function(n){ return n.replace('M&amp;A','M&A'); }); }); }catch(e){}
 if(!STATE.todos)    STATE.todos=[];
 
 // ===== SEED STATE FROM PROSPECTS DATA =====
@@ -897,7 +1142,7 @@ function renderIntelTab(p){
     {name:"Workers' Comp Analytics",url:"https://www.marsh.com/en/services/analytics.html"},
     {name:"Construction Risk Solutions",url:"https://www.marsh.com/en/industries/construction.html"},
     {name:"Environmental Risk Solutions",url:"https://www.marsh.com/en/services/environmental.html"},
-    {name:"Private Equity & M&amp;A (PEMA) Insights",url:"https://www.marsh.com/en/industries/private-equity.html"}
+    {name:"Private Equity & M&A (PEMA) Insights",url:"https://www.marsh.com/en/industries/private-equity.html"}
   ];
   var marshmSols=MARSH_SOLUTIONS.map(function(s){return s.name;});
   var html='<div style="margin-bottom:14px">'+'<div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Conversation Hook</div>'+
@@ -911,7 +1156,7 @@ function renderIntelTab(p){
     '<div style="margin-bottom:14px">'+'<div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Marsh Solutions</div>'+
     '<div style="font-size:10px;color:var(--text3);font-style:italic;margin-bottom:7px">Check relevant Marsh proprietary capabilities to lead with for this account.</div>'+
     '<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px">'+
-    MARSH_SOLUTIONS.map(function(sol){var on=sols.indexOf(sol.name)>-1;var sn=sol.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");return '<div style="display:inline-flex;align-items:center;gap:2px;margin:0">'+'<button class="pg-chip'+(on?' on':'')+'" onclick="toggleSolution(\''+id+'\',\''+sn+'\')">'+(on?'<span style="margin-right:3px">&#10003;</span>':'')+esc(sol.name)+'</button>'+(sol.url?'<a href="'+sol.url+'" target="_blank" style="color:var(--active);font-size:11px;text-decoration:none;padding:0 3px" title="Learn more on Marsh.com">&#128279;</a>':'')+'</div>';}).join('')+
+    MARSH_SOLUTIONS.map(function(sol){var on=sols.indexOf(sol.name)>-1;var sn=sol.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");return '<div style="display:inline-flex;align-items:center;gap:2px;margin:0">'+'<button class="pg-chip'+(on?' on':'')+'" onclick="toggleSolution(\''+jsq(id)+'\',\''+jsq(sol.name)+'\')">'+(on?'<span style="margin-right:3px">&#10003;</span>':'')+esc(sol.name)+'</button>'+(sol.url?'<a href="'+sol.url+'" target="_blank" style="color:var(--active);font-size:11px;text-decoration:none;padding:0 3px" title="Learn more on Marsh.com">&#128279;</a>':'')+'</div>';}).join('')+
     '</div>'+
     '</div>'+
     '<div style="margin-bottom:14px">'+
@@ -1982,7 +2227,7 @@ function renderActivityScreen(){
     return '<details class="vx-card" '+(items.length&&key!=='never'?'open':'')+'><summary class="vx-card-h" style="cursor:pointer">'+title+' <span class="vx-count">'+items.length+'</span> <span style="font-weight:400;color:var(--text3)">'+hint+'</span></summary>'+
       (items.length? items.map(render).join('') : '<div style="font-size:11px;color:var(--text3);padding:6px 0">Nothing here.</div>')+'</details>';
   };
-  var h='<div class="kpi-row">'+kpi(kt,'Touches today')+kpi(kw,'Touches this week')+kpi(km,'Touches this month')+'</div>';
+  var h='<div class="kpi-row">'+kpi(kt,'Touches today')+kpi(kw,'Touches this week')+kpi(km,'Touches this month')+'</div><div class="vx-card" id="actChart"></div>';
   h+=section('overdue','Overdue','next touch date has passed',b.overdue,function(x){ return row(x.p,'<span style="color:var(--bad);font-weight:700">due '+fmtDate(x.nd.date)+'</span><br>last touch '+(x.s.last?fmtDate(x.s.last.date):'never')); });
   h+=section('due','Due in the next 7 days','',b.due,function(x){ return row(x.p,'due '+fmtDate(x.nd.date)+'<br>last touch '+(x.s.last?fmtDate(x.s.last.date):'never')); });
   h+=section('stalled','Outreach made, no conversation yet',
@@ -1991,6 +2236,7 @@ function renderActivityScreen(){
   h+=section('targets','Assigned touches in progress','',b.targets,function(x){ var pct=Math.round(100*x.tp.done/x.tp.target); return row(x.p,x.tp.done+' of '+x.tp.target+' touches<div class="vx-bar"><div style="width:'+pct+'%"></div></div>'); });
   h+=section('never','No activity logged','open accounts with nothing logged yet',b.never,function(x){ return row(x.p,'never touched'); });
   el.innerHTML=h;
+  renderActivityChart();
   renderReportPreview();
 }
 function reportText(from,to){
@@ -2028,6 +2274,72 @@ function reportRange(){
 }
 function renderReportPreview(){ var r=reportRange(), el=$('rptOut'); if(el) el.textContent=reportText(r[0],r[1]); }
 function copyReport(){ var r=reportRange(); copyText(reportText(r[0],r[1]),'Activity summary copied. Paste it into your one-on-one notes or email.'); }
+
+// ===== WEEKLY TOUCHES CHART (Activity screen) =====
+// Stacked bars: last 8 weeks (Mon-Sun), split into conversations / attempts / logged without outcome.
+// Colors: validated categorical slots 1-3 (colorblind-safe order). Legend + hover + table view, so color is never the only cue.
+var CHART_SERIES=[
+  {key:'convo',  label:'Conversations',               color:'#2a78d6'},
+  {key:'attempt',label:'Attempts, no conversation',   color:'#eb6834'},
+  {key:'other',  label:'Logged without an outcome',   color:'#1baf7a'}
+];
+function weeklyTouchData(weeks){
+  var today=isoLocal(), d=new Date(today+'T12:00:00'), dow=(d.getDay()+6)%7, thisMon=addDays(today,-dow), out=[];
+  for(var w=weeks-1;w>=0;w--){ var s=addDays(thisMon,-7*w); out.push({start:s,end:addDays(s,6),convo:0,attempt:0,other:0,total:0}); }
+  allActivity().forEach(function(x){
+    var dt=x.a.date||''; if(dt<out[0].start||dt>out[out.length-1].end) return;
+    var i=Math.floor((new Date(dt+'T12:00:00')-new Date(out[0].start+'T12:00:00'))/(7*86400000));
+    if(i<0||i>=out.length) return;
+    out[i][actKind(x.a)]++; out[i].total++;
+  });
+  return out;
+}
+function niceMax(v){ if(v<=4) return 4; var p=Math.pow(10,Math.floor(Math.log10(v))), n=v/p; return (n<=1?1:n<=2?2:n<=5?5:10)*p; }
+function renderActivityChart(){
+  var el=$('actChart'); if(!el) return;
+  var data=weeklyTouchData(8), max=niceMax(Math.max.apply(null,data.map(function(d){return d.total;}).concat([1])));
+  var W=640, H=210, L=34, R=8, T=10, B=28, pw=W-L-R, ph=H-T-B, slot=pw/data.length, bw=Math.min(44,slot*0.56), GAP=2;
+  var y=function(v){ return T+ph-(v/max)*ph; };
+  var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="Weekly touches, last 8 weeks, stacked by outcome" style="display:block;overflow:visible">';
+  for(var g=0;g<=4;g++){ var gv=max*g/4, gy=y(gv);
+    s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+gy+'" y2="'+gy+'" stroke="var(--border)" stroke-width="1"'+(g?' stroke-dasharray="2 3"':'')+'/>'+
+       '<text x="'+(L-6)+'" y="'+(gy+3)+'" text-anchor="end" font-size="10" fill="var(--text3)">'+(Math.round(gv*10)/10)+'</text>'; }
+  data.forEach(function(d,i){
+    var cx=L+slot*i+slot/2, x=cx-bw/2, base=y(0), drawn=[];
+    CHART_SERIES.forEach(function(se){ if(d[se.key]) drawn.push(se); });
+    drawn.forEach(function(se,j){
+      var h=(d[se.key]/max)*ph, top=base-h, isTop=j===drawn.length-1, hh=Math.max(1,h-(isTop?0:GAP)), r=isTop?Math.min(4,hh,bw/2):0;
+      var yt=top+(isTop?0:GAP);
+      s+= r? '<path d="M'+x+' '+(yt+hh)+'V'+(yt+r)+'Q'+x+' '+yt+' '+(x+r)+' '+yt+'H'+(x+bw-r)+'Q'+(x+bw)+' '+yt+' '+(x+bw)+' '+(yt+r)+'V'+(yt+hh)+'Z" fill="'+se.color+'"/>'
+           : '<rect x="'+x+'" y="'+yt+'" width="'+bw+'" height="'+hh+'" fill="'+se.color+'"/>';
+      base=top;
+    });
+    if(i===data.length-1 && d.total) s+='<text x="'+cx+'" y="'+(y(d.total)-5)+'" text-anchor="middle" font-size="10" font-weight="700" fill="var(--text)">'+d.total+'</text>';
+    s+='<text x="'+cx+'" y="'+(H-10)+'" text-anchor="middle" font-size="10" fill="'+(i===data.length-1?'var(--text)':'var(--text3)')+'"'+(i===data.length-1?' font-weight="700"':'')+'>'+(i===data.length-1?'This wk':fmtDate(d.start))+'</text>';
+    s+='<rect x="'+(L+slot*i)+'" y="'+T+'" width="'+slot+'" height="'+ph+'" fill="transparent" style="cursor:default" onmousemove="chartTip(event,'+i+')" onmouseleave="chartTip(null)"/>';
+  });
+  s+='</svg>';
+  var legend='<div style="display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--text2);margin-bottom:6px">'+
+    CHART_SERIES.map(function(se){ return '<span style="display:inline-flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:'+se.color+'"></span>'+se.label+'</span>'; }).join('')+'</div>';
+  var tot=data.reduce(function(a,d){ a.t+=d.total; a.c+=d.convo; a.a+=d.attempt; return a; },{t:0,c:0,a:0});
+  var table='<details style="margin-top:6px"><summary style="font-size:11px;color:var(--text2);cursor:pointer">Show as table</summary><table class="tbl" style="margin-top:6px"><thead><tr><th>Week of</th>'+
+    CHART_SERIES.map(function(se){return '<th>'+se.label+'</th>';}).join('')+'<th>Total</th></tr></thead><tbody>'+
+    data.slice().reverse().map(function(d){ return '<tr style="cursor:default"><td>'+fmtDate(d.start)+'</td><td>'+d.convo+'</td><td>'+d.attempt+'</td><td>'+d.other+'</td><td><strong>'+d.total+'</strong></td></tr>'; }).join('')+'</tbody></table></details>';
+  window._chartData=data;
+  el.innerHTML='<div class="vx-card-h" style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><span>Weekly touches, last 8 weeks</span>'+
+    '<span style="font-weight:400;color:var(--text3)">'+tot.t+' touches &bull; '+tot.c+' conversation'+(tot.c===1?'':'s')+' &bull; '+tot.a+' attempt'+(tot.a===1?'':'s')+'</span></div>'+
+    legend+'<div style="position:relative">'+s+'<div id="chartTipBox" class="vx-tip"></div></div>'+
+    (tot.t?'':'<div style="font-size:11px;color:var(--text3);margin-top:4px">No touches logged in the last 8 weeks yet. Use + Log Touch and the bars fill in.</div>')+table;
+}
+function chartTip(ev,i){
+  var tip=$('chartTipBox'); if(!tip) return;
+  if(!ev){ tip.style.display='none'; return; }
+  var d=window._chartData[i], box=tip.parentNode.getBoundingClientRect();
+  tip.innerHTML='<strong>Week of '+fmtDate(d.start)+'</strong><br>'+CHART_SERIES.map(function(se){ return '<span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:'+se.color+';margin-right:5px"></span>'+se.label+': <strong>'+d[se.key]+'</strong>'; }).join('<br>')+'<br>Total: <strong>'+d.total+'</strong>';
+  tip.style.display='block';
+  var x=ev.clientX-box.left+12; if(x+190>box.width) x=ev.clientX-box.left-200;
+  tip.style.left=Math.max(0,x)+'px'; tip.style.top=Math.max(0,ev.clientY-box.top-30)+'px';
+}
 
 // ===== PASTE SUMMARY (e.g. from a Lenwork Outlook/Teams scan) =====
 var LENWORK_PROMPT='Review my Outlook sent items, inbox replies, calendar meetings and Teams chats from the last 7 days. '+

@@ -1,6 +1,6 @@
 # VANTAGE v6: offline prospect dashboard
 
-One file: `VANTAGE.html` (about 385 KB). You can email it as a single attachment. It needs no internet, hosting, API key or install. It runs in Edge from a local folder and works alongside MPower; it does not connect to MPower.
+One file: `VANTAGE.html` (about 415 KB). You can email it as a single attachment. It needs no internet, hosting, API key or install. It runs in Edge from a local folder and works alongside MPower; it does not connect to MPower.
 
 ## Setup
 1. Save `VANTAGE.html` anywhere on your work PC (for example `Documents\VANTAGE\`).
@@ -13,9 +13,10 @@ One file: `VANTAGE.html` (about 385 KB). You can email it as a single attachment
 | Dashboard | Pipeline totals by stage and state |
 | Pipeline | Account list. Click an account to see its summary strip and the Intel, Activity, Network and Outreach tabs |
 | Map | State map with a pin per account (exact Lat/Lng, or the ZIP code center). Click a state to zoom; scroll to zoom; drag to pan |
-| Activity | Touch counts; overdue, due soon, "outreach made, no conversation yet", assigned-touch progress and never-touched accounts; a one-on-one summary you can copy; the task list |
+| Activity | Touch counts; a weekly touches chart (last 8 weeks, conversations vs attempts); overdue, due soon, "outreach made, no conversation yet", assigned-touch progress and never-touched accounts; a one-on-one summary you can copy; the task list |
 | Network | Centers of influence (COI): people not tied to one account, who introduced whom, and which accounts they connect to |
 | Import / Export | Excel import with a review step, Excel export, full backup and restore |
+| Guide | The full tutorial, built in. Use Print / Save as PDF to share it (`VANTAGE_Guide.pdf` is a ready copy) |
 | **+ Log Touch** (sidebar, always visible) | Log a call, email, LinkedIn message, meeting, event or text against any account or COI. Only Type is needed; everything else is optional |
 
 ## Daily flow
