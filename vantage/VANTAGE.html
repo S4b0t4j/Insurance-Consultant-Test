@@ -275,6 +275,18 @@ td{padding:8px 11px;font-size:12px;color:var(--text);vertical-align:middle}
   .modal-overlay{align-items:flex-end!important}
 }
 /* ===== v6 additions ===== */
+#vxTour{position:fixed;inset:0;z-index:10000}
+.vxt-spot{position:fixed;border-radius:8px;box-shadow:0 0 0 9999px rgba(0,20,32,.62);outline:2px solid #04B4BF;transition:all .25s ease;pointer-events:none}
+.vxt-card{position:fixed;background:#fff;color:var(--text);border-radius:10px;padding:16px 18px;box-shadow:0 12px 40px rgba(0,0,0,.35);transition:left .25s ease,top .25s ease}
+.vxt-step{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#03656C;margin-bottom:4px}
+.vxt-title{font-size:16px;font-weight:800;margin-bottom:6px}
+.vxt-text{font-size:13px;line-height:1.55;color:var(--text2)}
+.vxt-dots{display:flex;gap:5px;margin:12px 0 10px}
+.vxt-dots span{width:7px;height:7px;border-radius:50%;background:var(--border2)}
+.vxt-dots span.on{background:var(--active);width:18px;border-radius:4px}
+.vxt-btns{display:flex;gap:8px;align-items:center}
+.vxt-btns .cmd-btn,.vxt-btns .cmd-ghost{font-size:12px;padding:7px 14px}
+.vxt-skip{margin-right:auto;background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;font-family:inherit;text-decoration:underline}
 .vx-type{display:inline-block;padding:1px 7px;border-radius:9px;font-size:10px;font-weight:700;white-space:nowrap}
 .vx-type-c{background:var(--navy);color:#fff}
 .vx-type-p{background:var(--surface);color:var(--text2);border:1px solid var(--border2)}
@@ -582,6 +594,7 @@ details.vx-card[open]>summary:before{transform:rotate(90deg)}
         <div class="topbar-title">Guide</div>
         <div class="topbar-sub">How VANTAGE works, start to finish</div>
         <button class="tb-btn outline" onclick="window.print()">&#128424; Print / Save as PDF</button>
+        <button class="tb-btn" onclick="startTour()">&#9654; Take the tour</button>
       </div>
       <div class="vx-guide" id="guideBody">
         <h1>VANTAGE guide</h1>
@@ -607,6 +620,7 @@ details.vx-card[open]>summary:before{transform:rotate(90deg)}
           <a href="#g-faq">16. Troubleshooting</a>
         </div>
 
+        <div class="vx-tip-box" style="background:#E8F6FF;color:#035E66">New here? <a href="#" onclick="startTour();return false" style="color:#035E66;font-weight:700">Take the 1-minute guided tour</a>. It runs automatically the first time the dashboard opens.</div>
         <h2 id="g-start">1. Quick start (5 minutes)</h2>
         <ol>
           <li>Save <code>VANTAGE.html</code> somewhere permanent, for example <code>Documents\VANTAGE\</code>, and double-click it. It opens in Edge.</li>
@@ -982,7 +996,10 @@ window.addEventListener('DOMContentLoaded', function(){
   try { populateTodoLinked(); } catch(e){ console.error('populateTodo:',e); }
   try { renderFieldList(); }    catch(e){ console.error('renderFieldList:',e); }
   try {
-    if(!saveState())
+    var canSave=saveState();
+    // first open only; if this browser can't save, skip the auto-tour (it would reappear every time) - it's still in Guide
+    if(canSave && !STATE.settings.tourDone) setTimeout(function(){ try{ startTour(); }catch(e){ console.error('tour:',e); } },450);
+    if(!canSave)
       showBanner('This browser is blocking saved data. Changes will be lost when you close it: use Import / Export &gt; Download backup before closing.');
   } catch(e){}
 });
@@ -2638,6 +2655,102 @@ function restoreBackup(e){
     e.target.value='';
   };
   r.readAsText(f);
+}
+
+// ===== FIRST-RUN GUIDED TOUR =====
+// Runs once on first open (STATE.settings.tourDone); replay from Guide > "Take the tour".
+// Each step: screen to show, element to spotlight (first visible match), title, text.
+var TOUR_STEPS=[
+  {screen:'dash', target:null, title:'Welcome to VANTAGE',
+   text:'Your prospects and clients in one file: who they are, where they are, every touch you make, and who can open doors. It runs on this PC with no internet or logins and works alongside MPower. This quick tour takes about a minute.'},
+  {screen:'dash', target:'#sidebar .vx-viewsel, .vx-mviewbar', title:'Prospects, clients or both',
+   text:'Every account is a Prospect or a Client. This Show dropdown switches the whole dashboard between All accounts, Prospects and Clients: the totals, list, map, activity and reports.'},
+  {screen:'dash', target:'#kpiRow', title:'Your book at a glance',
+   text:'The dashboard totals your accounts by stage and by state. Click any account in the list below to open it.'},
+  {screen:'pipeline', target:'#scrPipeline .kpi-bar, #nav-pipeline', title:'Accounts',
+   text:'The full list, with search and stage filters. Open an account to see its summary strip (conversations, attempts, next due, who you’ve spoken with, org changes) plus tabs for Intel, Activity, Network and Outreach scripts.'},
+  {screen:'pipeline', target:'.vx-logbtn', title:'+ Log Touch: the habit that matters',
+   text:'Log every call, email, LinkedIn message, meeting or event in about 10 seconds. Only the type is required. Log attempts too (voicemails, no answers, emails with no reply), because that’s what shows your effort on accounts that haven’t responded.'},
+  {screen:'todo', target:'#actScreenBody', title:'Activity: your one-on-one prep',
+   text:'Touches this week and month, the weekly chart (conversations vs attempts), overdue follow-ups, and accounts where you’ve reached out with no response. Scroll down for a one-on-one summary you can copy, and use Paste summary to bring in notes from Lenwork or Teams.'},
+  {screen:'map', target:'#mapContainer', title:'Map and counties',
+   text:'Every account with a ZIP gets a pin: round for prospects, diamond for clients. Click a state to zoom in and county names appear, which helps when you’re planning trips around clusters of accounts.'},
+  {screen:'coi', target:'#nav-coi', title:'Network',
+   text:'Centers of influence: referral sources and connectors who aren’t tied to one company. Record who introduced whom and link them to the accounts they can open.'},
+  {screen:'intake', target:'#dropZone', title:'Import and export',
+   text:'Drop in your Excel file. You review every new account, filled-in field and conflict before anything changes. Export it back as your master file, and download a backup weekly, because your data lives in this browser.'},
+  {screen:'guide', target:'#nav-guide', title:'You’re set',
+   text:'The full Guide is here anytime, along with a button to replay this tour. Start by importing your accounts, then log your first touch.'}
+];
+var _tourI=-1;
+function startTour(){
+  endTour(false);
+  _tourI=0;
+  var ov=document.createElement('div'); ov.id='vxTour';
+  ov.innerHTML='<div class="vxt-spot" id="vxtSpot"></div><div class="vxt-card" id="vxtCard" role="dialog" aria-live="polite"></div>';
+  document.body.appendChild(ov);
+  window.addEventListener('resize',tourPlace);
+  document.addEventListener('keydown',tourKeys);
+  tourShow();
+}
+function tourKeys(e){
+  if(!$('vxTour')) return;
+  if(e.key==='Escape'){ e.stopPropagation(); endTour(true); }
+  else if(e.key==='ArrowRight') tourGo(1);
+  else if(e.key==='ArrowLeft') tourGo(-1);
+}
+function tourGo(d){
+  var n=_tourI+d;
+  if(n<0) return;
+  if(n>=TOUR_STEPS.length){ endTour(true); return; }
+  _tourI=n; tourShow();
+}
+function tourTarget(st){
+  if(!st.target) return null;
+  var list=document.querySelectorAll(st.target);
+  for(var i=0;i<list.length;i++){ var r=list[i].getBoundingClientRect(); if(r.width>0&&r.height>0) return list[i]; }
+  return null;
+}
+function tourShow(){
+  var st=TOUR_STEPS[_tourI]; if(!st) return;
+  try{ closeModal(); closeDetail(); }catch(e){}
+  if(st.screen) showScreen(st.screen);
+  var card=$('vxtCard'), last=_tourI===TOUR_STEPS.length-1;
+  card.innerHTML='<div class="vxt-step">Step '+(_tourI+1)+' of '+TOUR_STEPS.length+'</div>'+
+    '<div class="vxt-title">'+esc(st.title)+'</div><div class="vxt-text">'+esc(st.text)+'</div>'+
+    '<div class="vxt-dots">'+TOUR_STEPS.map(function(x,i){ return '<span class="'+(i===_tourI?'on':'')+'"></span>'; }).join('')+'</div>'+
+    '<div class="vxt-btns"><button class="vxt-skip" onclick="endTour(true)">'+(last?'Close':'Skip tour')+'</button>'+
+    (_tourI>0?'<button class="cmd-ghost" onclick="tourGo(-1)">Back</button>':'')+
+    '<button class="cmd-btn" onclick="tourGo(1)">'+(_tourI===0?'Start the tour':last?'Finish':'Next')+'</button></div>';
+  setTimeout(tourPlace,80);
+}
+function tourPlace(){
+  var st=TOUR_STEPS[_tourI], spot=$('vxtSpot'), card=$('vxtCard'); if(!st||!spot||!card) return;
+  var el=tourTarget(st), W=window.innerWidth, H=window.innerHeight, cw=Math.min(340,W-24);
+  card.style.width=cw+'px';
+  if(!el){
+    spot.style.cssText='left:50%;top:45%;width:0;height:0';
+    card.style.left=Math.round((W-cw)/2)+'px'; card.style.top=Math.round(Math.max(12,H*0.5-card.offsetHeight/2))+'px';
+    return;
+  }
+  if(el.scrollIntoView) el.scrollIntoView({block:'nearest'});
+  var r=el.getBoundingClientRect(), pad=6;
+  var top=Math.max(4,r.top-pad), left=Math.max(4,r.left-pad), w=Math.min(W-8,r.width+pad*2), h=Math.min(H-8,r.height+pad*2);
+  spot.style.cssText='left:'+left+'px;top:'+top+'px;width:'+w+'px;height:'+h+'px';
+  var ch=card.offsetHeight, x, y;
+  if(r.right+16+cw<=W){ x=r.right+16; y=r.top; }                 // right of target
+  else if(r.left-16-cw>=0){ x=r.left-16-cw; y=r.top; }            // left of target
+  else if(r.bottom+16+ch<=H){ x=r.left+r.width/2-cw/2; y=r.bottom+16; } // below
+  else { x=r.left+r.width/2-cw/2; y=r.top-16-ch; }                // above
+  card.style.left=Math.round(Math.min(Math.max(12,x),W-cw-12))+'px';
+  card.style.top=Math.round(Math.min(Math.max(12,y),H-ch-12))+'px';
+}
+function endTour(markDone){
+  var ov=$('vxTour'); if(ov) ov.parentNode.removeChild(ov);
+  window.removeEventListener('resize',tourPlace);
+  document.removeEventListener('keydown',tourKeys);
+  _tourI=-1;
+  if(markDone){ STATE.settings.tourDone=true; saveState(); try{ showScreen('dash'); }catch(e){} }
 }
 
 // ===== DATA FIELDS (single source of truth) =====

@@ -1,11 +1,14 @@
 # VANTAGE v6: offline prospect dashboard
 
-One file: `VANTAGE.html` (about 445 KB). You can email it as a single attachment. It needs no internet, hosting, API key or install. It runs in Edge from a local folder and works alongside MPower; it does not connect to MPower.
+One file: `VANTAGE.html` (about 455 KB). You can email it as a single attachment. It needs no internet, hosting, API key or install. It runs in Edge from a local folder and works alongside MPower; it does not connect to MPower.
 
 ## Setup
 1. Save `VANTAGE.html` anywhere on your work PC (for example `Documents\VANTAGE\`).
 2. Double-click it to open it in Edge.
 3. If a yellow bar says saving is blocked, your browser policy won't keep data between sessions. In that case use **Import / Export > Download backup** before every close.
+
+## First open
+The first time the dashboard opens, a 1-minute guided tour walks through each part of the screen (Next / Back / Skip, Esc to close). It runs once; replay it anytime from **Guide > Take the tour**. If the browser blocks saved data, the tour doesn't auto-start (it would repeat every time) but is still available from the Guide.
 
 ## Prospects and clients
 Every account is a Prospect or a Client. Set it in the account header, in Add Account, or with an Excel **Type** column. The **Show** dropdown at the top of the sidebar filters every screen to All accounts, Prospects or Clients.

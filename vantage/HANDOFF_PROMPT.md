@@ -7,7 +7,7 @@ You are editing VANTAGE v6, an offline prospect pipeline dashboard for a commerc
 4. A final `<script>` marked `DATA SECTION`: a deflate decoder, the state outlines (`VX_STATES`) and the packed ZIP code centers (`VX_ZIPS`). **Never edit it.** The user will usually not send it to you; assume it exists.
 
 ## Hard rules
-1. The file must stay under 500 KB, because it is emailed as one attachment. It is about 445 KB now. Do not embed libraries, fonts or images.
+1. The file must stay under 500 KB, because it is emailed as one attachment. It is about 455 KB now. Do not embed libraries, fonts or images.
 2. Offline only. No CDN, `fetch()`, web fonts, external images, or anything else that needs the internet or an API key.
 3. Never put a literal line break inside a JavaScript string. Use `\n`.
 4. Do not use setInterval/setTimeout for startup. Startup is the `DOMContentLoaded` handler (`// ===== BOOT =====`), where each call is wrapped in its own try/catch.
@@ -30,6 +30,9 @@ You are editing VANTAGE v6, an offline prospect pipeline dashboard for a commerc
 - `STATE.cadence[accountId]`: `{every: days, target: n, since: date, due: overrideDate}`. Use `nextDue(id)` and `targetProgress(id)`.
 - `STATE.network[accountId]`: the per-account `{dm, coi, intro}` text fields.
 - After changing data, call `saveState()`, then `afterActivityChange(id)` (activity, contacts, COIs) or `refreshAfterDataChange()` (accounts).
+
+## First-run tour
+`TOUR_STEPS` (search `FIRST-RUN GUIDED TOUR`) lists each step: screen, CSS selector to spotlight, title, text. When you add or rename a screen or control, update the matching step. It runs once (`STATE.settings.tourDone`); `startTour()` replays it.
 
 ## Key functions
 - `openActivityModal(id, preset)`: the single Log Touch window.
