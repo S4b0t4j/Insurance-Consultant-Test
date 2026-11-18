@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<title>VANTAGE v5 | Pipeline Dashboard</title>
+<title>VANTAGE v6 | Pipeline Dashboard</title>
 
 <style>
 :root{
@@ -274,6 +274,41 @@ td{padding:8px 11px;font-size:12px;color:var(--text);vertical-align:middle}
   .modal{width:100%!important;max-width:none!important;border-radius:14px 14px 0 0!important;max-height:90vh!important;margin:0!important}
   .modal-overlay{align-items:flex-end!important}
 }
+/* ===== v6 additions ===== */
+.dp-topbar .dp-close{color:#fff;border-color:rgba(255,255,255,.45);background:transparent}
+.vx-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:12px}
+.vx-card-h{font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px}
+details.vx-card>summary{list-style:none}
+details.vx-card>summary::-webkit-details-marker{display:none}
+details.vx-card>summary:before{content:'\25B8';display:inline-block;margin-right:6px;color:var(--text3);transition:transform .15s}
+details.vx-card[open]>summary:before{transform:rotate(90deg)}
+.vx-count{display:inline-block;min-width:18px;padding:1px 6px;border-radius:9px;background:var(--surface2);border:1px solid var(--border);font-size:10px;text-align:center}
+.vx-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-top:1px solid var(--border);font-size:12px}
+.vx-mini{padding:2px 8px;font-size:10px;border:1px solid var(--border2);border-radius:3px;background:var(--surface);color:var(--text2);cursor:pointer;font-family:inherit;white-space:nowrap}
+.vx-mini:hover{border-color:var(--active);color:var(--active)}
+.vx-pill{display:inline-block;padding:1px 7px;border-radius:9px;font-size:10px;font-weight:600;background:var(--surface2);color:var(--text2);border:1px solid var(--border)}
+.vx-pill.vx-convo{background:var(--ok-bg);color:var(--ok-ink);border-color:transparent}
+.vx-pill.vx-attempt{background:var(--warn-bg);color:var(--warn-ink);border-color:transparent}
+.vx-pill.vx-new{background:#E8F6FF;color:#035E66;border-color:transparent}
+.vx-glance{display:flex;flex-wrap:wrap;gap:1px;background:var(--border);border-bottom:1px solid var(--border)}
+.vx-g{flex:1 1 120px;background:var(--surface2);padding:7px 12px;display:flex;flex-direction:column}
+.vx-g-l{font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text3)}
+.vx-g-v{font-size:12px;font-weight:700;color:var(--text);margin-top:2px}
+.vx-g-v span{font-weight:400;color:var(--text3);font-size:10px}
+.vx-bar{height:5px;background:var(--surface2);border-radius:3px;overflow:hidden;margin-top:3px;width:120px;margin-left:auto}
+.vx-bar>div{height:100%;background:var(--active)}
+.vx-pre{white-space:pre-wrap;font-family:Consolas,Menlo,monospace;font-size:11px;background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:10px;max-height:320px;overflow:auto;color:var(--text);margin:0}
+.vx-logbtn{margin:10px 14px;padding:9px 0;background:var(--active);color:#fff;border:none;border-radius:5px;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit}
+.vx-logbtn:hover{background:#029ea7}
+@media(max-width:768px){
+  .vx-logbtn{position:fixed;right:14px;bottom:70px;margin:0;padding:12px 16px;border-radius:24px;z-index:210;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  .vx-glance .vx-g{flex-basis:45%}
+  .dp-topbar{flex-wrap:wrap;gap:6px;padding:8px 12px}
+  .dp-topbar>div[style*="flex:1"]{flex:1 1 60%!important;min-width:0}
+  #dpHdrRow{width:100%;display:flex;gap:6px;flex-wrap:wrap}
+  .dp-close{padding:4px 8px;font-size:12px}
+  .fg-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -304,10 +339,12 @@ td{padding:8px 11px;font-size:12px;color:var(--text);vertical-align:middle}
       <div class="nav-item on" id="nav-dash" onclick="showScreen('dash')"><span class="nav-icon">&#128202;</span>Dashboard</div>
       <div class="nav-item" id="nav-pipeline" onclick="showScreen('pipeline')"><span class="nav-icon">&#128269;</span>Pipeline <span class="sb-ct" id="nav-pipeline-ct">69</span></div>
       <div class="nav-item" id="nav-map" onclick="showScreen('map')"><span class="nav-icon">&#128506;</span>Map</div>
-      <div class="nav-item" id="nav-todo" onclick="showScreen('todo')"><span class="nav-icon">&#9989;</span>To-Do</div>
+      <div class="nav-item" id="nav-todo" onclick="showScreen('todo')"><span class="nav-icon">&#9989;</span>Activity</div>
+      <div class="nav-item" id="nav-coi" onclick="showScreen('coi')"><span class="nav-icon">&#129309;</span>Network</div>
       <div class="nav-item" id="nav-intake" onclick="showScreen('intake')"><span class="nav-icon">&#128229;</span>Import / Export</div>
     </div>
-    <div class="sb-foot">VANTAGE v5 &bull; Offline &bull; Internal use only</div>
+    <button class="vx-logbtn" onclick="openActivityModal(null)">+ Log Touch</button>
+    <div class="sb-foot">VANTAGE v6 &bull; Offline &bull; Internal use only</div>
   </div>
 
   <!-- MAIN -->
@@ -387,6 +424,7 @@ td{padding:8px 11px;font-size:12px;color:var(--text);vertical-align:middle}
           <div style="flex:1"><div class="dp-topbar-co" id="dpCo"></div><div class="dp-topbar-meta" id="dpMeta"></div></div>
           <div id="dpHdrRow" style="display:flex;align-items:center;gap:6px"></div>
         </div>
+        <div id="dpGlance"></div>
         <div class="dp-tabs" id="dpTabs">
           <div class="dp-tab on" id="dpt-intel" onclick="switchDTab('intel')">&#128269; Intel</div>
           <div class="dp-tab" id="dpt-activity" onclick="switchDTab('activity')">&#128203; Activity</div>
@@ -428,10 +466,25 @@ td{padding:8px 11px;font-size:12px;color:var(--text);vertical-align:middle}
     <!-- TO-DO -->
     <div class="screen" id="scrTodo">
       <div class="topbar">
-        <div class="topbar-title">To-Do List</div>
-        <div class="topbar-sub">Tasks and follow-ups for your pipeline</div>
+        <div class="topbar-title">Activity</div>
+        <div class="topbar-sub">Touches, follow-ups and your one-on-one summary</div>
+        <button class="tb-btn outline" onclick="openPasteModal()">Paste summary</button>
+        <button class="tb-btn" onclick="openActivityModal(null)">+ Log Touch</button>
       </div>
-      <div class="todo-body">
+      <div class="todo-body" style="max-width:920px;overflow-y:auto;flex:1">
+        <div id="actScreenBody"></div>
+        <div class="vx-card">
+          <div class="vx-card-h">One-on-one summary</div>
+          <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;margin-bottom:8px">
+            <div><div style="font-size:10px;color:var(--text2)">From</div><input class="fi" type="date" id="rptFrom" onchange="renderReportPreview()"></div>
+            <div><div style="font-size:10px;color:var(--text2)">To</div><input class="fi" type="date" id="rptTo" onchange="renderReportPreview()"></div>
+            <button class="cmd-ghost" onclick="$('rptTo').value=isoLocal();$('rptFrom').value=addDays(isoLocal(),-6);renderReportPreview()">Last 7 days</button>
+            <button class="cmd-ghost" onclick="$('rptTo').value=isoLocal();$('rptFrom').value=addDays(isoLocal(),-29);renderReportPreview()">Last 30 days</button>
+            <button class="cmd-btn" onclick="copyReport()">&#128203; Copy summary</button>
+          </div>
+          <pre id="rptOut" class="vx-pre"></pre>
+        </div>
+        <div class="vx-card-h" style="margin:16px 0 8px">Tasks</div>
         <div class="todo-add-card">
           <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:10px">Add Task</div>
           <div class="todo-add-row">
@@ -455,6 +508,19 @@ td{padding:8px 11px;font-size:12px;color:var(--text);vertical-align:middle}
     </div>
 
 
+
+    <!-- NETWORK / CENTERS OF INFLUENCE -->
+    <div class="screen" id="scrCoi">
+      <div class="topbar">
+        <div class="topbar-title">Network</div>
+        <div class="topbar-sub">Centers of influence and how they connect to your accounts</div>
+        <button class="tb-btn" onclick="openCoiModal(null)">+ New COI</button>
+      </div>
+      <div style="padding:16px 20px;max-width:920px;overflow-y:auto;flex:1">
+        <input class="fi" id="coiFilter" placeholder="Search people, organizations, notes..." style="width:100%;margin-bottom:12px" oninput="renderCoiScreen()">
+        <div id="coiList"></div>
+      </div>
+    </div>
 
     <!-- INTAKE -->
     <div class="screen" id="scrIntake">
@@ -502,6 +568,19 @@ td{padding:8px 11px;font-size:12px;color:var(--text);vertical-align:middle}
             <div style="display:flex;gap:8px;flex-wrap:wrap">
               <button class="cmd-btn" onclick="exportExcel()">&#11015; Export Master Excel</button>
               <button class="cmd-ghost" onclick="downloadTemplate()">&#11015; Blank Template</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Backup -->
+        <div class="sec-card" style="margin-bottom:16px">
+          <div class="sec-hdr"><h3>&#128274; Full Backup</h3><span>Everything: contacts, network, touch plans, tasks</span></div>
+          <div style="padding:14px 16px">
+            <p style="font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.6">The Excel export is your readable master. The backup file restores the dashboard exactly, including contact history, centers of influence and touch plans. Save one weekly, and before clearing your browser or moving to a new PC.</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="cmd-btn" onclick="downloadBackup()">&#11015; Download backup</button>
+              <button class="cmd-ghost" onclick="$('backupInput').click()">Restore from backup</button>
+              <input type="file" id="backupInput" accept=".json" style="display:none" onchange="restoreBackup(event)">
             </div>
           </div>
         </div>
@@ -635,7 +714,7 @@ window.addEventListener('DOMContentLoaded', function(){
   try { renderFieldList(); }    catch(e){ console.error('renderFieldList:',e); }
   try {
     if(!saveState())
-      showBanner('This browser is blocking saved data. Changes will be lost when you close it, so use Export Excel before closing.');
+      showBanner('This browser is blocking saved data. Changes will be lost when you close it: use Import / Export &gt; Download backup before closing.');
   } catch(e){}
 });
 
@@ -650,7 +729,8 @@ function showScreen(name){
   if(name==='pipeline'){renderKPIBar();renderTable();}
   if(name==='map'){if(!MAP_INIT){initMap();}}
   if(name==='dash'){renderDash();}
-  if(name==='todo'){renderTodos();populateTodoLinked();}
+  if(name==='todo'){renderTodos();populateTodoLinked();renderActivityScreen();}
+  if(name==='coi'){renderCoiScreen();}
 }
 
 // ===== DASHBOARD =====
@@ -753,13 +833,14 @@ function openDetail(id){
     '<select class="warm-select" onchange="setStage(\''+id+'\',this.value)">'+
     Object.keys(STAGES).map(function(s){return '<option value="'+s+'"'+(getStage(id)===s?' selected':'')+'>'+stageLabel(s)+'</option>';}).join('')+
     '</select>'+
-    '<button class="cmd-ghost" onclick="openActivityModal(\''+id+'\')">+ Log</button>';
+    '<button class="cmd-ghost" style="color:#fff;border-color:rgba(255,255,255,.45)" onclick="openActivityModal(\''+jsq(id)+'\')">+ Log Touch</button>';
   dp.classList.add('open');
   switchDTab(activeDTab);
   renderIntelTab(p);
   renderActivityTab(p);
   renderNetworkTab(p);
   renderOutreachTab(p);
+  renderGlance(p);
 }
 function closeDetail(){
   $('detailPanel').classList.remove('open');
@@ -935,6 +1016,9 @@ function renderPromptGen(p){
     '</div>'+
     '<div class="pg-out" id="pgOut_'+id+'">Select a goal above to generate a prompt.</div>'+
     '<button class="pg-copy-btn" onclick="pgCopy(\''+id+'\')">&#128203; Copy Prompt</button>'+
+    '<div class="pg-row" style="margin-top:10px"><label>Paste the LenAI / Claude answer here to fill the hook and displacement angle</label></div>'+
+    '<textarea id="pgRes_'+id+'" class="fi" style="width:100%;min-height:60px;resize:vertical;font-size:11px" placeholder="Paste the full answer. Lines starting with HOOK: and DISPLACEMENT: are picked up."></textarea>'+
+    '<button class="pg-copy-btn" style="margin-top:6px" onclick="pgApplyResult(\''+jsq(id)+'\')">&#11014; Fill hook &amp; displacement</button>'+
     '</div>';
 }
 function pgToggleCtx(id,btn){
@@ -966,7 +1050,7 @@ function buildPrompt(id){
     solutions:'You are a Marsh solution architect. Based on what is known about '+p.company+' ('+p.city+', '+p.state+'), recommend which Marsh proprietary capabilities to lead with in an outreach conversation. Currently selected: '+sols+'. Validate and expand with reasoning for each recommendation. '+ctxLine+' '+depthLine,
     prep:'Create a meeting prep brief for [Your Name] ahead of an initial conversation with '+p.company+' ('+p.city+', '+p.state+'). Include: company background, likely risk profile, potential objections, recommended Marsh solutions ('+sols+'), and a strong opening question for '+buyer+'. '+(hook?'Hook: '+hook+'. ':'')+(displace?'Displacement angle: '+displace+'. ':'')+ctxLine+' '+depthLine
   };
-  out.textContent=prompts[goalVal]||'Select a goal above to generate a prompt.';
+  out.textContent=prompts[goalVal]? prompts[goalVal]+(['research','hook','angle'].indexOf(goalVal)>-1?PG_TAIL:'') : 'Select a goal above to generate a prompt.';
 }
 function pgCopy(id){
   var out=document.getElementById('pgOut_'+id);
@@ -975,75 +1059,6 @@ function pgCopy(id){
   if(!txt||txt==='Select a goal above to generate a prompt.'){showToast('Select a goal first.');return;}
   if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){showToast('Prompt copied!');});}
   else{var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('Prompt copied!');}
-}
-
-// ===== ACTIVITY TAB =====
-function renderActivityTab(p){
-  var id=p.id;
-  var acts=STATE.activity[id]||[];
-  var typeLabels={call:'Phone Call',email:'Email',meeting:'Meeting',linkedin:'LinkedIn',referral:'Referral Intro',proposal:'Proposal Sent',other:'Other'};
-  var html='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">'+
-    '<div style="font-size:12px;font-weight:700;color:var(--text)">Engagement Log</div>'+
-    '<button class="cmd-btn" onclick="openActivityModal(\''+id+'\')">+ Log Activity</button>'+
-    '</div>'+
-    '<div style="font-size:10px;color:var(--text3);font-style:italic;margin-bottom:10px">Track every touchpoint -- calls, emails, meetings, LinkedIn messages, referral intros. Each entry drives your next-action cadence.</div>';
-  if(acts.length===0){
-    html+='<div class="empty-state">No activity logged yet. Every outreach counts.</div>';
-  } else {
-    html+='<div>';
-    acts.slice().reverse().forEach(function(a){
-      html+='<div class="act-item"><div><span class="act-type">'+(typeLabels[a.type]||a.type)+'</span><span class="act-date">'+(a.date||'')+'</span></div>'+
-        (a.contact?'<div style="font-size:11px;color:var(--text2);margin-top:2px">Contact: '+esc(a.contact)+'</div>':'')+
-        '<div class="act-notes">'+esc(a.notes||'')+'</div></div>';
-    });
-    html+='</div>';
-  }
-  $('dpb-activity').innerHTML=html;
-}
-
-// ===== NETWORK TAB =====
-function renderNetworkTab(p){
-  var id=p.id;
-  var contacts=STATE.contacts[id]||[];
-  var network=STATE.network[id]||{dm:'',coi:'',intro:''};
-  var html='<div style="margin-bottom:12px">'+
-    '<div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Decision Maker</div>'+
-    '<div style="font-size:10px;color:var(--text3);font-style:italic;margin-bottom:5px">Who controls the insurance buying decision -- typically CFO, Risk Manager, COO, or ownership.</div>'+
-    '<input style="width:100%;border:1px solid var(--border2);border-radius:3px;padding:5px 8px;font-size:12px;font-family:inherit;outline:none;color:var(--text);background:var(--surface)" value="'+esc(network.dm)+'" placeholder="Name, Title" onblur="saveNetworkField(\''+id+'\',\'dm\',this.value)">'+
-    '</div>'+
-    '<div style="margin-bottom:12px">'+
-    '<div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Center of Influence</div>'+
-    '<div style="font-size:10px;color:var(--text3);font-style:italic;margin-bottom:5px">Who in your network can open this door -- a mutual contact, referral source, or board member.</div>'+
-    '<input style="width:100%;border:1px solid var(--border2);border-radius:3px;padding:5px 8px;font-size:12px;font-family:inherit;outline:none;color:var(--text);background:var(--surface)" value="'+esc(network.coi)+'" placeholder="Name, relationship to account" onblur="saveNetworkField(\''+id+'\',\'coi\',this.value)">'+
-    '</div>'+
-    '<div style="margin-bottom:14px">'+
-    '<div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Intro Strategy</div>'+
-    '<textarea style="width:100%;border:1px solid var(--border2);border-radius:3px;padding:6px 8px;font-size:12px;font-family:inherit;outline:none;resize:vertical;min-height:48px;color:var(--text);background:var(--surface)" placeholder="How to get in -- through a referral, event, mutual contact..." onblur="saveNetworkField(\''+id+'\',\'intro\',this.value)">'+esc(network.intro)+'</textarea>'+
-    '</div>'+
-    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">'+
-    '<div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px">Contacts</div>'+
-    '<button class="cmd-btn" onclick="openContactModal(\''+p.id+'\')">+ Add Contact</button>'+
-    '</div>';
-  if(contacts.length===0){
-    html+='<div class="empty-state">No contacts added yet.</div>';
-  } else {
-    html+='<div style="display:flex;flex-wrap:wrap;gap:8px">';
-    contacts.forEach(function(c,i){
-      var sBadge=c.strength==='direct'?'strength-direct':c.strength==='warm'?'strength-warm':'strength-cold';
-      html+='<div class="net-card"><div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px">'+esc(c.name)+'</div>'+
-        '<div style="font-size:10px;color:var(--text2);margin-bottom:4px">'+esc(c.title||'')+'</div>'+
-        '<span class="'+sBadge+'">'+esc(c.strength||'cold')+'</span>'+
-        (c.linkedin?'<div style="margin-top:5px"><a href="'+esc(c.linkedin)+'" target="_blank" style="font-size:10px;color:var(--active)">LinkedIn</a></div>':'')+
-        '</div>';
-    });
-    html+='</div>';
-  }
-  $('dpb-network').innerHTML=html;
-}
-function saveNetworkField(id,field,val){
-  if(!STATE.network[id]) STATE.network[id]={dm:'',coi:'',intro:''};
-  STATE.network[id][field]=val;
-  saveState();
 }
 
 // ===== OUTREACH TAB =====
@@ -1081,24 +1096,6 @@ function copyOB(btn){
 }
 
 // ===== MODALS =====
-function openActivityModal(id){
-  _modalType='activity';_modalId=id;
-  $('modalTitle').textContent='Log Activity';
-  $('modalBody').innerHTML='<div class="fg"><label>Type</label><select id="mActType" class="fi"><option value="call">Phone Call</option><option value="email">Email</option><option value="meeting">Meeting</option><option value="linkedin">LinkedIn</option><option value="referral">Referral Intro</option><option value="proposal">Proposal Sent</option><option value="other">Other</option></select></div>'+
-    '<div class="fg-grid"><div class="fg"><label>Date</label><input class="fi" id="mActDate" type="date" value="'+new Date().toISOString().slice(0,10)+'"></div>'+
-    '<div class="fg"><label>Contact Name</label><input class="fi" id="mActContact" placeholder="Optional"></div></div>'+
-    '<div class="fg"><label>Notes</label><textarea class="fi" id="mActNotes" style="resize:vertical;min-height:72px;width:100%" placeholder="What happened? What was said? Next step?"></textarea></div>';
-  $('modalOverlay').classList.add('open');
-}
-function openContactModal(id){
-  _modalType='contact';_modalId=id;
-  $('modalTitle').textContent='Add Contact';
-  $('modalBody').innerHTML='<div class="fg"><label>Name</label><input class="fi" id="mConName" placeholder="Full name" style="width:100%"></div>'+
-    '<div class="fg"><label>Title</label><input class="fi" id="mConTitle" placeholder="e.g. VP Finance" style="width:100%"></div>'+
-    '<div class="fg"><label>Relationship Strength</label><select id="mConStr" class="fi"><option value="cold">Cold -- no connection</option><option value="warm">Warm -- mutual contact or met before</option><option value="direct">Direct -- known relationship</option></select></div>'+
-    '<div class="fg"><label>LinkedIn URL (optional)</label><input class="fi" id="mConLinkedIn" placeholder="https://linkedin.com/in/..." style="width:100%"></div>';
-  $('modalOverlay').classList.add('open');
-}
 function closeModal(){$('modalOverlay').classList.remove('open');_modalType=null;_modalId=null;}
 // ===== MAP — D3 Albers USA + TopoJSON (no tiles, no API key) =====
 var STAGE_COLORS={prospect:'#4A6B7C',engaged:'#04B4BF',proposal:'#FFBF00',won:'#1B8A4A',lost:'#B42318'};
@@ -1521,6 +1518,660 @@ var VX = (function(){
   };
 })();
 
+// ===== ACTIVITY MODEL =====
+// Activity entries live in STATE.activity[accountOrCoiId] = [{type, date, contact, outcome, topic, notes}]
+// outcome is optional. "Attempt" outcomes = outreach with no conversation yet.
+var ACT_TYPES={call:'Phone Call',email:'Email',linkedin:'LinkedIn',meeting:'Meeting',event:'In person / event',text:'Text / Teams',referral:'Referral Intro',proposal:'Proposal Sent',other:'Other'};
+var OUTCOMES={conversation:'Conversation',replied:'Replied',meeting:'Meeting booked',declined:'Not interested',voicemail:'Left voicemail',noanswer:'No answer',sent:'Sent, no reply yet'};
+var CONVO_OUTCOMES={conversation:1,replied:1,meeting:1,declined:1};
+var ATTEMPT_OUTCOMES={voicemail:1,noanswer:1,sent:1};
+var DEFAULT_TOPICS=['RFP timeline','Renewal / expiration date','Org change','New contact introduced','New administration','Referral / intro','Follow-up','Proposal / pricing','Other'];
+function ensureState(){
+  ['stages','actions','notes','activity','contacts','network','warm','buyer','hook','displace','solutions','records','cadence'].forEach(function(k){ if(!STATE[k]||typeof STATE[k]!=='object') STATE[k]={}; });
+  if(!Array.isArray(STATE.todos)) STATE.todos=[];
+  if(!Array.isArray(STATE.cois)) STATE.cois=[];
+  if(!STATE.settings) STATE.settings={};
+  if(!STATE.settings.topics) STATE.settings.topics=DEFAULT_TOPICS.slice();
+  if(!STATE.settings.stallAttempts) STATE.settings.stallAttempts=3;
+  if(!STATE.settings.stallDays) STATE.settings.stallDays=30;
+}
+ensureState();
+
+function isoLocal(d){ d=d||new Date(); return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10); }
+function addDays(iso,n){ var d=new Date(iso+'T12:00:00'); d.setDate(d.getDate()+n); return isoLocal(d); }
+function daysAgo(iso){ if(!iso) return null; return Math.round((new Date(isoLocal()+'T12:00:00')-new Date(iso+'T12:00:00'))/86400000); }
+function fmtDate(iso){ if(!iso) return ''; var d=new Date(iso+'T12:00:00'); return isNaN(d)? iso : d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
+function jsq(s){ return esc(String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'")); }
+function actKind(a){ return CONVO_OUTCOMES[a.outcome]?'convo':ATTEMPT_OUTCOMES[a.outcome]?'attempt':'other'; }
+// Entries marked info (e.g. a recorded org change) appear in the log but are not counted as touches.
+function isTouch(a){ return !a.info; }
+function entityName(id){
+  var p=PROSPECTS.find(function(x){return x.id===id;}); if(p) return p.company;
+  var c=coiById(id); return c? c.name+' (COI)' : id;
+}
+function acctStats(id,fromIso){
+  var acts=(STATE.activity[id]||[]).filter(function(a){ return isTouch(a) && (!fromIso || (a.date||'')>=fromIso); });
+  var s={total:acts.length,convo:0,attempt:0,other:0,last:null,lastConvo:null,people:{}};
+  acts.forEach(function(a){
+    var k=actKind(a); s[k]++;
+    if(a.date && (!s.last || a.date>s.last.date)) s.last=a;
+    if(k==='convo' && a.date && (!s.lastConvo || a.date>s.lastConvo)) s.lastConvo=a.date;
+    if(a.contact && k==='convo') s.people[a.contact]=(s.people[a.contact]||0)+1;
+  });
+  return s;
+}
+
+// ===== TOUCH PLAN (cadence) =====
+// STATE.cadence[id] = {every: days (0 = none), target: touches (0 = none), since: date target counts from, due: manual override date}
+var CADENCE_OPTS=[[0,'No set frequency'],[7,'Weekly'],[14,'Every 2 weeks'],[30,'Monthly'],[90,'Quarterly']];
+function cadenceOf(id){ return STATE.cadence[id]||{every:0,target:0,since:'',due:''}; }
+function nextDue(id){
+  var c=cadenceOf(id);
+  if(c.due) return {date:c.due,manual:true};
+  if(!c.every) return null;
+  var s=acctStats(id);
+  return {date: s.last&&s.last.date? addDays(s.last.date,c.every) : isoLocal(), manual:false};
+}
+function targetProgress(id){
+  var c=cadenceOf(id); if(!c.target) return null;
+  var n=(STATE.activity[id]||[]).filter(function(a){ return isTouch(a) && (!c.since || (a.date||'')>=c.since); }).length;
+  return {done:n,target:c.target,since:c.since};
+}
+function saveCadence(id,field,val){
+  var c=STATE.cadence[id]||{every:0,target:0,since:'',due:''};
+  if(field==='every'||field==='target') val=Math.max(0,parseInt(val,10)||0);
+  c[field]=val;
+  if(field==='target' && val && !c.since) c.since=isoLocal();
+  STATE.cadence[id]=c; saveState();
+  var p=PROSPECTS.find(function(x){return x.id===id;});
+  if(p){ renderActivityTab(p); renderGlance(p); }
+  if($('scrTodo').classList.contains('on')) renderActivityScreen();
+}
+
+// ===== QUICK LOG (one modal used everywhere) =====
+function entityOptions(selected){
+  var h='<option value="">-- Choose account or COI --</option><optgroup label="Accounts">';
+  PROSPECTS.slice().sort(function(a,b){return a.company.localeCompare(b.company);}).forEach(function(p){
+    h+='<option value="'+esc(p.id)+'"'+(p.id===selected?' selected':'')+'>'+esc(p.company)+'</option>';
+  });
+  h+='</optgroup>';
+  if(STATE.cois.length){
+    h+='<optgroup label="Centers of influence">';
+    STATE.cois.slice().sort(function(a,b){return a.name.localeCompare(b.name);}).forEach(function(c){
+      h+='<option value="'+esc(c.id)+'"'+(c.id===selected?' selected':'')+'>'+esc(c.name)+'</option>';
+    });
+    h+='</optgroup>';
+  }
+  return h;
+}
+function contactNames(id){
+  var names=(STATE.contacts[id]||[]).map(function(c){return c.name;});
+  (STATE.activity[id]||[]).forEach(function(a){ if(a.contact && names.indexOf(a.contact)<0) names.push(a.contact); });
+  var net=STATE.network[id]; if(net&&net.dm&&names.indexOf(net.dm)<0) names.push(net.dm);
+  return names;
+}
+function refreshContactList(){
+  var id=($('qlEntity')||{}).value, dl=$('qlContacts'); if(!dl) return;
+  dl.innerHTML=contactNames(id).map(function(n){return '<option value="'+esc(n)+'">';}).join('');
+}
+function openActivityModal(id,preset){
+  preset=preset||{};
+  _modalType='quicklog'; _modalId=id||null;
+  $('modalTitle').textContent='Log Touch';
+  var sel=function(eid,opts,val,blank){ return '<select class="fi" id="'+eid+'" style="width:100%">'+(blank?'<option value="">'+blank+'</option>':'')+
+    Object.keys(opts).map(function(k){ var key=Array.isArray(opts)?opts[k]:k, lbl=opts[k]; return '<option value="'+esc(key)+'"'+(key===val?' selected':'')+'>'+esc(lbl)+'</option>'; }).join('')+'</select>'; };
+  $('modalBody').innerHTML=
+    '<div class="fg"><label>Account or COI</label><select class="fi" id="qlEntity" style="width:100%" onchange="refreshContactList()">'+entityOptions(id||preset.entity)+'</select></div>'+
+    '<div class="fg-grid">'+
+      '<div class="fg"><label>Type</label>'+sel('qlType',ACT_TYPES,preset.type||'call')+'</div>'+
+      '<div class="fg"><label>Outcome <span style="color:var(--text3)">(optional)</span></label>'+sel('qlOutcome',OUTCOMES,preset.outcome||'','--')+'</div>'+
+      '<div class="fg"><label>Date</label><input class="fi" id="qlDate" type="date" value="'+(preset.date||isoLocal())+'"></div>'+
+      '<div class="fg"><label>Topic <span style="color:var(--text3)">(optional)</span></label>'+sel('qlTopic',STATE.settings.topics,preset.topic||'','--')+'</div>'+
+    '</div>'+
+    '<div class="fg"><label>Contact <span style="color:var(--text3)">(optional)</span></label><input class="fi" id="qlContact" list="qlContacts" style="width:100%" placeholder="Who" value="'+esc(preset.contact||'')+'"><datalist id="qlContacts"></datalist></div>'+
+    '<div class="fg"><label>Notes <span style="color:var(--text3)">(paste anything)</span></label><textarea class="fi" id="qlNotes" style="resize:vertical;min-height:80px;width:100%" placeholder="What happened, what was said, next step">'+esc(preset.notes||'')+'</textarea></div>'+
+    '<label style="display:flex;gap:6px;align-items:center;font-size:11px;color:var(--text2)"><input type="checkbox" id="qlAgain"> Keep this window open to log another touch</label>';
+  refreshContactList();
+  $('modalOverlay').classList.add('open');
+  setTimeout(function(){ var f=$(id?'qlType':'qlEntity'); if(f) f.focus(); },60);
+}
+function saveQuickLog(){
+  var id=$('qlEntity').value;
+  if(!id){ showToast('Choose an account or COI.'); return; }
+  var a={type:$('qlType').value,date:$('qlDate').value||isoLocal(),contact:$('qlContact').value.trim(),outcome:$('qlOutcome').value,topic:$('qlTopic').value,notes:$('qlNotes').value.trim()};
+  if(!STATE.activity[id]) STATE.activity[id]=[];
+  STATE.activity[id].push(a);
+  saveState();
+  showToast('Touch logged: '+entityName(id));
+  if($('qlAgain').checked){ $('qlContact').value=''; $('qlNotes').value=''; $('qlOutcome').value=''; $('qlTopic').value=''; refreshContactList(); $('qlEntity').focus(); }
+  else closeModal();
+  afterActivityChange(id);
+}
+function afterActivityChange(id){
+  var p=PROSPECTS.find(function(x){return x.id===id;});
+  if(p && expandedId===id){ renderActivityTab(p); renderNetworkTab(p); renderGlance(p); }
+  if($('scrTodo').classList.contains('on')) renderActivityScreen();
+  if($('scrCoi') && $('scrCoi').classList.contains('on')) renderCoiScreen();
+}
+function deleteActivity(id,idx){
+  var list=STATE.activity[id]||[];
+  if(!list[idx]||!confirm('Delete this activity entry?')) return;
+  list.splice(idx,1); saveState(); afterActivityChange(id);
+}
+
+// ===== ACCOUNT ACTIVITY TAB (log + touch plan) =====
+function renderActivityTab(p){
+  var id=p.id, acts=STATE.activity[id]||[], c=cadenceOf(id), nd=nextDue(id), tp=targetProgress(id), today=isoLocal();
+  var custom=c.every && !CADENCE_OPTS.some(function(o){return o[0]===c.every;});
+  var h='<div class="vx-card"><div class="vx-card-h">Touch plan <span style="font-weight:400;color:var(--text3)">optional: set by you or your manager</span></div>'+
+    '<div class="fg-grid">'+
+      '<div class="fg"><label>Frequency</label><select class="fi" onchange="if(this.value===\'custom\'){var d=prompt(\'Touch every how many days?\',\'10\');if(d)saveCadence(\''+jsq(id)+'\',\'every\',d);else this.value=\''+(c.every||0)+'\';}else saveCadence(\''+jsq(id)+'\',\'every\',this.value)">'+
+        CADENCE_OPTS.map(function(o){return '<option value="'+o[0]+'"'+(o[0]===(c.every||0)?' selected':'')+'>'+o[1]+'</option>';}).join('')+
+        (custom?'<option value="'+c.every+'" selected>Every '+c.every+' days</option>':'')+'<option value="custom">Custom...</option></select></div>'+
+      '<div class="fg"><label>Next touch due <span style="color:var(--text3)">(blank = automatic)</span></label><input class="fi" type="date" value="'+esc(c.due||'')+'" onchange="saveCadence(\''+jsq(id)+'\',\'due\',this.value)"></div>'+
+      '<div class="fg"><label>Assigned touches <span style="color:var(--text3)">(e.g. manager asked for 8)</span></label><input class="fi" type="number" min="0" value="'+(c.target||'')+'" placeholder="none" onchange="saveCadence(\''+jsq(id)+'\',\'target\',this.value)"></div>'+
+      '<div class="fg"><label>Counting from</label><input class="fi" type="date" value="'+esc(c.since||'')+'" onchange="saveCadence(\''+jsq(id)+'\',\'since\',this.value)"></div>'+
+    '</div>'+
+    '<div style="font-size:11px;color:var(--text2)">'+
+      (nd? 'Next touch: <strong style="color:'+(nd.date<today?'var(--bad)':'var(--text)')+'">'+fmtDate(nd.date)+(nd.date<today?' (overdue)':'')+'</strong>'+(nd.manual?' (set manually)':'')+' &nbsp; ' : '')+
+      (tp? 'Assigned touches: <strong>'+tp.done+' of '+tp.target+'</strong>'+(tp.since?' since '+fmtDate(tp.since):'') : '')+
+      (!nd&&!tp?'No touch plan set.':'')+
+    '</div></div>';
+  h+='<div style="display:flex;justify-content:space-between;align-items:center;margin:12px 0 6px">'+
+    '<div style="font-size:12px;font-weight:700;color:var(--text)">Engagement log <span style="font-weight:400;color:var(--text3)">'+acts.length+' entr'+(acts.length===1?'y':'ies')+'</span></div>'+
+    '<button class="cmd-btn" onclick="openActivityModal(\''+jsq(id)+'\')">+ Log Touch</button></div>';
+  if(!acts.length) h+='<div class="empty-state">No activity logged yet. Attempts count too: log calls and emails even when nobody answers.</div>';
+  else {
+    var order=acts.map(function(a,i){return {a:a,i:i};}).sort(function(x,y){ return (y.a.date||'').localeCompare(x.a.date||'') || y.i-x.i; });
+    order.forEach(function(o){ h+=actItemHtml(id,o.a,o.i,false); });
+  }
+  $('dpb-activity').innerHTML=h;
+}
+function actItemHtml(id,a,idx,showEntity){
+  var k=actKind(a);
+  var badge=a.info? '<span class="vx-pill vx-new">Info, not a touch</span>' : a.outcome? '<span class="vx-pill vx-'+k+'">'+esc(OUTCOMES[a.outcome]||a.outcome)+'</span>' : '';
+  return '<div class="act-item"><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">'+
+    '<span class="act-type">'+esc(ACT_TYPES[a.type]||a.type||'Other')+'</span>'+badge+
+    (a.topic?'<span class="vx-pill">'+esc(a.topic)+'</span>':'')+
+    '<span class="act-date" style="margin-left:auto">'+esc(fmtDate(a.date))+'</span>'+
+    (idx!=null?'<button class="todo-del" title="Delete entry" onclick="deleteActivity(\''+jsq(id)+'\','+idx+')">&#10005;</button>':'')+'</div>'+
+    (showEntity?'<div style="font-size:11px;font-weight:700;color:var(--text);margin-top:2px">'+esc(entityName(id))+'</div>':'')+
+    (a.contact?'<div style="font-size:11px;color:var(--text2);margin-top:2px">Contact: '+esc(a.contact)+'</div>':'')+
+    (a.notes?'<div class="act-notes" style="white-space:pre-wrap">'+esc(a.notes)+'</div>':'')+'</div>';
+}
+
+// ===== AT-A-GLANCE STRIP + STATUS UPDATE =====
+function latestOrgChange(id){
+  var best=null;
+  (STATE.contacts[id]||[]).forEach(function(c){ (c.history||[]).forEach(function(hh){ if(!best||(hh.date||'')>(best.date||'')) best={name:c.name,from:hh.from,to:hh.to,date:hh.date}; }); });
+  return best;
+}
+function renderGlance(p){
+  var el=$('dpGlance'); if(!el) return;
+  var id=p.id, s=acctStats(id), nd=nextDue(id), oc=latestOrgChange(id), today=isoLocal(), tp=targetProgress(id);
+  var people=Object.keys(s.people).map(function(n){ return esc(n)+(s.people[n]>1?' ('+s.people[n]+')':''); });
+  var chip=function(lbl,val,color){ return '<div class="vx-g"><div class="vx-g-l">'+lbl+'</div><div class="vx-g-v"'+(color?' style="color:'+color+'"':'')+'>'+val+'</div></div>'; };
+  el.innerHTML='<div class="vx-glance">'+
+    chip('Conversations',s.convo+(s.lastConvo?' <span>last '+fmtDate(s.lastConvo)+'</span>':''))+
+    chip('Attempts, no conversation',String(s.attempt))+
+    chip('Last touch',s.last? fmtDate(s.last.date)+' <span>'+daysAgo(s.last.date)+'d ago</span>' : 'None')+
+    chip('Next due',nd? fmtDate(nd.date)+(nd.date<today?' <span>overdue</span>':'') : '<span>no plan</span>',nd&&nd.date<today?'var(--bad)':'')+
+    (tp?chip('Assigned touches',tp.done+' / '+tp.target):'')+
+    chip('Spoken with',people.length? people.join(', ') : '<span>nobody yet</span>')+
+    (oc?chip('Latest org change',esc(oc.name)+': '+esc(oc.from||'?')+' &rarr; <strong>'+esc(oc.to)+'</strong> <span>'+fmtDate(oc.date)+'</span>','var(--warn-ink)'):'')+
+    '<div class="vx-g" style="justify-content:center"><button class="cmd-ghost" onclick="copyStatusUpdate(\''+jsq(id)+'\')">&#128203; Copy status update</button></div>'+
+  '</div>';
+}
+function statusText(id){
+  var p=PROSPECTS.find(function(x){return x.id===id;}); if(!p) return '';
+  var s=acctStats(id), nd=nextDue(id), oc=latestOrgChange(id), tp=targetProgress(id), L=[];
+  L.push(p.company+': status as of '+new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}));
+  L.push('Stage: '+stageLabel(getStage(id))+' | '+(STATE.warm[id]==='warm'?'Warm':'Cold')+(p.city||p.state?' | '+[p.city,p.state].filter(Boolean).join(', '):''));
+  L.push('Touches logged: '+s.total+' ('+s.convo+' conversation'+(s.convo===1?'':'s')+', '+s.attempt+' attempt'+(s.attempt===1?'':'s')+' without a conversation'+(s.other?', '+s.other+' other':'')+')'+
+    (s.last?'; last touch '+fmtDate(s.last.date)+' ('+(ACT_TYPES[s.last.type]||s.last.type)+(s.last.contact?', '+s.last.contact:'')+')':''));
+  if(tp) L.push('Assigned touches: '+tp.done+' of '+tp.target+(tp.since?' since '+fmtDate(tp.since):''));
+  var cs=(STATE.contacts[id]||[]).filter(function(c){return c.status!=='left';});
+  if(cs.length) L.push('Contacts: '+cs.map(function(c){ return c.name+(c.title?' ('+c.title+')':'')+(c.status==='new'?' [new in role]':'')+(c.key?' [key contact]':'')+(s.people[c.name]?': '+s.people[c.name]+' conversation'+(s.people[c.name]===1?'':'s'):''); }).join('; '));
+  if(oc) L.push('Org change: '+oc.name+', '+(oc.from||'?')+' to '+oc.to+' ('+fmtDate(oc.date)+')');
+  var net=STATE.network[id]||{}, cois=STATE.cois.filter(function(c){return (c.links||[]).indexOf(id)>-1;});
+  if(net.coi||cois.length) L.push('Center of influence: '+[net.coi].concat(cois.map(function(c){return c.name;})).filter(Boolean).join('; '));
+  if(STATE.actions[id]) L.push('Next step: '+STATE.actions[id]+(nd?' (next touch due '+fmtDate(nd.date)+')':''));
+  else if(nd) L.push('Next touch due: '+fmtDate(nd.date));
+  var recent=(STATE.activity[id]||[]).slice().sort(function(a,b){return (b.date||'').localeCompare(a.date||'');}).slice(0,5);
+  if(recent.length){ L.push('Recent activity:'); recent.forEach(function(a){ L.push('- '+fmtDate(a.date)+' '+(a.info?'Note':(ACT_TYPES[a.type]||a.type))+(a.outcome?' ('+(OUTCOMES[a.outcome]||a.outcome)+')':'')+(a.contact?', '+a.contact:'')+(a.notes?': '+a.notes.replace(/\s+/g,' ').slice(0,140):'')); }); }
+  return L.join('\n');
+}
+function copyText(txt,msg){
+  function fallback(){ var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(ta); showToast(msg||'Copied.'); }
+  if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(function(){ showToast(msg||'Copied.'); },fallback); else fallback();
+}
+function copyStatusUpdate(id){ copyText(statusText(id),'Status update copied. Paste it into your email.'); }
+
+// ===== CONTACTS (edit, status, title change) =====
+function contactCardHtml(id,c,i){
+  var sBadge=c.strength==='direct'?'strength-direct':c.strength==='warm'?'strength-warm':'strength-cold';
+  var last=(c.history||[]).slice(-1)[0];
+  return '<div class="net-card"'+(c.status==='left'?' style="opacity:.55"':'')+'>'+
+    '<div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px">'+(c.key?'&#11088; ':'')+esc(c.name)+'</div>'+
+    '<div style="font-size:10px;color:var(--text2);margin-bottom:4px">'+esc(c.title||'')+'</div>'+
+    '<span class="'+sBadge+'">'+esc(c.strength||'cold')+'</span> '+
+    (c.status==='new'?'<span class="vx-pill vx-new">New in role</span>':c.status==='left'?'<span class="vx-pill">Left company</span>':'')+
+    (last?'<div style="font-size:10px;color:var(--warn-ink);margin-top:4px">'+esc(last.from||'?')+' &rarr; '+esc(last.to)+' ('+esc(fmtDate(last.date))+')</div>':'')+
+    (c.note?'<div style="font-size:10px;color:var(--text2);margin-top:4px;white-space:pre-wrap">'+esc(c.note)+'</div>':'')+
+    (c.linkedin?'<div style="margin-top:5px"><a href="'+esc(c.linkedin)+'" target="_blank" style="font-size:10px;color:var(--active)">LinkedIn</a></div>':'')+
+    '<div style="display:flex;gap:4px;margin-top:6px;flex-wrap:wrap">'+
+      '<button class="vx-mini" onclick="openContactModal(\''+jsq(id)+'\','+i+')">Edit</button>'+
+      '<button class="vx-mini" onclick="openTitleChange(\''+jsq(id)+'\','+i+')">Title change</button>'+
+      '<button class="vx-mini" onclick="openActivityModal(\''+jsq(id)+'\',{contact:\''+jsq(c.name)+'\'})">Log</button>'+
+    '</div></div>';
+}
+function openContactModal(id,idx){
+  var c=idx!=null? (STATE.contacts[id]||[])[idx] : {};
+  _modalType='contact'; _modalId=id; _modalIdx=idx!=null?idx:null;
+  $('modalTitle').textContent=idx!=null?'Edit Contact':'Add Contact';
+  var o=function(v,l,cur){ return '<option value="'+v+'"'+(cur===v?' selected':'')+'>'+l+'</option>'; };
+  $('modalBody').innerHTML='<div class="fg-grid">'+
+    '<div class="fg"><label>Name</label><input class="fi" id="mConName" value="'+esc(c.name||'')+'" placeholder="Full name"></div>'+
+    '<div class="fg"><label>Title</label><input class="fi" id="mConTitle" value="'+esc(c.title||'')+'" placeholder="e.g. VP Finance"></div>'+
+    '<div class="fg"><label>Relationship</label><select id="mConStr" class="fi">'+o('cold','Cold: no connection',c.strength)+o('warm','Warm: mutual contact / met',c.strength)+o('direct','Direct: known relationship',c.strength)+'</select></div>'+
+    '<div class="fg"><label>Status</label><select id="mConStatus" class="fi">'+o('current','Current',c.status||'current')+o('new','New in role',c.status)+o('left','Left company',c.status)+'</select></div>'+
+    '</div>'+
+    '<div class="fg"><label>Relationship notes <span style="color:var(--text3)">(optional)</span></label><textarea class="fi" id="mConNote" style="width:100%;min-height:50px;resize:vertical" placeholder="e.g. Personal friend, played tennis together">'+esc(c.note||'')+'</textarea></div>'+
+    '<div class="fg"><label>LinkedIn URL (optional)</label><input class="fi" id="mConLinkedIn" value="'+esc(c.linkedin||'')+'" placeholder="https://linkedin.com/in/..." style="width:100%"></div>'+
+    '<label style="display:flex;gap:6px;align-items:center;font-size:11px;color:var(--text2)"><input type="checkbox" id="mConKey"'+(c.key?' checked':'')+'> Key contact (decision maker or main relationship)</label>'+
+    (idx!=null?'<div style="margin-top:10px"><button class="vx-mini" style="color:var(--bad)" onclick="deleteContact(\''+jsq(id)+'\','+idx+')">Delete contact</button></div>':'');
+  $('modalOverlay').classList.add('open');
+}
+function saveContactModal(){
+  var id=_modalId, name=$('mConName').value.trim();
+  if(!name){ showToast('Name is required.'); return; }
+  if(!STATE.contacts[id]) STATE.contacts[id]=[];
+  var list=STATE.contacts[id], c=_modalIdx!=null? list[_modalIdx] : {history:[],added:isoLocal()};
+  c.name=name; c.title=$('mConTitle').value.trim(); c.strength=$('mConStr').value; c.status=$('mConStatus').value;
+  c.note=$('mConNote').value.trim(); c.linkedin=$('mConLinkedIn').value.trim(); c.key=$('mConKey').checked;
+  if(_modalIdx==null) list.push(c);
+  saveState(); closeModal(); afterActivityChange(id);
+  showToast('Contact saved.');
+}
+function deleteContact(id,idx){
+  if(!confirm('Delete this contact?')) return;
+  (STATE.contacts[id]||[]).splice(idx,1); saveState(); closeModal(); afterActivityChange(id);
+}
+function openTitleChange(id,idx){
+  var c=(STATE.contacts[id]||[])[idx]; if(!c) return;
+  _modalType='titlechange'; _modalId=id; _modalIdx=idx;
+  $('modalTitle').textContent='Title / role change: '+c.name;
+  $('modalBody').innerHTML='<div class="fg-grid">'+
+    '<div class="fg"><label>Old title</label><input class="fi" id="tcFrom" value="'+esc(c.title||'')+'"></div>'+
+    '<div class="fg"><label>New title</label><input class="fi" id="tcTo" placeholder="e.g. CFO"></div>'+
+    '<div class="fg"><label>Effective date</label><input class="fi" type="date" id="tcDate" value="'+isoLocal()+'"></div>'+
+    '<div class="fg"><label>Status</label><select class="fi" id="tcStatus"><option value="new">New in role</option><option value="current">Current</option></select></div>'+
+    '</div>'+
+    '<div class="fg"><label>Why it matters <span style="color:var(--text3)">(optional)</span></label><textarea class="fi" id="tcNote" style="width:100%;min-height:50px;resize:vertical" placeholder="e.g. Personal relationship; now outranks the VP Finance I spoke with twice"></textarea></div>'+
+    '<label style="display:flex;gap:6px;align-items:center;font-size:11px;color:var(--text2)"><input type="checkbox" id="tcLog" checked> Add to engagement log as an org change</label>'+
+    '<label style="display:flex;gap:6px;align-items:center;font-size:11px;color:var(--text2);margin-top:4px"><input type="checkbox" id="tcKey"'+(c.key?' checked':'')+'> Mark as key contact</label>';
+  $('modalOverlay').classList.add('open');
+  setTimeout(function(){ $('tcTo').focus(); },60);
+}
+function saveTitleChange(){
+  var id=_modalId, c=(STATE.contacts[id]||[])[_modalIdx], to=$('tcTo').value.trim();
+  if(!c) return closeModal();
+  if(!to){ showToast('Enter the new title.'); return; }
+  var from=$('tcFrom').value.trim(), date=$('tcDate').value||isoLocal(), note=$('tcNote').value.trim();
+  if(!c.history) c.history=[];
+  c.history.push({date:date,from:from,to:to,note:note});
+  c.title=to; c.status=$('tcStatus').value; c.key=$('tcKey').checked;
+  if(note) c.note=(c.note?c.note+'\n':'')+note;
+  if($('tcLog').checked){
+    if(!STATE.activity[id]) STATE.activity[id]=[];
+    STATE.activity[id].push({type:'other',date:date,contact:c.name,outcome:'',topic:'Org change',info:true,notes:c.name+': '+(from||'?')+' to '+to+(note?'. '+note:'')});
+  }
+  saveState(); closeModal(); afterActivityChange(id);
+  showToast('Org change recorded.');
+}
+
+// ===== NETWORK TAB (per account) =====
+function renderNetworkTab(p){
+  var id=p.id, contacts=STATE.contacts[id]||[], network=STATE.network[id]||{dm:'',coi:'',intro:''};
+  var lbl=function(t,hint){ return '<div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">'+t+'</div>'+(hint?'<div style="font-size:10px;color:var(--text3);font-style:italic;margin-bottom:5px">'+hint+'</div>':''); };
+  var inp='width:100%;border:1px solid var(--border2);border-radius:3px;padding:5px 8px;font-size:12px;font-family:inherit;outline:none;color:var(--text);background:var(--surface)';
+  var h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">'+lbl('Contacts')+
+    '<button class="cmd-btn" onclick="openContactModal(\''+jsq(id)+'\')">+ Add Contact</button></div>';
+  h+= contacts.length? '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">'+contacts.map(function(c,i){ return contactCardHtml(id,c,i); }).join('')+'</div>'
+                     : '<div class="empty-state" style="padding:14px">No contacts yet. Add the people you talk to here; use "Title change" when someone moves into a new role.</div>';
+  var linked=STATE.cois.filter(function(c){ return (c.links||[]).indexOf(id)>-1; });
+  h+='<div style="display:flex;justify-content:space-between;align-items:center;margin:4px 0 8px">'+lbl('Centers of influence linked to this account')+
+     '<div style="display:flex;gap:4px"><button class="cmd-ghost" onclick="openLinkCoi(\''+jsq(id)+'\')">Link COI</button><button class="cmd-ghost" onclick="openCoiModal(null,\''+jsq(id)+'\')">+ New COI</button></div></div>';
+  h+= linked.length? '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">'+linked.map(function(c){
+        var by=coiById(c.introBy);
+        return '<div class="net-card"><div style="font-size:12px;font-weight:700">'+esc(c.name)+'</div><div style="font-size:10px;color:var(--text2)">'+esc(c.org||'')+'</div>'+
+          (by?'<div style="font-size:10px;color:var(--text3);margin-top:3px">Introduced by '+esc(by.name)+'</div>':'')+
+          '<div style="display:flex;gap:4px;margin-top:6px"><button class="vx-mini" onclick="showScreen(\'coi\');setTimeout(function(){coiFocus(\''+jsq(c.id)+'\')},50)">View</button><button class="vx-mini" onclick="unlinkCoi(\''+jsq(c.id)+'\',\''+jsq(id)+'\')">Unlink</button></div></div>';
+      }).join('')+'</div>'
+    : '<div style="font-size:11px;color:var(--text3);margin-bottom:16px">None linked. COIs are referral sources and connectors who may not work at this company.</div>';
+  h+='<div style="margin-bottom:12px">'+lbl('Decision Maker','Who controls the insurance buying decision -- typically CFO, Risk Manager, COO, or ownership.')+
+     '<input style="'+inp+'" value="'+esc(network.dm)+'" placeholder="Name, Title" onblur="saveNetworkField(\''+jsq(id)+'\',\'dm\',this.value)"></div>'+
+     '<div style="margin-bottom:12px">'+lbl('Center of Influence (notes)','Who in your network can open this door -- a mutual contact, referral source, or board member.')+
+     '<input style="'+inp+'" value="'+esc(network.coi)+'" placeholder="Name, relationship to account" onblur="saveNetworkField(\''+jsq(id)+'\',\'coi\',this.value)"></div>'+
+     '<div style="margin-bottom:14px">'+lbl('Intro Strategy')+
+     '<textarea style="'+inp+';resize:vertical;min-height:48px" placeholder="How to get in -- through whom, what event, what angle..." onblur="saveNetworkField(\''+jsq(id)+'\',\'intro\',this.value)">'+esc(network.intro)+'</textarea></div>';
+  $('dpb-network').innerHTML=h;
+}
+
+// ===== CENTERS OF INFLUENCE (people not tied to one account) =====
+// STATE.cois = [{id, name, org, title, strength, introBy (COI id), links:[account ids], notes, added}]
+function coiById(id){ if(!id) return null; for(var i=0;i<STATE.cois.length;i++) if(STATE.cois[i].id===id) return STATE.cois[i]; return null; }
+function openCoiModal(coiId,linkTo){
+  var c=coiById(coiId)||{links:linkTo?[linkTo]:[]};
+  _modalType='coi'; _modalId=coiId||null;
+  $('modalTitle').textContent=coiId?'Edit Center of Influence':'New Center of Influence';
+  var o=function(v,l){ return '<option value="'+v+'"'+((c.strength||'warm')===v?' selected':'')+'>'+l+'</option>'; };
+  $('modalBody').innerHTML='<div class="fg-grid">'+
+    '<div class="fg"><label>Name</label><input class="fi" id="coiName" value="'+esc(c.name||'')+'" placeholder="Full name"></div>'+
+    '<div class="fg"><label>Organization / role</label><input class="fi" id="coiOrg" value="'+esc(c.org||'')+'" placeholder="e.g. Retired, Marsh SVP"></div>'+
+    '<div class="fg"><label>Relationship</label><select class="fi" id="coiStr">'+o('cold','Cold')+o('warm','Warm')+o('direct','Direct')+'</select></div>'+
+    '<div class="fg"><label>Introduced by <span style="color:var(--text3)">(optional)</span></label><select class="fi" id="coiBy"><option value="">--</option>'+
+      STATE.cois.filter(function(x){return x.id!==coiId;}).map(function(x){ return '<option value="'+esc(x.id)+'"'+(x.id===c.introBy?' selected':'')+'>'+esc(x.name)+'</option>'; }).join('')+'</select></div>'+
+    '</div>'+
+    '<div class="fg"><label>Notes <span style="color:var(--text3)">(who they can introduce, how you know them)</span></label><textarea class="fi" id="coiNotes" style="width:100%;min-height:60px;resize:vertical">'+esc(c.notes||'')+'</textarea></div>'+
+    '<div class="fg"><label>Linked accounts <span style="color:var(--text3)">(companies they connect you to)</span></label>'+
+      '<input class="fi" placeholder="Filter..." style="width:100%;margin-bottom:4px" oninput="var q=this.value.toLowerCase();Array.prototype.forEach.call(document.querySelectorAll(\'#coiLinks label\'),function(l){l.style.display=l.textContent.toLowerCase().indexOf(q)>-1?\'\':\'none\';})">'+
+      '<div id="coiLinks" style="max-height:150px;overflow:auto;border:1px solid var(--border);border-radius:4px;padding:6px">'+
+      PROSPECTS.slice().sort(function(a,b){return a.company.localeCompare(b.company);}).map(function(p){
+        return '<label style="display:flex;gap:6px;align-items:center;font-size:11px;padding:2px 0"><input type="checkbox" value="'+esc(p.id)+'"'+((c.links||[]).indexOf(p.id)>-1?' checked':'')+'> '+esc(p.company)+'</label>';
+      }).join('')+'</div></div>'+
+    (coiId?'<button class="vx-mini" style="color:var(--bad)" onclick="deleteCoi(\''+jsq(coiId)+'\')">Delete COI</button>':'');
+  $('modalOverlay').classList.add('open');
+}
+function saveCoiModal(){
+  var name=$('coiName').value.trim(); if(!name){ showToast('Name is required.'); return; }
+  var c=coiById(_modalId);
+  if(!c){ c={id:'C-'+Date.now().toString(36).toUpperCase(),added:isoLocal()}; STATE.cois.push(c); }
+  c.name=name; c.org=$('coiOrg').value.trim(); c.strength=$('coiStr').value; c.introBy=$('coiBy').value; c.notes=$('coiNotes').value.trim();
+  c.links=Array.prototype.map.call(document.querySelectorAll('#coiLinks input:checked'),function(i){return i.value;});
+  saveState(); closeModal(); showToast('COI saved.');
+  if(expandedId){ var p=PROSPECTS.find(function(x){return x.id===expandedId;}); if(p) renderNetworkTab(p); }
+  if($('scrCoi').classList.contains('on')) renderCoiScreen();
+}
+function deleteCoi(id){
+  if(!confirm('Delete this center of influence? Their logged touches are deleted too.')) return;
+  STATE.cois=STATE.cois.filter(function(c){return c.id!==id;});
+  STATE.cois.forEach(function(c){ if(c.introBy===id) c.introBy=''; });
+  delete STATE.activity[id];
+  saveState(); closeModal(); renderCoiScreen();
+}
+function openLinkCoi(accountId){
+  if(!STATE.cois.length){ openCoiModal(null,accountId); return; }
+  _modalType='linkcoi'; _modalId=accountId;
+  $('modalTitle').textContent='Link a center of influence';
+  $('modalBody').innerHTML='<div class="fg"><label>COI</label><select class="fi" id="lcSel" style="width:100%">'+
+    STATE.cois.map(function(c){ return '<option value="'+esc(c.id)+'">'+esc(c.name)+(c.org?' ('+esc(c.org)+')':'')+'</option>'; }).join('')+'</select></div>';
+  $('modalOverlay').classList.add('open');
+}
+function saveLinkCoi(){
+  var c=coiById($('lcSel').value); if(c){ c.links=c.links||[]; if(c.links.indexOf(_modalId)<0) c.links.push(_modalId); saveState(); }
+  var id=_modalId; closeModal();
+  var p=PROSPECTS.find(function(x){return x.id===id;}); if(p) renderNetworkTab(p);
+}
+function unlinkCoi(coiId,accountId){
+  var c=coiById(coiId); if(!c) return;
+  c.links=(c.links||[]).filter(function(x){return x!==accountId;}); saveState();
+  var p=PROSPECTS.find(function(x){return x.id===accountId;}); if(p) renderNetworkTab(p);
+}
+function coiFocus(id){ var el=$('coi_'+id); if(el){ el.scrollIntoView({block:'center'}); el.style.boxShadow='0 0 0 2px var(--active)'; setTimeout(function(){ el.style.boxShadow=''; },1600); } }
+function renderCoiScreen(){
+  var el=$('coiList'); if(!el) return;
+  var q=(($('coiFilter')||{}).value||'').toLowerCase();
+  var list=STATE.cois.filter(function(c){ return !q || (c.name+' '+(c.org||'')+' '+(c.notes||'')).toLowerCase().indexOf(q)>-1; })
+    .sort(function(a,b){return a.name.localeCompare(b.name);});
+  if(!STATE.cois.length){ el.innerHTML='<div class="empty-state">No centers of influence yet. Add referral sources, connectors and mentors who are not tied to one prospect, then link them to the accounts they can open.</div>'; return; }
+  el.innerHTML=list.map(function(c){
+    var by=coiById(c.introBy), introduced=STATE.cois.filter(function(x){return x.introBy===c.id;}), s=acctStats(c.id);
+    var sBadge=c.strength==='direct'?'strength-direct':c.strength==='warm'?'strength-warm':'strength-cold';
+    return '<div class="vx-card" id="coi_'+esc(c.id)+'">'+
+      '<div style="display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap">'+
+        '<div style="flex:1;min-width:180px"><div style="font-size:13px;font-weight:700">'+esc(c.name)+' <span class="'+sBadge+'">'+esc(c.strength||'warm')+'</span></div>'+
+        '<div style="font-size:11px;color:var(--text2)">'+esc(c.org||'')+'</div></div>'+
+        '<div style="display:flex;gap:4px"><button class="vx-mini" onclick="openActivityModal(\''+jsq(c.id)+'\')">Log touch</button><button class="vx-mini" onclick="openCoiModal(\''+jsq(c.id)+'\')">Edit</button></div>'+
+      '</div>'+
+      '<div style="font-size:11px;color:var(--text2);margin-top:6px;line-height:1.7">'+
+        (by?'Introduced by <a href="#" onclick="coiFocus(\''+jsq(by.id)+'\');return false" style="color:var(--active)">'+esc(by.name)+'</a><br>':'')+
+        (introduced.length?'Introduced you to: '+introduced.map(function(x){return '<a href="#" onclick="coiFocus(\''+jsq(x.id)+'\');return false" style="color:var(--active)">'+esc(x.name)+'</a>';}).join(', ')+'<br>':'')+
+        'Connects to: '+((c.links||[]).length? (c.links||[]).map(function(pid){ var p=PROSPECTS.find(function(x){return x.id===pid;}); return p? '<a href="#" onclick="showScreen(\'pipeline\');setTimeout(function(){openDetail(\''+jsq(pid)+'\')},120);return false" class="vx-pill" style="text-decoration:none;color:#fff;background:'+stageColor(getStage(pid))+'">'+esc(p.company)+'</a>' : ''; }).join(' ') : '<span style="color:var(--text3)">no accounts linked yet</span>')+'<br>'+
+        'Touches: '+s.total+(s.last?' (last '+fmtDate(s.last.date)+')':'')+
+      '</div>'+
+      (c.notes?'<div style="font-size:11px;color:var(--text);margin-top:6px;white-space:pre-wrap">'+esc(c.notes)+'</div>':'')+
+    '</div>';
+  }).join('') || '<div class="empty-state">No matches.</div>';
+}
+
+// ===== ACTIVITY SCREEN (follow-ups + one-on-one review) =====
+function allActivity(){
+  var out=[];
+  Object.keys(STATE.activity).forEach(function(id){ (STATE.activity[id]||[]).forEach(function(a,i){ if(isTouch(a)) out.push({id:id,a:a,i:i}); }); });
+  return out;
+}
+function followUpBuckets(){
+  var today=isoLocal(), week=addDays(today,7), sd=STATE.settings.stallDays, sa=STATE.settings.stallAttempts, from=addDays(today,-sd);
+  var b={overdue:[],due:[],stalled:[],never:[],targets:[]};
+  PROSPECTS.forEach(function(p){
+    var st=getStage(p.id); if(st==='won'||st==='lost') return;
+    var nd=nextDue(p.id), all=acctStats(p.id), recent=acctStats(p.id,from), tp=targetProgress(p.id);
+    if(nd && nd.date<today) b.overdue.push({p:p,nd:nd,s:all});
+    else if(nd && nd.date<=week) b.due.push({p:p,nd:nd,s:all});
+    if(recent.attempt>=sa && recent.convo===0) b.stalled.push({p:p,s:recent,all:all});
+    if(!all.total) b.never.push({p:p});
+    if(tp && tp.done<tp.target) b.targets.push({p:p,tp:tp,s:all});
+  });
+  b.overdue.sort(function(x,y){return x.nd.date.localeCompare(y.nd.date);});
+  b.due.sort(function(x,y){return x.nd.date.localeCompare(y.nd.date);});
+  return b;
+}
+function renderActivityScreen(){
+  var el=$('actScreenBody'); if(!el) return;
+  var today=isoLocal(), d=new Date(today+'T12:00:00'), dow=(d.getDay()+6)%7, weekStart=addDays(today,-dow), monthStart=today.slice(0,8)+'01';
+  var all=allActivity();
+  var count=function(from){ var r={t:0,c:0,a:0}; all.forEach(function(x){ if((x.a.date||'')>=from && (x.a.date||'')<=today){ r.t++; var k=actKind(x.a); if(k==='convo') r.c++; if(k==='attempt') r.a++; } }); return r; };
+  var kt=count(today), kw=count(weekStart), km=count(monthStart);
+  var pl=function(n,w){ return n+' '+w+(n===1?'':'s'); };
+  var kpi=function(r,l){ return '<div class="kpi"><div class="kpi-val">'+r.t+'</div><div class="kpi-lbl">'+l+'</div><div style="font-size:10px;color:var(--text3);margin-top:3px">'+pl(r.c,'conversation')+' &bull; '+pl(r.a,'attempt')+'</div></div>'; };
+  var b=followUpBuckets();
+  var row=function(p,right){ return '<div class="vx-row"><div style="flex:1;min-width:0"><a href="#" onclick="showScreen(\'pipeline\');setTimeout(function(){openDetail(\''+jsq(p.id)+'\')},120);return false" style="font-weight:700;color:var(--text);text-decoration:none">'+esc(p.company)+'</a> '+stageBadge(getStage(p.id))+'</div>'+
+    '<div style="font-size:11px;color:var(--text2);text-align:right">'+right+'</div><button class="vx-mini" onclick="openActivityModal(\''+jsq(p.id)+'\')">Log</button></div>'; };
+  var section=function(key,title,hint,items,render){
+    return '<details class="vx-card" '+(items.length&&key!=='never'?'open':'')+'><summary class="vx-card-h" style="cursor:pointer">'+title+' <span class="vx-count">'+items.length+'</span> <span style="font-weight:400;color:var(--text3)">'+hint+'</span></summary>'+
+      (items.length? items.map(render).join('') : '<div style="font-size:11px;color:var(--text3);padding:6px 0">Nothing here.</div>')+'</details>';
+  };
+  var h='<div class="kpi-row">'+kpi(kt,'Touches today')+kpi(kw,'Touches this week')+kpi(km,'Touches this month')+'</div>';
+  h+=section('overdue','Overdue','next touch date has passed',b.overdue,function(x){ return row(x.p,'<span style="color:var(--bad);font-weight:700">due '+fmtDate(x.nd.date)+'</span><br>last touch '+(x.s.last?fmtDate(x.s.last.date):'never')); });
+  h+=section('due','Due in the next 7 days','',b.due,function(x){ return row(x.p,'due '+fmtDate(x.nd.date)+'<br>last touch '+(x.s.last?fmtDate(x.s.last.date):'never')); });
+  h+=section('stalled','Outreach made, no conversation yet',
+    'at least <input type="number" min="1" value="'+STATE.settings.stallAttempts+'" style="width:42px" class="fi" onclick="event.stopPropagation()" onchange="STATE.settings.stallAttempts=Math.max(1,+this.value||1);saveState();renderActivityScreen()"> attempts in the last <input type="number" min="1" value="'+STATE.settings.stallDays+'" style="width:48px" class="fi" onclick="event.stopPropagation()" onchange="STATE.settings.stallDays=Math.max(1,+this.value||1);saveState();renderActivityScreen()"> days and no conversation',
+    b.stalled,function(x){ return row(x.p,x.s.attempt+' attempts, 0 conversations<br>last attempt '+(x.s.last?fmtDate(x.s.last.date):'')); });
+  h+=section('targets','Assigned touches in progress','',b.targets,function(x){ var pct=Math.round(100*x.tp.done/x.tp.target); return row(x.p,x.tp.done+' of '+x.tp.target+' touches<div class="vx-bar"><div style="width:'+pct+'%"></div></div>'); });
+  h+=section('never','No activity logged','open accounts with nothing logged yet',b.never,function(x){ return row(x.p,'never touched'); });
+  el.innerHTML=h;
+  renderReportPreview();
+}
+function reportText(from,to){
+  var L=[], acts=allActivity().filter(function(x){ return (x.a.date||'')>=from && (x.a.date||'')<=to; });
+  var range=fmtDate(from)+' to '+fmtDate(to);
+  var tot={t:acts.length,c:0,a:0,o:0}, byType={};
+  acts.forEach(function(x){ var k=actKind(x.a); if(k==='convo')tot.c++; else if(k==='attempt')tot.a++; else tot.o++; var t=ACT_TYPES[x.a.type]||x.a.type||'Other'; byType[t]=(byType[t]||0)+1; });
+  L.push('Activity summary: '+range);
+  L.push('Total touches: '+tot.t+' ('+tot.c+' conversation'+(tot.c===1?'':'s')+', '+tot.a+' attempt'+(tot.a===1?'':'s')+' without a conversation'+(tot.o?', '+tot.o+' other':'')+')');
+  if(tot.t) L.push('By type: '+Object.keys(byType).map(function(k){return k+' '+byType[k];}).join(', '));
+  var byEnt={}; acts.forEach(function(x){ (byEnt[x.id]=byEnt[x.id]||[]).push(x.a); });
+  var ids=Object.keys(byEnt).sort(function(a,b){ return entityName(a).localeCompare(entityName(b)); });
+  if(ids.length){
+    L.push(''); L.push('Accounts and contacts touched:');
+    ids.forEach(function(id){
+      var list=byEnt[id], c=0, a=0; list.forEach(function(x){ var k=actKind(x); if(k==='convo')c++; if(k==='attempt')a++; });
+      var p=PROSPECTS.find(function(x){return x.id===id;});
+      L.push('- '+entityName(id)+(p?' ('+stageLabel(getStage(id))+')':'')+': '+list.length+' touch'+(list.length===1?'':'es')+' ('+c+' conversation'+(c===1?'':'s')+', '+a+' attempt'+(a===1?'':'s')+')');
+      list.slice().sort(function(x,y){return (x.date||'').localeCompare(y.date||'');}).forEach(function(x){
+        L.push('    '+fmtDate(x.date)+' '+(ACT_TYPES[x.type]||x.type)+(x.outcome?' ('+(OUTCOMES[x.outcome]||x.outcome)+')':'')+(x.contact?', '+x.contact:'')+(x.topic?' ['+x.topic+']':'')+(x.notes?': '+x.notes.replace(/\s+/g,' ').slice(0,120):''));
+      });
+    });
+  }
+  var b=followUpBuckets();
+  if(b.stalled.length){ L.push(''); L.push('Outreach made, no response yet (last '+STATE.settings.stallDays+' days):'); b.stalled.forEach(function(x){ L.push('- '+x.p.company+': '+x.s.attempt+' attempts, last '+fmtDate(x.s.last&&x.s.last.date)); }); }
+  if(b.overdue.length){ L.push(''); L.push('Follow-ups overdue:'); b.overdue.forEach(function(x){ L.push('- '+x.p.company+': due '+fmtDate(x.nd.date)); }); }
+  if(b.targets.length){ L.push(''); L.push('Assigned touches in progress:'); b.targets.forEach(function(x){ L.push('- '+x.p.company+': '+x.tp.done+' of '+x.tp.target); }); }
+  var changes=[]; PROSPECTS.forEach(function(p){ (STATE.contacts[p.id]||[]).forEach(function(c){ (c.history||[]).forEach(function(hh){ if(hh.date>=from&&hh.date<=to) changes.push('- '+p.company+': '+c.name+', '+(hh.from||'?')+' to '+hh.to+' ('+fmtDate(hh.date)+')'); }); }); });
+  if(changes.length){ L.push(''); L.push('Org changes:'); L=L.concat(changes); }
+  return L.join('\n');
+}
+function reportRange(){
+  var to=($('rptTo')||{}).value||isoLocal(), from=($('rptFrom')||{}).value||addDays(to,-6);
+  return [from,to];
+}
+function renderReportPreview(){ var r=reportRange(), el=$('rptOut'); if(el) el.textContent=reportText(r[0],r[1]); }
+function copyReport(){ var r=reportRange(); copyText(reportText(r[0],r[1]),'Activity summary copied. Paste it into your one-on-one notes or email.'); }
+
+// ===== PASTE SUMMARY (e.g. from a Lenwork Outlook/Teams scan) =====
+var LENWORK_PROMPT='Review my Outlook sent items, inbox replies, calendar meetings and Teams chats from the last 7 days. '+
+  'List every outreach or conversation with an external contact at a prospect company or a referral source. Leave out internal Marsh colleagues.\n'+
+  'Output ONLY lines in this exact format, one line per touch, no headers, bullets or commentary:\n'+
+  'YYYY-MM-DD | Company | Contact name | Type | Outcome | Topic | Short note\n'+
+  'Type: Call, Email, LinkedIn, Meeting, Event, Text\n'+
+  'Outcome: Conversation, Replied, Meeting booked, Not interested, Voicemail, No answer, Sent\n'+
+  'Topic: RFP timeline, Renewal date, Org change, New contact, New administration, Referral, Follow-up, Proposal, Other\n'+
+  'If a field is unknown leave it empty but keep the | separators. Use the company name exactly as it appears in my email signature lines or domains.';
+var PASTE_PLAN=null;
+function matchKey(map,v){
+  v=String(v||'').toLowerCase().trim(); if(!v) return '';
+  var keys=Object.keys(map);
+  for(var i=0;i<keys.length;i++){ if(keys[i]===v || String(map[keys[i]]).toLowerCase()===v) return keys[i]; }
+  var syn={phone:'call',called:'call','in person':'event','in-person':'event',lunch:'meeting',coffee:'meeting',teams:'text',sms:'text',inmail:'linkedin',
+    connected:'conversation',spoke:'conversation',talked:'conversation','left vm':'voicemail',vm:'voicemail','no response':'sent','no reply':'sent','meeting set':'meeting','not interested':'declined',booked:'meeting'};
+  for(var s in syn){ if(v.indexOf(s)>-1 && map[syn[s]]!=null) return syn[s]; }
+  for(i=0;i<keys.length;i++){ if(v.indexOf(keys[i])>-1 || String(map[keys[i]]).toLowerCase().indexOf(v)>-1) return keys[i]; }
+  return '';
+}
+function parseLooseDate(v){
+  v=String(v||'').trim(); var m;
+  if((m=v.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/))) return m[1]+'-'+('0'+m[2]).slice(-2)+'-'+('0'+m[3]).slice(-2);
+  if((m=v.match(/^(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?$/))){ var y=m[3]? (m[3].length===2?'20'+m[3]:m[3]) : isoLocal().slice(0,4); return y+'-'+('0'+m[1]).slice(-2)+'-'+('0'+m[2]).slice(-2); }
+  return '';
+}
+function resolveEntity(name){
+  var n=normCo(name); if(!n) return '';
+  var p=PROSPECTS.find(function(x){ return normCo(x.company)===n; }); if(p) return p.id;
+  p=PROSPECTS.find(function(x){ var c=normCo(x.company); return c.length>3 && (c.indexOf(n)===0 || n.indexOf(c)===0); }); if(p) return p.id;
+  var c=STATE.cois.find(function(x){ return normCo(x.name)===n; }); return c? c.id : '';
+}
+function openPasteModal(){
+  _modalType='paste'; _modalId=null;
+  $('modalTitle').textContent='Paste activity summary';
+  $('modalBody').innerHTML=
+    '<div style="font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:8px">Paste lines in the format <code>date | company | contact | type | outcome | topic | note</code> (tab-separated rows copied from Excel also work). '+
+    'To get this from Lenwork, copy the prompt below into a Lenwork scheduled task or chat, then paste its answer here. You review everything before it is saved.</div>'+
+    '<div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap"><button class="cmd-ghost" onclick="copyText(LENWORK_PROMPT,\'Lenwork prompt copied.\')">&#128203; Copy Lenwork prompt</button>'+
+    '<button class="cmd-ghost" onclick="$(\'pasteText\').value=\''+isoLocal()+' | Acme Corporation | Jane Smith | Call | Voicemail | Follow-up | Left VM re: renewal\';">Show example</button></div>'+
+    '<textarea class="fi" id="pasteText" style="width:100%;min-height:140px;resize:vertical;font-family:Consolas,monospace;font-size:11px" placeholder="2026-11-18 | Acme Corporation | Jane Smith | Call | Voicemail | Follow-up | Left VM re: renewal"></textarea>'+
+    '<div style="margin-top:8px"><button class="cmd-btn" onclick="parsePaste()">Review</button></div>'+
+    '<div id="pasteReview" style="margin-top:10px"></div>';
+  $('modalOverlay').classList.add('open');
+}
+function parsePaste(){
+  var text=$('pasteText').value, rows=[], dup=0, raw=0;
+  text.split(/\r?\n/).forEach(function(line){
+    if(!line.trim()) return;
+    var cells=line.indexOf('|')>-1? line.split('|') : line.split('\t');
+    cells=cells.map(function(c){ return c.trim().replace(/^[-*•]\s*/,''); });
+    if(cells.length<3){ raw++; return; }
+    var date=parseLooseDate(cells[0]); if(!date && /date/i.test(cells[0])) return;
+    var r={date:date||isoLocal(),company:cells[1]||'',contact:cells[2]||'',type:matchKey(ACT_TYPES,cells[3])||'other',outcome:matchKey(OUTCOMES,cells[4]),
+      topic:'',notes:cells.slice(6).join(' | ')||'',on:true};
+    var t=(cells[5]||'').toLowerCase(); STATE.settings.topics.forEach(function(x){ if(t && !r.topic && (x.toLowerCase().indexOf(t)>-1||t.indexOf(x.toLowerCase().split(' ')[0])>-1)) r.topic=x; });
+    if(!r.topic && cells[5]) r.notes=(cells[5]+(r.notes?'. '+r.notes:''));
+    r.entity=resolveEntity(r.company);
+    if(r.entity && (STATE.activity[r.entity]||[]).some(function(a){ return a.date===r.date && a.type===r.type && (a.notes||'')===r.notes && (a.contact||'')===r.contact; })){ r.on=false; r.dup=true; dup++; }
+    rows.push(r);
+  });
+  PASTE_PLAN=rows;
+  var el=$('pasteReview');
+  if(!rows.length){
+    el.innerHTML='<div style="font-size:11px;color:var(--warn-ink);margin-bottom:6px">No structured lines found. To save the whole text as one note instead, pick an account:</div>'+
+      '<select class="fi" id="pasteWhole" style="width:100%;margin-bottom:6px">'+entityOptions('')+'</select><button class="cmd-btn" onclick="savePasteWhole()">Save as one note</button>';
+    return;
+  }
+  var h='<div style="font-size:11px;color:var(--text2);margin-bottom:6px">'+rows.length+' line'+(rows.length===1?'':'s')+' found'+(dup?', '+dup+' already logged (unticked)':'')+(raw?', '+raw+' unreadable line'+(raw===1?'':'s')+' skipped':'')+'. Unmatched companies need an account picked.</div>'+
+    '<div style="max-height:260px;overflow:auto"><table class="tbl"><thead><tr><th></th><th>Date</th><th>Account / COI</th><th>Type</th><th>Outcome</th><th>Contact / note</th></tr></thead><tbody>';
+  rows.forEach(function(r,i){
+    h+='<tr style="cursor:default"><td><input type="checkbox"'+(r.on?' checked':'')+' onchange="PASTE_PLAN['+i+'].on=this.checked"></td><td>'+esc(fmtDate(r.date))+'</td>'+
+      '<td><select class="fi" style="max-width:170px'+(r.entity?'':';border-color:var(--bad)')+'" onchange="PASTE_PLAN['+i+'].entity=this.value;this.style.borderColor=\'\'">'+entityOptions(r.entity)+'</select>'+(r.entity?'':'<div style="font-size:10px;color:var(--bad)">"'+esc(r.company)+'" not found</div>')+'</td>'+
+      '<td>'+esc(ACT_TYPES[r.type])+'</td><td>'+esc(OUTCOMES[r.outcome]||'')+'</td><td style="font-size:11px">'+esc(r.contact)+(r.notes?'<div style="color:var(--text2)">'+esc(r.notes.slice(0,90))+'</div>':'')+'</td></tr>';
+  });
+  h+='</tbody></table></div><div style="margin-top:8px"><button class="cmd-btn" onclick="applyPaste()">&#10003; Save selected</button></div>';
+  el.innerHTML=h;
+}
+function applyPaste(){
+  var n=0, skipped=0, touched={};
+  (PASTE_PLAN||[]).forEach(function(r){
+    if(!r.on) return;
+    if(!r.entity){ skipped++; return; }
+    if(!STATE.activity[r.entity]) STATE.activity[r.entity]=[];
+    STATE.activity[r.entity].push({type:r.type,date:r.date,contact:r.contact,outcome:r.outcome,topic:r.topic,notes:r.notes,src:'paste'});
+    touched[r.entity]=1; n++;
+  });
+  saveState(); closeModal(); PASTE_PLAN=null;
+  showToast(n+' touch'+(n===1?'':'es')+' saved'+(skipped?', '+skipped+' skipped (no account picked)':'')+'.');
+  Object.keys(touched).forEach(afterActivityChange);
+  if($('scrTodo').classList.contains('on')) renderActivityScreen();
+}
+function savePasteWhole(){
+  var id=$('pasteWhole').value; if(!id){ showToast('Pick an account.'); return; }
+  if(!STATE.activity[id]) STATE.activity[id]=[];
+  STATE.activity[id].push({type:'other',date:isoLocal(),contact:'',outcome:'',topic:'',notes:$('pasteText').value.trim(),src:'paste'});
+  saveState(); closeModal(); showToast('Note saved to '+entityName(id)+'.'); afterActivityChange(id);
+}
+
+// ===== RESEARCH PASTE-BACK (fills hook + displacement from a LenAI/Claude answer) =====
+var PG_TAIL='\n\nEnd your answer with exactly these two lines so I can paste them into my dashboard:\nHOOK: <one sentence conversation opener>\nDISPLACEMENT: <one sentence on why they might move to Marsh>';
+function pgApplyResult(id){
+  var txt=($('pgRes_'+id)||{}).value||'';
+  var grab=function(re){ var m=txt.match(re); return m? m[1].replace(/\*+/g,'').trim() : ''; };
+  var hook=grab(/^[\s*#>-]*(?:conversation\s+)?hook\**\s*[:\-–]\s*(.+)$/im);
+  var disp=grab(/^[\s*#>-]*displacement(?:\s+angle)?\**\s*[:\-–]\s*(.+)$/im);
+  if(!hook && !disp){ showToast('No "HOOK:" or "DISPLACEMENT:" line found in the pasted text.'); return; }
+  var over=[]; if(hook && STATE.hook[id]) over.push('hook'); if(disp && STATE.displace[id]) over.push('displacement angle');
+  if(over.length && !confirm('Replace the existing '+over.join(' and ')+'?')) return;
+  if(hook) STATE.hook[id]=hook;
+  if(disp) STATE.displace[id]=disp;
+  saveState();
+  var p=PROSPECTS.find(function(x){return x.id===id;}); if(p) renderIntelTab(p);
+  showToast('Filled: '+[hook?'hook':'',disp?'displacement angle':''].filter(Boolean).join(' and ')+'.');
+}
+
+// ===== FULL BACKUP (everything, including contacts, COIs and touch plans) =====
+function downloadBackup(){
+  var data={app:'VANTAGE',version:6,exported:new Date().toISOString(),prospects:PROSPECTS,state:STATE};
+  VX.downloadText('VANTAGE_Backup_'+isoLocal()+'.json',JSON.stringify(data),'application/json');
+  showToast('Backup downloaded.');
+}
+function restoreBackup(e){
+  var f=e.target.files[0]; if(!f) return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    try{
+      var d=JSON.parse(ev.target.result);
+      if(!d||d.app!=='VANTAGE'||!d.state||!d.prospects) throw new Error('not a VANTAGE backup file');
+      if(!confirm('Replace ALL current dashboard data with this backup from '+String(d.exported).slice(0,10)+' ('+d.prospects.length+' prospects)?')) return;
+      var st=d.state; st.records={};
+      d.prospects.forEach(function(p){ var rec={}; REC_KEYS.forEach(function(k){ if(p[k]!==undefined) rec[k]=p[k]; }); st.records[p.id]=rec; });
+      STATE=st; ensureState();
+      var ok=saveState();
+      PROSPECTS.length=0; d.prospects.forEach(function(p){ PROSPECTS.push(p); });
+      refreshAfterDataChange();
+      showToast('Backup restored'+(ok?'':' (this browser blocks saving: export before closing)')+'.');
+    }catch(err){ showToast('Could not restore: '+err.message); }
+    e.target.value='';
+  };
+  r.readAsText(f);
+}
+
 // ===== DATA FIELDS (single source of truth) =====
 // Drives Excel import, the review screen, Excel export and the template.
 // To add a column: add ONE entry here. Nothing else needs to change.
@@ -1555,7 +2206,7 @@ var FIELDS = [
   {key:'intro',      label:'Intro Strategy',      store:'net',   aliases:['introstrategy','intro']}
 ];
 // Activity columns (import only; exported on a separate "Activity" sheet)
-var ACT_ALIASES = {type:['activitytype','acttype'], date:['activitydate','actdate'], notes:['activitynotes','actnotes'], contact:['activitycontact']};
+var ACT_ALIASES = {type:['activitytype','acttype'], date:['activitydate','actdate'], notes:['activitynotes','actnotes'], contact:['activitycontact'], outcome:['activityoutcome','outcome'], topic:['activitytopic','topic']};
 
 var REC_KEYS = FIELDS.filter(function(f){return f.store==='rec';}).map(function(f){return f.key;});
 var FIELD_BY_ALIAS = (function(){
@@ -1629,7 +2280,7 @@ function cleanValue(key,v,warn){
       var st=normStage(v); if(!st) warn('unknown stage "'+v+'" (use prospect, engaged, proposal, won, lost or 1-7)'); return st;
     case 'warm':
       var w=normWarm(v); if(!w) warn('unknown warm value "'+v+'" (use warm or cold)'); return w;
-    case 'id':    return String(v).trim();
+    case 'id':    return String(v).trim().replace(/[^A-Za-z0-9_.\-]/g,'');
     default:      return String(v).trim();
   }
 }
@@ -1721,7 +2372,7 @@ function parseRow(row,rowNum,warnings){
     var v=cleanValue(key,raw,function(msg){ warnings.push('Row '+rowNum+': '+msg); });
     if(v!==null) data[key]=v;
   });
-  var activity=(act.type||act.notes)? {type:(act.type||'other').toLowerCase(),date:act.date||'',contact:act.contact||'',notes:act.notes||''} : null;
+  var activity=(act.type||act.notes)? {type:matchKey(ACT_TYPES,act.type)||'other',date:parseLooseDate(act.date)||act.date||'',contact:act.contact||'',notes:act.notes||'',outcome:matchKey(OUTCOMES,act.outcome),topic:act.topic||''} : null;
   return {data:data,activity:activity};
 }
 
@@ -1942,15 +2593,23 @@ function exportExcel(){
       return v==null? '' : v;
     }));
   });
-  var acts=[['ID','Company','Activity Type','Activity Date','Activity Contact','Activity Notes']];
+  var acts=[['ID','Company','Activity Type','Activity Date','Activity Contact','Activity Outcome','Activity Topic','Activity Notes']];
   PROSPECTS.forEach(function(p){
-    (STATE.activity[p.id]||[]).forEach(function(a){ acts.push([p.id,p.company,a.type||'',a.date||'',a.contact||'',a.notes||'']); });
+    (STATE.activity[p.id]||[]).forEach(function(a){ acts.push([p.id,p.company,ACT_TYPES[a.type]||a.type||'',a.date||'',a.contact||'',OUTCOMES[a.outcome]||'',a.topic||'',a.notes||'']); });
   });
+  var cons=[['ID','Company','Name','Title','Relationship','Status','Key Contact','Notes','Title History']];
+  PROSPECTS.forEach(function(p){
+    (STATE.contacts[p.id]||[]).forEach(function(c){ cons.push([p.id,p.company,c.name||'',c.title||'',c.strength||'',c.status||'current',c.key?'Yes':'',c.note||'',(c.history||[]).map(function(h){return h.date+': '+(h.from||'?')+' to '+h.to;}).join('; ')]); });
+  });
+  var cois=[['Name','Organization / role','Relationship','Introduced by','Linked accounts','Notes']];
+  STATE.cois.forEach(function(c){ var by=coiById(c.introBy); cois.push([c.name,c.org||'',c.strength||'',by?by.name:'',(c.links||[]).map(entityName).join('; '),c.notes||'']); });
   VX.downloadXlsx('VANTAGE_Master_'+new Date().toISOString().slice(0,10)+'.xlsx',[
     {name:'Prospects',rows:rows,widths:FIELDS.map(function(f){ return Math.max(10,f.label.length+2); })},
-    {name:'Activity',rows:acts}
+    {name:'Activity',rows:acts},
+    {name:'Contacts',rows:cons},
+    {name:'Network',rows:cois}
   ]);
-  showToast('Exported '+PROSPECTS.length+' prospects to Excel.');
+  showToast('Exported '+PROSPECTS.length+' prospects to Excel. Contacts and Network sheets are for reading; use Full Backup to restore them.');
 }
 function downloadTemplate(){
   var hdr=FIELDS.map(function(f){return f.label;}).concat(['Activity Type','Activity Date','Activity Notes']);
@@ -1992,6 +2651,12 @@ function openQuickAdd(){
 }
 
 function saveModal(){
+  if(_modalType==='quicklog') return saveQuickLog();
+  if(_modalType==='contact') return saveContactModal();
+  if(_modalType==='titlechange') return saveTitleChange();
+  if(_modalType==='coi') return saveCoiModal();
+  if(_modalType==='linkcoi') return saveLinkCoi();
+  if(_modalType==='paste'){ if(PASTE_PLAN) applyPaste(); else parsePaste(); return; }
   if(_modalType==='activity'){
     var id=_modalId;
     var entry={type:($('mActType')||{}).value,date:($('mActDate')||{}).value,contact:($('mActContact')||{}).value,notes:($('mActNotes')||{}).value};

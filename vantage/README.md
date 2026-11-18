@@ -1,54 +1,53 @@
-# VANTAGE v5: offline prospect dashboard
+# VANTAGE v6: offline prospect dashboard
 
-Runs entirely on your work PC. You don't need internet, hosting, an API key, or an install.
+One file: `VANTAGE.html` (about 385 KB). You can email it as a single attachment. It needs no internet, hosting, API key or install. It runs in Edge from a local folder and works alongside MPower; it does not connect to MPower.
 
-## Setup (one time)
-1. Put these two files in the **same folder** on your work PC (for example `Documents\VANTAGE\`):
-   - `VANTAGE.html`: the dashboard
-   - `vantage-libs.js`: map, Excel and ZIP code data. You never edit this file.
-2. Double-click `VANTAGE.html`. It opens in Edge.
+## Setup
+1. Save `VANTAGE.html` anywhere on your work PC (for example `Documents\VANTAGE\`).
+2. Double-click it to open it in Edge.
+3. If a yellow bar says saving is blocked, your browser policy won't keep data between sessions. In that case use **Import / Export > Download backup** before every close.
 
-If the bottom of the screen shows a yellow bar saying `vantage-libs.js` was not found, the two files are not in the same folder.
+## Where things are
+| Screen | What it's for |
+|---|---|
+| Dashboard | Pipeline totals by stage and state |
+| Pipeline | Account list. Click an account to see its summary strip and the Intel, Activity, Network and Outreach tabs |
+| Map | State map with a pin per account (exact Lat/Lng, or the ZIP code center). Click a state to zoom; scroll to zoom; drag to pan |
+| Activity | Touch counts; overdue, due soon, "outreach made, no conversation yet", assigned-touch progress and never-touched accounts; a one-on-one summary you can copy; the task list |
+| Network | Centers of influence (COI): people not tied to one account, who introduced whom, and which accounts they connect to |
+| Import / Export | Excel import with a review step, Excel export, full backup and restore |
+| **+ Log Touch** (sidebar, always visible) | Log a call, email, LinkedIn message, meeting, event or text against any account or COI. Only Type is needed; everything else is optional |
 
-## Daily workflow (Excel is the master)
-1. **Import.** Go to Import / Export and drop in your Excel file.
-2. **Review.** The dashboard shows:
-   - new companies
-   - blank fields it will fill in
-   - **conflicts**, where your Excel file differs from what the dashboard already has
-   Untick anything you don't want, then click Apply. Nothing changes until you do.
-3. **Work.** Update stages, notes and activity in the dashboard.
-4. **Export.** Click Export Master Excel and save the file as your new master. Do this at the end of every session. Dashboard data only lives in this browser on this PC.
+## Daily flow
+1. **Log touches as they happen** with + Log Touch. Log attempts too, such as voicemails, no answers and emails with no reply. That's what shows effort on accounts that haven't responded.
+2. **Got a summary from somewhere else?** Go to Activity > **Paste summary**. Paste lines like `2026-11-18 | Acme | Jane Smith | Call | Voicemail | Follow-up | note`, review them, then save. "Copy Lenwork prompt" gives you text that tells Lenwork to produce exactly this format from your Outlook and Teams.
+3. **Before a one-on-one:** go to Activity > One-on-one summary, pick the dates, and click **Copy summary**.
+4. **A manager asks about one account:** open the account and click **Copy status update**.
+5. **Someone changes roles:** go to the account > Network > the contact's card > **Title change**. This records the history, flags them as new in role, and puts the change in the summary strip and the status update. It is logged as a note, not counted as a touch.
+6. **Weekly:** Import / Export > **Download backup** (restores everything) and **Export Master Excel** (readable master file).
 
-Rules the import follows:
-- Companies are matched by `ID` first, then by company name. "Acme Corp." and "Acme Corporation" count as the same company.
-- Blank Excel cells never erase existing data.
-- Columns can be in any order. Columns the dashboard doesn't recognize are ignored, so you can keep your own working columns.
-- ZIP codes that Excel shortened (2134) are fixed (02134). Full state names (Texas) become abbreviations (TX).
+## Touch plans (optional, per account)
+On the account's Activity tab you can set:
+- **Frequency:** weekly, every 2 weeks, monthly, quarterly or a custom number of days. The next touch date is calculated from the last touch, and you can type over it.
+- **Assigned touches:** a manager-assigned target, for example 8, counted from a start date.
 
-## Map pins
-- If a row has `Lat` and `Lng`, the pin goes on that exact spot.
-- Otherwise the pin goes on the center of the row's ZIP code. This is built in and works offline.
-- No ZIP code means no pin. The review screen shows which pin type each new company will get.
+Nothing is set by default. The dashboard does not assume any activity requirement.
 
-## Filling in missing addresses with Claude (Sonnet 4.6 / 5)
-1. Export Master Excel.
-2. Upload the file to Claude with the prompt below.
-3. Import the file Claude returns and review the changes. Conflicts show up highlighted.
+## Research prompts
+On the Intel tab, the prompt generator builds the prompt. Run it in LenAI or Claude, paste the answer into the box underneath, and click **Fill hook & displacement**.
 
-Prompt:
+## Excel
+- **Import:** the review screen shows new companies, blank fields that will be filled, and conflicts. Nothing changes until you click Apply. Blank cells never erase data.
+- **Export:** gives you Prospects, Activity, Contacts and Network sheets. Re-importing the export updates prospects and activity. Use the backup file to restore contacts and COIs.
+- Accepts .xlsx and .csv. Old .xls files need to be re-saved as .xlsx first.
 
-```
-Attached is my prospect list. For each row where Street, City, State or ZIP is blank, fill in the company's headquarters address in the US.
-Rules:
-- Only fill a cell if you are confident. If unsure, leave it blank. Never guess a ZIP.
-- Do not change any cell that already has a value.
-- Do not rename, add, remove or reorder columns, except: add one column at the end called "Address Source" with a short note on where each filled address came from, or "unsure".
-- Keep the ID column exactly as is.
-- Return the full file as .xlsx with the same sheet names.
-```
-
-The dashboard ignores the extra "Address Source" column, so you can check it in Excel before you import.
+## Phones
+The layout works on a phone screen. However, data stays in the browser where it was entered, so notes typed on a phone do not reach the laptop copy. Whether the file may be opened on a personal phone at all is a Marsh security question this dashboard doesn't answer. The route that's available today for notes taken away from the laptop: jot the note in Teams or an email to yourself, then bring it in with **Paste summary** (by hand or through a Lenwork scan).
 
 ## Editing the dashboard with Claude
-See `HANDOFF_PROMPT.md`. Only ever give Claude `VANTAGE.html`. Never give it `vantage-libs.js`, which is 3 MB of library code.
+See `HANDOFF_PROMPT.md`.
+
+## Credits (embedded data)
+- tiny-inflate (MIT, Devon Govett)
+- us-atlas state outlines (ISC, Mike Bostock), simplified
+- us-zips ZIP code centers (MIT, derived from US Census ZCTAs)
