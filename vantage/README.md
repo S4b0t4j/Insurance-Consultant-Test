@@ -1,11 +1,11 @@
 # VANTAGE v6: offline prospect dashboard
 
-One file: `VANTAGE.html` (about 455 KB). You can email it as a single attachment. It needs no internet, hosting, API key or install. It runs in Edge from a local folder and works alongside MPower; it does not connect to MPower.
+One file: `VANTAGE.html` (about 460 KB). You can email it as a single attachment. It needs no internet, hosting, API key or install. It runs in Edge from a local folder and works alongside MPower; it does not connect to MPower.
 
 ## Setup
 1. Save `VANTAGE.html` anywhere on your work PC (for example `Documents\VANTAGE\`).
 2. Double-click it to open it in Edge.
-3. If a yellow bar says saving is blocked, your browser policy won't keep data between sessions. In that case use **Import / Export > Download backup** before every close.
+3. If a yellow bar says saving is blocked, your browser policy won't keep data between sessions. In that case use **Intake > Download backup** before every close.
 
 ## First open
 The first time the dashboard opens, a 1-minute guided tour walks through each part of the screen (Next / Back / Skip, Esc to close). It runs once; replay it anytime from **Guide > Take the tour**. If the browser blocks saved data, the tour doesn't auto-start (it would repeat every time) but is still available from the Guide.
@@ -21,7 +21,7 @@ Every account is a Prospect or a Client. Set it in the account header, in Add Ac
 | Map | State map with a pin per account (round = prospect, diamond = client; exact Lat/Lng or the ZIP code center). States with accounts show county borders, and county names appear as you zoom in |
 | Activity | Touch counts; a weekly touches chart (last 8 weeks, conversations vs attempts); overdue, due soon, "outreach made, no conversation yet", assigned-touch progress and never-touched accounts; a one-on-one summary you can copy; the task list |
 | Network | Centers of influence (COI): people not tied to one account, who introduced whom, and which accounts they connect to |
-| Import / Export | Excel import with a review step, Excel export, full backup and restore |
+| Intake | **Add an Account** form (no Excel needed), Excel import with a review step, Excel export, full backup and restore |
 | Guide | The full tutorial, built in. Use Print / Save as PDF to share it (`VANTAGE_Guide.pdf` is a ready copy) |
 | **+ Log Touch** (sidebar, always visible) | Log a call, email, LinkedIn message, meeting, event or text against any account or COI. Only Type is needed; everything else is optional |
 
@@ -31,7 +31,7 @@ Every account is a Prospect or a Client. Set it in the account header, in Add Ac
 3. **Before a one-on-one:** go to Activity > One-on-one summary, pick the dates, and click **Copy summary**.
 4. **A manager asks about one account:** open the account and click **Copy status update**.
 5. **Someone changes roles:** go to the account > Network > the contact's card > **Title change**. This records the history, flags them as new in role, and puts the change in the summary strip and the status update. It is logged as a note, not counted as a touch.
-6. **Weekly:** Import / Export > **Download backup** (restores everything) and **Export Master Excel** (readable master file).
+6. **Weekly:** Intake > **Download backup** (restores everything) and **Export Master Excel** (readable master file).
 
 ## Touch plans (optional, per account)
 On the account's Activity tab you can set:

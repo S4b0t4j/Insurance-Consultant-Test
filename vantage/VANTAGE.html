@@ -275,6 +275,11 @@ td{padding:8px 11px;font-size:12px;color:var(--text);vertical-align:middle}
   .modal-overlay{align-items:flex-end!important}
 }
 /* ===== v6 additions ===== */
+.vx-form{display:grid;grid-template-columns:repeat(4,1fr);gap:4px 10px}
+.vx-form .fi{width:100%}
+.vx-span2{grid-column:span 2}
+.vx-span4{grid-column:1/-1}
+@media(max-width:768px){ .vx-form{grid-template-columns:1fr 1fr} .vx-span2,.vx-span4{grid-column:1/-1} }
 #vxTour{position:fixed;inset:0;z-index:10000}
 .vxt-spot{position:fixed;border-radius:8px;box-shadow:0 0 0 9999px rgba(0,20,32,.62);outline:2px solid #04B4BF;transition:all .25s ease;pointer-events:none}
 .vxt-card{position:fixed;background:#fff;color:var(--text);border-radius:10px;padding:16px 18px;box-shadow:0 12px 40px rgba(0,0,0,.35);transition:left .25s ease,top .25s ease}
@@ -399,7 +404,7 @@ details.vx-card[open]>summary:before{transform:rotate(90deg)}
       <div class="nav-item" id="nav-map" onclick="showScreen('map')"><span class="nav-icon">&#128506;</span>Map</div>
       <div class="nav-item" id="nav-todo" onclick="showScreen('todo')"><span class="nav-icon">&#9989;</span>Activity</div>
       <div class="nav-item" id="nav-coi" onclick="showScreen('coi')"><span class="nav-icon">&#129309;</span>Network</div>
-      <div class="nav-item" id="nav-intake" onclick="showScreen('intake')"><span class="nav-icon">&#128229;</span>Import / Export</div>
+      <div class="nav-item" id="nav-intake" onclick="showScreen('intake')"><span class="nav-icon">&#128229;</span>Intake</div>
       <div class="nav-item" id="nav-guide" onclick="showScreen('guide')"><span class="nav-icon">&#128214;</span>Guide</div>
     </div>
     <button class="vx-logbtn" onclick="openActivityModal(null)">+ Log Touch</button>
@@ -614,7 +619,7 @@ details.vx-card[open]>summary:before{transform:rotate(90deg)}
           <a href="#g-paste">10. Pasting summaries (Lenwork, Teams, notes)</a>
           <a href="#g-research">11. Research prompts</a>
           <a href="#g-map">12. The map</a>
-          <a href="#g-excel">13. Excel import and export</a>
+          <a href="#g-excel">13. Intake: adding accounts, Excel import and export</a>
           <a href="#g-save">14. Saving, backups and new PCs</a>
           <a href="#g-phone">15. Phones and working away from the laptop</a>
           <a href="#g-faq">16. Troubleshooting</a>
@@ -624,11 +629,11 @@ details.vx-card[open]>summary:before{transform:rotate(90deg)}
         <h2 id="g-start">1. Quick start (5 minutes)</h2>
         <ol>
           <li>Save <code>VANTAGE.html</code> somewhere permanent, for example <code>Documents\VANTAGE\</code>, and double-click it. It opens in Edge.</li>
-          <li>Go to <b>Import / Export</b>, drop in your Excel file of prospects and clients, review what it found, and click <b>Apply</b>. Include a <b>Type</b> column (Prospect or Client) if you have one.</li>
+          <li>Go to <b>Intake</b>. Add accounts one at a time with the <b>Add an Account</b> form, or drop in an Excel file of prospects and clients, review what it found, and click <b>Apply</b>. Include a <b>Type</b> column (Prospect or Client) if you have one.</li>
           <li>Open <b>Accounts</b>, click an account, and look around the four tabs: Intel, Activity, Network and Outreach.</li>
           <li>Click <b>+ Log Touch</b> (bottom of the sidebar) and log something you did today.</li>
           <li>Open <b>Activity</b> to see it counted.</li>
-          <li>Before you close: <b>Import / Export &gt; Download backup</b>. Do this weekly from then on.</li>
+          <li>Before you close: <b>Intake &gt; Download backup</b>. Do this weekly from then on.</li>
         </ol>
         <div class="vx-tip-box">If a yellow bar at the bottom says saving is blocked, Edge isn't allowed to keep data for this file. Everything still works, but download a backup before every close and restore it next time.</div>
 
@@ -751,8 +756,9 @@ details.vx-card[open]>summary:before{transform:rotate(90deg)}
           <li><b>Pin placement:</b> exact Lat/Lng if the account has them; otherwise the center of its ZIP code (built in, no internet needed). Accounts without a ZIP or coordinates don't get a pin.</li>
         </ul>
 
-        <h2 id="g-excel">13. Excel import and export</h2>
-        <p><b>Import</b> (Import / Export screen): drop an .xlsx or .csv file. Old .xls files need to be re-saved as .xlsx first. Nothing changes until you approve it on the review screen, which shows:</p>
+        <h2 id="g-excel">13. Intake: adding accounts, Excel import and export</h2>
+        <p><b>Add one account by hand</b> (Intake screen, top): fill in the <b>Add an Account</b> form and press Enter or <b>+ Add account</b>. Only the company name is required; add a ZIP code to give it a map pin. A main contact you enter goes straight onto the account's Network tab. The form clears so you can enter the next one, and <b>+ Add Account</b> on the Dashboard opens the same form in a pop-up.</p>
+        <p><b>Import from Excel</b> (Intake screen): drop an .xlsx or .csv file. Old .xls files need to be re-saved as .xlsx first. Nothing changes until you approve it on the review screen, which shows:</p>
         <ul>
           <li><b>New companies</b> to add, and the kind of map pin each will get</li>
           <li><b>Blank fields</b> that will be filled in</li>
@@ -806,10 +812,35 @@ details.vx-card[open]>summary:before{transform:rotate(90deg)}
     <!-- INTAKE -->
     <div class="screen" id="scrIntake">
       <div class="topbar">
-        <div class="topbar-title">Import / Export</div>
-        <div class="topbar-sub">Excel is your master file. Import it, review every change, export it back.</div>
+        <div class="topbar-title">Intake</div>
+        <div class="topbar-sub">Add accounts by hand or from Excel, export your master file, back everything up.</div>
       </div>
       <div style="padding:20px;max-width:880px;overflow-y:auto;flex:1">
+        <!-- Add an account by hand -->
+        <div class="sec-card" id="intakeAddCard" style="margin-bottom:16px">
+          <div class="sec-hdr"><h3>&#10133; Add an Account</h3><span>One at a time, no Excel needed. Only the company name is required.</span></div>
+          <div style="padding:14px 16px" onkeydown="if(event.key==='Enter'&&event.target.tagName!=='TEXTAREA'){event.preventDefault();intakeAdd();}">
+            <div class="vx-form">
+              <div class="fg vx-span2"><label>Company name <span style="color:var(--bad)">*</span></label><input class="fi" id="iaCompany" placeholder="e.g. Acme Manufacturing"></div>
+              <div class="fg"><label>Type</label><select class="fi" id="iaType"><option value="prospect">Prospect</option><option value="client">Client</option></select></div>
+              <div class="fg"><label>Stage</label><select class="fi" id="iaStage"><option value="prospect">Prospect</option><option value="engaged">Engaged</option><option value="proposal">Proposal</option><option value="won">Won</option><option value="lost">Lost</option></select></div>
+              <div class="fg vx-span2"><label>Street</label><input class="fi" id="iaStreet" placeholder="100 Main St"></div>
+              <div class="fg"><label>City</label><input class="fi" id="iaCity" placeholder="Baltimore"></div>
+              <div class="fg"><label>State</label><input class="fi" id="iaState" placeholder="MD" maxlength="20"></div>
+              <div class="fg"><label>ZIP <span style="color:var(--text3)">(gives it a map pin)</span></label><input class="fi" id="iaZip" placeholder="21201" inputmode="numeric"></div>
+              <div class="fg"><label>Main contact</label><input class="fi" id="iaContact" placeholder="Name"></div>
+              <div class="fg"><label>Contact title</label><input class="fi" id="iaTitle" placeholder="e.g. CFO"></div>
+              <div class="fg"><label>Next action</label><input class="fi" id="iaAction" placeholder="e.g. Send intro email by Friday"></div>
+              <div class="fg vx-span4"><label>Notes</label><textarea class="fi" id="iaNotes" style="min-height:56px;resize:vertical" placeholder="How you found them, who referred you, anything useful"></textarea></div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:4px">
+              <button class="cmd-btn" style="padding:7px 16px;font-size:12px" onclick="intakeAdd()">+ Add account</button>
+              <span style="font-size:11px;color:var(--text3)">Press Enter to add. The form clears so you can enter the next one.</span>
+            </div>
+            <div id="iaResult" style="display:none;margin-top:10px;padding:9px 12px;border-radius:4px;background:var(--ok-bg);color:var(--ok-ink);font-size:12px"></div>
+          </div>
+        </div>
+
         <!-- Upload card -->
         <div class="sec-card" style="margin-bottom:16px">
           <div class="sec-hdr"><h3>&#128196; Import Excel</h3><span>Nothing changes until you approve it</span></div>
@@ -896,7 +927,7 @@ details.vx-card[open]>summary:before{transform:rotate(90deg)}
 
 <script>
 // ===== PROSPECTS =====
-// Starting records. The normal way to load data is Import / Export > Import Excel; imported records are saved in the browser.
+// Starting records. The normal way to load data is Intake (Add an Account form or Import Excel); imported records are saved in the browser.
 // Field names: see FIELDS below (id, company, street, city, state, zip, lat, lng, contact, title, rev, line, stage, warm, action, notes, ...).
 var PROSPECTS = [
   {id:"DEMO-001",company:"Acme Corporation",contact:"Jane Smith",title:"Risk Manager",city:"New York",state:"NY",zip:"10001",lat:40.71,lng:-74.01,rev:5000000,line:"Property",action:"Meeting Scheduled",stage:3,warm:3,lastTouch:"2025-11-01",notes:"",assignedTo:"[Your Name]"},
@@ -1000,7 +1031,7 @@ window.addEventListener('DOMContentLoaded', function(){
     // first open only; if this browser can't save, skip the auto-tour (it would reappear every time) - it's still in Guide
     if(canSave && !STATE.settings.tourDone) setTimeout(function(){ try{ startTour(); }catch(e){ console.error('tour:',e); } },450);
     if(!canSave)
-      showBanner('This browser is blocking saved data. Changes will be lost when you close it: use Import / Export &gt; Download backup before closing.');
+      showBanner('This browser is blocking saved data. Changes will be lost when you close it: use Intake &gt; Download backup before closing.');
   } catch(e){}
 });
 
@@ -2677,10 +2708,12 @@ var TOUR_STEPS=[
    text:'Every account with a ZIP gets a pin: round for prospects, diamond for clients. Click a state to zoom in and county names appear, which helps when you’re planning trips around clusters of accounts.'},
   {screen:'coi', target:'#nav-coi', title:'Network',
    text:'Centers of influence: referral sources and connectors who aren’t tied to one company. Record who introduced whom and link them to the accounts they can open.'},
-  {screen:'intake', target:'#dropZone', title:'Import and export',
-   text:'Drop in your Excel file. You review every new account, filled-in field and conflict before anything changes. Export it back as your master file, and download a backup weekly, because your data lives in this browser.'},
+  {screen:'intake', target:'#intakeAddCard', title:'Intake: add an account',
+   text:'Add a new prospect or client right here, no Excel needed. Only the company name is required; add a ZIP for a map pin and a main contact if you have one. Press Enter and the form clears for the next one.'},
+  {screen:'intake', target:'#dropZone', title:'Intake: Excel in and out',
+   text:'Have a list? Drop in an Excel file. You review every new account, filled-in field and conflict before anything changes. Further down: export your master Excel file and download a backup weekly, because your data lives in this browser.'},
   {screen:'guide', target:'#nav-guide', title:'You’re set',
-   text:'The full Guide is here anytime, along with a button to replay this tour. Start by importing your accounts, then log your first touch.'}
+   text:'The full Guide is here anytime, along with a button to replay this tour. Start by adding or importing your accounts in Intake, then log your first touch.'}
 ];
 var _tourI=-1;
 function startTour(){
@@ -3219,6 +3252,41 @@ function showBanner(msg){
   document.body.appendChild(b);
 }
 
+// ===== ADD ACCOUNT (shared by the Intake form and the "+ Add Account" button) =====
+// d = {company, type, stage, street, city, state, zip, contact, title, action, notes}. Returns the new account, or null.
+function addAccount(d){
+  var company=String(d.company||'').trim();
+  if(!company){ showToast('Company name is required.'); return null; }
+  var dup=PROSPECTS.find(function(p){ return normCo(p.company)===normCo(company); });
+  if(dup){ showToast(dup.company+' is already in your accounts.'); return null; }
+  var p={id:newProspectId(),company:company,street:String(d.street||'').trim(),city:String(d.city||'').trim(),
+    state:normState(d.state||''),zip:normZip(d.zip||''),lat:null,lng:null,type:d.type==='client'?'client':'prospect'};
+  PROSPECTS.push(p);
+  upsertRecord(p);
+  STATE.stages[p.id]=STAGES[d.stage]?d.stage:'prospect';
+  if(d.action&&d.action.trim()) STATE.actions[p.id]=d.action.trim();
+  if(d.notes&&d.notes.trim()) STATE.notes[p.id]=d.notes.trim();
+  if(d.contact&&d.contact.trim()){
+    STATE.contacts[p.id]=[{name:d.contact.trim(),title:String(d.title||'').trim(),strength:'cold',status:'current',key:true,note:'',linkedin:'',history:[],added:isoLocal()}];
+  }
+  saveState();
+  refreshAfterDataChange();
+  showToast(company+' added as a '+(p.type==='client'?'client':'prospect')+'.');
+  return p;
+}
+function intakeAdd(){
+  var v=function(id){ return ($(id)||{}).value||''; };
+  var p=addAccount({company:v('iaCompany'),type:v('iaType'),stage:v('iaStage'),street:v('iaStreet'),city:v('iaCity'),state:v('iaState'),
+    zip:v('iaZip'),contact:v('iaContact'),title:v('iaTitle'),action:v('iaAction'),notes:v('iaNotes')});
+  if(!p) return;
+  ['iaCompany','iaStreet','iaCity','iaState','iaZip','iaContact','iaTitle','iaAction','iaNotes'].forEach(function(id){ if($(id)) $(id).value=''; });
+  var geo=geoOf(p), m=$('iaResult');
+  m.style.display='block';
+  m.innerHTML='<strong>'+esc(p.company)+'</strong> added. '+(geo?'It has a map pin ('+esc(geoLabel(geo))+').':'Add a ZIP code to give it a map pin.')+
+    ' <a href="#" onclick="showScreen(\'pipeline\');setTimeout(function(){openDetail(\''+jsq(p.id)+'\')},120);return false" style="color:var(--ok-ink);font-weight:700">Open account &rarr;</a>';
+  $('iaCompany').focus();
+}
+
 // ===== QUICK ADD PROSPECT =====
 function openQuickAdd(){
   _modalType='quickadd'; _modalId=null;
@@ -3266,26 +3334,9 @@ function saveModal(){
     if(p) renderNetworkTab(p);
     showToast('Contact added.');
   } else if(_modalType==='quickadd'){
-    var company=($('qaCompany')||{}).value.trim();
-    if(!company){showToast('Company name is required.');return;}
-    var dup=PROSPECTS.find(function(p){return p.company.toLowerCase()===company.toLowerCase();});
-    if(dup){showToast('That company is already in your accounts.');return;}
-    var newId='WW-M'+Date.now();
-    var stateVal=(($('qaState')||{}).value||'').toUpperCase().trim();
-    var newP={id:newId,company:company,street:($('qaStreet')||{}).value.trim(),city:($('qaCity')||{}).value.trim(),state:stateVal,zip:($('qaZip')||{}).value.trim(),lat:null,lng:null,type:(($('qaType')||{}).value==='client'?'client':'prospect')};
-    PROSPECTS.push(newP);
-    upsertRecord(newP);
-    var stage=($('qaStage')||{}).value||'prospect';
-    STATE.stages[newId]=stage;
-    var action=($('qaAction')||{}).value.trim();
-    if(action) STATE.actions[newId]=action;
-    var notes=($('qaNotes')||{}).value.trim();
-    if(notes) STATE.notes[newId]=notes;
-    saveState();
-    closeModal();
-    renderDash();
-    refreshAfterDataChange();
-    showToast(company+' added to pipeline.');
+    var v=function(id){ return ($(id)||{}).value||''; };
+    var p=addAccount({company:v('qaCompany'),type:v('qaType'),stage:v('qaStage'),street:v('qaStreet'),city:v('qaCity'),state:v('qaState'),zip:v('qaZip'),action:v('qaAction'),notes:v('qaNotes')});
+    if(p) closeModal();
   }
 }
 

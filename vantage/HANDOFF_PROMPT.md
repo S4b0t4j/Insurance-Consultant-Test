@@ -2,12 +2,12 @@ You are editing VANTAGE v6, an offline prospect pipeline dashboard for a commerc
 
 ## How the file is laid out
 1. `<style>`: CSS. Additions from v6 are at the end, marked `/* ===== v6 additions ===== */`.
-2. HTML: the sidebar and the screens `scrDash`, `scrPipeline` (with the `detailPanel`), `scrMap`, `scrTodo` (the Activity screen), `scrCoi` (the Network screen), `scrGuide` (the built-in tutorial: update it when features change) and `scrIntake` (Import / Export).
+2. HTML: the sidebar and the screens `scrDash`, `scrPipeline` (with the `detailPanel`), `scrMap`, `scrTodo` (the Activity screen), `scrCoi` (the Network screen), `scrGuide` (the built-in tutorial: update it when features change) and `scrIntake` (Intake: Add an Account form, Excel import/export, backup).
 3. The main `<script>`: all app logic. This is the only part you edit.
 4. A final `<script>` marked `DATA SECTION`: a deflate decoder, the state outlines (`VX_STATES`) and the packed ZIP code centers (`VX_ZIPS`). **Never edit it.** The user will usually not send it to you; assume it exists.
 
 ## Hard rules
-1. The file must stay under 500 KB, because it is emailed as one attachment. It is about 455 KB now. Do not embed libraries, fonts or images.
+1. The file must stay under 500 KB, because it is emailed as one attachment. It is about 460 KB now. Do not embed libraries, fonts or images.
 2. Offline only. No CDN, `fetch()`, web fonts, external images, or anything else that needs the internet or an API key.
 3. Never put a literal line break inside a JavaScript string. Use `\n`.
 4. Do not use setInterval/setTimeout for startup. Startup is the `DOMContentLoaded` handler (`// ===== BOOT =====`), where each call is wrapped in its own try/catch.
@@ -35,6 +35,7 @@ You are editing VANTAGE v6, an offline prospect pipeline dashboard for a commerc
 `TOUR_STEPS` (search `FIRST-RUN GUIDED TOUR`) lists each step: screen, CSS selector to spotlight, title, text. When you add or rename a screen or control, update the matching step. It runs once (`STATE.settings.tourDone`); `startTour()` replays it.
 
 ## Key functions
+- `addAccount(d)`: the one place new accounts are created (used by the Intake form `intakeAdd()` and the + Add Account pop-up).
 - `openActivityModal(id, preset)`: the single Log Touch window.
 - `renderGlance(p)`: the account summary strip.
 - `statusText(id)`: builds the copyable status update.
