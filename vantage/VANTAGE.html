@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<title>VANTAGE v4.7 | Pipeline Dashboard</title>
+<title>VANTAGE v5 | Pipeline Dashboard</title>
 
 <style>
 :root{
@@ -275,9 +275,8 @@ td{padding:8px 11px;font-size:12px;color:var(--text);vertical-align:middle}
   .modal-overlay{align-items:flex-end!important}
 }
 </style>
-<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" async></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js" async></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js" async></script>
+<!-- Map, Excel and ZIP libraries. Keep vantage-libs.js in the SAME folder as this file. No internet needed. -->
+<script src="vantage-libs.js"></script>
 </head>
 <body>
 
@@ -308,9 +307,9 @@ td{padding:8px 11px;font-size:12px;color:var(--text);vertical-align:middle}
       <div class="nav-item" id="nav-pipeline" onclick="showScreen('pipeline')"><span class="nav-icon">&#128269;</span>Pipeline <span class="sb-ct" id="nav-pipeline-ct">69</span></div>
       <div class="nav-item" id="nav-map" onclick="showScreen('map')"><span class="nav-icon">&#128506;</span>Map</div>
       <div class="nav-item" id="nav-todo" onclick="showScreen('todo')"><span class="nav-icon">&#9989;</span>To-Do</div>
-      <div class="nav-item" id="nav-intake" onclick="showScreen('intake')"><span class="nav-icon">&#128229;</span>Import</div>
+      <div class="nav-item" id="nav-intake" onclick="showScreen('intake')"><span class="nav-icon">&#128229;</span>Import / Export</div>
     </div>
-    <div class="sb-foot">VANTAGE v4 &bull; Internal use only</div>
+    <div class="sb-foot">VANTAGE v5 &bull; Offline &bull; Internal use only</div>
   </div>
 
   <!-- MAIN -->
@@ -349,7 +348,7 @@ td{padding:8px 11px;font-size:12px;color:var(--text);vertical-align:middle}
     <div class="screen" id="scrPipeline">
       <div class="topbar">
         <div class="topbar-title">Pipeline</div>
-        <button class="tb-btn outline" onclick="exportCSV()">Export CSV</button>
+        <button class="tb-btn outline" onclick="exportExcel()">Export Excel</button>
       </div>
       <div class="cmd-bar">
         <div class="search-wrap" style="flex:1">
@@ -462,13 +461,13 @@ td{padding:8px 11px;font-size:12px;color:var(--text);vertical-align:middle}
     <!-- INTAKE -->
     <div class="screen" id="scrIntake">
       <div class="topbar">
-        <div class="topbar-title">Import Prospects</div>
-        <div class="topbar-sub">Upload an Excel file to add or update prospects in the pipeline</div>
+        <div class="topbar-title">Import / Export</div>
+        <div class="topbar-sub">Excel is your master file. Import it, review every change, export it back.</div>
       </div>
-      <div style="padding:20px;max-width:780px;overflow-y:auto;flex:1">
+      <div style="padding:20px;max-width:880px;overflow-y:auto;flex:1">
         <!-- Upload card -->
         <div class="sec-card" style="margin-bottom:16px">
-          <div class="sec-hdr"><h3>&#128196; Upload Excel File</h3></div>
+          <div class="sec-hdr"><h3>&#128196; Import Excel</h3><span>Nothing changes until you approve it</span></div>
           <div style="padding:20px">
             <div id="dropZone" style="border:2px dashed var(--border2);border-radius:6px;padding:32px;text-align:center;cursor:pointer;transition:all .2s;background:var(--surface2)"
               onclick="$('xlsxInput').click()"
@@ -477,68 +476,44 @@ td{padding:8px 11px;font-size:12px;color:var(--text);vertical-align:middle}
               ondrop="handleFileDrop(event)">
               <div style="font-size:32px;margin-bottom:8px">&#128196;</div>
               <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px">Drop an Excel file here or click to browse</div>
-              <div style="font-size:11px;color:var(--text3)">.xlsx or .csv files accepted</div>
+              <div style="font-size:11px;color:var(--text3)">.xlsx or .csv. New companies are added, existing ones are matched by ID or company name, and you approve each change.</div>
             </div>
-            <input type="file" id="xlsxInput" accept=".xlsx,.csv" style="display:none" onchange="handleFileSelect(event)">
-          </div>
-        </div>
-        <!-- Template -->
-        <div class="sec-card" style="margin-bottom:16px">
-          <div class="sec-hdr"><h3>&#128203; Expected Columns</h3><span>Match your file to these headers</span></div>
-          <div style="padding:14px 16px">
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:12px">
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Company</strong> <span style="color:var(--bad);font-size:9px">required</span></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>City</strong></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>State</strong></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>ZIP</strong></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Street</strong></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Stage</strong></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Next Action</strong></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Notes</strong></div>
-            </div>
-            <button class="cmd-btn" onclick="downloadTemplate()">&#11015; Download Template CSV</button>
-          </div>
-        </div>
-        <!-- Import Notes -->
-        <div class="sec-card" style="margin-bottom:16px">
-          <div class="sec-hdr"><h3>&#128221; Import Notes</h3><span>Bulk-populate intel fields for existing prospects</span></div>
-          <div style="padding:14px 16px">
-            <p style="font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.6">Download the notes template, fill in any combination of fields for each prospect, then upload to auto-populate their Intel, Activity, and Network tabs. Only rows with a matching Company name will be updated -- no data is overwritten unless you provide it.</p>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:14px">
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Company</strong> <span style="color:var(--bad);font-size:9px">required</span></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Conversation Hook</strong></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Displacement Angle</strong></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Key Buyer</strong></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Next Action</strong></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Notes</strong></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Stage</strong></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Warm</strong> <span style="color:var(--text3);font-size:9px">warm/cold</span></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Decision Maker</strong></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Center of Influence</strong></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Intro Strategy</strong></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Activity Type</strong> <span style="color:var(--text3);font-size:9px">call/email/meeting/linkedin/other</span></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Activity Date</strong></div>
-              <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:11px"><strong>Activity Notes</strong></div>
-            </div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-              <button class="cmd-btn" onclick="downloadNotesTemplate()">&#11015; Download Notes Template CSV</button>
-              <button class="cmd-ghost" onclick="$('notesInput').click()">&#128196; Upload Completed Notes File</button>
-              <input type="file" id="notesInput" accept=".xlsx,.csv" style="display:none" onchange="handleNotesFile(event)">
-            </div>
-            <div id="notesImportMsg" style="margin-top:10px;font-size:12px;color:var(--ok-ink);display:none"></div>
+            <input type="file" id="xlsxInput" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFileSelect(event)">
+            <div id="intakeResult" style="display:none;margin-top:12px;padding:10px 12px;border-radius:4px;background:var(--ok-bg);color:var(--ok-ink);font-size:12px"></div>
           </div>
         </div>
 
-        <!-- Preview + confirm -->
-        <div class="sec-card" id="intakePreviewCard" style="display:none">
-          <div class="sec-hdr"><h3 id="intakePreviewTitle">Preview</h3><span id="intakePreviewMeta"></span></div>
+        <!-- Review + approve -->
+        <div class="sec-card" id="intakePreviewCard" style="display:none;margin-bottom:16px">
+          <div class="sec-hdr"><h3 id="intakePreviewTitle">Review import</h3><span id="intakePreviewMeta"></span></div>
           <div style="padding:14px 16px">
-            <div id="intakePreviewTable" style="overflow-x:auto;max-height:320px;overflow-y:auto"></div>
+            <div id="intakePreviewTable" style="max-height:520px;overflow:auto"></div>
             <div style="display:flex;gap:8px;margin-top:12px;align-items:center">
-              <button class="cmd-btn" id="intakeConfirmBtn" onclick="confirmIntake()">&#10003; Add to Pipeline</button>
+              <button class="cmd-btn" id="intakeConfirmBtn" onclick="confirmIntake()">&#10003; Apply changes</button>
               <button class="cmd-ghost" onclick="cancelIntake()">Cancel</button>
               <span id="intakeMsg" style="font-size:12px;color:var(--ok-ink);margin-left:8px"></span>
             </div>
+          </div>
+        </div>
+
+        <!-- Export / master workflow -->
+        <div class="sec-card" style="margin-bottom:16px">
+          <div class="sec-hdr"><h3>&#128190; Export Master Excel</h3><span>Do this after every import or editing session</span></div>
+          <div style="padding:14px 16px">
+            <p style="font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.6">Exports every prospect with all fields (sheet 1) and activity history (sheet 2). Re-importing this file restores everything, so keep the latest export as your master. To fill in missing addresses, give the export to Claude, have it fill the Street, City, State and ZIP columns, then import it here and review.</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="cmd-btn" onclick="exportExcel()">&#11015; Export Master Excel</button>
+              <button class="cmd-ghost" onclick="downloadTemplate()">&#11015; Blank Template</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columns -->
+        <div class="sec-card" style="margin-bottom:16px">
+          <div class="sec-hdr"><h3>&#128203; Recognized Columns</h3><span>Any order. Extra columns are ignored. Blank cells never erase data.</span></div>
+          <div style="padding:14px 16px">
+            <div id="fieldList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px"></div>
+            <p style="font-size:11px;color:var(--text3);margin-top:10px;line-height:1.6">Also: Activity Type, Activity Date, Activity Notes. Map pins use Lat/Lng when given, otherwise the ZIP code center (no internet or API needed). Stage accepts prospect, engaged, proposal, won, lost or 1-7. Warm accepts warm/cold or 1-5.</p>
           </div>
         </div>
       </div>
@@ -562,7 +537,9 @@ td{padding:8px 11px;font-size:12px;color:var(--text);vertical-align:middle}
 <div id="toast"></div>
 
 <script>
-// ===== PROSPECTS (replace this array with user data) =====
+// ===== PROSPECTS =====
+// Starting records. The normal way to load data is Import / Export > Import Excel; imported records are saved in the browser.
+// Field names: see FIELDS below (id, company, street, city, state, zip, lat, lng, contact, title, rev, line, stage, warm, action, notes, ...).
 var PROSPECTS = [
   {id:"DEMO-001",company:"Acme Corporation",contact:"Jane Smith",title:"Risk Manager",city:"New York",state:"NY",zip:"10001",lat:40.71,lng:-74.01,rev:5000000,line:"Property",action:"Meeting Scheduled",stage:3,warm:3,lastTouch:"2025-11-01",notes:"",assignedTo:"[Your Name]"},
   {id:"DEMO-002",company:"Beta Industries",contact:"John Doe",title:"CFO",city:"Chicago",state:"IL",zip:"60601",lat:41.88,lng:-87.63,rev:3200000,line:"Casualty",action:"Proposal Sent",stage:4,warm:4,lastTouch:"2025-10-15",notes:"",assignedTo:"[Your Name]"},
@@ -581,7 +558,7 @@ var STAGES = {
 
 var STORE_KEY = 'vantage_ww_v4';
 function loadState(){ try{var s=localStorage.getItem(STORE_KEY);return s?JSON.parse(s):{};} catch(e){return {};} }
-function saveState(){ try{localStorage.setItem(STORE_KEY,JSON.stringify(STATE));}catch(e){} }
+function saveState(){ try{localStorage.setItem(STORE_KEY,JSON.stringify(STATE));return true;}catch(e){return false;} }
 var STATE; try{ STATE=loadState(); }catch(e){ STATE={}; } if(!STATE||typeof STATE!=='object') STATE={};
 if(!STATE.stages)   STATE.stages={};
 if(!STATE.actions)  STATE.actions={};
@@ -622,6 +599,17 @@ try{
   });
 }catch(e){ console.error('seedState:',e); }
 
+// ===== RESTORE SAVED RECORDS =====
+// Prospects added or updated through Import / Add Prospect are stored in STATE.records and merged here.
+if(!STATE.records) STATE.records={};
+try{
+  Object.keys(STATE.records).forEach(function(id){
+    var r=STATE.records[id], ex=null;
+    for(var i=0;i<PROSPECTS.length;i++){ if(PROSPECTS[i].id===id){ ex=PROSPECTS[i]; break; } }
+    if(ex){ for(var k in r) ex[k]=r[k]; } else { var c={}; for(var k2 in r) c[k2]=r[k2]; PROSPECTS.push(c); }
+  });
+}catch(e){ console.error('restoreRecords:',e); }
+
 var sortCol='company', sortAsc=true, stgFilter='all', expandedId=null, activeDTab='intel';
 var MAP_BOUNDS=null;
 var _modalType=null, _modalId=null, _modalIdx=null;
@@ -646,6 +634,13 @@ window.addEventListener('DOMContentLoaded', function(){
   try { renderDash(); }         catch(e){ console.error('renderDash:',e); }
   try { renderTodos(); }        catch(e){ console.error('renderTodos:',e); }
   try { populateTodoLinked(); } catch(e){ console.error('populateTodo:',e); }
+  try { renderFieldList(); }    catch(e){ console.error('renderFieldList:',e); }
+  try {
+    if(typeof d3==='undefined'||typeof XLSX==='undefined'||typeof ZIP_CENTROIDS==='undefined')
+      showBanner('vantage-libs.js was not found. Keep it in the same folder as VANTAGE.html. The map and Excel import/export need it.');
+    else if(!saveState())
+      showBanner('This browser is blocking saved data. Changes will be lost when you close it, so use Export Excel before closing.');
+  } catch(e){}
 });
 
 // ===== SCREEN ROUTING =====
@@ -1129,7 +1124,7 @@ function initMap(){
   if(MAP_INIT) return;
   if(typeof d3==='undefined'||typeof topojson==='undefined'){
     var mc=document.getElementById('mapContainer');
-    if(mc) mc.innerHTML='<div style="padding:40px;text-align:center;color:var(--text3)"><div style="font-size:32px;margin-bottom:12px">&#128506;</div><strong>Map requires internet connection</strong><br><span style="font-size:11px">All other features work offline.</span></div>';
+    if(mc) mc.innerHTML='<div style="padding:40px;text-align:center;color:var(--text3)"><div style="font-size:32px;margin-bottom:12px">&#128506;</div><strong>Map files not found</strong><br><span style="font-size:11px">Put vantage-libs.js in the same folder as VANTAGE.html, then reload.</span></div>';
     return;
   }
   MAP_INIT=true;
@@ -1157,9 +1152,8 @@ function initMap(){
   _gCounties =_d3svg.append('g').attr('id','countiesGroup');
   _gPins     =_d3svg.append('g').attr('id','pinsGroup');
 
-  // Load US TopoJSON from CDN (JS-only, no map tiles)
-  fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json')
-    .then(function(r){return r.json();})
+  // US map outlines come from vantage-libs.js (offline, no API key)
+  Promise.resolve(window.US_STATES_10M)
     .then(function(us){
       var byState={};
       PROSPECTS.forEach(function(p){
@@ -1284,8 +1278,7 @@ function loadCounties(stateFips,stateAb){
   };
   if(_countyTopo){ doRender(_countyTopo); }
   else {
-    fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json')
-      .then(function(r){return r.json();})
+    Promise.resolve(window.US_COUNTIES_10M)
       .then(function(us){_countyTopo=us;doRender(us);})
       .catch(function(e){console.warn('Counties unavailable:',e);});
   }
@@ -1296,9 +1289,13 @@ function renderMapPins(byState){
   if(!_gPins||!_projection) return;
   _gPins.selectAll('*').remove();
   PROSPECTS.forEach(function(p){
-    if(!p.lat||!p.lng) return;
-    var pt=_projection([p.lng,p.lat]);
+    var g=geoOf(p); if(!g) return;
+    var pt=_projection([g.lng,g.lat]);
     if(!pt||isNaN(pt[0])) return;
+    if(g.src!=='exact'){ // spread pins that share a ZIP center so they don't stack exactly
+      var hsh=0; for(var hi=0;hi<p.id.length;hi++) hsh=(hsh*31+p.id.charCodeAt(hi))|0;
+      pt=[pt[0]+((hsh&7)-3.5)*0.9, pt[1]+(((hsh>>3)&7)-3.5)*0.9];
+    }
     var col=STAGE_COLORS[getStage(p.id)]||STAGE_COLORS.prospect;
     _gPins.append('circle')
       .attr('cx',pt[0]).attr('cy',pt[1]).attr('r',5)
@@ -1309,8 +1306,8 @@ function renderMapPins(byState){
         showMapTip(event,(function(){
         var addrLine='';
         if(p.street) addrLine+=esc(p.street)+'<br>';
-        if(p.city||p.state||p.zip) addrLine+=[p.city,p.state].filter(Boolean).join(', ')+(p.zip?' '+esc(p.zip):'');
-        return '<strong>'+esc(p.company)+'</strong><br>'+(addrLine?addrLine+'<br>':'<span style="color:rgba(255,255,255,.35);font-size:10px">No address on file</span><br>')+'<span style="color:#04B4BF;font-weight:700;font-size:11px">&#9654; Open profile</span>';
+        if(p.city||p.state||p.zip) addrLine+=esc([p.city,p.state].filter(Boolean).join(', '))+(p.zip?' '+esc(p.zip):'');
+        return '<strong>'+esc(p.company)+'</strong><br>'+(g.src!=='exact'?'<span style="color:rgba(255,255,255,.45);font-size:10px">Pin: '+geoLabel(g)+'</span><br>':'')+(addrLine?addrLine+'<br>':'<span style="color:rgba(255,255,255,.35);font-size:10px">No address on file</span><br>')+'<span style="color:#04B4BF;font-weight:700;font-size:11px">&#9654; Open profile</span>';
       })());
       })
       .on('mousemove',function(event){ moveMapTip(event); })
@@ -1396,124 +1393,463 @@ function renderTodos(){
 }
 
 // ===== CSV EXPORT =====
-function exportCSV(){
-  var rows=[['ID','Company','Street','City','State','ZIP','Stage','Warm','Next Action','Hook','Notes']];
-  PROSPECTS.forEach(function(p){
-    rows.push([p.id,p.company,p.street||'',p.city,p.state,p.zip||'',getStage(p.id),STATE.warm[p.id]||'cold',STATE.actions[p.id]||'',STATE.hook[p.id]||'',STATE.notes[p.id]||'']);
-  });
-  var csv=rows.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(',');}).join('\n');
-  var a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download='Prospects_'+new Date().toISOString().slice(0,10)+'.csv';
-  a.click();
-  showToast('CSV exported.');
+// ===== DATA FIELDS (single source of truth) =====
+// Drives Excel import, the review screen, Excel export and the template.
+// To add a column: add ONE entry here. Nothing else needs to change.
+//   store:'rec'   -> saved on the prospect record (p.key)
+//   store:'state' -> saved in STATE[bucket][id]
+//   store:'net'   -> saved in STATE.network[id][key]
+//   aliases       -> header spellings accepted on import (lowercase, letters/digits only)
+var FIELDS = [
+  {key:'id',         label:'ID',                  store:'rec',   aliases:['id','prospectid','vantageid']},
+  {key:'company',    label:'Company',             store:'rec',   aliases:['company','companyname','name','account','accountname','insured','insuredname','client','clientname']},
+  {key:'street',     label:'Street',              store:'rec',   aliases:['street','address','address1','streetaddress','addressline1']},
+  {key:'city',       label:'City',                store:'rec',   aliases:['city','town']},
+  {key:'state',      label:'State',               store:'rec',   aliases:['state','st','province']},
+  {key:'zip',        label:'ZIP',                 store:'rec',   aliases:['zip','zipcode','postalcode','postal','zip5']},
+  {key:'lat',        label:'Lat',                 store:'rec',   aliases:['lat','latitude']},
+  {key:'lng',        label:'Lng',                 store:'rec',   aliases:['lng','lon','long','longitude']},
+  {key:'contact',    label:'Contact',             store:'rec',   aliases:['contact','contactname','primarycontact']},
+  {key:'title',      label:'Title',               store:'rec',   aliases:['title','contacttitle','jobtitle']},
+  {key:'rev',        label:'Revenue',             store:'rec',   aliases:['revenue','rev','annualrevenue']},
+  {key:'line',       label:'Line',                store:'rec',   aliases:['line','lineofbusiness','lob','coverage']},
+  {key:'lastTouch',  label:'Last Touch',          store:'rec',   aliases:['lasttouch','lastcontact','lasttouched','lastcontacted']},
+  {key:'assignedTo', label:'Assigned To',         store:'rec',   aliases:['assignedto','owner','producer']},
+  {key:'stage',      label:'Stage',               store:'state', bucket:'stages',   aliases:['stage','status','pipelinestage']},
+  {key:'warm',       label:'Warm',                store:'state', bucket:'warm',     aliases:['warm','warmth','temperature']},
+  {key:'action',     label:'Next Action',         store:'state', bucket:'actions',  aliases:['nextaction','action','nextstep']},
+  {key:'notes',      label:'Notes',               store:'state', bucket:'notes',    aliases:['notes','note','comments']},
+  {key:'hook',       label:'Conversation Hook',   store:'state', bucket:'hook',     aliases:['conversationhook','hook']},
+  {key:'displace',   label:'Displacement Angle',  store:'state', bucket:'displace', aliases:['displacementangle','displacement']},
+  {key:'buyer',      label:'Key Buyer',           store:'state', bucket:'buyer',    aliases:['keybuyer','buyer']},
+  {key:'dm',         label:'Decision Maker',      store:'net',   aliases:['decisionmaker','dm']},
+  {key:'coi',        label:'Center of Influence', store:'net',   aliases:['centerofinfluence','coi']},
+  {key:'intro',      label:'Intro Strategy',      store:'net',   aliases:['introstrategy','intro']}
+];
+// Activity columns (import only; exported on a separate "Activity" sheet)
+var ACT_ALIASES = {type:['activitytype','acttype'], date:['activitydate','actdate'], notes:['activitynotes','actnotes'], contact:['activitycontact']};
+
+var REC_KEYS = FIELDS.filter(function(f){return f.store==='rec';}).map(function(f){return f.key;});
+var FIELD_BY_ALIAS = (function(){
+  var m={};
+  FIELDS.forEach(function(f){ f.aliases.forEach(function(a){ m[a]=f.key; }); });
+  Object.keys(ACT_ALIASES).forEach(function(k){ ACT_ALIASES[k].forEach(function(a){ m[a]='act:'+k; }); });
+  return m;
+})();
+
+var US_STATE_NAMES = {alabama:'AL',alaska:'AK',arizona:'AZ',arkansas:'AR',california:'CA',colorado:'CO',connecticut:'CT',delaware:'DE',districtofcolumbia:'DC',florida:'FL',georgia:'GA',hawaii:'HI',idaho:'ID',illinois:'IL',indiana:'IN',iowa:'IA',kansas:'KS',kentucky:'KY',louisiana:'LA',maine:'ME',maryland:'MD',massachusetts:'MA',michigan:'MI',minnesota:'MN',mississippi:'MS',missouri:'MO',montana:'MT',nebraska:'NE',nevada:'NV',newhampshire:'NH',newjersey:'NJ',newmexico:'NM',newyork:'NY',northcarolina:'NC',northdakota:'ND',ohio:'OH',oklahoma:'OK',oregon:'OR',pennsylvania:'PA',rhodeisland:'RI',southcarolina:'SC',southdakota:'SD',tennessee:'TN',texas:'TX',utah:'UT',vermont:'VT',virginia:'VA',washington:'WA',westvirginia:'WV',wisconsin:'WI',wyoming:'WY',puertorico:'PR'};
+
+// ===== FIELD ACCESS =====
+function fieldDef(key){ for(var i=0;i<FIELDS.length;i++){ if(FIELDS[i].key===key) return FIELDS[i]; } return null; }
+function getVal(p,key){
+  var f=fieldDef(key); if(!f) return '';
+  if(f.store==='rec') return p[key];
+  if(f.store==='state') return (STATE[f.bucket]||{})[p.id];
+  return (STATE.network[p.id]||{})[key];
+}
+function setVal(p,key,v){
+  var f=fieldDef(key); if(!f) return;
+  if(f.store==='rec'){ p[key]=v; return; }
+  if(f.store==='state'){ if(!STATE[f.bucket]) STATE[f.bucket]={}; STATE[f.bucket][p.id]=v; return; }
+  if(!STATE.network[p.id]) STATE.network[p.id]={dm:'',coi:'',intro:''};
+  STATE.network[p.id][key]=v;
+}
+function isBlank(v){ return v==null || String(v).trim()===''; }
+
+// Persist record-level data (address, company, etc.) so added/updated prospects survive a reload.
+function upsertRecord(p){
+  if(!STATE.records) STATE.records={};
+  var r={};
+  REC_KEYS.forEach(function(k){ if(p[k]!==undefined) r[k]=p[k]; });
+  STATE.records[p.id]=r;
+}
+function newProspectId(){
+  newProspectId.n=(newProspectId.n||0)+1;
+  return 'VX-'+Date.now().toString(36).toUpperCase()+'-'+newProspectId.n;
 }
 
-// ===== INTAKE / IMPORT =====
-var INTAKE_ROWS = [];
+// ===== VALUE CLEANING =====
+function normHeader(h){ return String(h).toLowerCase().replace(/[^a-z0-9]/g,''); }
+function normZip(v){
+  if(isBlank(v)) return '';
+  var s=String(v).trim();
+  if(/^\d{1,4}$/.test(s)) s=('00000'+s).slice(-5);          // Excel drops leading zeros (e.g. 2134 -> 02134)
+  var m=s.match(/^(\d{5})(?:-?(\d{4}))?$/);
+  return m ? (m[2]? m[1]+'-'+m[2] : m[1]) : s;
+}
+function normState(v){
+  if(isBlank(v)) return '';
+  var s=String(v).trim();
+  if(s.length===2) return s.toUpperCase();
+  return US_STATE_NAMES[s.toLowerCase().replace(/[^a-z]/g,'')] || s;
+}
+function toISODate(v){
+  if(v instanceof Date && !isNaN(v)) return v.toISOString().slice(0,10);
+  return String(v).trim();
+}
+function cleanValue(key,v,warn){
+  if(v instanceof Date) v=toISODate(v);
+  if(isBlank(v)) return null;
+  switch(key){
+    case 'zip':   return normZip(v);
+    case 'state': return normState(v);
+    case 'lat': case 'lng':
+      var n=parseFloat(v); if(isNaN(n)){ warn('not a number for '+key+': "'+v+'"'); return null; } return n;
+    case 'rev':
+      var r=parseFloat(String(v).replace(/[$,\s]/g,'')); return isNaN(r)? String(v).trim() : r;
+    case 'stage':
+      var st=normStage(v); if(!st) warn('unknown stage "'+v+'" (use prospect, engaged, proposal, won, lost or 1-7)'); return st;
+    case 'warm':
+      var w=normWarm(v); if(!w) warn('unknown warm value "'+v+'" (use warm or cold)'); return w;
+    case 'id':    return String(v).trim();
+    default:      return String(v).trim();
+  }
+}
+function normCo(s){
+  return String(s||'').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ')
+    .replace(/\b(the|inc|incorporated|llc|l l c|corp|corporation|co|company|ltd|limited|lp|llp|plc|pc|pllc)\b/g,' ')
+    .replace(/\s+/g,' ').trim();
+}
+function sameVal(key,a,b){
+  if(isBlank(a)&&isBlank(b)) return true;
+  if(isBlank(a)||isBlank(b)) return false;
+  if(key==='lat'||key==='lng') return Math.abs(Number(a)-Number(b))<0.0001;
+  if(key==='zip') return normZip(a)===normZip(b);
+  return String(a).trim().toLowerCase()===String(b).trim().toLowerCase();
+}
 
-function handleFileDrop(e) {
+// ===== GEO (offline: exact lat/lng first, then ZIP center, then 3-digit ZIP area) =====
+var _zip3=null;
+function zipCentroid(zip){
+  if(typeof ZIP_CENTROIDS==='undefined') return null;
+  var z=normZip(zip).slice(0,5);
+  if(!/^\d{5}$/.test(z)) return null;
+  var c=ZIP_CENTROIDS[z];
+  if(c) return {lat:c[0],lng:c[1],src:'zip'};
+  if(!_zip3){
+    _zip3={};
+    Object.keys(ZIP_CENTROIDS).forEach(function(k){
+      var p=k.slice(0,3), v=ZIP_CENTROIDS[k];
+      if(!_zip3[p]) _zip3[p]=[0,0,0];
+      _zip3[p][0]+=v[0]; _zip3[p][1]+=v[1]; _zip3[p][2]++;
+    });
+  }
+  var a=_zip3[z.slice(0,3)];
+  return a ? {lat:a[0]/a[2],lng:a[1]/a[2],src:'zip3'} : null;
+}
+function geoOf(p){
+  var lat=parseFloat(p.lat), lng=parseFloat(p.lng);
+  if(!isNaN(lat)&&!isNaN(lng)&&lat>15&&lat<72&&lng>-180&&lng<-60) return {lat:lat,lng:lng,src:'exact'};
+  return zipCentroid(p.zip);
+}
+function geoLabel(g){
+  if(!g) return 'No location';
+  return g.src==='exact' ? 'Exact' : g.src==='zip' ? 'ZIP center' : 'ZIP area (approx.)';
+}
+
+// ===== IMPORT: READ FILE =====
+var IMPORT_PLAN=null;
+
+function handleFileDrop(e){
   e.preventDefault();
-  var dz = document.getElementById('dropZone');
-  dz.style.borderColor = 'var(--border2)';
-  dz.style.background = 'var(--surface2)';
-  var file = e.dataTransfer.files[0];
-  if (file) processIntakeFile(file);
+  var dz=$('dropZone');
+  dz.style.borderColor='var(--border2)'; dz.style.background='var(--surface2)';
+  var file=e.dataTransfer.files[0];
+  if(file) processIntakeFile(file);
 }
-function handleFileSelect(e) {
-  var file = e.target.files[0];
-  if (file) processIntakeFile(file);
+function handleFileSelect(e){
+  var file=e.target.files[0];
+  if(file) processIntakeFile(file);
 }
-function processIntakeFile(file) {
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    try {
-      var data = new Uint8Array(e.target.result);
-      var wb = XLSX.read(data, {type:'array'});
-      var ws = wb.Sheets[wb.SheetNames[0]];
-      var rows = XLSX.utils.sheet_to_json(ws, {defval:''});
-      showIntakePreview(rows, file.name);
-    } catch(err) {
-      showToast('Could not read file: ' + err.message);
-    }
+function processIntakeFile(file){
+  if(typeof XLSX==='undefined'){ showToast('Excel reader missing: keep vantage-libs.js next to VANTAGE.html.'); return; }
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var wb=XLSX.read(new Uint8Array(e.target.result),{type:'array',cellDates:true});
+      var main=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:''});
+      var actName=null;
+      wb.SheetNames.slice(1).forEach(function(n){ if(normHeader(n)==='activity') actName=n; });
+      var acts=actName? XLSX.utils.sheet_to_json(wb.Sheets[actName],{defval:''}) : [];
+      if(!main.length){ showToast('No rows found in '+file.name+'.'); return; }
+      IMPORT_PLAN=buildImportPlan(main,acts);
+      IMPORT_PLAN.filename=file.name;
+      renderImportReview();
+    }catch(err){ showToast('Could not read file: '+err.message); }
   };
   reader.readAsArrayBuffer(file);
 }
-function normalizeHeader(h) {
-  return String(h).toLowerCase().replace(/[^a-z0-9]/g,'');
-}
-function showIntakePreview(rows, filename) {
-  if (!rows || rows.length === 0) { showToast('No rows found in file.'); return; }
-  INTAKE_ROWS = rows;
-  var card = document.getElementById('intakePreviewCard');
-  card.style.display = 'block';
-  document.getElementById('intakePreviewTitle').textContent = 'Preview: ' + filename;
-  document.getElementById('intakePreviewMeta').textContent = rows.length + ' rows found';
-  document.getElementById('intakeMsg').textContent = '';
 
-  // Build preview table
-  var keys = Object.keys(rows[0]);
-  var tbl = '<table class="tbl"><thead><tr>' + keys.map(function(k){ return '<th>'+esc(k)+'</th>'; }).join('') + '</tr></thead><tbody>';
-  var preview = rows.slice(0, 10);
-  preview.forEach(function(r) {
-    tbl += '<tr>' + keys.map(function(k){ return '<td>'+esc(String(r[k]))+'</td>'; }).join('') + '</tr>';
+function parseRow(row,rowNum,warnings){
+  var data={}, act={};
+  Object.keys(row).forEach(function(h){
+    var key=FIELD_BY_ALIAS[normHeader(h)];
+    if(!key) return;
+    var raw=row[h];
+    if(key.indexOf('act:')===0){
+      if(raw instanceof Date) raw=toISODate(raw);
+      if(!isBlank(raw)) act[key.slice(4)]=String(raw).trim();
+      return;
+    }
+    var v=cleanValue(key,raw,function(msg){ warnings.push('Row '+rowNum+': '+msg); });
+    if(v!==null) data[key]=v;
   });
-  if (rows.length > 10) tbl += '<tr><td colspan="'+keys.length+'" style="text-align:center;color:var(--text3);font-style:italic">...and ' + (rows.length-10) + ' more rows</td></tr>';
-  tbl += '</tbody></table>';
-  document.getElementById('intakePreviewTable').innerHTML = tbl;
+  var activity=(act.type||act.notes)? {type:(act.type||'other').toLowerCase(),date:act.date||'',contact:act.contact||'',notes:act.notes||''} : null;
+  return {data:data,activity:activity};
 }
-function confirmIntake() {
-  if (!INTAKE_ROWS || INTAKE_ROWS.length === 0) return;
-  var added = 0, skipped = 0;
-  INTAKE_ROWS.forEach(function(row) {
-    // Map flexible column names
-    var nh = {};
-    Object.keys(row).forEach(function(k){ nh[normalizeHeader(k)] = row[k]; });
-    var company = nh['company'] || nh['companyname'] || nh['name'] || '';
-    if (!company) { skipped++; return; }
-    // Check for duplicate
-    var exists = PROSPECTS.find(function(p){ return p.company.toLowerCase() === company.toLowerCase(); });
-    if (exists) { skipped++; return; }
-    var newId = 'WW-I' + (Date.now() + added);
-    var newP = {
-      id: newId,
-      company: String(company),
-      street:  String(nh['street'] || nh['address'] || ''),
-      city:    String(nh['city'] || ''),
-      state:   String(nh['state'] || ''),
-      zip:     String(nh['zip'] || nh['zipcode'] || nh['postalcode'] || ''),
-      lat: null, lng: null
-    };
-    PROSPECTS.push(newP);
-    if (nh['stage']) STATE.stages[newId] = String(nh['stage']).toLowerCase();
-    if (nh['nextaction']) STATE.actions[newId] = String(nh['nextaction']);
-    if (nh['notes']) STATE.notes[newId] = String(nh['notes']);
-    added++;
-  });
-  saveState();
-  renderDash();
-  var msg = document.getElementById('intakeMsg');
-  msg.textContent = added + ' prospects added' + (skipped > 0 ? ', ' + skipped + ' skipped (duplicate or no company name)' : '') + '.';
-  msg.style.color = 'var(--ok-ink)';
-  if (added > 0) {
-    document.getElementById('nav-pipeline-ct').textContent = PROSPECTS.length;
-    showToast(added + ' prospects added to pipeline.');
+
+// ===== IMPORT: COMPARE AGAINST CURRENT PIPELINE =====
+function buildImportPlan(rows,actRows){
+  var byId={}, byCo={};
+  PROSPECTS.forEach(function(p){ byId[p.id]=p; byCo[normCo(p.company)]=p; });
+  var plan={items:[],skipped:0,dupes:0,warnings:[]};
+  var seen={};
+  function keyFor(d){
+    var m=(d.id&&byId[d.id])||(d.company&&byCo[normCo(d.company)])||null;
+    return {match:m, k: m? 'id:'+m.id : (d.company? 'co:'+normCo(d.company) : (d.id? 'nid:'+d.id : null))};
   }
-  INTAKE_ROWS = [];
-  document.getElementById('intakePreviewCard').style.display = 'none';
-  document.getElementById('xlsxInput').value = '';
+  rows.forEach(function(row,i){
+    var r=parseRow(row,i+2,plan.warnings);
+    var km=keyFor(r.data);
+    if(!km.k || (!km.match && !r.data.company)){ plan.skipped++; return; }
+    if(seen[km.k]){
+      plan.dupes++;
+      Object.keys(r.data).forEach(function(k){ seen[km.k].data[k]=r.data[k]; });
+      if(r.activity) seen[km.k].activity.push(r.activity);
+      return;
+    }
+    var it={data:r.data,match:km.match,activity:r.activity?[r.activity]:[]};
+    seen[km.k]=it; plan.items.push(it);
+  });
+  // Optional "Activity" sheet (from a VANTAGE export): attach to companies already known
+  (actRows||[]).forEach(function(row,i){
+    var r=parseRow(row,i+2,[]);
+    if(!r.activity) return;
+    var km=keyFor(r.data);
+    if(km.k && seen[km.k]){ seen[km.k].activity.push(r.activity); return; }
+    if(km.match){ var it={data:{},match:km.match,activity:[r.activity]}; seen[km.k]=it; plan.items.push(it); }
+  });
+  plan.items.forEach(function(it){
+    if(!it.match){ it.status='new'; it.accept=true; it.geo=geoOf(it.data); return; }
+    var existing=STATE.activity[it.match.id]||[];
+    it.activity=it.activity.filter(function(a){
+      return !existing.some(function(b){ return b.type===a.type && b.date===a.date && b.notes===a.notes; });
+    });
+    it.changes=[];
+    FIELDS.forEach(function(f){
+      if(f.key==='id') return;
+      var nv=it.data[f.key];
+      if(isBlank(nv)) return;                         // blank Excel cells never erase existing data
+      var ov=getVal(it.match,f.key);
+      if(sameVal(f.key,ov,nv)) return;
+      if(f.key==='company' && normCo(ov)===normCo(nv)) return;   // 'Acme Corp.' vs 'Acme Corporation' is the same company
+      it.changes.push({key:f.key,label:f.label,old:ov,val:nv,kind:isBlank(ov)?'fill':'conflict',accept:true});
+    });
+    it.acceptAct=true;
+    it.status=(it.changes.length||it.activity.length)?'update':'same';
+  });
+  return plan;
 }
-function cancelIntake() {
-  INTAKE_ROWS = [];
-  document.getElementById('intakePreviewCard').style.display = 'none';
-  document.getElementById('xlsxInput').value = '';
+
+// ===== IMPORT: REVIEW SCREEN =====
+function planCounts(){
+  var c={nw:0,nwOn:0,up:0,fills:0,conf:0,same:0,acts:0,selected:0};
+  (IMPORT_PLAN?IMPORT_PLAN.items:[]).forEach(function(it){
+    if(it.status==='new'){ c.nw++; if(it.accept){ c.nwOn++; c.selected++; } }
+    else if(it.status==='update'){
+      c.up++;
+      it.changes.forEach(function(ch){ if(ch.kind==='fill') c.fills++; else c.conf++; if(ch.accept) c.selected++; });
+      if(it.activity.length){ c.acts+=it.activity.length; if(it.acceptAct) c.selected+=it.activity.length; }
+    } else c.same++;
+  });
+  return c;
 }
-function downloadTemplate() {
-  var csv = 'Company,Street,City,State,ZIP,Stage,Next Action,Notes\nAcme Corp,123 Main St,Baltimore,MD,21201,prospect,Send intro email,Met at PRIMA conference';
-  var a = document.createElement('a');
-  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-  a.download = 'VANTAGE_Import_Template.csv';
-  a.click();
+function fmtVal(v){ return isBlank(v)? '<span style="color:var(--text3);font-style:italic">blank</span>' : esc(String(v)); }
+function renderImportReview(){
+  var P=IMPORT_PLAN; if(!P) return;
+  var c=planCounts();
+  $('intakePreviewCard').style.display='block';
+  $('intakePreviewTitle').textContent='Review import: '+P.filename;
+  $('intakePreviewMeta').textContent=P.items.length+' companies in file';
+  $('intakeMsg').textContent='';
+  var chip=function(n,label,bg,ink){ return '<span style="display:inline-block;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:700;margin:0 6px 6px 0;background:'+bg+';color:'+ink+'">'+n+' '+label+'</span>'; };
+  var h='<div style="margin-bottom:10px">'+
+    chip(c.nw,'new','var(--ok-bg)','var(--ok-ink)')+
+    chip(c.up,'to update','#E8F6FF','#035E66')+
+    chip(c.fills,'blank fields filled','var(--surface2)','var(--text2)')+
+    chip(c.conf,'conflicts','var(--warn-bg)','var(--warn-ink)')+
+    chip(c.same,'unchanged','var(--surface2)','var(--text3)')+
+    (P.skipped? chip(P.skipped,'skipped (no company)','var(--bad-bg)','var(--bad)') : '')+
+    (P.dupes? chip(P.dupes,'duplicate rows merged','var(--surface2)','var(--text3)') : '')+
+  '</div>';
+
+  var news=P.items.filter(function(it){return it.status==='new';});
+  if(news.length){
+    h+='<div style="display:flex;align-items:center;gap:8px;margin:10px 0 6px"><strong style="font-size:12px">New companies</strong>'+
+       '<button class="cmd-ghost" onclick="planBulk(\'new\',true)">All</button><button class="cmd-ghost" onclick="planBulk(\'new\',false)">None</button></div>'+
+       '<table class="tbl"><thead><tr><th style="width:28px"></th><th>Company</th><th>Location</th><th>Map pin</th></tr></thead><tbody>';
+    P.items.forEach(function(it,i){
+      if(it.status!=='new') return;
+      var d=it.data, loc=[d.street,d.city,d.state].filter(Boolean).join(', ')+(d.zip?' '+d.zip:'');
+      h+='<tr style="cursor:default"><td><input type="checkbox" '+(it.accept?'checked':'')+' onchange="planSet('+i+',-1,this.checked)"></td>'+
+         '<td><strong>'+esc(d.company)+'</strong></td><td>'+(loc?esc(loc):fmtVal(''))+'</td>'+
+         '<td style="color:'+(it.geo?'var(--text2)':'var(--bad)')+'">'+geoLabel(it.geo)+'</td></tr>';
+    });
+    h+='</tbody></table>';
+  }
+
+  var ups=P.items.filter(function(it){return it.status==='update';});
+  if(ups.length){
+    h+='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:16px 0 6px"><strong style="font-size:12px">Updates to existing companies</strong>'+
+       (c.conf? '<button class="cmd-ghost" onclick="planBulk(\'conflict\',true)">Use Excel for all conflicts</button><button class="cmd-ghost" onclick="planBulk(\'conflict\',false)">Keep current for all conflicts</button>' : '')+
+       '</div>';
+    P.items.forEach(function(it,i){
+      if(it.status!=='update') return;
+      h+='<div style="border:1px solid var(--border);border-radius:4px;margin-bottom:8px;overflow:hidden">'+
+         '<div style="padding:6px 10px;background:var(--surface2);font-size:12px;font-weight:700">'+esc(it.match.company)+'</div>'+
+         '<table class="tbl"><tbody>';
+      it.changes.forEach(function(ch,ci){
+        var conf=ch.kind==='conflict';
+        h+='<tr style="cursor:default"'+(conf?' title="Conflict: the dashboard already has a different value"':'')+'>'+
+           '<td style="width:28px'+(conf?';background:var(--warn-bg)':'')+'"><input type="checkbox" '+(ch.accept?'checked':'')+' onchange="planSet('+i+','+ci+',this.checked)"></td>'+
+           '<td style="width:150px;font-weight:600'+(conf?';background:var(--warn-bg)':'')+'">'+esc(ch.label)+(conf?' <span style="color:var(--warn-ink);font-size:10px">CONFLICT</span>':'')+'</td>'+
+           '<td style="color:var(--text3)'+(conf?';background:var(--warn-bg)':'')+'">'+fmtVal(ch.old)+'</td>'+
+           '<td style="width:20px;color:var(--text3)'+(conf?';background:var(--warn-bg)':'')+'">&rarr;</td>'+
+           '<td'+(conf?' style="background:var(--warn-bg)"':'')+'><strong>'+fmtVal(ch.val)+'</strong></td></tr>';
+      });
+      if(it.activity.length){
+        h+='<tr style="cursor:default"><td><input type="checkbox" '+(it.acceptAct?'checked':'')+' onchange="planSet('+i+',\'act\',this.checked)"></td>'+
+           '<td style="font-weight:600">Activity</td><td colspan="3">+ '+it.activity.length+' new entr'+(it.activity.length===1?'y':'ies')+': '+
+           esc(it.activity.map(function(a){return a.type+(a.date?' '+a.date:'');}).join(', '))+'</td></tr>';
+      }
+      h+='</tbody></table></div>';
+    });
+  }
+
+  if(!news.length && !ups.length) h+='<div style="padding:14px;color:var(--text2);font-size:12px">Nothing to change. Every company in this file already matches the dashboard.</div>';
+
+  if(P.warnings.length){
+    h+='<details style="margin-top:10px;font-size:11px;color:var(--warn-ink)"><summary style="cursor:pointer">'+P.warnings.length+' value'+(P.warnings.length===1?'':'s')+' ignored (click to see)</summary><ul style="margin:6px 0 0 18px">'+
+       P.warnings.slice(0,50).map(function(w){return '<li>'+esc(w)+'</li>';}).join('')+(P.warnings.length>50?'<li>...</li>':'')+'</ul></details>';
+  }
+  $('intakePreviewTable').innerHTML=h;
+  var btn=$('intakeConfirmBtn');
+  btn.textContent='✓ Apply '+c.selected+' change'+(c.selected===1?'':'s');
+  btn.disabled=c.selected===0;
+  btn.style.opacity=c.selected===0?'.5':'1';
+  $('intakePreviewCard').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function planSet(i,ci,on){
+  var it=IMPORT_PLAN.items[i];
+  if(ci===-1) it.accept=on; else if(ci==='act') it.acceptAct=on; else it.changes[ci].accept=on;
+  var c=planCounts(), btn=$('intakeConfirmBtn');
+  btn.textContent='✓ Apply '+c.selected+' change'+(c.selected===1?'':'s');
+  btn.disabled=c.selected===0; btn.style.opacity=c.selected===0?'.5':'1';
+}
+function planBulk(kind,on){
+  IMPORT_PLAN.items.forEach(function(it){
+    if(kind==='new' && it.status==='new') it.accept=on;
+    if(kind==='conflict' && it.status==='update') it.changes.forEach(function(ch){ if(ch.kind==='conflict') ch.accept=on; });
+  });
+  renderImportReview();
+}
+
+// ===== IMPORT: APPLY =====
+function confirmIntake(){
+  var P=IMPORT_PLAN; if(!P) return;
+  var added=0, updated=0, fields=0, acts=0;
+  var ids={}; PROSPECTS.forEach(function(p){ ids[p.id]=1; });
+  P.items.forEach(function(it){
+    if(it.status==='new' && it.accept){
+      var id=(it.data.id && !ids[it.data.id])? it.data.id : newProspectId();
+      ids[id]=1;
+      var p={id:id,company:it.data.company,street:'',city:'',state:'',zip:'',lat:null,lng:null};
+      PROSPECTS.push(p);
+      FIELDS.forEach(function(f){ if(f.key!=='id' && !isBlank(it.data[f.key])) setVal(p,f.key,it.data[f.key]); });
+      it.activity.forEach(function(a){ if(!STATE.activity[id]) STATE.activity[id]=[]; STATE.activity[id].push(a); acts++; });
+      upsertRecord(p); added++;
+    } else if(it.status==='update'){
+      var q=it.match, n=0;
+      it.changes.forEach(function(ch){ if(ch.accept){ setVal(q,ch.key,ch.val); n++; } });
+      if(it.acceptAct) it.activity.forEach(function(a){ if(!STATE.activity[q.id]) STATE.activity[q.id]=[]; STATE.activity[q.id].push(a); acts++; });
+      if(n || (it.acceptAct && it.activity.length)){ upsertRecord(q); updated++; fields+=n; }
+    }
+  });
+  var saved=saveState();
+  refreshAfterDataChange();
+  var parts=[];
+  if(added) parts.push(added+' added');
+  if(updated) parts.push(updated+' updated ('+fields+' field'+(fields===1?'':'s')+')');
+  if(acts) parts.push(acts+' activit'+(acts===1?'y':'ies')+' logged');
+  var msg=parts.length? parts.join(', ')+'.' : 'Nothing applied.';
+  IMPORT_PLAN=null;
+  $('intakePreviewCard').style.display='none';
+  $('xlsxInput').value='';
+  var m=$('intakeResult');
+  m.style.display='block';
+  m.innerHTML='<strong>Import complete:</strong> '+esc(msg)+(saved===false?' <span style="color:var(--bad)">This browser blocked saving. Export to Excel before closing.</span>':' Export to Excel to update your master file.');
+  showToast(msg);
+}
+function cancelIntake(){
+  IMPORT_PLAN=null;
+  $('intakePreviewCard').style.display='none';
+  $('xlsxInput').value='';
+}
+function refreshAfterDataChange(){
+  try{ renderDash(); }catch(e){ console.error(e); }
+  var ct=$('nav-pipeline-ct'); if(ct) ct.textContent=PROSPECTS.length;
+  try{ if($('scrPipeline').classList.contains('on')){ renderKPIBar(); renderTable(); } }catch(e){ console.error(e); }
+  try{ populateTodoLinked(); }catch(e){}
+  if(MAP_INIT && typeof d3!=='undefined'){
+    d3.select('#mapContainer').selectAll('svg').remove();
+    MAP_INIT=false;
+    if($('scrMap').classList.contains('on')) initMap();
+  }
+}
+
+// ===== EXPORT: EXCEL MASTER =====
+function exportExcel(){
+  if(typeof XLSX==='undefined'){ showToast('Excel writer missing: keep vantage-libs.js next to VANTAGE.html.'); return; }
+  var rows=[FIELDS.map(function(f){return f.label;})];
+  PROSPECTS.forEach(function(p){
+    rows.push(FIELDS.map(function(f){
+      var v=(f.key==='id')? p.id : getVal(p,f.key);
+      return v==null? '' : v;
+    }));
+  });
+  var acts=[['ID','Company','Activity Type','Activity Date','Activity Contact','Activity Notes']];
+  PROSPECTS.forEach(function(p){
+    (STATE.activity[p.id]||[]).forEach(function(a){ acts.push([p.id,p.company,a.type||'',a.date||'',a.contact||'',a.notes||'']); });
+  });
+  var wb=XLSX.utils.book_new();
+  var ws=XLSX.utils.aoa_to_sheet(rows);
+  ws['!cols']=FIELDS.map(function(f){ return {wch:Math.max(10,f.label.length+2)}; });
+  XLSX.utils.book_append_sheet(wb,ws,'Prospects');
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(acts),'Activity');
+  XLSX.writeFile(wb,'VANTAGE_Master_'+new Date().toISOString().slice(0,10)+'.xlsx');
+  showToast('Exported '+PROSPECTS.length+' prospects to Excel.');
+}
+function downloadTemplate(){
+  if(typeof XLSX==='undefined'){ showToast('Excel writer missing: keep vantage-libs.js next to VANTAGE.html.'); return; }
+  var hdr=FIELDS.map(function(f){return f.label;}).concat(['Activity Type','Activity Date','Activity Notes']);
+  var ex={company:'Acme Manufacturing',street:'100 Main St',city:'Baltimore',state:'MD',zip:'21201',stage:'prospect',warm:'cold',action:'Send intro email'};
+  var row=FIELDS.map(function(f){return ex[f.key]||'';}).concat(['','','']);
+  var wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([hdr,row]),'Prospects');
+  XLSX.writeFile(wb,'VANTAGE_Import_Template.xlsx');
+}
+function renderFieldList(){
+  var el=$('fieldList'); if(!el) return;
+  el.innerHTML=FIELDS.map(function(f){
+    return '<div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:6px 9px;font-size:11px"><strong>'+esc(f.label)+'</strong>'+
+      (f.key==='company'?' <span style="color:var(--bad);font-size:9px">required</span>':'')+'</div>';
+  }).join('');
+}
+function showBanner(msg){
+  var b=document.createElement('div');
+  b.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:9000;background:var(--warn-bg);color:var(--warn-ink);border-top:1px solid #E8C860;padding:8px 16px;font-size:12px;font-weight:600;text-align:center';
+  b.innerHTML=msg;
+  document.body.appendChild(b);
 }
 
 // ===== QUICK ADD PROSPECT =====
@@ -1564,6 +1900,7 @@ function saveModal(){
     var stateVal=(($('qaState')||{}).value||'').toUpperCase().trim();
     var newP={id:newId,company:company,street:($('qaStreet')||{}).value.trim(),city:($('qaCity')||{}).value.trim(),state:stateVal,zip:($('qaZip')||{}).value.trim(),lat:null,lng:null};
     PROSPECTS.push(newP);
+    upsertRecord(newP);
     var stage=($('qaStage')||{}).value||'prospect';
     STATE.stages[newId]=stage;
     var action=($('qaAction')||{}).value.trim();
@@ -1573,85 +1910,10 @@ function saveModal(){
     saveState();
     closeModal();
     renderDash();
-    $('nav-pipeline-ct').textContent=PROSPECTS.length;
+    refreshAfterDataChange();
     showToast(company+' added to pipeline.');
   }
 }
-
-// ===== IMPORT NOTES =====
-function downloadNotesTemplate(){
-  var csv='Company,Conversation Hook,Displacement Angle,Key Buyer,Next Action,Notes,Stage,Warm,Decision Maker,Center of Influence,Intro Strategy,Activity Type,Activity Date,Activity Notes\n'+
-    '"Acme Corp","They just closed a Series B","Regional broker has no specialty market access","CFO - Jane Smith","Send capabilities deck by Friday","Met at PRIMA 2026","engaged","warm","Jane Smith - CFO","John Doe at ABC Bank","Intro through John","call","2026-11-01","Spoke 20 min, interested in cyber review"';
-  var a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download='VANTAGE_Notes_Template.csv';
-  a.click();
-  showToast('Notes template downloaded.');
-}
-
-function handleNotesFile(e){
-  var file=e.target.files[0];
-  if(!file) return;
-  var reader=new FileReader();
-  reader.onload=function(ev){
-    try{
-      var data=new Uint8Array(ev.target.result);
-      var wb=XLSX.read(data,{type:'array'});
-      var ws=wb.Sheets[wb.SheetNames[0]];
-      var rows=XLSX.utils.sheet_to_json(ws,{defval:''});
-      processNotesRows(rows);
-    } catch(err){ showToast('Could not read file: '+err.message); }
-  };
-  reader.readAsArrayBuffer(file);
-}
-
-function processNotesRows(rows){
-  if(!rows||rows.length===0){showToast('No rows found.');return;}
-  var updated=0, skipped=0;
-  rows.forEach(function(row){
-    var nh={};
-    Object.keys(row).forEach(function(k){ nh[k.toLowerCase().replace(/[^a-z0-9]/g,'')]=String(row[k]).trim(); });
-    var company=nh['company']||nh['companyname']||'';
-    if(!company){skipped++;return;}
-    var p=PROSPECTS.find(function(x){return x.company.toLowerCase()===company.toLowerCase();});
-    if(!p){skipped++;return;}
-    var id=p.id;
-    // Intel fields
-    if(nh['conversationhook'])   { if(!STATE.hook) STATE.hook={}; STATE.hook[id]=nh['conversationhook']; }
-    if(nh['displacementangle'])  { if(!STATE.displace) STATE.displace={}; STATE.displace[id]=nh['displacementangle']; }
-    if(nh['keybuyer'])           { if(!STATE.buyer) STATE.buyer={}; STATE.buyer[id]=nh['keybuyer']; }
-    if(nh['nextaction'])         { if(!STATE.actions) STATE.actions={}; STATE.actions[id]=nh['nextaction']; }
-    if(nh['notes'])              { if(!STATE.notes) STATE.notes={}; STATE.notes[id]=nh['notes']; }
-    if(nh['stage']&&STAGES[nh['stage']])  { STATE.stages[id]=nh['stage']; }
-    if(nh['warm']&&(nh['warm']==='warm'||nh['warm']==='cold')){ STATE.warm[id]=nh['warm']; }
-    // Network fields
-    if(nh['decisionmaker']||nh['centerofinfluence']||nh['introstrategy']){
-      if(!STATE.network[id]) STATE.network[id]={dm:'',coi:'',intro:''};
-      if(nh['decisionmaker'])    STATE.network[id].dm  =nh['decisionmaker'];
-      if(nh['centerofinfluence'])STATE.network[id].coi =nh['centerofinfluence'];
-      if(nh['introstrategy'])    STATE.network[id].intro=nh['introstrategy'];
-    }
-    // Activity entry
-    var actType=nh['activitytype']||nh['acttype']||'';
-    var actDate=nh['activitydate']||nh['actdate']||'';
-    var actNotes=nh['activitynotes']||nh['actnotes']||'';
-    if(actType||actNotes){
-      if(!STATE.activity[id]) STATE.activity[id]=[];
-      STATE.activity[id].push({type:actType||'other',date:actDate,contact:'',notes:actNotes});
-    }
-    updated++;
-  });
-  saveState();
-  var msg=document.getElementById('notesImportMsg');
-  if(msg){
-    msg.style.display='block';
-    msg.textContent=updated+' prospect'+(updated!==1?'s':'')+' updated'+(skipped>0?', '+skipped+' skipped (company not found or missing)':'')+'.';
-  }
-  renderDash();
-  if(updated>0) showToast(updated+' prospects updated with notes.');
-  document.getElementById('notesInput').value='';
-}
-
 
 // Close detail on Escape
 document.addEventListener('keydown',function(e){
